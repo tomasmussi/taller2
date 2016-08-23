@@ -13,7 +13,7 @@ using namespace Mongoose;
 
 class MyController : public WebController
 {
-    public: 
+    public:
         void hello(Request &request, StreamResponse &response)
         {
             response << "Hello " << htmlEntities(request.get("name", "... what's your name ?")) << endl;
@@ -110,6 +110,7 @@ void handle_signal(int sig)
 {
     if (running) {
         cout << "Exiting..." << endl;
+        cout << "Tranca... que el control+c no interrumpio nada grave..." << endl;
         running = false;
     }
 }
@@ -133,7 +134,7 @@ int main()
     server.registerController(&myController);
     server.setOption("enable_directory_listing", "false");
     server.start();
-    
+
     cout << "Server started, routes:" << endl;
     myController.dumpRoutes();
 
@@ -146,6 +147,6 @@ int main()
     }
 
     server.stop();
-    
+
     return EXIT_SUCCESS;
 }
