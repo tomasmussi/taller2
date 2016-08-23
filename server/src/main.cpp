@@ -21,6 +21,7 @@ class MyController : public WebController
 
         void form(Request &request, StreamResponse &response)
         {
+            (void) request;
             response << "<form method=\"post\">" << endl;
             response << "<input type=\"text\" name=\"test\" /><br >" << endl;
             response << "<input type=\"submit\" value=\"Envoyer\" />" << endl;
@@ -48,17 +49,21 @@ class MyController : public WebController
 
         void forbid(Request &request, StreamResponse &response)
         {
+            (void) request;
             response.setCode(HTTP_FORBIDDEN);
             response << "403 forbidden demo";
         }
 
         void exception(Request &request, StreamResponse &response)
         {
+            (void) request;
+            (void) response;
             throw string("Exception example");
         }
 
         void uploadForm(Request &request, StreamResponse &response)
         {
+            (void) request;
             response << "<h1>File upload demo (don't forget to create a tmp/ directory)</h1>";
             response << "<form enctype=\"multipart/form-data\" method=\"post\">";
             response << "Choose a file to upload: <input name=\"file\" type=\"file\" /><br />";
@@ -108,6 +113,7 @@ volatile static bool running = true;
 
 void handle_signal(int sig)
 {
+    (void) sig;
     if (running) {
         cout << "Exiting..." << endl;
         cout << "Tranca... que el control+c no interrumpio nada grave..." << endl;
