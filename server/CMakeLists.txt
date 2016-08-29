@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 2.8.4)
 project(server)
-
 set(CMAKE_CXX_STANDARD 98)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
