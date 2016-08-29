@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 2.8.4)
 project(server)
-set(CMAKE_CXX_STANDARD 98)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     # Errors and warnings.
@@ -19,5 +18,6 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules/")
 #enable_testing()
 
 include_directories(.)
+add_subdirectory(jsoncpp)
 add_subdirectory(src)
 add_subdirectory(mongoose-cpp)
