@@ -4,6 +4,7 @@
 #include <signal.h>
 #include <mongoose/Server.h>
 
+#include "DBHandler.h"
 #include "LinkedinWebController.h"
 #include "ApiJsonController.h"
 
@@ -23,17 +24,20 @@ int main() {
 	srand(t);
 
 	signal(SIGINT, handle_signal);
+	DBHandler database_handler("testdb");
+	database_handler.test_write();
+	LinkedinWebController link_web_controller;
+	ApiJsonController json(&database_handler);
 
-	LinkedinWebController myController;
-	ApiJsonController json;
 	Mongoose::Server server(8080);
-	server.registerController(&myController);
+	server.registerController(&link_web_controller);
 	server.registerController(&json);
 	server.setOption("enable_directory_listing", "false");
 	server.start();
 
 	std::cout << "Server started, routes:" << std::endl;
-	myController.dumpRoutes();
+	link_web_controller.dumpRoutes();
+	json.dumpRoutes();
 
 	while (running) {
 		sleep(1);
@@ -41,14 +45,3 @@ int main() {
 	server.stop();
 	return EXIT_SUCCESS;
 }
-
-/*
-#include "DBHandler.h"
-
-int main() {
-	DBHandler handler("testdb");
-	handler.test_write();
-	handler.test_read();
-	return 0;
-}
-*/

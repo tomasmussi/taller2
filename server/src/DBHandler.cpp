@@ -18,13 +18,16 @@ void DBHandler::test_write() {
 	std::string key = "padron";
 	std::string value = "91985";
 	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
-	std::cout << "Clave escrita:" << key << " Valor:" << value << std::endl;
 }
 
 void DBHandler::test_read() {
 	std::string key = "padron";
 	std::string value;
 	leveldb::Status status = database_->Get(leveldb::ReadOptions(), key, &value);
-	std::cout << "Valor leido:" << value << std::endl;
 }
 
+std::string DBHandler::get_value(std::string key) {
+	std::string value;
+	leveldb::Status status = database_->Get(leveldb::ReadOptions(), key, &value);
+	return value;
+}
