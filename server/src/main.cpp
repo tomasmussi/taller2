@@ -7,37 +7,14 @@
 #include <signal.h>
 #include <mongoose/Server.h>
 
-#include <mongoose/JsonController.h>
+
 
 using namespace std;
 using namespace Mongoose;
 
 #include "LinkedinWebController.h"
+#include "ApiJsonController.h"
 
-class MyJson : public JsonController
-{
-    public:
-        void hello(Request &request, JsonResponse &response)
-        {
-            int i;
-
-            for (i=0; i<12; i++) {
-                response["users"][i]["Name"] = "Bob";
-            }
-
-            response["timestamp"] = (int)time(NULL);
-        }
-
-        void setup()
-        {
-            // Example of prefix, putting all the urls into "/api"
-            setPrefix("/api");
-
-            // Hello demo
-            addRouteResponse("GET", "/", MyJson, hello, JsonResponse);
-            addRouteResponse("GET", "/hello", MyJson, hello, JsonResponse);
-        }
-};
 
 volatile static bool running = true;
 
@@ -65,7 +42,7 @@ int main()
     signal(SIGINT, handle_signal);
 
     LinkedinWebController myController;
-    MyJson json;
+    ApiJsonController json;
     Server server(8080);
     server.registerController(&myController);
     server.registerController(&json);

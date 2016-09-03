@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 2.6)
 project(server)
 
 set(SOURCES
+		ApiJsonController.h
+		ApiJsonController.cpp
 		DBHandler.h
 		DBHandler.cpp
 		LinkedinWebController.h
