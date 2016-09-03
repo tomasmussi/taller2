@@ -1,68 +1,45 @@
-#ifndef _MSC_VER
 #include <unistd.h>
 #include <stdlib.h>
-#else
-#include <time.h>
-#endif
+
 #include <signal.h>
 #include <mongoose/Server.h>
-
-
-
-using namespace std;
-using namespace Mongoose;
 
 #include "LinkedinWebController.h"
 #include "ApiJsonController.h"
 
-
 volatile static bool running = true;
 
-void handle_signal(int sig)
-{
-    (void) sig;
-    if (running) {
-        cout << "Exiting..." << endl;
-        cout << "Tranca... que el control+c no interrumpio nada grave..." << endl;
-        running = false;
-    }
+void handle_signal(int sig) {
+	(void) sig;
+	if (running) {
+		cout << "Exiting..." << endl;
+		running = false;
+	}
 }
-int main()
-{
-    int t;
-#ifdef _MSC_VER
-    time_t ltime;
-    time(&ltime);
-    t = ltime;
-#else
-    t = time(NULL);
-#endif
-    srand(t);
 
-    signal(SIGINT, handle_signal);
+int main() {
+	int t;
+	t = time(NULL);
+	srand(t);
 
-    LinkedinWebController myController;
-    ApiJsonController json;
-    Server server(8080);
-    server.registerController(&myController);
-    server.registerController(&json);
-    server.setOption("enable_directory_listing", "false");
-    server.start();
+	signal(SIGINT, handle_signal);
 
-    cout << "Server started, routes:" << endl;
-    myController.dumpRoutes();
+	LinkedinWebController myController;
+	ApiJsonController json;
+	Mongoose::Server server(8080);
+	server.registerController(&myController);
+	server.registerController(&json);
+	server.setOption("enable_directory_listing", "false");
+	server.start();
 
-    while (running) {
-#ifdef WIN32
-        Sleep(1000);
-#else
-        sleep(1);
-#endif
-    }
+	std::cout << "Server started, routes:" << std::endl;
+	myController.dumpRoutes();
 
-    server.stop();
-
-    return EXIT_SUCCESS;
+	while (running) {
+		sleep(1);
+	}
+	server.stop();
+	return EXIT_SUCCESS;
 }
 
 /*
