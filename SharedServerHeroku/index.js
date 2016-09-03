@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var router = express.Router();
+var db = require('queries');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -13,7 +15,22 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
+app.get('/job_positions',db.getAllJobPositions);
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
 
