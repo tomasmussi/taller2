@@ -5,6 +5,8 @@ project(server)
 set(SOURCES
 		DBHandler.h
 		DBHandler.cpp
+		LinkedinWebController.h
+		LinkedinWebController.cpp
         main.cpp
 )
 
