@@ -13,3 +13,10 @@ CREATE TABLE job_positions (
 INSERT INTO job_positions (name, description, category)
   VALUES ('developer', 'a software developer','software');
 
+CREATE USER sharedserveruser with password 'shared';
+
+SELECT * FROM PG_USER;
+
+ALTER DATABASE sharedserver owner to sharedserveruser;
+
+ALTER ROLE sharedserveruser WITH SUPERUSER;
