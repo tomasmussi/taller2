@@ -147,7 +147,7 @@ void handle_signal(int sig)
         running = false;
     }
 }
-
+/*
 int main()
 {
     int t;
@@ -184,4 +184,13 @@ int main()
     server.stop();
 
     return EXIT_SUCCESS;
+}*/
+
+#include "DBHandler.h"
+
+int main() {
+	DBHandler handler("testdb");
+	handler.test_write();
+	handler.test_read();
+	return 0;
 }
