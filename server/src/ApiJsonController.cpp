@@ -10,8 +10,7 @@ void ApiJsonController::setup() {
 	// Example of prefix, putting all the urls into "/api"
 	setPrefix("/api");
 	// Hello demo
-	/*addRouteResponse("GET", "/", ApiJsonController, hello, JsonResponse);
-	addRouteResponse("GET", "/hello", ApiJsonController, hello, JsonResponse);*/
+	registerRoute("GET", "/", new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::hello));
 	registerRoute("GET", "/hello", new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::hello));
 }
 

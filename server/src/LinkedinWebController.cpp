@@ -71,26 +71,33 @@ void LinkedinWebController::upload(Mongoose::Request &request, Mongoose::StreamR
 
 void LinkedinWebController::setup() {
 	// Hello demo
-	// &GameMonitor::create_game
-	// addRoute("GET", "/hello", LinkedinWebController, hello);
 	registerRoute("GET", "/hello",
 		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::hello ));
-	/*addRoute("GET", "/", *this, hello);
+
+	registerRoute("GET", "/",
+		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::hello ));
 
 	// Form demo
-	addRoute("GET", "/form", *this, form);
-	addRoute("POST", "/form", *this, formPost);
+	registerRoute("GET", "/form",
+		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::form ));
+	registerRoute("POST", "/form",
+		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::formPost ));
 
 	// Session demo
-	addRoute("GET", "/session", *this, session);
+	registerRoute("GET", "/session",
+		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::session ));
 
 	// Exception example
-	addRoute("GET", "/exception", *this, exception);
+	registerRoute("GET", "/exception",
+		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::exception ));
 
 	// 403 demo
-	addRoute("GET", "/403", *this, forbid);
+	registerRoute("GET", "/403",
+		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::forbid ));
 
 	// File upload demo
-	addRoute("GET", "/upload", *this, uploadForm);
-	addRoute("POST", "/upload", *this, upload);*/
+	registerRoute("GET", "/upload",
+		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::uploadForm ));
+	registerRoute("POST", "/upload",
+		new Mongoose::RequestHandler<LinkedinWebController, Mongoose::StreamResponse>(this, &LinkedinWebController::upload ));
 }
