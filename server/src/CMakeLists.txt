@@ -21,4 +21,4 @@ include_directories ("${PROJECT_SOURCE_DIR}/../mongoose-cpp")
 # Linkear contra bibliotecas
 target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (${PROJECT_NAME} mongoose)
-target_link_libraries (${PROJECT_NAME} jsoncpp)
+target_link_libraries (${PROJECT_NAME} leveldb)
