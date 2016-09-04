@@ -5,7 +5,9 @@ project(server)
 set(SOURCES
         main.cpp
 )
-set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra -Wconversion -Wtype-limits -pedantic -pedantic-errors")
+
+set(CMAKE_CXX_FLAGS "-std=c++11")
+#set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra -Wconversion -Wtype-limits -pedantic -pedantic-errors")
 
 # Generar el ejecutable
 add_executable (${PROJECT_NAME} ${SOURCES})
@@ -19,3 +21,4 @@ include_directories ("${PROJECT_SOURCE_DIR}/../mongoose-cpp")
 # Linkear contra bibliotecas
 target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (${PROJECT_NAME} mongoose)
+target_link_libraries (${PROJECT_NAME} jsoncpp)

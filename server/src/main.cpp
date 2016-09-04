@@ -8,6 +8,8 @@
 #include <mongoose/Server.h>
 #include <mongoose/WebController.h>
 
+#include <mongoose/JsonController.h>
+
 using namespace std;
 using namespace Mongoose;
 
@@ -109,6 +111,31 @@ class MyController : public WebController
         }
 };
 
+class MyJson : public JsonController
+{
+    public:
+        void hello(Request &request, JsonResponse &response)
+        {
+            int i;
+
+            for (i=0; i<12; i++) {
+                response["users"][i]["Name"] = "Bob";
+            }
+
+            response["timestamp"] = (int)time(NULL);
+        }
+
+        void setup()
+        {
+            // Example of prefix, putting all the urls into "/api"
+            setPrefix("/api");
+
+            // Hello demo
+            addRouteResponse("GET", "/", MyJson, hello, JsonResponse);
+            addRouteResponse("GET", "/hello", MyJson, hello, JsonResponse);
+        }
+};
+
 volatile static bool running = true;
 
 void handle_signal(int sig)
@@ -136,8 +163,10 @@ int main()
     signal(SIGINT, handle_signal);
 
     MyController myController;
+    MyJson json;
     Server server(8080);
     server.registerController(&myController);
+    server.registerController(&json);
     server.setOption("enable_directory_listing", "false");
     server.start();
 
