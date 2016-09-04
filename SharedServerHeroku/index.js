@@ -5,17 +5,23 @@ var db = require('queries');
 
 app.set('port', (process.env.PORT || 5000));
 
-
+/*Agrego encabezado que permiten hacer request desde angular*/
 app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
 });
 
-
 app.use(express.static(__dirname + '/public'));
 
-// views is directory for all template files
+/*Agrego los directorios para que pueda funcionar correctamente 
+ *el index.ejs*/
+app.use('/js',express.static(__dirname + '/views/pages/js'));
+app.use('/fonts',express.static(__dirname + '/views/pages/fonts'));
+app.use('/imgs',express.static(__dirname + '/views/pages/imgs'));
+app.use('/templates',express.static(__dirname + '/views/pages/templates'));
+app.use('/css',express.static(__dirname + '/views/pages/css'));
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
@@ -30,15 +36,3 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
