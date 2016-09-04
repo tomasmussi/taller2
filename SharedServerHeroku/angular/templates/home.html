@@ -1,0 +1,23 @@
+<lx-tabs>
+	<lx-tab heading="Job Positions">
+		<div class="p+">
+			<div class="card">
+<table align = "center">
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Category</th>
+				<th><i class="material-icons">add_box</i></th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="jobi in jobs">
+				<td>{{jobi.name}}</td>
+				<td>{{jobi.description}}</td>
+				<td>{{jobi.category}}</td>
+				<td><i class="material-icons">create</i></td>
+				<td><i class="material-icons">clear</i>
+			</tr>
+			</table>
+		</div>
+		</div>
+</lx-tabs>
