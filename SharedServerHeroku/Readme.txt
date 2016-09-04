@@ -13,9 +13,9 @@ INSTALACION HEROKU + NODE.JS + POSTGRESQL
 
 3- Instalar Heroku: 
 	Chequear que ruby este instalado con:
-	$ruby -version
+	ruby -version
 	y si esta instalado ejecutar:
-	$wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+	wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
 4- Instalar Postgresql:
 	sudo apt-get install postgresql
