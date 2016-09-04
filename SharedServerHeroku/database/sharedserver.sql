@@ -6,12 +6,16 @@ CREATE DATABASE sharedserver;
 CREATE TABLE job_positions (
   ID SERIAL PRIMARY KEY,
   name VARCHAR,
-  description VARCHAR,
-  category VARCHAR
+  category VARCHAR,  
+  description VARCHAR
 );
 
+INSERT INTO job_positions (name, category, description)
+  VALUES ('developer', 'software','Desarrollador');
 INSERT INTO job_positions (name, description, category)
-  VALUES ('developer', 'a software developer','software');
+  VALUES ('project manager', 'software','Persona encargada de manejar el proyecto');
+INSERT INTO job_positions (name, description, category)
+  VALUES ('dj', 'music','Persona que selecciona y mezcla música');
 
 CREATE USER sharedserveruser with password 'shared';
 
