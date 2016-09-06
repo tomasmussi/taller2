@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 2.6)
 project(server)
 
 set(SOURCES
+		base64.h
+		base64.cpp
         main.cpp
 )
 
