@@ -9,6 +9,8 @@ set(SOURCES
 		DBHandler.cpp
 		LinkedinWebController.h
 		LinkedinWebController.cpp
+		base64.h
+		base64.cpp
         main.cpp
 )
 
