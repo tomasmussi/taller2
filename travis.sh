@@ -15,7 +15,14 @@ cd leveldb
 make
 
 echo "ECHOOOOOOOOOOOOOOOOOO!"
+echo $?
 cd out-shared sudo cp --preserve=links libleveldb.* /usr/local/lib
+echo $?
 cd ../include
+echo $?
 sudo cp -R leveldb /usr/local/include/
+echo $?
 sudo ldconfig
+echo $?
+echo "SEGUNDO SEGUNDO SEGUNDO"
+echo $?
