@@ -2,6 +2,15 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 var db = require('queries');
+var winston = require('winston'); //LOG 
+
+var logger = new (winston.Logger)({
+   transports: [
+      new (winston.transports.Console)(),
+      new (winston.transports.File)({ filename: 'logs/SharedServer.log' })
+    ]
+});
+
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -26,6 +35,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
+  logger.info('Ingresando a index.js');
   response.render('pages/index');
 });
 
