@@ -3,6 +3,14 @@ cmake_minimum_required(VERSION 2.6)
 project(server)
 
 set(SOURCES
+		ApiJsonController.h
+		ApiJsonController.cpp
+		DBHandler.h
+		DBHandler.cpp
+		LinkedinWebController.h
+		LinkedinWebController.cpp
+		base64.h
+		base64.cpp
         main.cpp
 )
 
@@ -21,4 +29,4 @@ include_directories ("${PROJECT_SOURCE_DIR}/../mongoose-cpp")
 # Linkear contra bibliotecas
 target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (${PROJECT_NAME} mongoose)
-target_link_libraries (${PROJECT_NAME} jsoncpp)
+target_link_libraries (${PROJECT_NAME} leveldb)
