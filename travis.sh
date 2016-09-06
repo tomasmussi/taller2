@@ -13,6 +13,8 @@ cd ../..
 git clone https://github.com/google/leveldb.git
 cd leveldb
 make
+
+echo "ECHOOOOOOOOOOOOOOOOOO!"
 cd out-shared sudo cp --preserve=links libleveldb.* /usr/local/lib
 cd ../include
 sudo cp -R leveldb /usr/local/include/
