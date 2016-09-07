@@ -20,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int content_value;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_refresh) {
             new HttpRequestTask().execute();
+            return true;
+        }
+
+        if (id == R.id.fab) {
+            TextView greetingContentText = (TextView) findViewById(R.id.content_value);
+            greetingContentText.setText(R.string.boton_rosa_main);
+
             return true;
         }
         return super.onOptionsItemSelected(item);
