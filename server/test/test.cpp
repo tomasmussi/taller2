@@ -4,9 +4,10 @@
 
 TEST(DBTEST, WriteAndRead) {
 	DBHandler db("prueba");
+	std::string padron("91985");
 	db.write("padron_eze","91985");
 	std::string result = db.read("padron_eze");    
-	EXPECT_EQ(result.data(),result.data());
+	EXPECT_EQ(result,padron);
 }
 
 int main(int argc, char **argv) {
