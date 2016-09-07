@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo $(pwd)
+
 # Instalacion biblioteca jsoncpp
 git clone https://github.com/open-source-parsers/jsoncpp.git
 cd jsoncpp
@@ -10,6 +12,7 @@ sudo make install
 
 # Instalacion biblioteca leveldb
 cd ../..
+echo $(pwd)
 git clone https://github.com/google/leveldb.git
 cd leveldb
 make
