@@ -20,6 +20,16 @@ void DBHandler::test_write() {
 	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
 }
 
+void DBHandler::write(std::string key, std::string value){
+	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
+}
+
+std::string DBHandler::read(std::string key){
+	std::string value;	
+	leveldb::Status status = database_->Get(leveldb::ReadOptions(), key, &value);
+	return value;
+}
+
 void DBHandler::test_read() {
 	std::string key = "padron";
 	std::string value;

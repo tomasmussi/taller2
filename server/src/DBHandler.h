@@ -2,7 +2,7 @@
 #define APP_SERVER_DBHANDLER_H
 
 #include <leveldb/db.h>
-
+#include <string>
 
 class DBHandler {
 private:
@@ -12,6 +12,8 @@ private:
 public:
 	DBHandler(std::string database_name);
 	~DBHandler();
+	std::string read(std::string key);
+	void write(std::string key, std::string value);
 	void test_read();
 	void test_write();
 	std::string get_value(std::string key);
