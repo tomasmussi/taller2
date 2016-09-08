@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected DummyDTO doInBackground(Void... params) {
             try {
-                final String url = "http://172.17.0.2:5000/todo";
+                final String url = "http://10.0.2.2:8080/api/sarasa";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 DummyDTO greeting = restTemplate.getForObject(url, DummyDTO.class);
