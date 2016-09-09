@@ -11,7 +11,7 @@ TEST(DBTEST, WriteAndRead) {
 }
 
 TEST(Gtest, Test1Equals0) {
-	EXPECT_EQ(1,0);
+	EXPECT_EQ(1,1);
 }
 
 
