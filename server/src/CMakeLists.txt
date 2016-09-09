@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
 
-project(server)
-
 set(SOURCES
 		ApiJsonController.h
 		ApiJsonController.cpp
@@ -24,7 +22,7 @@ add_executable (${PROJECT_NAME} ${SOURCES})
 add_dependencies (${PROJECT_NAME} mongoose)
 
 # Includes a realizar para el proyecto (-I/home/pepe/etc/)
-include_directories ("${PROJECT_SOURCE_DIR}/../mongoose-cpp")
+include_directories ("${PROJECT_SOURCE_DIR}/mongoose-cpp")
 
 # Linkear contra bibliotecas
 target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
