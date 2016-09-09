@@ -33,3 +33,4 @@ cmake -DBUILD_SHARED_LIBS=ON .
 make
 sudo cp -a libgtest_main.so libgtest.so /usr/lib/
 sudo ldconfig
+cd ../..
