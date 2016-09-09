@@ -9,11 +9,9 @@ before_install:
   - sudo -E apt-get -yq update &>> ~/apt-get-update.log
   - sudo bash travis.sh
 install:
-  - echo $(pwd)
   - mkdir build
   - cd build
   - cmake ../
   - make
-  - find . -name testing
 script:
-  - ./test/testing
+  - ./server/test/testing
