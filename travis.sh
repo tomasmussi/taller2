@@ -22,9 +22,12 @@ cd ../..
 
 #Instalacion de google test
 git clone https://github.com/google/googletest.git
-cmake -DBUILD_SHARED_LIBS=ON .
-make
 cd googletest
+mkdir build && cd build
+cmake -DBUILD_SHARED_LIBS=ON ..
+make
+cd ../googletest
+
 sudo cp -a include/gtest /usr/include
 cmake -DBUILD_SHARED_LIBS=ON .
 make
