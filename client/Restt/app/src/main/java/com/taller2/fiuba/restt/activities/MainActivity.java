@@ -1,4 +1,4 @@
-package com.taller2.fiuba.restt;
+package com.taller2.fiuba.restt.activities;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.taller2.fiuba.restt.DummyDTO;
+import com.taller2.fiuba.restt.R;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;

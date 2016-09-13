@@ -1,10 +1,12 @@
-package com.taller2.fiuba.restt;
+package com.taller2.fiuba.restt.activities;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.taller2.fiuba.restt.R;
 
 /**
  * A placeholder fragment containing a simple view.
