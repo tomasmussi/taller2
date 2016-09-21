@@ -17,6 +17,7 @@ public:
 	void test_read();
 	void test_write();
 	std::string get_value(std::string key);
+	bool login(std::string user, std::string pass);
 };
 
 
