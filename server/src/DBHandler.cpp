@@ -49,7 +49,7 @@ bool DBHandler::login(std::string user, std::string pass) {
 	std::string key = "users";
 	std::string users;
 	database_->Get(leveldb::ReadOptions(), key, &users);
-	// if (users.empty()) {
+	if (users.empty()) {
 		std::cout << "empty" << std::endl;
 		Json::Value root;   // 'root' will contain the root value after parsing.
 		root[user]["user"] = user;
@@ -58,6 +58,7 @@ bool DBHandler::login(std::string user, std::string pass) {
 		os << root;
 		std::cout << os.str() << std::endl;
 		database_->Put(leveldb::WriteOptions(), key, os.str());
-	// }
+	}
 	std::cout << users << std::endl;
+	return true;
 }
