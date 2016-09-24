@@ -16,7 +16,7 @@ def request():
 
 class ClientTestCase(unittest.TestCase):
     def test_request(self):
-        """Test a simple request."""
+        """Test de request en job_positions"""
         response = request()
         self.assertIn('job_positions', response)
         pprint(response)
