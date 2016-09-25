@@ -4,6 +4,8 @@
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
 
+
+
 ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_handler_(database_handler) {
 }
 
@@ -39,7 +41,7 @@ void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse
 		curlpp::Easy myRequest;
 
 		// Set the URL.
-		myRequest.setOpt<Url>("http://example.com");
+		myRequest.setOpt<curlpp::options::Url>("http://example.com");
 
 		// Send request and get a result.
 		// By default the result goes to standard output.
