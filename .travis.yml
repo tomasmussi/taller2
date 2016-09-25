@@ -7,7 +7,8 @@ os: linux
 before_install:
   - export DEBIAN_FRONTEND=noninteractive
   - sudo -E apt-get -yq update &>> ~/apt-get-update.log
-  - sudo apt-get install libcurl-dev libboost-all-dev
+  - sudo apt-get install libcurl4-openssl-dev
+  - sudo apt-get install libboost-all-dev
   - sudo bash travis.sh
 install:
   - mkdir build
