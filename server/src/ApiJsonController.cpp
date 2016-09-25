@@ -85,13 +85,16 @@ void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse
 }
 
 void ApiJsonController::testdb(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	if (!is_user_logged()) {
+	/*if (!is_user_logged()) {
 		response["message"] = "No esta loggeado";
 		return;
 	}
 	std::string key = request.get("padron", "padron");
 	std::cout << "Looking for key: " << key << std::endl;
-	response["padron"] = database_handler_->get_value(key);
+	response["padron"] = database_handler_->get_value(key);*/
+	std::string key = "hola";
+	database_handler_->test_write();
+	database_handler_->read(key);
 }
 
 std::string ApiJsonController::generate_token(std::string user) {
@@ -101,6 +104,11 @@ std::string ApiJsonController::generate_token(std::string user) {
 void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	std::string user = request.get("user", "(unknown)");
 	std::string pass = request.get("pass", "(unknown)");
+	if (user.compare("(unknown)") == 0){
+		response["status"] = "ERROR";
+		response["message"] = "Usuario o contrasenia invalidos";
+		return;
+	}
 	if (database_handler_->login(user, pass)) {
 		response["status"] = "OK";
 		response["token"] = generate_token(user);
