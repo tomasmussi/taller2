@@ -33,40 +33,9 @@ bool ApiJsonController::is_user_logged() {
 
 
 void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	/*
-	int i;
-	for (i=0; i<12; i++) {
-		response["users"][i]["Name"] = "Bob";
-	}
-	response["timestamp"] = (int)time(NULL);
-	*/
-	/*try
-	{
-		// That's all that is needed to do cleanup of used resources (RAII style).
-		curlpp::Cleanup myCleanup;
 
-		// Our request to be sent.
-		curlpp::Easy myRequest;
-
-		// Set the URL.
-		myRequest.setOpt<curlpp::options::Url>("http://localhost:5000/job_positions");
-
-		// Send request and get a result.
-		// By default the result goes to standard output.
-		myRequest.perform();
-	}
-
-	catch(curlpp::RuntimeError & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-
-	catch(curlpp::LogicError & e)
-	{
-		std::cout << e.what() << std::endl;
-	}*/
-
-	curlpp::options::Url myUrl(std::string("http://localhost:5000/job_positions"));
+	// curlpp::options::Url myUrl(std::string("http://localhost:5000/job_positions"));
+	curlpp::options::Url myUrl(std::string("https://guarded-sands-84788.herokuapp.com/job_positions"));
 	curlpp::Easy myRequest;
 	myRequest.setOpt(myUrl);
 
