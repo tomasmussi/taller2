@@ -9,6 +9,7 @@ before_install:
   - sudo -E apt-get -yq update &>> ~/apt-get-update.log
   - sudo apt-get install libcurl4-openssl-dev
   - sudo apt-get install libboost-all-dev
+  - sudo apt-get install libcurlpp-dev
   - sudo bash travis.sh
 install:
   - mkdir build
