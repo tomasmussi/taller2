@@ -9,8 +9,14 @@ class ApiJsonController : public Mongoose::JsonController {
 		DBHandler *database_handler_;
 		const std::string SALT;
 
-		bool is_user_logged();
+		/* Genera el token de autenticacion del usuario*/
 		std::string generate_token(std::string user);
+
+		/* Verifica que el usuario este logueado para realizar acciones */
+		bool is_user_logged(Mongoose::Request &request);
+
+		/* Realiza la verdadera accion de login */
+		bool _login(std::string user, std::string pass);
 
 	public:
 		ApiJsonController(DBHandler *database_handler);
@@ -19,6 +25,8 @@ class ApiJsonController : public Mongoose::JsonController {
 		void hello(Mongoose::Request &request, Mongoose::JsonResponse &response);
 		void testdb(Mongoose::Request &request, Mongoose::JsonResponse &response);
 		void login(Mongoose::Request &request, Mongoose::JsonResponse &response);
+		void logout(Mongoose::Request &request, Mongoose::JsonResponse &response);
+		void job_positions(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 
