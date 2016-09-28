@@ -7,22 +7,25 @@
 
 
 ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_handler_(database_handler),
-	SALT("46995e90c43683a2fe66f3202b81b753") {
+	SALT("46995e90c43683a2fe66f3202b81b753"),
+	user_tokens_() {
 }
 
 ApiJsonController::~ApiJsonController() {
+	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
+		database_handler_->delete_key(it->first);
+	}
 }
 
 void ApiJsonController::setup() {
 	// Example of prefix, putting all the urls into "/api"
 	setPrefix("/api");
 	// Hello demo
-	registerRoute("GET", "/", new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::hello));
-	registerRoute("GET", "/hello", new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::hello));
+	registerRoute("GET", "/hello",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::hello));
 
 	registerRoute("GET", "/testdb",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::testdb));
-
 
 	registerRoute("GET", "/login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::login));
@@ -31,27 +34,15 @@ void ApiJsonController::setup() {
 
 	registerRoute("GET", "/job_positions",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::job_positions));
+
 }
 
 void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-
-	// curlpp::options::Url myUrl(std::string("http://localhost:5000/job_positions"));
-	curlpp::options::Url myUrl(std::string("https://guarded-sands-84788.herokuapp.com/job_positions"));
-	curlpp::Easy myRequest;
-	myRequest.setOpt(myUrl);
-
-	myRequest.perform();
-
-	std::ostringstream os;
-	curlpp::options::WriteStream ws(&os);
-	myRequest.setOpt(ws);
-	myRequest.perform();
-
-	// There is some shorcut within curlpp that allow you to write shorter code
-	// like this:
-	os << myRequest;
-	std::cout << os.str() << std::endl;
-	response["prueba"] = os.str();
+	if (!is_user_logged(request)) {
+		response["status"] = "ERROR";
+		response["prueba"] = "Usuario no autorizado para realizar accion";
+	}
+	response["prueba"] = "prueba";
 }
 
 void ApiJsonController::testdb(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -85,6 +76,7 @@ bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
 std::string ApiJsonController::generate_token(std::string user) {
 	std::string token = md5(user + this->SALT);
 	database_handler_->write(token, user);
+	user_tokens_[token] = user;
 	return token;
 }
 
@@ -127,7 +119,8 @@ void ApiJsonController::logout(Mongoose::Request &request, Mongoose::JsonRespons
 		response["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	std::string token = request.get("token", "no-token");
+	std::string token = request.get("token", "");
+	user_tokens_.erase(token);
 	database_handler_->delete_key(token);
 	response["status"] = "OK";
 	response["message"] = "Deslogueado exitosamente";
@@ -156,3 +149,4 @@ void ApiJsonController::job_positions(Mongoose::Request &request, Mongoose::Json
 	// std::cout << "CONSULTA: " << os.str() << std::endl;
 	response["prueba"] = os.str();
 }
+
