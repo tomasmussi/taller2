@@ -1,5 +1,7 @@
 #include "ApiJsonController.h"
 
+#include <json/json.h>
+
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -8,7 +10,23 @@
 
 ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_handler_(database_handler),
 	SALT("46995e90c43683a2fe66f3202b81b753"),
-	user_tokens_() {
+	user_tokens_(),
+	users_() {
+	std::string key = "users";
+	std::string value = database_handler_->read(key);
+	std::cout << "value: " << value << std::endl;
+	/*
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(value, root);
+	std::cout << root.size() << std::endl;
+	std::cout << root << std::endl;
+	for (size_t i = 0; i < root.size(); i++) {
+
+		// std::cout << "user name: " << root[i].asString() << std::endl;
+		// users_[root[i].asString()] = root[i].asString();
+	}
+	std::cout << "tengo " << users_.size() << " usuarios" << std::endl;*/
 }
 
 ApiJsonController::~ApiJsonController() {
@@ -42,6 +60,15 @@ void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse
 		response["status"] = "ERROR";
 		response["prueba"] = "Usuario no autorizado para realizar accion";
 	}
+	/*database_handler_->delete_key("users");
+	std::string value = "{[ \"tomas\", \"luis\", \"alfredo\"]}";
+	database_handler_->write("users", value);
+	std::cout << database_handler_->read("users") << std::endl;
+	response["prueba"] = "prueba";*/
+	// database_handler_->delete_key("clave1");
+	// std::string value = "SOBREESCRITO";
+	// database_handler_->write("clave1", value);
+	// std::cout << "bbdd: " << database_handler_->read("clave1") << std::endl;
 	response["prueba"] = "prueba";
 }
 

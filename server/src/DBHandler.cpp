@@ -19,9 +19,10 @@ DBHandler::~DBHandler() {
 }
 
 void DBHandler::test_write() {
+	std::cout << "comentado" << std::endl;
 	/*std::string key = "padron";
 	std::string value = "91985";
-	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);*/
+	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
 
 	std::string key = "users";
 	Json::Value root;   // 'root' will contain the root value after parsing.
@@ -33,6 +34,7 @@ void DBHandler::test_write() {
 	os << root;
 	std::string value = os.str();
 	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
+	*/
 }
 
 void DBHandler::write(std::string key, std::string value){

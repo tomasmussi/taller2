@@ -10,6 +10,7 @@ class ApiJsonController : public Mongoose::JsonController {
 		DBHandler *database_handler_;
 		const std::string SALT;
 		std::map<std::string, std::string> user_tokens_;
+		std::map<std::string, std::string> users_;
 
 		/* Generates user token authentication */
 		std::string generate_token(std::string user);

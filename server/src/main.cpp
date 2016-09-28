@@ -25,7 +25,7 @@ int main() {
 
 	signal(SIGINT, handle_signal);
 	DBHandler database_handler("testdb");
-	database_handler.test_write();
+	// database_handler.test_write();
 	// LinkedinWebController link_web_controller;
 	ApiJsonController json(&database_handler);
 
