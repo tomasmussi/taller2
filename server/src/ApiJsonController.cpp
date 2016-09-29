@@ -30,9 +30,6 @@ ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_han
 }
 
 ApiJsonController::~ApiJsonController() {
-	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
-		database_handler_->delete_key(it->first);
-	}
 }
 
 void ApiJsonController::setup() {
@@ -91,8 +88,7 @@ bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
 	if (request_token.compare("no-token") == 0) {
 		return false;
 	}
-	std::string user = database_handler_->read(request_token);
-	if (user.empty()) {
+	if (user_tokens_.find(request_token) == user_tokens_.end()) {
 		return false;
 	}
 	// std::cout << "usuario " << user << " autenticado" << std::endl;
@@ -101,10 +97,7 @@ bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
 
 
 std::string ApiJsonController::generate_token(std::string user) {
-	std::string token = md5(user + this->SALT);
-	database_handler_->write(token, user);
-	user_tokens_[token] = user;
-	return token;
+	return md5(user + this->SALT);
 }
 
 bool ApiJsonController::_login(std::string user, std::string pass) {
@@ -131,7 +124,9 @@ void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse
 	}
 	if (this->_login(user, pass)) {
 		response["status"] = "OK";
-		response["token"] = generate_token(user);
+		std::string token = generate_token(user);
+		user_tokens_[token] = user;
+		response["token"] = token;
 		response["requests"] = "Falta implementar";
 		response["new_messages"] = 5;
 	} else {
@@ -148,7 +143,6 @@ void ApiJsonController::logout(Mongoose::Request &request, Mongoose::JsonRespons
 	}
 	std::string token = request.get("token", "");
 	user_tokens_.erase(token);
-	database_handler_->delete_key(token);
 	response["status"] = "OK";
 	response["message"] = "Deslogueado exitosamente";
 }
