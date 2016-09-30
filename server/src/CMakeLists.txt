@@ -9,6 +9,8 @@ set(SOURCES
 		LinkedinWebController.cpp
 		base64.h
 		base64.cpp
+		md5.h
+		md5.cpp
         main.cpp
 )
 

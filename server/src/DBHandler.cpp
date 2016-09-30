@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <sstream>
-#include <string> 
+#include <string>
 
 DBHandler::DBHandler(std::string database_name) : database_name_(database_name),
 	database_(NULL),
@@ -19,9 +19,10 @@ DBHandler::~DBHandler() {
 }
 
 void DBHandler::test_write() {
+	std::cout << "comentado" << std::endl;
 	/*std::string key = "padron";
 	std::string value = "91985";
-	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);*/
+	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
 
 	std::string key = "users";
 	Json::Value root;   // 'root' will contain the root value after parsing.
@@ -33,6 +34,7 @@ void DBHandler::test_write() {
 	os << root;
 	std::string value = os.str();
 	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
+	*/
 }
 
 void DBHandler::write(std::string key, std::string value){
@@ -40,12 +42,16 @@ void DBHandler::write(std::string key, std::string value){
 }
 
 std::string DBHandler::read(std::string key){
-	key = "users";
 	std::string value;
 	leveldb::Status status = database_->Get(leveldb::ReadOptions(), key, &value);
-	std::cout << value << std::endl;
+	// std::cout << value << std::endl;
 	return value;
 }
+
+void DBHandler::delete_key(std::string key) {
+	database_->Delete(leveldb::WriteOptions(), key);
+}
+
 
 void DBHandler::test_read() {
 	std::string key = "padron";
@@ -60,9 +66,21 @@ std::string DBHandler::get_value(std::string key) {
 }
 
 bool DBHandler::login(std::string user, std::string pass) {
-	std::string key = "users";
-	std::string users;
-	database_->Get(leveldb::ReadOptions(), key, &users);
+	std::string key = "user-" + user;
+	std::string value;
+
+	database_->Get(leveldb::ReadOptions(), key, &value);
+	if (value.empty()) {
+		std::cout << "no existe el usuario" << std::endl;
+		return false;
+	}
+	if (value.compare(pass) != 0) {
+		return false;
+	}
+	std::cout << "key: " << key << " ; value: " <<  value << std::endl;
+	return true;
+
+	/*
 	if (users.empty()) {
 		std::cout << "empty" << std::endl;
 		Json::Value root;   // 'root' will contain the root value after parsing.
@@ -92,6 +110,5 @@ bool DBHandler::login(std::string user, std::string pass) {
 			}
 		}
 	}
-	std::cout << users << std::endl;
-	return false;
+	*/
 }
