@@ -14,23 +14,6 @@ TEST(Gtest, Test1Equals0) {
 	EXPECT_EQ(1,1);
 }
 
-TEST(LoginTest, UserNotInSystem) {
-	DBHandler db("prueba");
-	std::string key = "users";
-	std::string user = "invalid-user";
-	std::string pass = "invalid-pass";
-	EXPECT_FALSE(db.login(user, pass));
-}
-
-TEST(LoginTest, UserAuthorized) {
-	DBHandler db("prueba");
-	std::string key = "users";
-	std::string user = "invalid-user";
-	std::string pass = "invalid-pass";
-	EXPECT_TRUE(db.login(user, pass));
-}
-
-
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest( &argc, argv );
     return RUN_ALL_TESTS();
