@@ -16,8 +16,8 @@ ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_han
 	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
 	database_handler_->write(key, "{\"users\":[{\"user-tomas\":\"tomas\"},{\"user-luis\":\"luis\"}]}");
 	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
-	database_handler_->write("user-tomas", "tomas");
-	database_handler_->write("user-luis", "luis");
+	database_handler_->write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
+	database_handler_->write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
 	load_users();
 }
 
@@ -51,6 +51,8 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/job_positions",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::job_positions));
 
+	registerRoute("GET", "/my_profile",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::my_profile));
 }
 
 void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -85,10 +87,19 @@ bool ApiJsonController::_login(std::string user, std::string pass) {
 	if (value.empty()) {
 		return false;
 	}
-	if (value.compare(pass) != 0) {
-		return false;
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(value, root);
+	for (unsigned int i = 0; i < root["user"].size(); i++) {
+		for (unsigned int j = 0; j < root["user"].getMemberNames().size(); j++) {
+			std::string key = root["user"].getMemberNames()[j];
+			std::string saved_pass = root["user"][key].asString();
+			if (key.compare("pass") == 0 && saved_pass.compare(pass) == 0) {
+				return true;
+			}
+		}
 	}
-	return true;
+	return false;
 }
 
 void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -144,7 +155,21 @@ void ApiJsonController::job_positions(Mongoose::Request &request, Mongoose::Json
 	// There is some shorcut within curlpp that allow you to write shorter code
 	// like this:
 	os << myRequest;
-	// std::cout << "CONSULTA: " << os.str() << std::endl;
 	response["prueba"] = os.str();
+}
+
+void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	if (!is_user_logged(request)) {
+		response["status"] = "ERROR";
+		response["message"] = "Usuario no autorizado para realizar accion";
+		return;
+	}
+	std::string user = user_tokens_[request.get("token", "")];
+	std::cout << "users..." << std::endl;
+	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
+		std::cout << it->first << " = " << it->second << std::endl;
+	}
+	std::cout << "looking for user: " << user << std::endl;
+	response["user"] = database_handler_->read("user-" + user);
 }
 
