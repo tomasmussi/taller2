@@ -12,6 +12,9 @@ class ApiJsonController : public Mongoose::JsonController {
 		std::map<std::string, std::string> user_tokens_;
 		std::map<std::string, std::string> users_;
 
+		/* Loads existing users from database */
+		void load_users();
+
 		/* Generates user token authentication */
 		std::string generate_token(std::string user);
 

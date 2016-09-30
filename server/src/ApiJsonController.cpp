@@ -16,57 +16,32 @@ ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_han
 	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
 	database_handler_->write(key, "{\"users\":[{\"user-tomas\":\"tomas\"},{\"user-luis\":\"luis\"}]}");
 	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
-
-	std::string value = database_handler_->read(key);
-	std::cout << "value: " << value << std::endl;
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(value, root);
-	// for (size_t i = 0; i < root.size(); i++) {
-		// std::cout << root["users"][0].getMemberNames() << std::endl;
-	/*std::cout << root["users"].size() << std::endl;
-	std::cout << root["users"][0] << std::endl;
-	std::cout << root["users"][1] << std::endl;
-	std::cout << std::endl;
-	//std::cout << "a ver " << root["users"][0].asString() << std::endl;
-
-	// std::cout << "asd "<< root["users"][0]["user-tomas"] << std::endl;
-	std::cout << "afgghe " << root["users"][0].getMemberNames()[0] << std::endl;
-	for (std::vector<std::string>::iterator it = root["users"][0].getMemberNames().begin();
-		it != root["users"][0].getMemberNames().end();
-		++it) {
-		std::cout << "pasa" << std::endl;
-		// std::cout << it << std::endl;
-		std::cout << "gg" << (*it) << std::endl;
-	}
-	/*std::vector<std::string>::iterator it = root.getMemberNames().begin();
-	for (; it != root.getMemberNames().end(); ++it) {
-		std::cout << "algo hay" << std::endl;
-		std::cout << (*it) << std::endl;
-	}
-		// users_[root["users"][i].asString()] = root["users"][i].asString();
-	// }
-	std::cout << "tengo " << users_.size() << " usuarios" << std::endl;*/
-
-	for (size_t i = 0; i < root["users"].size(); i++) {
-		std::string key = root["users"][i].getMemberNames()[0];
-		std::cout << key << std::endl;
-		std::cout << root["users"][i][key] << std::endl;
-	}
+	database_handler_->write("user-tomas", "tomas");
+	database_handler_->write("user-luis", "luis");
+	load_users();
 }
 
 ApiJsonController::~ApiJsonController() {
 }
 
+void ApiJsonController::load_users() {
+	std::string value = database_handler_->read("users");
+	// std::cout << "value: " << value << std::endl;
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(value, root);
+	for (unsigned int i = 0; i < root["users"].size(); i++) {
+		std::string key = root["users"][i].getMemberNames()[0];
+		users_[key] = root["users"][i][key].asString();
+	}
+}
+
 void ApiJsonController::setup() {
-	// Example of prefix, putting all the urls into "/api"
+
 	setPrefix("/api");
-	// Hello demo
+
 	registerRoute("GET", "/hello",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::hello));
-
-	registerRoute("GET", "/testdb",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::testdb));
 
 	registerRoute("GET", "/login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::login));
@@ -82,34 +57,10 @@ void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse
 	if (!is_user_logged(request)) {
 		response["status"] = "ERROR";
 		response["prueba"] = "Usuario no autorizado para realizar accion";
-	}
-	/*database_handler_->delete_key("users");
-	std::string value = "{[ \"tomas\", \"luis\", \"alfredo\"]}";
-	database_handler_->write("users", value);
-	std::cout << database_handler_->read("users") << std::endl;
-	response["prueba"] = "prueba";*/
-	// database_handler_->delete_key("clave1");
-	// std::string value = "SOBREESCRITO";
-	// database_handler_->write("clave1", value);
-	// std::cout << "bbdd: " << database_handler_->read("clave1") << std::endl;
-	response["users"][0]["user-tomas"] = "tomas";
-	response["users"][1]["user-luis"] = "luis";
-}
-
-void ApiJsonController::testdb(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	/*if (!is_user_logged()) {
-		response["message"] = "No esta loggeado";
 		return;
 	}
-	std::string key = request.get("padron", "padron");
-	std::cout << "Looking for key: " << key << std::endl;
-	response["padron"] = database_handler_->get_value(key);*/
-	// database_handler_->test_write();
-	// database_handler_->write("user-tomas", "tomas");
-	//std::string pass = database_handler_->read("user-tomas");
-	// std::cout << pass << std::endl;
-
-	response["dummy"] = "dummy";
+	response["users"][0]["user-tomas"] = "tomas";
+	response["users"][1]["user-luis"] = "luis";
 }
 
 bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
@@ -120,7 +71,6 @@ bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
 	if (user_tokens_.find(request_token) == user_tokens_.end()) {
 		return false;
 	}
-	// std::cout << "usuario " << user << " autenticado" << std::endl;
 	return true;
 }
 
@@ -133,13 +83,11 @@ bool ApiJsonController::_login(std::string user, std::string pass) {
 	std::string key = "user-" + user;
 	std::string value = database_handler_->read(key);
 	if (value.empty()) {
-		// std::cout << "no existe el usuario" << std::endl;
 		return false;
 	}
 	if (value.compare(pass) != 0) {
 		return false;
 	}
-	// std::cout << "key: " << key << " ; value: " <<  value << std::endl;
 	return true;
 }
 

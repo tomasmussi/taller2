@@ -15,10 +15,6 @@ public:
 	std::string read(std::string key);
 	void write(std::string key, std::string value);
 	void delete_key(std::string key);
-	void test_read();
-	void test_write();
-	std::string get_value(std::string key);
-	bool login(std::string user, std::string pass);
 };
 
 
