@@ -14,7 +14,7 @@ ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_han
 		users_() {
 	std::string key = "users";
 	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
-	database_handler_->write(key, "{\"users\":[{\"user-tomas\":\"tomas\"},{\"user-luis\":\"luis\"}]}");
+	database_handler_->write(key, "{\"users\":[{\"user-tomasmussi\":\"tomas\"},{\"user-luis\":\"luis\"}]}");
 	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
 	database_handler_->write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
 	database_handler_->write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
@@ -170,6 +170,27 @@ void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonRes
 		std::cout << it->first << " = " << it->second << std::endl;
 	}
 	std::cout << "looking for user: " << user << std::endl;
-	response["user"] = database_handler_->read("user-" + user);
+	std::string user_data_json = database_handler_->read("user-" + user);
+
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(user_data_json, root);
+	std::cout << "elements: " << root["user"].getMemberNames().size() << std::endl;
+	for (unsigned int j = 0; j < root["user"].getMemberNames().size(); j++) {
+		std::string key = root["user"].getMemberNames()[j];
+		if (j >= 6) {
+			std::cout << key << std::endl;
+		}
+		try {
+			std::string value = root["user"][key].asString();
+			if (key.compare("pass") != 0 || key.compare("skills")) {
+				response["user"][key] = value;
+			}
+		} catch (std::exception e) {
+			// Se esta lanzando una exception por los skills...
+			std::cout << "EXCEPTION!: " << e.what() << std::endl;
+		}
+
+	}
 }
 
