@@ -165,27 +165,30 @@ void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonRes
 		return;
 	}
 	std::string user = user_tokens_[request.get("token", "")];
-	std::cout << "users..." << std::endl;
+	// std::cout << "users..." << std::endl;
 	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
 		std::cout << it->first << " = " << it->second << std::endl;
 	}
-	std::cout << "looking for user: " << user << std::endl;
+	// std::cout << "looking for user: " << user << std::endl;
 	std::string user_data_json = database_handler_->read("user-" + user);
 
 	Json::Value root;
 	Json::Reader reader;
 	reader.parse(user_data_json, root);
-	std::cout << "elements: " << root["user"].getMemberNames().size() << std::endl;
-	for (unsigned int j = 0; j < root["user"].getMemberNames().size(); j++) {
-		std::string key = root["user"].getMemberNames()[j];
-		if (j >= 6) {
-			std::cout << key << std::endl;
-		}
+	for (unsigned int i = 0; i < root["user"].getMemberNames().size(); i++) {
+		std::string key = root["user"].getMemberNames()[i];
 		try {
-			std::string value = root["user"][key].asString();
-			if (key.compare("pass") != 0 || key.compare("skills")) {
-				response["user"][key] = value;
+			if (key.compare("skills") == 0) {
+				for (unsigned int j = 0; j < root["user"][key].size(); j++ ) {
+					response["user"][key]["skills"][j] = root["user"][key][j].asInt();
+				}
+			} else {
+				std::string value = root["user"][key].asString();
+				if (key.compare("pass") != 0) {
+					response["user"][key] = value;
+				}
 			}
+
 		} catch (std::exception e) {
 			// Se esta lanzando una exception por los skills...
 			std::cout << "EXCEPTION!: " << e.what() << std::endl;
