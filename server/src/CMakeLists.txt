@@ -5,6 +5,8 @@ set(SOURCES
 		ApiJsonController.cpp
 		DBHandler.h
 		DBHandler.cpp
+		HerokuService.h
+		HerokuService.cpp
 		LinkedinWebController.h
 		LinkedinWebController.cpp
 		base64.h

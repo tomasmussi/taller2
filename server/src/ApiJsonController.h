@@ -9,6 +9,7 @@ class ApiJsonController : public Mongoose::JsonController {
 		/* Database connection to leveldb */
 		DBHandler *database_handler_;
 		const std::string SALT;
+		const std::string API_SEC_KEY;
 		std::map<std::string, std::string> user_tokens_;
 		std::map<std::string, std::string> users_;
 
@@ -41,6 +42,12 @@ class ApiJsonController : public Mongoose::JsonController {
 		/* Heroku derived web service */
 		void job_positions(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		/* Heroku derived web service */
+		void categories(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void fb_login(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 

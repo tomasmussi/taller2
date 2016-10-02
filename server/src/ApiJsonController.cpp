@@ -1,23 +1,22 @@
 #include "ApiJsonController.h"
 
+#include "HerokuService.h"
+
 #include <json/json.h>
 
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
 #include "md5.h"
-
 
 ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_handler_(database_handler),
 		SALT("46995e90c43683a2fe66f3202b81b753"),
+		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
 		user_tokens_(),
 		users_() {
 	std::string key = "users";
 	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
-	database_handler_->write(key, "{\"users\":[{\"user-tomas\":\"tomas\"},{\"user-luis\":\"luis\"}]}");
+	database_handler_->write(key, "{\"users\":[{\"user-tomasmussi\":\"tomas\"},{\"user-luis\":\"luis\"}]}");
 	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
-	database_handler_->write("user-tomas", "tomas");
-	database_handler_->write("user-luis", "luis");
+	database_handler_->write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
+	database_handler_->write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
 	load_users();
 }
 
@@ -51,16 +50,30 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/job_positions",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::job_positions));
 
+	registerRoute("GET", "/categories",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::categories));
+
+	registerRoute("GET", "/my_profile",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::my_profile));
+
+	registerRoute("GET", "/fb_login",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::fb_login));
 }
 
 void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["datos"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
 	if (!is_user_logged(request)) {
-		response["status"] = "ERROR";
-		response["prueba"] = "Usuario no autorizado para realizar accion";
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
 		return;
 	}
-	response["users"][0]["user-tomas"] = "tomas";
-	response["users"][1]["user-luis"] = "luis";
+	Json::Value data;
+	data["users"][0]["user-tomas"] = "tomas";
+	data["users"][1]["user-luis"] = "luis";
+	response["datos"].append(data);
 }
 
 bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
@@ -85,66 +98,124 @@ bool ApiJsonController::_login(std::string user, std::string pass) {
 	if (value.empty()) {
 		return false;
 	}
-	if (value.compare(pass) != 0) {
-		return false;
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(value, root);
+	for (unsigned int i = 0; i < root["user"].size(); i++) {
+		for (unsigned int j = 0; j < root["user"].getMemberNames().size(); j++) {
+			std::string key = root["user"].getMemberNames()[j];
+			std::string saved_pass = root["user"][key].asString();
+			if (key.compare("pass") == 0 && saved_pass.compare(pass) == 0) {
+				return true;
+			}
+		}
 	}
-	return true;
+	return false;
 }
 
 void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	std::string user = request.get("user", "(unknown)");
 	std::string pass = request.get("pass", "(unknown)");
 	if (user.compare("(unknown)") == 0 || pass.compare("(unknown)") == 0) {
-		response["status"] = "ERROR";
-		response["message"] = "Usuario o contraseña invalidos";
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario o contraseña invalidos";
 		return;
 	}
 	if (this->_login(user, pass)) {
-		response["status"] = "OK";
+		response["data"]["status"] = "OK";
 		std::string token = generate_token(user);
 		user_tokens_[token] = user;
-		response["token"] = token;
-		response["requests"] = "Falta implementar";
-		response["new_messages"] = 5;
+		response["data"]["token"] = token;
+		response["data"]["requests"] = "Falta implementar";
+		response["data"]["new_messages"] = 5;
 	} else {
-		response["status"] = "ERROR";
-		response["message"] = "Usuario o contrasenia invalidos";
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario o contrasenia invalidos";
 	}
 }
 
 void ApiJsonController::logout(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	if (!is_user_logged(request)) {
-		response["status"] = "ERROR";
-		response["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
 	std::string token = request.get("token", "");
 	user_tokens_.erase(token);
-	response["status"] = "OK";
-	response["message"] = "Deslogueado exitosamente";
+	response["data"]["status"] = "OK";
+	response["data"]["message"] = "Deslogueado exitosamente";
 }
 
 void ApiJsonController::job_positions(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	if (!is_user_logged(request)) {
-		response["status"] = "ERROR";
-		response["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	curlpp::options::Url myUrl(std::string("https://guarded-sands-84788.herokuapp.com/job_positions"));
-	curlpp::Easy myRequest;
-	myRequest.setOpt(myUrl);
+	HerokuService service("https://guarded-sands-84788.herokuapp.com", "job_positions");
+	service.overload_response(response);
+}
 
-	myRequest.perform();
+void ApiJsonController::categories(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	if (!is_user_logged(request)) {
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
+		return;
+	}
+	HerokuService service("https://guarded-sands-84788.herokuapp.com", "categories");
+	service.overload_response(response);
+}
 
-	std::ostringstream os;
-	curlpp::options::WriteStream ws(&os);
-	myRequest.setOpt(ws);
-	myRequest.perform();
+void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	if (!is_user_logged(request)) {
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
+		return;
+	}
+	std::string user = user_tokens_[request.get("token", "")];
+	// std::cout << "users..." << std::endl;
+	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
+		std::cout << it->first << " = " << it->second << std::endl;
+	}
+	// std::cout << "looking for user: " << user << std::endl;
+	std::string user_data_json = database_handler_->read("user-" + user);
 
-	// There is some shorcut within curlpp that allow you to write shorter code
-	// like this:
-	os << myRequest;
-	// std::cout << "CONSULTA: " << os.str() << std::endl;
-	response["prueba"] = os.str();
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(user_data_json, root);
+	for (unsigned int i = 0; i < root["user"].getMemberNames().size(); i++) {
+		std::string key = root["user"].getMemberNames()[i];
+		try {
+			if (key.compare("skills") == 0) {
+				for (unsigned int j = 0; j < root["user"][key].size(); j++ ) {
+					response["data"]["user"][key]["skills"][j] = root["user"][key][j].asInt();
+				}
+			} else {
+				std::string value = root["user"][key].asString();
+				if (key.compare("pass") != 0) {
+					response["data"]["user"][key] = value;
+				}
+			}
+
+		} catch (std::exception e) {
+			// Se esta lanzando una exception por los skills...
+			std::cout << "EXCEPTION!: " << e.what() << std::endl;
+		}
+
+	}
+}
+
+void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	std::string api_sec = request.get("api_sec", "");
+	std::string fb_user_id = request.get("fb_user_id", "");
+	if (api_sec.compare(API_SEC_KEY) != 0) {
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Security Api invalido";
+		return;
+	}
+	// TODO(tomas) recordar validar que no esten vacios
+	std::string token = md5(fb_user_id + SALT);
+	user_tokens_[token] = fb_user_id;
+	response["data"]["token"] = token;
 }
 
