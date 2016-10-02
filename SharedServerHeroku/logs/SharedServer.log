@@ -1,3 +1,0 @@
-{"level":"info","message":"Ingresando a index.js","timestamp":"2016-09-06T00:35:52.043Z"}
-{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-09-06T00:35:53.588Z"}
-{"level":"info","message":"Respuesta OK: [{\"name\":\"developer\",\"category\":\"software\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"category\":\"Persona encargada de manejar el proyecto\",\"description\":\"software\"},{\"name\":\"dj\",\"category\":\"Persona que selecciona y mezcla música\",\"description\":\"music\"}]","timestamp":"2016-09-06T00:35:53.630Z"}
