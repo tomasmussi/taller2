@@ -25,18 +25,18 @@ int main() {
 
 	signal(SIGINT, handle_signal);
 	DBHandler database_handler("testdb");
-	database_handler.test_write();
-	LinkedinWebController link_web_controller;
+	// database_handler.test_write();
+	// LinkedinWebController link_web_controller;
 	ApiJsonController json(&database_handler);
 
 	Mongoose::Server server(8080);
-	server.registerController(&link_web_controller);
+	// server.registerController(&link_web_controller);
 	server.registerController(&json);
 	server.setOption("enable_directory_listing", "false");
 	server.start();
 
 	std::cout << "Server started, routes:" << std::endl;
-	link_web_controller.dumpRoutes();
+	// link_web_controller.dumpRoutes();
 	json.dumpRoutes();
 
 	while (running) {

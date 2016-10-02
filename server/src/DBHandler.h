@@ -14,9 +14,7 @@ public:
 	~DBHandler();
 	std::string read(std::string key);
 	void write(std::string key, std::string value);
-	void test_read();
-	void test_write();
-	std::string get_value(std::string key);
+	void delete_key(std::string key);
 };
 
 

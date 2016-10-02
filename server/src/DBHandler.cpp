@@ -1,6 +1,10 @@
 #include "DBHandler.h"
 
+#include <json/json.h>
+
 #include <iostream>
+#include <sstream>
+#include <string>
 
 DBHandler::DBHandler(std::string database_name) : database_name_(database_name),
 	database_(NULL),
@@ -14,30 +18,17 @@ DBHandler::~DBHandler() {
 	delete database_;
 }
 
-void DBHandler::test_write() {
-	std::string key = "padron";
-	std::string value = "91985";
-	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
-}
-
 void DBHandler::write(std::string key, std::string value){
 	leveldb::Status status = database_->Put(leveldb::WriteOptions(), key, value);
 }
 
 std::string DBHandler::read(std::string key){
-	std::string value;	
-	leveldb::Status status = database_->Get(leveldb::ReadOptions(), key, &value);
+	std::string value;
+	database_->Get(leveldb::ReadOptions(), key, &value);
 	return value;
 }
 
-void DBHandler::test_read() {
-	std::string key = "padron";
-	std::string value;
-	leveldb::Status status = database_->Get(leveldb::ReadOptions(), key, &value);
+void DBHandler::delete_key(std::string key) {
+	database_->Delete(leveldb::WriteOptions(), key);
 }
 
-std::string DBHandler::get_value(std::string key) {
-	std::string value;
-	leveldb::Status status = database_->Get(leveldb::ReadOptions(), key, &value);
-	return value;
-}
