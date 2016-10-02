@@ -40,6 +40,8 @@ app.get('/', function(request, response) {
 });
 
 app.get('/job_positions',db.getAllJobPositions);
+app.get('/categories',db.getAllCategories);
+app.get('/skills',db.getAllSkills);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

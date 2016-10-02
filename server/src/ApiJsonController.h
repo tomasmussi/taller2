@@ -42,6 +42,9 @@ class ApiJsonController : public Mongoose::JsonController {
 		/* Heroku derived web service */
 		void job_positions(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		/* Heroku derived web service */
+		void categories(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 		void my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void fb_login(Mongoose::Request &request, Mongoose::JsonResponse &response);

@@ -1,12 +1,10 @@
 #include "ApiJsonController.h"
 
+#include "HerokuService.h"
+
 #include <json/json.h>
 
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
 #include "md5.h"
-
 
 ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_handler_(database_handler),
 		SALT("46995e90c43683a2fe66f3202b81b753"),
@@ -52,6 +50,9 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/job_positions",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::job_positions));
 
+	registerRoute("GET", "/categories",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::categories));
+
 	registerRoute("GET", "/my_profile",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::my_profile));
 
@@ -60,13 +61,19 @@ void ApiJsonController::setup() {
 }
 
 void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["datos"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
 	if (!is_user_logged(request)) {
-		response["errors"]["status"] = "ERROR";
-		response["errors"]["prueba"] = "Usuario no autorizado para realizar accion";
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
 		return;
 	}
-	response["data"]["users"][0]["user-tomas"] = "tomas";
-	response["data"]["users"][1]["user-luis"] = "luis";
+	Json::Value data;
+	data["users"][0]["user-tomas"] = "tomas";
+	data["users"][1]["user-luis"] = "luis";
+	response["datos"].append(data);
 }
 
 bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
@@ -145,21 +152,18 @@ void ApiJsonController::job_positions(Mongoose::Request &request, Mongoose::Json
 		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	curlpp::options::Url myUrl(std::string("https://guarded-sands-84788.herokuapp.com/job_positions"));
-	curlpp::Easy myRequest;
-	myRequest.setOpt(myUrl);
+	HerokuService service("https://guarded-sands-84788.herokuapp.com", "job_positions");
+	service.overload_response(response);
+}
 
-	myRequest.perform();
-
-	std::ostringstream os;
-	curlpp::options::WriteStream ws(&os);
-	myRequest.setOpt(ws);
-	myRequest.perform();
-
-	// There is some shorcut within curlpp that allow you to write shorter code
-	// like this:
-	os << myRequest;
-	response["data"] = os.str();
+void ApiJsonController::categories(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	if (!is_user_logged(request)) {
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
+		return;
+	}
+	HerokuService service("https://guarded-sands-84788.herokuapp.com", "categories");
+	service.overload_response(response);
 }
 
 void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response) {
