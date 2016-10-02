@@ -1,10 +1,10 @@
 #include "ApiJsonController.h"
 
+#include "HerokuService.h"
+
 #include <json/json.h>
 
-#include <curlpp/cURLpp.hpp>
-#include <curlpp/Easy.hpp>
-#include <curlpp/Options.hpp>
+
 #include "md5.h"
 
 
@@ -145,24 +145,18 @@ void ApiJsonController::job_positions(Mongoose::Request &request, Mongoose::Json
 		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	curlpp::options::Url myUrl(std::string("https://guarded-sands-84788.herokuapp.com/job_positions"));
-	curlpp::Easy myRequest;
-	myRequest.setOpt(myUrl);
+	HerokuService service("https://guarded-sands-84788.herokuapp.com/job_positions", "job_positions");
+	service.overload_response(response);
+}
 
-	myRequest.perform();
-
-	std::ostringstream os;
-	curlpp::options::WriteStream ws(&os);
-	myRequest.setOpt(ws);
-	myRequest.perform();
-
-	// There is some shorcut within curlpp that allow you to write shorter code
-	// like this:
-	os << myRequest;
-	Json::Value root;
-	Json::Reader reader;
-	// Creo que esto funciona de pedo...
-	reader.parse(os.str(), response);
+void ApiJsonController::categories(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	if (!is_user_logged(request)) {
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
+		return;
+	}
+	HerokuService service("https://guarded-sands-84788.herokuapp.com/job_positions", "categories");
+	service.overload_response(response);
 }
 
 void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response) {
