@@ -29,11 +29,14 @@ void ApiJsonController::load_users() {
 	// std::cout << "value: " << value << std::endl;
 	Json::Value root;
 	Json::Reader reader;
-	reader.parse(value, root);
+	reader.parse(value, root);		
 	for (unsigned int i = 0; i < root["users"].size(); i++) {
 		std::string key = root["users"][i].getMemberNames()[0];
+		std::cout<<key<<" ";
 		users_[key] = root["users"][i][key].asString();
+		std::cout<<users_[key]<<std::endl;
 	}
+	
 }
 
 void ApiJsonController::setup() {
@@ -45,6 +48,7 @@ void ApiJsonController::setup() {
 
 	registerRoute("GET", "/login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::login));
+	
 	registerRoute("GET", "/logout",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::logout));
 
@@ -59,14 +63,33 @@ void ApiJsonController::setup() {
 
 	registerRoute("GET", "/fb_login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::fb_login));
+	
 	registerRoute("POST", "/edit",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::edit));
-	registerRoute("POST", "/new_user",
+	
+	registerRoute("PUT", "/new_user",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::new_user));
 }
 
 void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	//response[message]="hola";
+	std::string user =  request.get("fb_id","");	
+	std::string key = "user-" + user;
+	std::string value = database_handler_->read("users");
+	if (value.empty()) {
+		return ;
+	}	
+	
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(value, root);	
+	Json::Value newUser;
+	newUser[key] = request.get("name","");
+	root["users"].append(newUser);
+	std::ostringstream convertidor;
+	convertidor<<root;
+	database_handler_->write("users", convertidor.str());	
+
+	load_users();
 }
 
 void ApiJsonController::replace_not_null(Json::Value & root, std::string & value, std::string campo1, std::string campo2){
