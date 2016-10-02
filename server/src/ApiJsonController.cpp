@@ -70,6 +70,7 @@ void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonRespo
 }
 
 void ApiJsonController::replace_not_null(Json::Value & root, std::string & value, std::string campo1, std::string campo2){
+	std::cout<<value;	
 	if (value != "vacio"){
 		root[campo1][campo2] = value;
 	}
@@ -119,28 +120,28 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 	replace_not_null(root,name,"user","name");
 
 	std::string email = request.get("email","vacio");
-	replace_not_null(root,name,"user","email");
+	replace_not_null(root,email,"user","email");
 
 	std::string pass =  request.get("pass","vacio");
-	replace_not_null(root,name,"user","pass");
+	replace_not_null(root,pass,"user","pass");
 
 	std::string dob = request.get("dob","vacio");
-	replaceNotNull(root,name,"user","dob");
+	replace_not_null(root,dob,"user","dob");
 
 	std::string city = request.get("city","vacio");
-	replaceNotNull(root,name,"user","city");
+	replace_not_null(root,city,"user","city");
 
 	std::string summary = request.get("summary","vacio");
-	replaceNotNull(root,name,"user","summary");
+	replace_not_null(root,summary,"user","summary");
 
 	std::string skills = request.get("skills","vacio");
-	replaceNotNull(root,name,"user","skills");
+	replace_not_null(root,skills,"user","skills");
 
 	std::string contacts = request.get("contacts","vacio");
-	replaceNotNull(root,name,"user","contacts");
+	replace_not_null(root,contacts,"user","contacts");
 
 	std::string profile_photo = request.get("profile_photo","vacio");
-	replaceNotNull(root,name,"user","profile_photo");
+	replace_not_null(root,profile_photo,"user","profile_photo");
 
 	std::cout<<root<<std::endl;	
 	std::ostringstream convertidor;
