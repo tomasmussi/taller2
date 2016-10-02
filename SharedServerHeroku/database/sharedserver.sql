@@ -5,58 +5,58 @@ CREATE DATABASE sharedserver;
 \c sharedserver;
 
 CREATE TABLE category(
-	category_name VARCHAR PRIMARY KEY NOT NULL,
-	category_description VARCHAR
+	name VARCHAR PRIMARY KEY NOT NULL,
+	description VARCHAR
 );
 
 CREATE TABLE skill(
-	skill_description VARCHAR,
-	skill_name VARCHAR NOT NULL,
-	category_name VARCHAR NOT NULL,
-	FOREIGN KEY (category_name) references category(category_name),
-	PRIMARY KEY (skill_name,category_name) 
+	description VARCHAR,
+	name VARCHAR NOT NULL,
+	category VARCHAR NOT NULL,
+	FOREIGN KEY (category) references category(name),
+	PRIMARY KEY (name,category) 
 );
 
 
 CREATE TABLE job_position (
-  jobposition_name VARCHAR NOT NULL,
-  jobposition_description VARCHAR,
-  category_name VARCHAR NOT NULL,
-  FOREIGN KEY (category_name) references category(category_name),
-  PRIMARY KEY (jobposition_name,category_name)
+  name VARCHAR NOT NULL,
+  description VARCHAR,
+  category VARCHAR NOT NULL,
+  FOREIGN KEY (category) references category(name),
+  PRIMARY KEY (name,category)
 );
 
-INSERT INTO category (category_name,category_description)
+INSERT INTO category (name,description)
 VALUES('software','Desarrollo de software');
 
-INSERT INTO category (category_name,category_description)
+INSERT INTO category (name,description)
 VALUES('musica','Composicion de musica');
 
-INSERT INTO category (category_name,category_description)
+INSERT INTO category (name,description)
 VALUES('pintura','Composicion de obras de arte');
 
-INSERT INTO job_position (jobposition_name, jobposition_description, category_name)
+INSERT INTO job_position (name, description, category)
 VALUES ('developer front end', 'Desarrollador','software');
  
-INSERT INTO job_position (jobposition_name, jobposition_description, category_name)
+INSERT INTO job_position (name, description, category)
 VALUES ('project manager', 'Persona encargada de manejar un proyecto','software');
 
-INSERT INTO job_position (jobposition_name, jobposition_description, category_name)
+INSERT INTO job_position (name, description, category)
 VALUES ('dj', 'Persona que selecciona y mezcla música','musica');
 
-INSERT INTO skill (skill_name,skill_description,category_name)
+INSERT INTO skill (name,description,category)
 VALUES('c','Programacion en C','software');
 
-INSERT INTO skill (skill_name,skill_description,category_name)
+INSERT INTO skill (name,description,category)
 VALUES('c++','Programacion en C++','software');
 
-INSERT INTO skill (skill_name,skill_description,category_name)
+INSERT INTO skill (name,description,category)
 VALUES('java','Programacion en java','software');
 
-INSERT INTO skill (skill_name,skill_description,category_name)
+INSERT INTO skill (name,description,category)
 VALUES('guitarra','Manejo de guitarra','musica');
 
-INSERT INTO skill (skill_name,skill_description,category_name)
+INSERT INTO skill (name,description,category)
 VALUES('pincel','pintar con temperas','pintura');
 
 CREATE USER sharedserveruser with password 'shared';
