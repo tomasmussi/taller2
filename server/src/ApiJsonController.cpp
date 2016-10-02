@@ -61,13 +61,19 @@ void ApiJsonController::setup() {
 }
 
 void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["datos"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
 	if (!is_user_logged(request)) {
-		response["errors"]["status"] = "ERROR";
-		response["errors"]["prueba"] = "Usuario no autorizado para realizar accion";
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
 		return;
 	}
-	response["data"]["users"][0]["user-tomas"] = "tomas";
-	response["data"]["users"][1]["user-luis"] = "luis";
+	Json::Value data;
+	data["users"][0]["user-tomas"] = "tomas";
+	data["users"][1]["user-luis"] = "luis";
+	response["datos"].append(data);
 }
 
 bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
