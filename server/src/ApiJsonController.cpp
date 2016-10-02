@@ -83,38 +83,12 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 		return;
 	}	
 	std::string user = user_tokens_[request.get("token", "")];
-	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
-		std::cout << it->first << " = " << it->second << std::endl;
-	}
-
-	//TODO (eze) reemplazar solo los campos que se envían en el request
 
 	std::string user_data_json = database_handler_->read("user-" + user);
 
 	Json::Value root;
 	Json::Reader reader;
 	reader.parse(user_data_json, root);
-	for (unsigned int i = 0; i < root["user"].getMemberNames().size(); i++) {
-		std::string key = root["user"].getMemberNames()[i];
-		try {
-			if (key.compare("skills") == 0) {
-				for (unsigned int j = 0; j < root["user"][key].size(); j++ ) {
-					response["data"]["user"][key][j] = root["user"][key][j].asInt();
-				}
-			} else {
-				std::string value = root["user"][key].asString();
-				if (key.compare("pass") != 0) {
-					response["data"]["user"][key] = value;
-				}
-			}
-
-		} catch (std::exception e) {
-			// Se esta lanzando una exception por los skills...
-			std::cout << "EXCEPTION!: " << e.what() << std::endl;
-		}
-
-	}	
-	
 
 	std::string name = request.get("name","vacio");
 	replace_not_null(root,name,"user","name");
@@ -142,8 +116,7 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 
 	std::string profile_photo = request.get("profile_photo","vacio");
 	replace_not_null(root,profile_photo,"user","profile_photo");
-
-	std::cout<<root<<std::endl;	
+	
 	std::ostringstream convertidor;
 	convertidor<<root;
 	database_handler_->write("user-"+user,convertidor.str());
