@@ -4,9 +4,7 @@
 
 #include <json/json.h>
 
-
 #include "md5.h"
-
 
 ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_handler_(database_handler),
 		SALT("46995e90c43683a2fe66f3202b81b753"),
@@ -51,6 +49,9 @@ void ApiJsonController::setup() {
 
 	registerRoute("GET", "/job_positions",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::job_positions));
+
+	registerRoute("GET", "/categories",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::categories));
 
 	registerRoute("GET", "/my_profile",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::my_profile));
@@ -145,7 +146,7 @@ void ApiJsonController::job_positions(Mongoose::Request &request, Mongoose::Json
 		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	HerokuService service("https://guarded-sands-84788.herokuapp.com/job_positions", "job_positions");
+	HerokuService service("https://guarded-sands-84788.herokuapp.com", "job_positions");
 	service.overload_response(response);
 }
 
@@ -155,7 +156,7 @@ void ApiJsonController::categories(Mongoose::Request &request, Mongoose::JsonRes
 		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	HerokuService service("https://guarded-sands-84788.herokuapp.com/job_positions", "categories");
+	HerokuService service("https://guarded-sands-84788.herokuapp.com", "categories");
 	service.overload_response(response);
 }
 

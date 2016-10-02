@@ -1,6 +1,7 @@
 #ifndef APP_SERVER_HEROKUSERVICE_H
 #define APP_SERVER_HEROKUSERVICE_H
 
+#include <mongoose/JsonController.h>
 #include <string>
 
 class HerokuService {

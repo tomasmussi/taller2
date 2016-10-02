@@ -18,7 +18,7 @@ HerokuService::~HerokuService() {
 
 
 void HerokuService::overload_response(Mongoose::JsonResponse &response) {
-	curlpp::options::Url myUrl(url_ + service_name);
+	curlpp::options::Url myUrl(url_ + "/" + service_name_);
 	curlpp::Easy myRequest;
 	myRequest.setOpt(myUrl);
 
@@ -30,7 +30,6 @@ void HerokuService::overload_response(Mongoose::JsonResponse &response) {
 	myRequest.perform();
 
 	os << myRequest;
-	Json::Value root;
 	Json::Reader reader;
 	reader.parse(os.str(), response);
 }
