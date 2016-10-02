@@ -159,7 +159,10 @@ void ApiJsonController::job_positions(Mongoose::Request &request, Mongoose::Json
 	// There is some shorcut within curlpp that allow you to write shorter code
 	// like this:
 	os << myRequest;
-	response["data"] = os.str();
+	Json::Value root;
+	Json::Reader reader;
+	// Creo que esto funciona de pedo...
+	reader.parse(os.str(), response);
 }
 
 void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response) {
