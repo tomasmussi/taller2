@@ -29,11 +29,14 @@ void ApiJsonController::load_users() {
 	// std::cout << "value: " << value << std::endl;
 	Json::Value root;
 	Json::Reader reader;
-	reader.parse(value, root);
+	reader.parse(value, root);		
 	for (unsigned int i = 0; i < root["users"].size(); i++) {
 		std::string key = root["users"][i].getMemberNames()[0];
+		std::cout<<key<<" ";
 		users_[key] = root["users"][i][key].asString();
+		std::cout<<users_[key]<<std::endl;
 	}
+	
 }
 
 void ApiJsonController::setup() {
@@ -45,6 +48,7 @@ void ApiJsonController::setup() {
 
 	registerRoute("GET", "/login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::login));
+	
 	registerRoute("GET", "/logout",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::logout));
 
@@ -59,17 +63,37 @@ void ApiJsonController::setup() {
 
 	registerRoute("GET", "/fb_login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::fb_login));
+	
 	registerRoute("POST", "/edit",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::edit));
-	registerRoute("POST", "/new_user",
+	
+	registerRoute("PUT", "/new_user",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::new_user));
 }
 
 void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	//response[message]="hola";
+	std::string user =  request.get("fb_id","");	
+	std::string key = "user-" + user;
+	std::string value = database_handler_->read("users");
+	if (value.empty()) {
+		return ;
+	}	
+	
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(value, root);	
+	Json::Value newUser;
+	newUser[key] = request.get("name","");
+	root["users"].append(newUser);
+	std::ostringstream convertidor;
+	convertidor<<root;
+	database_handler_->write("users", convertidor.str());	
+
+	load_users();
 }
 
 void ApiJsonController::replace_not_null(Json::Value & root, std::string & value, std::string campo1, std::string campo2){
+	std::cout<<value;	
 	if (value != "vacio"){
 		root[campo1][campo2] = value;
 	}
@@ -82,67 +106,40 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 		return;
 	}	
 	std::string user = user_tokens_[request.get("token", "")];
-	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
-		std::cout << it->first << " = " << it->second << std::endl;
-	}
-
-	//TODO (eze) reemplazar solo los campos que se envían en el request
 
 	std::string user_data_json = database_handler_->read("user-" + user);
 
 	Json::Value root;
 	Json::Reader reader;
 	reader.parse(user_data_json, root);
-	for (unsigned int i = 0; i < root["user"].getMemberNames().size(); i++) {
-		std::string key = root["user"].getMemberNames()[i];
-		try {
-			if (key.compare("skills") == 0) {
-				for (unsigned int j = 0; j < root["user"][key].size(); j++ ) {
-					response["data"]["user"][key][j] = root["user"][key][j].asInt();
-				}
-			} else {
-				std::string value = root["user"][key].asString();
-				if (key.compare("pass") != 0) {
-					response["data"]["user"][key] = value;
-				}
-			}
-
-		} catch (std::exception e) {
-			// Se esta lanzando una exception por los skills...
-			std::cout << "EXCEPTION!: " << e.what() << std::endl;
-		}
-
-	}	
-	
 
 	std::string name = request.get("name","vacio");
 	replace_not_null(root,name,"user","name");
 
 	std::string email = request.get("email","vacio");
-	replace_not_null(root,name,"user","email");
+	replace_not_null(root,email,"user","email");
 
 	std::string pass =  request.get("pass","vacio");
-	replace_not_null(root,name,"user","pass");
+	replace_not_null(root,pass,"user","pass");
 
 	std::string dob = request.get("dob","vacio");
-	replaceNotNull(root,name,"user","dob");
+	replace_not_null(root,dob,"user","dob");
 
 	std::string city = request.get("city","vacio");
-	replaceNotNull(root,name,"user","city");
+	replace_not_null(root,city,"user","city");
 
 	std::string summary = request.get("summary","vacio");
-	replaceNotNull(root,name,"user","summary");
+	replace_not_null(root,summary,"user","summary");
 
 	std::string skills = request.get("skills","vacio");
-	replaceNotNull(root,name,"user","skills");
+	replace_not_null(root,skills,"user","skills");
 
 	std::string contacts = request.get("contacts","vacio");
-	replaceNotNull(root,name,"user","contacts");
+	replace_not_null(root,contacts,"user","contacts");
 
 	std::string profile_photo = request.get("profile_photo","vacio");
-	replaceNotNull(root,name,"user","profile_photo");
-
-	std::cout<<root<<std::endl;	
+	replace_not_null(root,profile_photo,"user","profile_photo");
+	
 	std::ostringstream convertidor;
 	convertidor<<root;
 	database_handler_->write("user-"+user,convertidor.str());
