@@ -58,6 +58,9 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/categories",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::categories));
 
+	registerRoute("GET", "/skills",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::skills));
+
 	registerRoute("GET", "/my_profile",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::my_profile));
 
@@ -276,7 +279,16 @@ void ApiJsonController::categories(Mongoose::Request &request, Mongoose::JsonRes
 	}
 	HerokuService service("https://guarded-sands-84788.herokuapp.com", "categories");
 	service.overload_response(response);
+}
 
+void ApiJsonController::skills(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	if (!is_user_logged(request)) {
+		response["errors"]["status"] = "ERROR";
+		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
+		return;
+	}
+	HerokuService service("https://guarded-sands-84788.herokuapp.com", "skills");
+	service.overload_response(response);
 }
 
 void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response) {
