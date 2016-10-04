@@ -18,6 +18,7 @@ void handle_signal(int sig) {
 	}
 }
 
+
 int main() {
 	int t;
 	t = time(NULL);
@@ -45,3 +46,4 @@ int main() {
 	server.stop();
 	return EXIT_SUCCESS;
 }
+
