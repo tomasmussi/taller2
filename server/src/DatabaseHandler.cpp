@@ -5,13 +5,11 @@
 DatabaseHandler::DatabaseHandler() :
 		database_name_("testdb"), database_(NULL), options_() {
 
-	std::cout << "construyendo singleton handler" << std::endl;
 	options_.create_if_missing = true;
 	leveldb::Status status = leveldb::DB::Open(options_, database_name_, &database_);
 }
 
 DatabaseHandler::~DatabaseHandler() {
-	std::cout << "destruyendo database handler" << std::endl;
 	delete database_;
 }
 
