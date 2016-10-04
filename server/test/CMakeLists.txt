@@ -6,8 +6,8 @@ find_package(Threads REQUIRED)
 INCLUDE_DIRECTORIES(${server_SOURCE_DIR}/src)
 set(SOURCES
         test.cpp
-				../src/DatabaseHandler.h
-				../src/DatabaseHandler.cpp
+		../src/DatabaseHandler.h
+		../src/DatabaseHandler.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
@@ -26,6 +26,6 @@ target_link_libraries (${PROJECT_NAME} gtest)
 target_link_libraries (${PROJECT_NAME} pthread)
 target_link_libraries (${PROJECT_NAME} leveldb)
 target_link_libraries (${PROJECT_NAME} jsoncpp)
-#target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
-#target_link_libraries (${PROJECT_NAME} mongoose)
-#target_link_libraries (${PROJECT_NAME} leveldb)
+target_link_libraries (${PROJECT_NAME} server_sources)
+target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries (${PROJECT_NAME} mongoose)

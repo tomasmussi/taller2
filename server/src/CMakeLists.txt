@@ -9,6 +9,8 @@ set(SOURCES
 		HerokuService.cpp
 		LinkedinWebController.h
 		LinkedinWebController.cpp
+		User.h
+		User.cpp
 		base64.h
 		base64.cpp
 		md5.h
@@ -16,7 +18,8 @@ set(SOURCES
         main.cpp
 )
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -fprofile-arcs -ftest-coverage -Wall")
+#set(CMAKE_CXX_FLAGS "-std=c++11 -fprofile-arcs -ftest-coverage -Wall")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
 #set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra -Wconversion -Wtype-limits -pedantic -pedantic-errors")
 
 # Generar el ejecutable
@@ -28,6 +31,8 @@ add_dependencies (${PROJECT_NAME} mongoose)
 # Includes a realizar para el proyecto (-I/home/pepe/etc/)
 include_directories ("${PROJECT_SOURCE_DIR}/mongoose-cpp")
 #include_directories ("${PROJECT_SOURCE_DIR}/curlpp/include")
+
+add_library (server_sources ${SOURCES})
 
 # Linkear contra bibliotecas
 target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})

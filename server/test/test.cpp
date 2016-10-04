@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "DatabaseHandler.h"
+#include "User.h"
 #include <string>
 
 TEST(DBTEST, WriteAndRead) {
@@ -11,6 +12,12 @@ TEST(DBTEST, WriteAndRead) {
 
 TEST(Gtest, Test1Equals0) {
 	EXPECT_EQ(1,1);
+}
+
+TEST(UserTest, ConstructFromString) {
+	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	User tomas(user);
+	EXPECT_EQ(tomas.get_email(), "tomasmussi@gmail.com");
 }
 
 int main(int argc, char **argv) {
