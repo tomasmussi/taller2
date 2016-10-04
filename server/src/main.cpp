@@ -4,8 +4,6 @@
 #include <signal.h>
 #include <mongoose/Server.h>
 
-#include "DBHandler.h"
-#include "LinkedinWebController.h"
 #include "ApiJsonController.h"
 
 volatile static bool running = true;
@@ -25,19 +23,14 @@ int main() {
 	srand(t);
 
 	signal(SIGINT, handle_signal);
-	DBHandler database_handler("testdb");
-	// database_handler.test_write();
-	// LinkedinWebController link_web_controller;
-	ApiJsonController json(&database_handler);
+	ApiJsonController json;
 
 	Mongoose::Server server(8080);
-	// server.registerController(&link_web_controller);
 	server.registerController(&json);
 	server.setOption("enable_directory_listing", "false");
 	server.start();
 
 	std::cout << "Server started, routes:" << std::endl;
-	// link_web_controller.dumpRoutes();
 	json.dumpRoutes();
 
 	while (running) {

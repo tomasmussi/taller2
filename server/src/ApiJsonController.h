@@ -2,12 +2,9 @@
 #define APP_SERVER_APIJSONCONTROLLER_H
 
 #include <mongoose/JsonController.h>
-#include "DBHandler.h"
 
 class ApiJsonController : public Mongoose::JsonController {
 	private:
-		/* Database connection to leveldb */
-		DBHandler *database_handler_;
 		const std::string SALT;
 		const std::string API_SEC_KEY;
 		std::map<std::string, std::string> user_tokens_;
@@ -26,7 +23,7 @@ class ApiJsonController : public Mongoose::JsonController {
 		bool _login(std::string user, std::string pass);
 
 	public:
-		ApiJsonController(DBHandler *database_handler);
+		ApiJsonController();
 		~ApiJsonController();
 		virtual void setup();
 		/* HEROKU curl*/
