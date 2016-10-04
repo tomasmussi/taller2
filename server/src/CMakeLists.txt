@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 2.6)
 set(SOURCES
 		ApiJsonController.h
 		ApiJsonController.cpp
-		DBHandler.h
-		DBHandler.cpp
 		DatabaseHandler.h
 		DatabaseHandler.cpp
 		HerokuService.h

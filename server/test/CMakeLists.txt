@@ -6,8 +6,8 @@ find_package(Threads REQUIRED)
 INCLUDE_DIRECTORIES(${server_SOURCE_DIR}/src)
 set(SOURCES
         test.cpp
-				../src/DBHandler.h
-				../src/DBHandler.cpp
+				../src/DatabaseHandler.h
+				../src/DatabaseHandler.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11")

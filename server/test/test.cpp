@@ -1,12 +1,11 @@
 #include <gtest/gtest.h>
-#include "DBHandler.h"
+#include "DatabaseHandler.h"
 #include <string>
 
 TEST(DBTEST, WriteAndRead) {
-	DBHandler db("prueba");
 	std::string padron("91985");
-	db.write("padron_eze","91985");
-	std::string result = db.read("padron_eze");
+	DatabaseHandler::get_instance().write("padron_eze","91985");
+	std::string result = DatabaseHandler::get_instance().read("padron_eze");
 	EXPECT_EQ(result,padron);
 }
 
