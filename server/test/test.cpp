@@ -18,6 +18,11 @@ TEST(UserTest, ConstructFromString) {
 	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
 	User tomas(user);
 	EXPECT_EQ(tomas.get_email(), "tomasmussi@gmail.com");
+	EXPECT_EQ(tomas.get_name(), "Tomas Mussi");
+	EXPECT_EQ(tomas.get_dob(), "11/07/1991");
+	EXPECT_EQ(tomas.get_city(), "Ciudad de Buenos Aires");
+	EXPECT_EQ(tomas.get_summary(), "Estudiante de ingenieria informatica de la UBA.");
+	EXPECT_EQ(tomas.get_profile_photo(), "QURQIEdtYkgK...dHVuZw==");
 }
 
 int main(int argc, char **argv) {
