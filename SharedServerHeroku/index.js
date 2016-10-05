@@ -40,6 +40,7 @@ app.get('/', function(request, response) {
 });
 
 app.get('/job_positions',db.getAllJobPositions);
+app.get('/job_positions/categories/:name',db.getAllJobPositionsByCategory);
 app.get('/categories',db.getAllCategories);
 app.get('/skills',db.getAllSkills);
 
