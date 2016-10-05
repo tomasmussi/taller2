@@ -11,6 +11,8 @@ set(SOURCES
 		LinkedinWebController.cpp
 		User.h
 		User.cpp
+		UserHandler.h
+		UserHandler.cpp
 		base64.h
 		base64.cpp
 		md5.h

@@ -8,7 +8,6 @@ class ApiJsonController : public Mongoose::JsonController {
 		const std::string SALT;
 		const std::string API_SEC_KEY;
 		std::map<std::string, std::string> user_tokens_;
-		std::map<std::string, std::string> users_;
 
 		/* Loads existing users from database */
 		void load_users();

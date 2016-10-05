@@ -1,6 +1,7 @@
 #include "ApiJsonController.h"
 #include "DatabaseHandler.h"
 #include "HerokuService.h"
+#include "UserHandler.h"
 #include "User.h"
 
 #include <json/json.h>
@@ -10,33 +11,16 @@
 
 ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
-		user_tokens_(),
-		users_() {
+		user_tokens_() {
 	std::string key = "users";
 	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
-	DatabaseHandler::get_instance().write(key, "{\"users\":[{\"user-tomasmussi\":\"tomas\"},{\"user-luis\":\"luis\"}]}");
+	DatabaseHandler::get_instance().write(key, "{\"users\":[ \"user-tomasmussi\", \"user-luis\"]}");
 	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
 	DatabaseHandler::get_instance().write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
 	DatabaseHandler::get_instance().write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-	load_users();
 }
 
 ApiJsonController::~ApiJsonController() {
-}
-
-void ApiJsonController::load_users() {
-	std::string value = DatabaseHandler::get_instance().read("users");
-	// std::cout << "value: " << value << std::endl;
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(value, root);
-	for (unsigned int i = 0; i < root["users"].size(); i++) {
-		std::string key = root["users"][i].getMemberNames()[0];
-		std::cout<<key<<" ";
-		users_[key] = root["users"][i][key].asString();
-		std::cout<<users_[key]<<std::endl;
-	}
-
 }
 
 void ApiJsonController::setup() {
@@ -93,7 +77,6 @@ void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonRespo
 	std::ostringstream convertidor;
 	convertidor << root;
 	DatabaseHandler::get_instance().write("users", convertidor.str());
-	load_users();
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
 	Json::Value data;
@@ -306,18 +289,14 @@ void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonRes
 		response["errors"].append(errors);
 		return;
 	}
-	std::string user = user_tokens_[request.get("token", "")];
-	// std::cout << "users..." << std::endl;
-	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
-		std::cout << it->first << " = " << it->second << std::endl;
+	std::string user_name = user_tokens_[request.get("token", "")];
+	if (UserHandler::get_instance().user_exists(user_name)) {
+		User user = UserHandler::get_instance().get_user(user_name);
+		Json::Value root;
+		Json::Reader reader;
+		reader.parse(user.serialize(), root);
+		response["data"].append(root);
 	}
-	// std::cout << "looking for user: " << user << std::endl;
-	std::string user_data_json = DatabaseHandler::get_instance().read("user-" + user);
-
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(user_data_json, root);
-	response["data"].append(root);
 }
 
 void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonResponse &response) {
