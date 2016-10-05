@@ -44,6 +44,17 @@ TEST(UserTest, SerializeToJson) {
 	EXPECT_EQ(tomas.serialize(), expected);
 }
 
+TEST(UserTest, ConstructFromStringWithEmptyProperties) {
+	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	User tomas(user);
+	EXPECT_EQ(tomas.get_email(), "tomasmussi@gmail.com");
+	EXPECT_EQ(tomas.get_name(), "Tomas Mussi");
+	EXPECT_EQ(tomas.get_dob(), "");
+	EXPECT_EQ(tomas.get_city(), "");
+	EXPECT_EQ(tomas.get_summary(), "");
+	EXPECT_EQ(tomas.get_profile_photo(), "QURQIEdtYkgK...dHVuZw==");
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest( &argc, argv );
     return RUN_ALL_TESTS();
