@@ -15,6 +15,10 @@ TEST(DatabaseHandler, WriteAndRead) {
 	EXPECT_EQ(DatabaseHandler::get_instance().read(clave), "new-value");
 }
 
+TEST(DatabaseHandler, ReadInvalidKeyReturnsEmpty) {
+	EXPECT_EQ(DatabaseHandler::get_instance().read("asgasgjhasgjhgajh"), "");
+}
+
 TEST(UserTest, ConstructFromString) {
 	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
 	User tomas(user);
