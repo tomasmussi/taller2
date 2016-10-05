@@ -28,6 +28,8 @@ public:
 
 	bool user_exists(std::string user_name);
 
+	void create_user(std::string fb_id);
+
 	User get_user(std::string user_name);
 };
 

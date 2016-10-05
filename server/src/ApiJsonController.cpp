@@ -18,6 +18,8 @@ ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"
 	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
 	DatabaseHandler::get_instance().write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
 	DatabaseHandler::get_instance().write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
+
+	DatabaseHandler::get_instance().delete_key("user-a-fb-id");
 }
 
 ApiJsonController::~ApiJsonController() {
@@ -311,7 +313,16 @@ void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonRespo
 		response["errors"].append(errors);
 		return;
 	}
-	// TODO(tomas) recordar validar que no esten vacios
+	if (fb_user_id.empty()) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Facebook user ID invalido";
+		response["errors"].append(errors);
+		return;
+	}
+	if (! UserHandler::get_instance().user_exists(fb_user_id)) {
+		UserHandler::get_instance().create_user(fb_user_id);
+	}
 	std::string token = md5(fb_user_id + SALT);
 	user_tokens_[token] = fb_user_id;
 	Json::Value data;

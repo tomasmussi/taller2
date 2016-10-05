@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "DatabaseHandler.h"
+#include "UserHandler.h"
 #include "User.h"
 #include <string>
 
@@ -57,6 +58,14 @@ TEST(UserTest, ConstructFromStringWithEmptyProperties) {
 	EXPECT_EQ(tomas.get_city(), "");
 	EXPECT_EQ(tomas.get_summary(), "");
 	EXPECT_EQ(tomas.get_profile_photo(), "QURQIEdtYkgK...dHVuZw==");
+}
+
+
+TEST(UserHandlerTest, createUser) {
+	std::string user_key = "a-fb-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	EXPECT_TRUE(UserHandler::get_instance().user_exists(user_key));
 }
 
 int main(int argc, char **argv) {
