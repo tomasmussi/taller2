@@ -2,9 +2,7 @@
 
 #include <json/json.h>
 #include <string>
-
-User::User() {
-}
+#include <sstream>
 
 /* Construct User from string parsed as JSON
  * JSON format is:
@@ -37,7 +35,23 @@ User::User(std::string json_value) {
 	profile_photo_ = root["user"]["profile_photo"].asString();
 }
 
+User::User() {
+}
+
 User::~User() {
+}
+
+std::string User::serialize() {
+	Json::Value root;
+	root["user"]["email"] = email_;
+	root["user"]["name"] = name_;
+	root["user"]["dob"] = dob_;
+	root["user"]["city"] = city_;
+	root["user"]["summary"] = summary_;
+	root["user"]["profile_photo"] = profile_photo_;
+	std::ostringstream os;
+	os << root;
+	return os.str();
 }
 
 

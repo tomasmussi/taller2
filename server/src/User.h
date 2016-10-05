@@ -12,9 +12,12 @@ private:
 	std::string summary_;
 	std::string profile_photo_;
 public:
-	User();
 	User(std::string json_value);
+	User();
 	~User();
+
+	/* Serialize for sending as JSON */
+	std::string serialize();
 
 	std::string get_email();
 	std::string get_name();
