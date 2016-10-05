@@ -1,2 +1,4 @@
 build
-SharedServerHeroku/logs
+SharedServerHeroku/test/api/*.pyc
+SharedServerHeroku/test/api/*.pyc
+
