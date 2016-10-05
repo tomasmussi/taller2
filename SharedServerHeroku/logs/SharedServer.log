@@ -1,3 +1,85 @@
 {"level":"info","message":"Ingresando a index.js","timestamp":"2016-09-06T00:35:52.043Z"}
 {"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-09-06T00:35:53.588Z"}
 {"level":"info","message":"Respuesta OK: [{\"name\":\"developer\",\"category\":\"software\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"category\":\"Persona encargada de manejar el proyecto\",\"description\":\"software\"},{\"name\":\"dj\",\"category\":\"Persona que selecciona y mezcla música\",\"description\":\"music\"}]","timestamp":"2016-09-06T00:35:53.630Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:20:35.219Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:20:35.435Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-04T14:20:44.658Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"c\",\"description\":\"Programacion en C\",\"category\":\"software\"},{\"name\":\"c++\",\"description\":\"Programacion en C++\",\"category\":\"software\"},{\"name\":\"java\",\"description\":\"Programacion en java\",\"category\":\"software\"},{\"name\":\"guitarra\",\"description\":\"Manejo de guitarra\",\"category\":\"musica\"},{\"name\":\"pincel\",\"description\":\"pintar con temperas\",\"category\":\"pintura\"}]","timestamp":"2016-10-04T14:20:44.685Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-04T14:21:21.015Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-04T14:21:21.087Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-04T14:24:59.441Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-04T14:24:59.487Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:25:03.832Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:25:08.248Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:25:08.257Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:26:50.247Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:26:51.993Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:26:52.034Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:27:24.650Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:27:26.706Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:27:26.748Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:29:13.311Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:29:15.388Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:29:15.419Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:30:12.330Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:30:15.700Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:30:15.739Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:30:43.820Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:30:52.246Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:30:52.302Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:31:45.100Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:31:45.151Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:32:41.769Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:32:44.484Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:32:44.512Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:32:59.569Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:33:03.167Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:33:03.194Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:34:08.174Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:34:10.129Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:34:10.160Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:37:06.470Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:37:08.689Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:37:08.729Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-04T14:37:37.223Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-04T14:37:37.229Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-04T14:42:54.626Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-04T14:42:54.652Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:42:57.393Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:42:59.940Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:42:59.950Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:44:28.653Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T14:44:30.950Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T14:44:30.984Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:57:15.484Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T14:58:22.457Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T15:00:50.769Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T15:00:50.831Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-04T15:01:07.940Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-04T15:01:07.950Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T15:01:57.876Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T15:02:04.889Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-04T15:02:04.912Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T15:02:04.980Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-04T15:02:05.054Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-04T15:03:29.677Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-04T15:03:38.241Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-04T15:03:38.273Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-04T15:03:38.295Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-04T15:03:38.329Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-05T01:16:49.815Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-05T01:16:52.717Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-05T01:16:52.843Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-05T01:16:53.072Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-05T01:16:53.082Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-05T01:17:08.521Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"c\",\"description\":\"Programacion en C\",\"category\":\"software\"},{\"name\":\"c++\",\"description\":\"Programacion en C++\",\"category\":\"software\"},{\"name\":\"java\",\"description\":\"Programacion en java\",\"category\":\"software\"},{\"name\":\"guitarra\",\"description\":\"Manejo de guitarra\",\"category\":\"musica\"},{\"name\":\"pincel\",\"description\":\"pintar con temperas\",\"category\":\"pintura\"}]","timestamp":"2016-10-05T01:17:08.570Z"}
+{"level":"info","message":"Ingresando a index.js","timestamp":"2016-10-05T01:24:11.156Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-05T01:24:12.988Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-05T01:24:13.022Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-05T01:24:13.043Z"}
+{"level":"info","message":"Funcion getAllCategories","timestamp":"2016-10-05T01:24:13.053Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"software\",\"description\":\"Desarrollo de software\"},{\"name\":\"musica\",\"description\":\"Composicion de musica\"},{\"name\":\"pintura\",\"description\":\"Composicion de obras de arte\"}]","timestamp":"2016-10-05T01:24:13.071Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"c\",\"description\":\"Programacion en C\",\"category\":\"software\"},{\"name\":\"c++\",\"description\":\"Programacion en C++\",\"category\":\"software\"},{\"name\":\"java\",\"description\":\"Programacion en java\",\"category\":\"software\"},{\"name\":\"guitarra\",\"description\":\"Manejo de guitarra\",\"category\":\"musica\"},{\"name\":\"pincel\",\"description\":\"pintar con temperas\",\"category\":\"pintura\"}]","timestamp":"2016-10-05T01:24:13.087Z"}
+{"level":"info","message":"Funcion getAllJobPositions","timestamp":"2016-10-05T01:24:36.433Z"}
+{"level":"info","message":"Respuesta OK: [{\"name\":\"developer front end\",\"description\":\"Desarrollador\"},{\"name\":\"project manager\",\"description\":\"Persona encargada de manejar un proyecto\"},{\"name\":\"dj\",\"description\":\"Persona que selecciona y mezcla música\"}]","timestamp":"2016-10-05T01:24:36.449Z"}
