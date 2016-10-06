@@ -68,7 +68,7 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/fb_login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::fb_login));
 
-	registerRoute("POST", "/edit",
+	registerRoute("GET", "/edit",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::edit));
 
 	registerRoute("PUT", "/new_user",

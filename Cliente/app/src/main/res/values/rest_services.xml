@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Seteo de usuario y contraseña a mano ( la password es una muerte) Eliminar antes de hacer el merge-->
+    <string name="testing_user_email">admin@admin.com</string>
+    <string name="api_hash">85d8b4ccd607dde1753fa9293d694c03</string>
+   
+</resources>
