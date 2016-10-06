@@ -45,11 +45,14 @@ class ApiJsonController : public Mongoose::JsonController {
 		/* Heroku derived web service */
 		void categories(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		/* Heroku derived web service */
+		void skills(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 		void my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void fb_login(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
-		void edit(Mongoose::Request &request, Mongoose::JsonResponse &response); 
+		void edit(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void new_user(Mongoose::Request &request, Mongoose::JsonResponse &response);
 

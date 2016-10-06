@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.fiuba.taller2.activities.MyProfileActivity"
+    android:descendantFocusability="beforeDescendants">
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|bottom"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/background_course_choose"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:background="@color/shadowColor">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/imageView" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/nameOfUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@color/colorPrimary"
+                android:padding="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:text="Nombre y apellido"
+                android:textSize="18sp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/white"
+                android:layout_marginLeft="@dimen/card_margin_horizontal"
+                android:layout_marginRight="@dimen/card_margin_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/email"
+                tools:text="Email"
+                android:textSize="18sp"
+                android:layout_weight="0.04"
+                android:textAlignment="center" />
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ciudad"
+                tools:text="Ciudad"
+                android:textSize="18sp"
+                android:layout_weight="0.04"
+                android:textAlignment="center" />
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fechanac"
+                tools:text="FechaNacimiento"
+                android:textSize="18sp"
+                android:layout_weight="0.04"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textview_unidades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:text="Jobs"
+                android:textSize="15dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/card_margin_horizontal"
+                android:layout_marginRight="@dimen/card_margin_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textAlignment="center" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_units"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:layout_marginLeft="@dimen/card_margin_horizontal"
+                android:layout_marginRight="@dimen/card_margin_horizontal"
+                />
+
+            <TextView
+                android:id="@+id/textview_personal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:text="Skills"
+                android:textSize="15dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/card_margin_horizontal"
+                android:layout_marginRight="@dimen/card_margin_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textAlignment="center" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_professors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:layout_marginLeft="@dimen/card_margin_horizontal"
+                android:layout_marginRight="@dimen/card_margin_horizontal"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center|bottom"
+            android:orientation="vertical"
+            android:layout_below="@id/recycler_view_professors">
+
+
+            <Button
+                android:id="@+id/button_editar"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:text="Editar Perfil"
+                android:textColor="#ffffff"
+                android:backgroundTint="#3146cc"
+                android:onClick="editar"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
