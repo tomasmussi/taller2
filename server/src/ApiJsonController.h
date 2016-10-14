@@ -52,7 +52,6 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void new_user(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
-		void replace_not_null(Json::Value & root, std::string & value, std::string campo1, std::string campo2);
 };
 
 

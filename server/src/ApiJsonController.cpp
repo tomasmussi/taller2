@@ -87,12 +87,6 @@ void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonRespo
 	response["data"].append(data);
 }
 
-void ApiJsonController::replace_not_null(Json::Value & root, std::string & value, std::string campo1, std::string campo2){
-	if (value != "vacio"){
-		root[campo1][campo2] = value;
-	}
-}
-
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
@@ -104,44 +98,15 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 		response["errors"].append(errors);
 		return;
 	}
-	std::string user = user_tokens_[request.get("token", "")];
+	User user = UserHandler::get_instance().get_user(user_tokens_[request.get("token", "")]);
+	user.replace_not_null("name", request.get("name","empty"));
+	user.replace_not_null("email", request.get("email","empty"));
+	user.replace_not_null("dob", request.get("dob","empty"));
+	user.replace_not_null("city", request.get("city","empty"));
+	user.replace_not_null("summary", request.get("summary","empty"));
+	user.replace_not_null("profile_photo", request.get("profile_photo","empty"));
 
-	std::string user_data_json = DatabaseHandler::get_instance().read("user-" + user);
-
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(user_data_json, root);
-
-	std::string name = request.get("name","vacio");
-	replace_not_null(root,name,"user","name");
-
-	std::string email = request.get("email","vacio");
-	replace_not_null(root,email,"user","email");
-
-	std::string pass =  request.get("pass","vacio");
-	replace_not_null(root,pass,"user","pass");
-
-	std::string dob = request.get("dob","vacio");
-	replace_not_null(root,dob,"user","dob");
-
-	std::string city = request.get("city","vacio");
-	replace_not_null(root,city,"user","city");
-
-	std::string summary = request.get("summary","vacio");
-	replace_not_null(root,summary,"user","summary");
-
-	std::string skills = request.get("skills","vacio");
-	replace_not_null(root,skills,"user","skills");
-
-	std::string contacts = request.get("contacts","vacio");
-	replace_not_null(root,contacts,"user","contacts");
-
-	std::string profile_photo = request.get("profile_photo","vacio");
-	replace_not_null(root,profile_photo,"user","profile_photo");
-
-	std::ostringstream convertidor;
-	convertidor<<root;
-	DatabaseHandler::get_instance().write("user-"+user,convertidor.str());
+	UserHandler::get_instance().save_user(user);
 	Json::Value data;
 	data["status"] = "OK";
 	data["message"] = "Usuario modificado existosamente";

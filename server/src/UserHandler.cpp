@@ -49,3 +49,9 @@ User UserHandler::get_user(std::string user_name) {
 	std::string user_data_json = DatabaseHandler::get_instance().read("user-" + user_name);
 	return User(user_data_json);
 }
+
+void UserHandler::save_user(User &user) {
+
+}
+
+

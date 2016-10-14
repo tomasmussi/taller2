@@ -31,6 +31,9 @@ public:
 	void create_user(std::string fb_id);
 
 	User get_user(std::string user_name);
+
+	void save_user(User &user);
+
 };
 
 

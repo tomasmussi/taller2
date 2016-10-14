@@ -25,6 +25,9 @@ public:
 	std::string get_city();
 	std::string get_summary();
 	std::string get_profile_photo();
+
+	void replace_not_null(std::string field, std::string value);
+
 };
 
 

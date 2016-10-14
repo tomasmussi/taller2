@@ -52,6 +52,20 @@ TEST(UserTest, SerializeToJson) {
 TEST(UserTest, ConstructFromStringWithEmptyProperties) {
 	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
 	User tomas(user);
+	tomas.replace_not_null("email", "newmail@dom.com");
+	EXPECT_EQ(tomas.get_email(), "newmail@dom.com");
+
+	tomas.replace_not_null("name", "Juan Pablo");
+	EXPECT_EQ(tomas.get_name(), "Juan Pablo");
+
+	EXPECT_EQ(tomas.get_dob(), "");
+	tomas.replace_not_null("dob", "12/08/1992");
+	EXPECT_EQ(tomas.get_dob(), "12/08/1992");
+}
+
+TEST(UserTest, EditCertainField) {
+	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	User tomas(user);
 	EXPECT_EQ(tomas.get_email(), "tomasmussi@gmail.com");
 	EXPECT_EQ(tomas.get_name(), "Tomas Mussi");
 	EXPECT_EQ(tomas.get_dob(), "");

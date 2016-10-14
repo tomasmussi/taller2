@@ -76,3 +76,27 @@ std::string User::get_profile_photo() {
 	return profile_photo_;
 }
 
+void User::replace_not_null(std::string field, std::string value) {
+	if (value.compare("empty") == 0) {
+		return;
+	}
+	if (field.compare("name") == 0) {
+		name_ = value;
+	}
+	if (field.compare("email") == 0) {
+		email_ = value;
+	}
+	if (field.compare("dob") == 0) {
+		dob_ = value;
+	}
+	if (field.compare("city") == 0) {
+		city_ = value;
+	}
+	if (field.compare("summary") == 0) {
+		summary_ = value;
+	}
+	if (field.compare("profile_photo") == 0) {
+		profile_photo_ = value;
+	}
+}
+
