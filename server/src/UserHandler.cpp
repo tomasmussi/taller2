@@ -52,6 +52,7 @@ User UserHandler::get_user(std::string user_name) {
 
 void UserHandler::save_user(User &user) {
 
+	DatabaseHandler::get_instance().write("user-" + user.id(), user.serialize(true));
 }
 
 

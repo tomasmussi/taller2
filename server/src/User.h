@@ -5,6 +5,7 @@
 
 class User {
 private:
+	std::string id_;
 	std::string email_;
 	std::string name_;
 	std::string dob_;
@@ -17,8 +18,9 @@ public:
 	~User();
 
 	/* Serialize for sending as JSON */
-	std::string serialize();
+	std::string serialize(bool include_id = false);
 
+	std::string id();
 	std::string get_email();
 	std::string get_name();
 	std::string get_dob();

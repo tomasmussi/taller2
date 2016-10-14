@@ -127,8 +127,6 @@ void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse
 	data["users"][0]["user-tomas"] = "tomas";
 	data["users"][1]["user-luis"] = "luis";
 	response["data"].append(data);
-
-
 	User tomas("{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
 	std::cout << tomas.serialize() << std::endl;
 

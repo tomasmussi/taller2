@@ -49,6 +49,25 @@ TEST(UserTest, SerializeToJson) {
 	EXPECT_EQ(tomas.serialize(), expected);
 }
 
+TEST(UserTest, SerializeToJsonWithId) {
+	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+
+	std::string expected = "{\n\
+	\"user\" : \n\
+	{\n\
+		\"city\" : \"Ciudad de Buenos Aires\",\n\
+		\"dob\" : \"11/07/1991\",\n\
+		\"email\" : \"tomasmussi@gmail.com\",\n\
+		\"fb_id\" : \"\",\n\
+		\"name\" : \"Tomas Mussi\",\n\
+		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
+		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
+	}\n\
+}";
+	User tomas(user);
+	EXPECT_EQ(tomas.serialize(true), expected);
+}
+
 TEST(UserTest, ConstructFromStringWithEmptyProperties) {
 	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
 	User tomas(user);

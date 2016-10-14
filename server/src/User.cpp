@@ -27,6 +27,7 @@ User::User(std::string json_value) {
 	Json::Value root;
 	Json::Reader reader;
 	reader.parse(json_value, root);
+	id_ = root["user"]["fb_id"].asString();
 	email_ = root["user"]["email"].asString();
 	name_ = root["user"]["name"].asString();
 	dob_ = root["user"]["dob"].asString();
@@ -41,8 +42,11 @@ User::User() {
 User::~User() {
 }
 
-std::string User::serialize() {
+std::string User::serialize(bool include_id) {
 	Json::Value root;
+	if (include_id) {
+		root["user"]["fb_id"] = id_;
+	}
 	root["user"]["email"] = email_;
 	root["user"]["name"] = name_;
 	root["user"]["dob"] = dob_;
@@ -54,6 +58,9 @@ std::string User::serialize() {
 	return os.str();
 }
 
+std::string User::id() {
+	return id_;
+}
 
 std::string User::get_email() {
 	return email_;
