@@ -30,6 +30,10 @@ public:
 
 	void replace_not_null(std::string field, std::string value);
 
+	void send_request(User &other_user);
+
+	int requests();
+
 };
 
 

@@ -52,6 +52,7 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void new_user(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		void add_contact(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 

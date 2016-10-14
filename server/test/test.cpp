@@ -93,6 +93,15 @@ TEST(UserTest, EditCertainField) {
 	EXPECT_EQ(tomas.get_profile_photo(), "QURQIEdtYkgK...dHVuZw==");
 }
 
+TEST(UserTest, UserSendRequest) {
+	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+	tomas.send_request(luis);
+	EXPECT_EQ(luis.requests(), 1);
+}
+
 
 TEST(UserHandlerTest, createUser) {
 	std::string user_key = "a-fb-user-id";

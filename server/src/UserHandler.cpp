@@ -51,8 +51,14 @@ User UserHandler::get_user(std::string user_name) {
 }
 
 void UserHandler::save_user(User &user) {
-
 	DatabaseHandler::get_instance().write("user-" + user.id(), user.serialize(true));
 }
 
+void UserHandler::send_request(std::string from_user, std::string to_user) {
+	User user_from = get_user(from_user);
+	User user_to = get_user(to_user);
+	user_from.send_request(user_to);
+	DatabaseHandler::get_instance().write("user-" + user_from.id(), user_from.serialize(true));
+	DatabaseHandler::get_instance().write("user-" + user_to.id(), user_to.serialize(true));
+}
 

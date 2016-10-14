@@ -107,3 +107,11 @@ void User::replace_not_null(std::string field, std::string value) {
 	}
 }
 
+void User::send_request(User &other_user) {
+
+}
+
+int User::requests() {
+	return 0;
+}
+

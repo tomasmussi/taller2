@@ -34,6 +34,8 @@ public:
 
 	void save_user(User &user);
 
+	void send_request(std::string from_user, std::string to_user);
+
 };
 
 
