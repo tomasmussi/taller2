@@ -36,6 +36,7 @@ public:
 
 	void send_request(std::string from_user, std::string to_user);
 
+	void accept_request(std::string from_user, std::string to_user);
 };
 
 

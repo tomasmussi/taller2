@@ -27,7 +27,7 @@
 	}
 	}
  */
-User::User(std::string json_value) : requests_() {
+User::User(std::string json_value) : requests_(), friends_() {
 	Json::Value root;
 	Json::Reader reader;
 	reader.parse(json_value, root);
@@ -49,11 +49,9 @@ User::User() {
 User::~User() {
 }
 
-std::string User::serialize(bool include_id) {
+std::string User::serialize() {
 	Json::Value root;
-	if (include_id) {
-		root["user"]["fb_id"] = id_;
-	}
+	root["user"]["contacts"] = friends_.size();
 	root["user"]["email"] = email_;
 	root["user"]["name"] = name_;
 	root["user"]["dob"] = dob_;
@@ -63,6 +61,28 @@ std::string User::serialize(bool include_id) {
 	unsigned int count = 0;
 	for (std::list<std::string>::iterator it = requests_.begin(); it != requests_.end(); ++it) {
 		root["user"]["requests"][count++] = (*it);
+	}
+	std::ostringstream os;
+	os << root;
+	return os.str();
+}
+
+std::string User::database_serialize() {
+	Json::Value root;
+	root["user"]["fb_id"] = id_;
+	root["user"]["email"] = email_;
+	root["user"]["name"] = name_;
+	root["user"]["dob"] = dob_;
+	root["user"]["city"] = city_;
+	root["user"]["summary"] = summary_;
+	root["user"]["profile_photo"] = profile_photo_;
+	root["user"]["requests"] = Json::Value(Json::arrayValue);
+	for (std::list<std::string>::iterator it = requests_.begin(); it != requests_.end(); ++it) {
+		root["user"]["requests"].append(*it);
+	}
+	root["user"]["friends"] = Json::Value(Json::arrayValue);
+	for (std::list<std::string>::iterator it = friends_.begin(); it != friends_.end(); ++it) {
+		root["user"]["friends"].append(*it);
 	}
 	std::ostringstream os;
 	os << root;
@@ -125,5 +145,11 @@ void User::send_request(User &other_user) {
 
 int User::requests() {
 	return requests_.size();
+}
+
+void User::accept_request(User &other_user) {
+	requests_.remove(other_user.id_);
+	friends_.push_back(other_user.id_);
+	other_user.friends_.push_back(id_);
 }
 

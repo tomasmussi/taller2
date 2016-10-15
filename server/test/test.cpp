@@ -38,6 +38,7 @@ TEST(UserTest, SerializeToJson) {
 	\"user\" : \n\
 	{\n\
 		\"city\" : \"Ciudad de Buenos Aires\",\n\
+		\"contacts\" : 0,\n\
 		\"dob\" : \"11/07/1991\",\n\
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"name\" : \"Tomas Mussi\",\n\
@@ -59,13 +60,15 @@ TEST(UserTest, SerializeToJsonWithId) {
 		\"dob\" : \"11/07/1991\",\n\
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"fb_id\" : \"\",\n\
+		\"friends\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
+		\"requests\" : [],\n\
 		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
 	}\n\
 }";
 	User tomas(user);
-	EXPECT_EQ(tomas.serialize(true), expected);
+	EXPECT_EQ(tomas.database_serialize(), expected);
 }
 
 TEST(UserTest, ConstructFromStringWithEmptyProperties) {
@@ -115,13 +118,38 @@ TEST(UserTest, UserSendRequestSerialization) {
 		\"dob\" : \"\",\n\
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"fb_id\" : \"\",\n\
+		\"friends\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
 		\"summary\" : \"\"\n\
 	}\n\
 }";
-	EXPECT_EQ(tomas.serialize(true), expected);
+	EXPECT_EQ(tomas.database_serialize(), expected);
+}
+
+TEST(UserTest, UserAcceptRequestSerialization) {
+	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"fb_id\" : \"luis-fb-id\"}";
+	User tomas(user);
+	User luis(user2);
+	luis.send_request(tomas);
+	tomas.accept_request(luis);
+	std::string expected = "{\n\
+	\"user\" : \n\
+	{\n\
+		\"city\" : \"\",\n\
+		\"dob\" : \"\",\n\
+		\"email\" : \"tomasmussi@gmail.com\",\n\
+		\"fb_id\" : \"\",\n\
+		\"friends\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
+		\"name\" : \"Tomas Mussi\",\n\
+		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
+		\"requests\" : [],\n\
+		\"summary\" : \"\"\n\
+	}\n\
+}";
+	EXPECT_EQ(tomas.database_serialize(), expected);
 }
 
 

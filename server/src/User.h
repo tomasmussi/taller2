@@ -15,13 +15,15 @@ private:
 	std::string profile_photo_;
 
 	std::list<std::string> requests_;
+	std::list<std::string> friends_;
 public:
 	User(std::string json_value);
 	User();
 	~User();
 
 	/* Serialize for sending as JSON */
-	std::string serialize(bool include_id = false);
+	std::string serialize();
+	std::string database_serialize();
 
 	std::string id();
 	std::string get_email();
@@ -33,9 +35,13 @@ public:
 
 	void replace_not_null(std::string field, std::string value);
 
+	/* Send a request to add contact to my contacts */
 	void send_request(User &other_user);
 
 	int requests();
+
+	/* Accept another user request */
+	void accept_request(User &other_user);
 
 };
 
