@@ -18,12 +18,16 @@
 			1,
 			2
 		],
+		"requests" : [
+			"fb_id_1",
+			"fb_id_2"
+		],
 		"contacts":4,
 		"profile_photo":"QURQIEdtYkgK...dHVuZw=="
 	}
 	}
  */
-User::User(std::string json_value) {
+User::User(std::string json_value) : requests_() {
 	Json::Value root;
 	Json::Reader reader;
 	reader.parse(json_value, root);
@@ -34,6 +38,9 @@ User::User(std::string json_value) {
 	city_ = root["user"]["city"].asString();
 	summary_ = root["user"]["summary"].asString();
 	profile_photo_ = root["user"]["profile_photo"].asString();
+	for (unsigned int i = 0; i < root["user"]["requests"].size(); i++) {
+		requests_.push_back(root["user"]["requests"][i].asString());
+	}
 }
 
 User::User() {
@@ -53,6 +60,10 @@ std::string User::serialize(bool include_id) {
 	root["user"]["city"] = city_;
 	root["user"]["summary"] = summary_;
 	root["user"]["profile_photo"] = profile_photo_;
+	unsigned int count = 0;
+	for (std::list<std::string>::iterator it = requests_.begin(); it != requests_.end(); ++it) {
+		root["user"]["requests"][count++] = (*it);
+	}
 	std::ostringstream os;
 	os << root;
 	return os.str();
@@ -108,10 +119,11 @@ void User::replace_not_null(std::string field, std::string value) {
 }
 
 void User::send_request(User &other_user) {
-
+	// requests_.push_back(other_user.id_);
+	other_user.requests_.push_back(this->id_);
 }
 
 int User::requests() {
-	return 0;
+	return requests_.size();
 }
 

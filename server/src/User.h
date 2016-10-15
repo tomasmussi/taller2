@@ -2,6 +2,7 @@
 #define APP_SERVER_USER_H
 
 #include <string>
+#include <list>
 
 class User {
 private:
@@ -12,6 +13,8 @@ private:
 	std::string city_;
 	std::string summary_;
 	std::string profile_photo_;
+
+	std::list<std::string> requests_;
 public:
 	User(std::string json_value);
 	User();

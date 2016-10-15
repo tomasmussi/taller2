@@ -102,6 +102,28 @@ TEST(UserTest, UserSendRequest) {
 	EXPECT_EQ(luis.requests(), 1);
 }
 
+TEST(UserTest, UserSendRequestSerialization) {
+	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"fb_id\" : \"luis-fb-id\"}";
+	User tomas(user);
+	User luis(user2);
+	luis.send_request(tomas);
+	std::string expected = "{\n\
+	\"user\" : \n\
+	{\n\
+		\"city\" : \"\",\n\
+		\"dob\" : \"\",\n\
+		\"email\" : \"tomasmussi@gmail.com\",\n\
+		\"fb_id\" : \"\",\n\
+		\"name\" : \"Tomas Mussi\",\n\
+		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
+		\"requests\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
+		\"summary\" : \"\"\n\
+	}\n\
+}";
+	EXPECT_EQ(tomas.serialize(true), expected);
+}
+
 
 TEST(UserHandlerTest, createUser) {
 	std::string user_key = "a-fb-user-id";
