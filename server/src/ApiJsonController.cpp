@@ -361,7 +361,6 @@ void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonR
 	response["data"].append(data);
 }
 
-/*
 void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
@@ -374,11 +373,10 @@ void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse 
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string voted_user_id = user_tokens_[request.get("contact_fb_id", "")];
-	UserHandler.get_instance().user_vote(user_logged_id, voted_user_id);
+	UserHandler::get_instance().user_vote(user_logged_id, voted_user_id);
 
 	Json::Value data;
 	data["status"] = "OK";
 	data["message"] = "Enviada solicitud a contacto";
 	response["data"].append(data);
 }
-*/

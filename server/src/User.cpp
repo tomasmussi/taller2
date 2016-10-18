@@ -89,7 +89,7 @@ std::string User::database_serialize() {
 	return os.str();
 }
 
-std::string User::id() {
+std::string User::id() const {
 	return id_;
 }
 
@@ -159,4 +159,20 @@ void User::reject_request(User &other_user) {
 
 std::list<std::string> User::friends() {
 	return friends_;
+}
+
+void User::vote_for(User &other_user) {
+	if (other_user.id().compare(id()) == 0) {
+		// Cant vote for myself
+		return;
+	}
+	other_user.votes_[id()] = 1;
+}
+
+size_t User::votes() {
+	return votes_.size();
+}
+
+bool User::was_voted_by(const User &other_user) {
+	return votes_.find(other_user.id()) != votes_.end();
 }
