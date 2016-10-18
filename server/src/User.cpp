@@ -153,3 +153,10 @@ void User::accept_request(User &other_user) {
 	other_user.friends_.push_back(id_);
 }
 
+void User::reject_request(User &other_user) {
+	requests_.remove(other_user.id_);
+}
+
+std::list<std::string> User::friends() {
+	return friends_;
+}

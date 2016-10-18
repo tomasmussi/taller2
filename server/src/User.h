@@ -43,6 +43,11 @@ public:
 	/* Accept another user request */
 	void accept_request(User &other_user);
 
+	/* Reject another user request */
+	void reject_request(User &other_user);
+
+	std::list<std::string> friends();
+
 };
 
 

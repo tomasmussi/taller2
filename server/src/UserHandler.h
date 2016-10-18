@@ -34,7 +34,9 @@ public:
 
 	void send_request(std::string from_user, std::string to_user);
 
-	void accept_request(std::string from_user, std::string to_user);
+	void answer_request(std::string from_user, std::string to_user, bool accept);
+
+	std::map<std::string, std::string> get_friends(std::string user_id);
 };
 
 
