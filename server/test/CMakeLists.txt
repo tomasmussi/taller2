@@ -10,7 +10,8 @@ set(SOURCES
 		../src/DatabaseHandler.cpp
 )
 
-set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "-std=c++11 -fprofile-arcs -ftest-coverage")
+set( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -lgcov" )
 #set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra -Wconversion -Wtype-limits -pedantic -pedantic-errors")
 
 # Generar el ejecutable
