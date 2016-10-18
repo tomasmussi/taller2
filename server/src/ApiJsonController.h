@@ -62,6 +62,8 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void vote(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		void popular(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 };
 
 

@@ -62,6 +62,15 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/lookup",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::lookup));
 
+	registerRoute("GET", "/get_contacts",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_contacts));
+
+	registerRoute("GET", "/vote",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::vote));
+
+	registerRoute("GET", "/popular",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::popular));
+
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -378,5 +387,31 @@ void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse 
 	Json::Value data;
 	data["status"] = "OK";
 	data["message"] = "Enviada solicitud a contacto";
+	response["data"].append(data);
+}
+
+
+void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		return;
+	}
+	vote_queue most_pop = UserHandler::get_instance().most_popular();
+	Json::Value data(Json::arrayValue);
+	int count = 0;
+	while (!most_pop.empty() && count < 10) {
+		Json::Value user;
+		User it = most_pop.top();
+		user["fb_id"] = it.id();
+		user["votes"] = it.votes();
+		data.append(user);
+		most_pop.pop();
+		count++;
+	}
 	response["data"].append(data);
 }

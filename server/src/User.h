@@ -52,7 +52,7 @@ public:
 
 	void vote_for(User &other_user);
 
-	size_t votes();
+	size_t votes() const;
 
 	bool was_voted_by(const User &other_user);
 
