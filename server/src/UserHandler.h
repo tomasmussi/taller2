@@ -4,18 +4,14 @@
 #include <leveldb/db.h>
 #include <string>
 #include <list>
+#include <map>
 
 #include "User.h"
 
 class UserHandler {
 private:
-	/* List with user ids */
-	std::list<std::string> users_;
 	UserHandler();
 	~UserHandler();
-
-	/* Loads existing users from database */
-	void load_users();
 
 	/* In singleton, make private to deny making a copy */
 	UserHandler(UserHandler const &);
@@ -33,6 +29,8 @@ public:
 	User get_user(std::string user_name);
 
 	void save_user(User &user);
+
+	std::map<std::string, std::string> lookup(std::string query);
 
 	void send_request(std::string from_user, std::string to_user);
 

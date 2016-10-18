@@ -1,29 +1,18 @@
 #include "DatabaseHandler.h"
 #include "UserHandler.h"
 
+#include "UserList.h"
+
 #include <json/json.h>
 
 #include <iostream>
 #include <sstream>
 #include <string>
 
-UserHandler::UserHandler() : users_() {
-	load_users();
+UserHandler::UserHandler() {
 }
 
 UserHandler::~UserHandler() {
-}
-
-void UserHandler::load_users() {
-	users_.clear();
-	std::string value = DatabaseHandler::get_instance().read("users");
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(value, root);
-	for (unsigned int i = 0; i < root["users"].size(); i++) {
-		std::string key = root["users"][i].asString();
-		users_.push_back(key);
-	}
 }
 
 UserHandler& UserHandler::get_instance() {
@@ -32,17 +21,22 @@ UserHandler& UserHandler::get_instance() {
 }
 
 bool UserHandler::user_exists(std::string user_name) {
-	std::string user_data_json = DatabaseHandler::get_instance().read("user-" + user_name);
-	return !user_data_json.empty();
+	UserList list(DatabaseHandler::get_instance().read("users"));
+	return list.user_exists(user_name);
 }
 
 void UserHandler::create_user(std::string fb_id) {
-	users_.push_back(fb_id);
 	Json::Value root;
 	root["user"]["fb_id"] = fb_id;
 	std::ostringstream os;
 	os << root;
 	DatabaseHandler::get_instance().write("user-" + fb_id, os.str());
+
+	std::string value = DatabaseHandler::get_instance().read("users");
+	UserList list(value);
+	if (list.add_user(fb_id)) {
+		DatabaseHandler::get_instance().write("users", list.database_serialize());
+	}
 }
 
 User UserHandler::get_user(std::string user_name) {
@@ -52,6 +46,21 @@ User UserHandler::get_user(std::string user_name) {
 
 void UserHandler::save_user(User &user) {
 	DatabaseHandler::get_instance().write("user-" + user.id(), user.database_serialize());
+}
+
+std::map<std::string, std::string> UserHandler::lookup(std::string query) {
+	std::map<std::string, std::string> answer;
+
+	/* Por ahora es match directo contra el nombre */
+	std::string value = DatabaseHandler::get_instance().read("users");
+	std::list<std::string> users = UserList(value).users();
+	for (std::list<std::string>::iterator it = users.begin(); it != users.end(); ++it) {
+		if ((*(it)).compare(query) == 0) {
+			User user = get_user((*it));
+			answer[user.id()] = user.get_name();
+		}
+	}
+	return answer;
 }
 
 void UserHandler::send_request(std::string from_user, std::string to_user) {

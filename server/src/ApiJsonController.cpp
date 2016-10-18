@@ -14,7 +14,7 @@ ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"
 		user_tokens_() {
 	std::string key = "users";
 	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
-	DatabaseHandler::get_instance().write(key, "{\"users\":[ \"user-tomasmussi\", \"user-luis\"]}");
+	DatabaseHandler::get_instance().write(key, "{\"users\":[ \"tomasmussi\", \"luis\"]}");
 	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
 	DatabaseHandler::get_instance().write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
 	DatabaseHandler::get_instance().write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
@@ -28,9 +28,6 @@ ApiJsonController::~ApiJsonController() {
 void ApiJsonController::setup() {
 
 	setPrefix("/api");
-
-	registerRoute("GET", "/hello",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::hello));
 
 	registerRoute("GET", "/login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::login));
@@ -56,51 +53,15 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/edit",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::edit));
 
-	registerRoute("PUT", "/new_user",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::new_user));
-
 	registerRoute("POST", "/add_contact",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_contact));
 
 	registerRoute("GET", "/accept_contact",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::accept_contact));
-/*
+
 	registerRoute("GET", "/lookup",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::lookup));
 
-	registerRoute("GET", "/get:contacts",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::lookup));
-
-	registerRoute("GET", "/vote",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::lookup));
-*/
-}
-
-void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	response["data"] = Json::Value(Json::arrayValue);
-	response["errors"] = Json::Value(Json::arrayValue);
-	std::string user =  request.get("fb_id","");
-	std::string key = "user-" + user;
-	std::string value = DatabaseHandler::get_instance().read("users");
-	if (value.empty()) {
-		return ;
-	}
-
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(value, root);
-	Json::Value newUser;
-	newUser[key] = request.get("name","");
-	root["users"].append(newUser);
-	std::ostringstream convertidor;
-	convertidor << root;
-	DatabaseHandler::get_instance().write("users", convertidor.str());
-	response["data"] = Json::Value(Json::arrayValue);
-	response["errors"] = Json::Value(Json::arrayValue);
-	Json::Value data;
-	data["status"] = "OK";
-	data["message"] = "Usuario dado de alta";
-	response["data"].append(data);
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -127,25 +88,6 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 	data["status"] = "OK";
 	data["message"] = "Usuario modificado existosamente";
 	response["data"].append(data);
-}
-
-void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	response["data"] = Json::Value(Json::arrayValue);
-	response["errors"] = Json::Value(Json::arrayValue);
-	if (!is_user_logged(request)) {
-		Json::Value errors;
-		errors["status"] = "ERROR";
-		errors["message"] = "Usuario no autorizado para realizar accion";
-		response["errors"].append(errors);
-		return;
-	}
-	Json::Value data;
-	data["users"][0]["user-tomas"] = "tomas";
-	data["users"][1]["user-luis"] = "luis";
-	response["data"].append(data);
-	User tomas("{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-	std::cout << tomas.serialize() << std::endl;
-
 }
 
 bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
@@ -366,7 +308,7 @@ void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonRespo
 	response["data"].append(data);
 }
 
-/*
+
 void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
@@ -379,15 +321,17 @@ void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonRespons
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string lookup_name = request.get("query", "");
-	std::list algo = UserHandler.get_instance().lookup(lookup_name);
-	// [ 0: {"fb_id : "", name = "name"  }]
-	data.append(algo);
-
-	Json::Value data;
-	data["status"] = "OK";
-	data["message"] = "Enviada solicitud a contacto";
+	std::map<std::string, std::string> users = UserHandler::get_instance().lookup(lookup_name);
+	Json::Value data(Json::arrayValue) ;
+	for (std::map<std::string, std::string>::iterator it = users.begin(); it != users.end(); ++it) {
+		Json::Value user;
+		user["fb_id"] = it->first;
+		user["name"] = it->second;
+		data.append(user);
+	}
 	response["data"].append(data);
 }
+/*
 
 void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
