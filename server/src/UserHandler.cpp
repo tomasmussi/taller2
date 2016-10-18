@@ -71,11 +71,26 @@ void UserHandler::send_request(std::string from_user, std::string to_user) {
 	save_user(user_to);
 }
 
-void UserHandler::accept_request(std::string from_user, std::string to_user) {
+void UserHandler::answer_request(std::string from_user, std::string to_user, bool accept) {
 	User user_from = get_user(from_user);
 	User user_to = get_user(to_user);
-	user_from.accept_request(user_to);
+	if (accept) {
+		user_from.accept_request(user_to);
+	} else {
+		user_from.reject_request(user_to);
+	}
 	save_user(user_from);
 	save_user(user_to);
+}
+
+std::map<std::string, std::string> UserHandler::get_friends(std::string user_id) {
+	std::map<std::string, std::string> answer;
+	User user = get_user(user_id);
+	std::list<std::string> friends = user.friends();
+	for (std::list<std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
+		User user = get_user((*it));
+		answer[user.id()] = user.get_name();
+	}
+	return answer;
 }
 

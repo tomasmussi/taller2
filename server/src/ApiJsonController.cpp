@@ -57,7 +57,7 @@ void ApiJsonController::setup() {
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_contact));
 
 	registerRoute("GET", "/accept_contact",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::accept_contact));
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::answer_contact));
 
 	registerRoute("GET", "/lookup",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::lookup));
@@ -250,7 +250,7 @@ void ApiJsonController::add_contact(Mongoose::Request &request, Mongoose::JsonRe
 	response["data"].append(data);
 }
 
-void ApiJsonController::accept_contact(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+void ApiJsonController::answer_contact(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
 	if (!is_user_logged(request)) {
@@ -262,10 +262,17 @@ void ApiJsonController::accept_contact(Mongoose::Request &request, Mongoose::Jso
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string wanted_user_id = request.get("contact_fb_id", "");
-	std::string accepted = request.get("accept", "empty"); // "true" / "false"
+	std::string accepted = request.get("accept", ""); // "true" / "false"
+	if (accepted.empty()) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "No se envio respuesta si acepta o rechaza";
+		response["errors"].append(errors);
+		return;
+	}
 	if (UserHandler::get_instance().user_exists(user_logged_id)
 		&& UserHandler::get_instance().user_exists(wanted_user_id)) {
-		UserHandler::get_instance().accept_request(user_logged_id, wanted_user_id);
+		UserHandler::get_instance().answer_request(user_logged_id, wanted_user_id, accepted.compare("true") == 0);
 	} else {
 		Json::Value errors;
 		errors["status"] = "ERROR";
@@ -275,7 +282,6 @@ void ApiJsonController::accept_contact(Mongoose::Request &request, Mongoose::Jso
 	}
 	Json::Value data;
 	data["status"] = "OK";
-	data["message"] = "Enviada solicitud a contacto";
 	response["data"].append(data);
 }
 
@@ -322,7 +328,7 @@ void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonRespons
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string lookup_name = request.get("query", "");
 	std::map<std::string, std::string> users = UserHandler::get_instance().lookup(lookup_name);
-	Json::Value data(Json::arrayValue) ;
+	Json::Value data(Json::arrayValue);
 	for (std::map<std::string, std::string>::iterator it = users.begin(); it != users.end(); ++it) {
 		Json::Value user;
 		user["fb_id"] = it->first;
@@ -331,7 +337,7 @@ void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonRespons
 	}
 	response["data"].append(data);
 }
-/*
+
 
 void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
@@ -344,14 +350,18 @@ void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonR
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
-	std::list algo = UserHandler.get_instance().get_contacts(user_logged_id);
-
-	Json::Value data;
-	data["status"] = "OK";
-	data["message"] = "Enviada solicitud a contacto";
+	std::map<std::string, std::string> friends = UserHandler::get_instance().get_friends(user_logged_id);
+	Json::Value data(Json::arrayValue);
+	for (std::map<std::string, std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
+		Json::Value user;
+		user["fb_id"] = it->first;
+		user["name"] = it->second;
+		data.append(user);
+	}
 	response["data"].append(data);
 }
 
+/*
 void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
