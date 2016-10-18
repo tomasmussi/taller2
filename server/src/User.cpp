@@ -169,7 +169,7 @@ void User::vote_for(User &other_user) {
 	other_user.votes_[id()] = 1;
 }
 
-size_t User::votes() {
+size_t User::votes() const {
 	return votes_.size();
 }
 

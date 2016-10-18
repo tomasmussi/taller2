@@ -102,3 +102,15 @@ void UserHandler::user_vote(std::string from_user, std::string voted_user_id) {
 	save_user(user_from);
 	save_user(voted_user);
 }
+
+/* WARNING! Este metodo tiene dependencias de todos lados. Testear profundamente */
+vote_queue UserHandler::most_popular() {
+	UserList list(DatabaseHandler::get_instance().read("users"));
+	std::list<std::string> users = list.users();
+	vote_queue answer;
+	for (std::list<std::string>::iterator it = users.begin(); it != users.end(); ++it) {
+		User user = get_user((*it));
+		answer.push(user);
+	}
+	return answer;
+}
