@@ -5,10 +5,6 @@
 #include "UserList.h"
 #include <string>
 
-TEST(Gtest, Test1Equals1) {
-	EXPECT_EQ(1,1);
-}
-
 TEST(DatabaseHandler, WriteAndRead) {
 	std::string clave = "clave";
 	DatabaseHandler::get_instance().write(clave,"value");
@@ -153,6 +149,29 @@ TEST(UserTest, UserAcceptRequestSerialization) {
 	EXPECT_EQ(tomas.database_serialize(), expected);
 }
 
+
+TEST(UserTest, UserVoteForOtherUser) {
+	std::string user = "{\"user\" : {	\"fb_id\" : \"tomas_fb_id\", \"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : {	\"fb_id\" : \"luis_fb_id\", \"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+	tomas.vote_for(luis);
+	EXPECT_EQ(luis.votes(), 1);
+	tomas.vote_for(luis);
+	EXPECT_EQ(luis.votes(), 1);
+}
+
+TEST(UserTest, WhoVotedForMe) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"fb_id\" : \"luis_fb_id\",	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+
+	EXPECT_FALSE(luis.was_voted_by(tomas));
+	tomas.vote_for(luis);
+	EXPECT_TRUE(luis.was_voted_by(tomas));
+	EXPECT_FALSE(luis.was_voted_by(luis));
+}
 
 TEST(UserHandlerTest, createUser) {
 	std::string user_key = "a-fb-user-id";

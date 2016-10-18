@@ -94,3 +94,11 @@ std::map<std::string, std::string> UserHandler::get_friends(std::string user_id)
 	return answer;
 }
 
+
+void UserHandler::user_vote(std::string from_user, std::string voted_user_id) {
+	User user_from = get_user(from_user);
+	User voted_user = get_user(voted_user_id);
+	user_from.vote_for(voted_user);
+	save_user(user_from);
+	save_user(voted_user);
+}
