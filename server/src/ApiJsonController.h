@@ -2,16 +2,12 @@
 #define APP_SERVER_APIJSONCONTROLLER_H
 
 #include <mongoose/JsonController.h>
-#include "DBHandler.h"
 
 class ApiJsonController : public Mongoose::JsonController {
 	private:
-		/* Database connection to leveldb */
-		DBHandler *database_handler_;
 		const std::string SALT;
 		const std::string API_SEC_KEY;
 		std::map<std::string, std::string> user_tokens_;
-		std::map<std::string, std::string> users_;
 
 		/* Loads existing users from database */
 		void load_users();
@@ -26,7 +22,7 @@ class ApiJsonController : public Mongoose::JsonController {
 		bool _login(std::string user, std::string pass);
 
 	public:
-		ApiJsonController(DBHandler *database_handler);
+		ApiJsonController();
 		~ApiJsonController();
 		virtual void setup();
 		/* HEROKU curl*/
@@ -56,7 +52,9 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void new_user(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
-		void replace_not_null(Json::Value & root, std::string & value, std::string campo1, std::string campo2);
+		void add_contact(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void accept_request(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 

@@ -1,43 +1,28 @@
 #include "ApiJsonController.h"
-
+#include "DatabaseHandler.h"
 #include "HerokuService.h"
+#include "UserHandler.h"
+#include "User.h"
 
 #include <json/json.h>
 
 #include "md5.h"
 #include <sstream>
 
-ApiJsonController::ApiJsonController(DBHandler *database_handler) : database_handler_(database_handler),
-		SALT("46995e90c43683a2fe66f3202b81b753"),
+ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
-		user_tokens_(),
-		users_() {
+		user_tokens_() {
 	std::string key = "users";
 	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
-	database_handler_->write(key, "{\"users\":[{\"user-tomasmussi\":\"tomas\"},{\"user-luis\":\"luis\"}]}");
+	DatabaseHandler::get_instance().write(key, "{\"users\":[ \"user-tomasmussi\", \"user-luis\"]}");
 	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
-	database_handler_->write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-	database_handler_->write("user-aran.com.ar@gmail.com", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-	database_handler_->write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-	load_users();
+	DatabaseHandler::get_instance().write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
+	DatabaseHandler::get_instance().write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
+
+	DatabaseHandler::get_instance().delete_key("user-a-fb-id");
 }
 
 ApiJsonController::~ApiJsonController() {
-}
-
-void ApiJsonController::load_users() {
-	std::string value = database_handler_->read("users");
-	// std::cout << "value: " << value << std::endl;
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(value, root);
-	for (unsigned int i = 0; i < root["users"].size(); i++) {
-		std::string key = root["users"][i].getMemberNames()[0];
-		std::cout<<key<<" ";
-		users_[key] = root["users"][i][key].asString();
-		std::cout<<users_[key]<<std::endl;
-	}
-
 }
 
 void ApiJsonController::setup() {
@@ -73,6 +58,12 @@ void ApiJsonController::setup() {
 
 	registerRoute("PUT", "/new_user",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::new_user));
+
+	registerRoute("POST", "/add_contact",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_contact));
+
+	registerRoute("GET", "/accept_request",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::accept_request));
 }
 
 void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -80,7 +71,7 @@ void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonRespo
 	response["errors"] = Json::Value(Json::arrayValue);
 	std::string user =  request.get("fb_id","");
 	std::string key = "user-" + user;
-	std::string value = database_handler_->read("users");
+	std::string value = DatabaseHandler::get_instance().read("users");
 	if (value.empty()) {
 		return ;
 	}
@@ -93,20 +84,13 @@ void ApiJsonController::new_user(Mongoose::Request &request, Mongoose::JsonRespo
 	root["users"].append(newUser);
 	std::ostringstream convertidor;
 	convertidor << root;
-	database_handler_->write("users", convertidor.str());
-	load_users();
+	DatabaseHandler::get_instance().write("users", convertidor.str());
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
 	Json::Value data;
 	data["status"] = "OK";
 	data["message"] = "Usuario dado de alta";
 	response["data"].append(data);
-}
-
-void ApiJsonController::replace_not_null(Json::Value & root, std::string & value, std::string campo1, std::string campo2){
-	if (value != "vacio"){
-		root[campo1][campo2] = value;
-	}
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -120,44 +104,15 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 		response["errors"].append(errors);
 		return;
 	}
-	std::string user = user_tokens_[request.get("token", "")];
+	User user = UserHandler::get_instance().get_user(user_tokens_[request.get("token", "")]);
+	user.replace_not_null("name", request.get("name","empty"));
+	user.replace_not_null("email", request.get("email","empty"));
+	user.replace_not_null("dob", request.get("dob","empty"));
+	user.replace_not_null("city", request.get("city","empty"));
+	user.replace_not_null("summary", request.get("summary","empty"));
+	user.replace_not_null("profile_photo", request.get("profile_photo","empty"));
 
-	std::string user_data_json = database_handler_->read("user-" + user);
-
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(user_data_json, root);
-
-	std::string name = request.get("name","vacio");
-	replace_not_null(root,name,"user","name");
-
-	std::string email = request.get("email","vacio");
-	replace_not_null(root,email,"user","email");
-
-	std::string pass =  request.get("pass","vacio");
-	replace_not_null(root,pass,"user","pass");
-
-	std::string dob = request.get("dob","vacio");
-	replace_not_null(root,dob,"user","dob");
-
-	std::string city = request.get("city","vacio");
-	replace_not_null(root,city,"user","city");
-
-	std::string summary = request.get("summary","vacio");
-	replace_not_null(root,summary,"user","summary");
-
-	std::string skills = request.get("skills","vacio");
-	replace_not_null(root,skills,"user","skills");
-
-	std::string contacts = request.get("contacts","vacio");
-	replace_not_null(root,contacts,"user","contacts");
-
-	std::string profile_photo = request.get("profile_photo","vacio");
-	replace_not_null(root,profile_photo,"user","profile_photo");
-
-	std::ostringstream convertidor;
-	convertidor<<root;
-	database_handler_->write("user-"+user,convertidor.str());
+	UserHandler::get_instance().save_user(user);
 	Json::Value data;
 	data["status"] = "OK";
 	data["message"] = "Usuario modificado existosamente";
@@ -178,6 +133,9 @@ void ApiJsonController::hello(Mongoose::Request &request, Mongoose::JsonResponse
 	data["users"][0]["user-tomas"] = "tomas";
 	data["users"][1]["user-luis"] = "luis";
 	response["data"].append(data);
+	User tomas("{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
+	std::cout << tomas.serialize() << std::endl;
+
 }
 
 bool ApiJsonController::is_user_logged(Mongoose::Request &request) {
@@ -198,7 +156,7 @@ std::string ApiJsonController::generate_token(std::string user) {
 
 bool ApiJsonController::_login(std::string user, std::string pass) {
 	std::string key = "user-" + user;
-	std::string value = database_handler_->read(key);
+	std::string value = DatabaseHandler::get_instance().read(key);
 	if (value.empty()) {
 		return false;
 	}
@@ -302,18 +260,70 @@ void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonRes
 		response["errors"].append(errors);
 		return;
 	}
-	std::string user = user_tokens_[request.get("token", "")];
-	// std::cout << "users..." << std::endl;
-	for (std::map<std::string, std::string>::iterator it = user_tokens_.begin(); it != user_tokens_.end(); ++it) {
-		std::cout << it->first << " = " << it->second << std::endl;
+	std::string user_name = user_tokens_[request.get("token", "")];
+	if (UserHandler::get_instance().user_exists(user_name)) {
+		User user = UserHandler::get_instance().get_user(user_name);
+		Json::Value root;
+		Json::Reader reader;
+		reader.parse(user.serialize(), root);
+		response["data"].append(root);
 	}
-	// std::cout << "looking for user: " << user << std::endl;
-	std::string user_data_json = database_handler_->read("user-" + user);
+}
 
-	Json::Value root;
-	Json::Reader reader;
-	reader.parse(user_data_json, root);
-	response["data"].append(root);
+void ApiJsonController::add_contact(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string wanted_user_id = request.get("friend", "");
+	if (UserHandler::get_instance().user_exists(user_logged_id)
+		&& UserHandler::get_instance().user_exists(wanted_user_id)) {
+		UserHandler::get_instance().send_request(user_logged_id, wanted_user_id);
+	} else {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "El usuario no existe";
+		response["errors"].append(errors);
+		return;
+	}
+	Json::Value data;
+	data["status"] = "OK";
+	data["message"] = "Enviada solicitud a contacto";
+	response["data"].append(data);
+}
+
+void ApiJsonController::accept_request(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string wanted_user_id = request.get("friend", "");
+	if (UserHandler::get_instance().user_exists(user_logged_id)
+		&& UserHandler::get_instance().user_exists(wanted_user_id)) {
+		UserHandler::get_instance().accept_request(user_logged_id, wanted_user_id);
+	} else {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "El usuario no existe";
+		response["errors"].append(errors);
+		return;
+	}
+	Json::Value data;
+	data["status"] = "OK";
+	data["message"] = "Enviada solicitud a contacto";
+	response["data"].append(data);
 }
 
 void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -328,7 +338,16 @@ void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonRespo
 		response["errors"].append(errors);
 		return;
 	}
-	// TODO(tomas) recordar validar que no esten vacios
+	if (fb_user_id.empty()) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Facebook user ID invalido";
+		response["errors"].append(errors);
+		return;
+	}
+	if (! UserHandler::get_instance().user_exists(fb_user_id)) {
+		UserHandler::get_instance().create_user(fb_user_id);
+	}
 	std::string token = md5(fb_user_id + SALT);
 	user_tokens_[token] = fb_user_id;
 	Json::Value data;

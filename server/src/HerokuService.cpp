@@ -9,7 +9,7 @@
 #include <iostream>
 #include <sstream>
 
-HerokuService::HerokuService(std::string url, std::string service_name) 
+HerokuService::HerokuService(std::string url, std::string service_name)
 	: url_(url), service_name_(service_name) {
 }
 
@@ -31,5 +31,5 @@ void HerokuService::overload_response(Mongoose::JsonResponse &response) {
 
 	os << myRequest;
 	Json::Reader reader;
-	reader.parse(os.str(), response["datos"]);
+	reader.parse(os.str(), response["data"]);
 }
