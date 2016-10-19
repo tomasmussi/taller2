@@ -12,14 +12,6 @@
 ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
 		user_tokens_() {
-	std::string key = "users";
-	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
-	DatabaseHandler::get_instance().write(key, "{\"users\":[ \"tomasmussi\", \"luis\"]}");
-	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
-	DatabaseHandler::get_instance().write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-	DatabaseHandler::get_instance().write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-
-	DatabaseHandler::get_instance().delete_key("user-a-fb-id");
 }
 
 ApiJsonController::~ApiJsonController() {
