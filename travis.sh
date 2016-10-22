@@ -43,6 +43,7 @@ make
 sudo make install
 cd ../..
 
+dir
 #Instalacion de log4cpp
 cd instaladores/log4cpp
 sudo ./configure
