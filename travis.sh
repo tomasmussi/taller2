@@ -35,13 +35,14 @@ sudo cp -a libgtest_main.so libgtest.so /usr/lib/
 sudo ldconfig
 cd ..
 
-wget http://curlpp.googlecode.com/files/curlpp-0.7.3.tar.gz
-tar zxf curlpp-0.7.3.tar.gz
-cd curlpp-0.7.3
-./configure
-make
-sudo make install
-cd ..
+#Esta caida la página corregir
+##wget http://curlpp.googlecode.com/files/curlpp-0.7.3.tar.gz
+##tar zxf curlpp-0.7.3.tar.gz
+##cd curlpp-0.7.3
+##./configure
+##make
+##sudo make install
+##cd ..
 
 dir
 #Instalacion de log4cpp
