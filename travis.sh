@@ -33,7 +33,7 @@ cmake -DBUILD_SHARED_LIBS=ON .
 make
 sudo cp -a libgtest_main.so libgtest.so /usr/lib/
 sudo ldconfig
-cd ../..
+cd ..
 
 wget http://curlpp.googlecode.com/files/curlpp-0.7.3.tar.gz
 tar zxf curlpp-0.7.3.tar.gz
@@ -41,7 +41,7 @@ cd curlpp-0.7.3
 ./configure
 make
 sudo make install
-cd ../..
+cd ..
 
 dir
 #Instalacion de log4cpp
@@ -51,3 +51,4 @@ sudo make
 sudo make check
 sudo make install 
 sudo ldconfig
+cd ../..
