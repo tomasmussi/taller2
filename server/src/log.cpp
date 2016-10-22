@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#define PATH_LOGii "./log2.txt"
+#define PATH_LOGii "./log.txt"
 Log *Log::instance = NULL;
 
 Log::Log(): category(log4cpp::Category::getInstance(PATH_LOGii)) {
@@ -15,26 +15,26 @@ Log::Log(): category(log4cpp::Category::getInstance(PATH_LOGii)) {
 	category.setPriority(log4cpp::Priority::DEBUG);
 }
 
-Log* Log::getInstance() {
+Log* Log::get_instance() {
 	if(Log::instance == NULL) {
 		Log::instance = new Log();
 	}
 	return Log::instance;
 }
 
-void Log::logWarning(const std::string& menssage) {
+void Log::log_warning(const std::string& menssage) {
 	category.warn(menssage);
 }
 
-void Log::logError(const std::string& menssage) {
+void Log::log_error(const std::string& menssage) {
 	category.error(menssage);
 }
 
-void Log::logInfo(const std::string& menssage) {
+void Log::log_info(const std::string& menssage) {
 	category.info(menssage);
 }
 
-void Log::logDebug(const std::string& menssage){	
+void Log::log_debug(const std::string& menssage){	
 	category.debug(menssage);
 }
 

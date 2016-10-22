@@ -3,7 +3,7 @@
 #include "HerokuService.h"
 #include "UserHandler.h"
 #include "User.h"
-
+#include "log.h"
 #include <json/json.h>
 
 #include "md5.h"
@@ -74,6 +74,7 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario o contraseña invalidados");
 		return;
 	}
 	User user = UserHandler::get_instance().get_user(user_tokens_[request.get("token", "")]);
@@ -87,7 +88,8 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 	UserHandler::get_instance().save_user(user);
 	Json::Value data;
 	data["status"] = "OK";
-	data["message"] = "Usuario modificado existosamente";
+	data["message"] = "Usuario modificado exitosamente";
+	Log::get_instance()->log_info("Usuario modificado exitosamente");
 	response["data"].append(data);
 }
 
@@ -136,6 +138,7 @@ void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse
 	if (user.compare("(unknown)") == 0 || pass.compare("(unknown)") == 0) {
 		response["status"] = "ERROR";
 		response["message"] = "Usuario o contraseña invalidos";
+		Log::get_instance()->log_info("Usuario o contraseña invalidados");
 		return;
 	}
 	if (this->_login(user, pass)) {
@@ -151,6 +154,7 @@ void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario o contrasenia invalidos";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario o contraseña invalidados");
 	}
 
 }
@@ -303,6 +307,7 @@ void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonRespo
 		errors["status"] = "ERROR";
 		errors["message"] = "Facebook user ID invalido";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Facebook user ID invalidado");
 		return;
 	}
 	if (! UserHandler::get_instance().user_exists(fb_user_id)) {
@@ -324,6 +329,7 @@ void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonRespons
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado para ejecutar lookup");
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
@@ -348,6 +354,7 @@ void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonR
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizaro para get_contacts");
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
@@ -370,6 +377,7 @@ void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse 
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado para votar");
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
@@ -379,6 +387,7 @@ void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse 
 	Json::Value data;
 	data["status"] = "OK";
 	data["message"] = "Enviada solicitud a contacto";
+	Log::get_instance()->log_info("Enviada votacion a contacto " + voted_user_id);
 	response["data"].append(data);
 }
 
@@ -391,6 +400,7 @@ void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonRespon
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - popular");		
 		return;
 	}
 	vote_queue most_pop = UserHandler::get_instance().most_popular();
