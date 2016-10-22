@@ -28,6 +28,7 @@ app.use('/fonts',express.static(__dirname + '/views/pages/fonts'));
 app.use('/imgs',express.static(__dirname + '/views/pages/imgs'));
 app.use('/templates',express.static(__dirname + '/views/pages/templates'));
 app.use('/css',express.static(__dirname + '/views/pages/css'));
+app.use('/forms',express.static(__dirname + '/views/pages/forms'));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
