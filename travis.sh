@@ -41,7 +41,7 @@ cd curlpp-0.7.3
 ./configure
 make
 sudo make install
-cd ..
+cd ../..
 
 #Instalacion de log4cpp
 cd instaladores/log4cpp
