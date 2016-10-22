@@ -22,13 +22,13 @@ private:
 	Log();
 
 public:
-	static Log* getInstance();
+	static Log* get_instance();
 	~Log();
 	
-	void logWarning(const std::string& menssage);
-	void logError(const std::string& menssage);
-	void logInfo(const std::string& menssage);
-	void logDebug(const std::string& menssage);
+	void log_warning(const std::string& menssage);
+	void log_error(const std::string& menssage);
+	void log_info(const std::string& menssage);
+	void log_debug(const std::string& menssage);
 };
 
 #endif
