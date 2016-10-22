@@ -46,7 +46,9 @@ cd ../..
 
 dir
 #Instalacion de log4cpp
-cd instaladores/log4cpp
+cd instaladores
+tar zxf log4cpp-1.1.2rc3.tar.gz
+cd log4cpp
 sudo ./configure
 sudo make
 sudo make check
