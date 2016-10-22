@@ -2,11 +2,8 @@
 #include "DatabaseHandler.h"
 #include "UserHandler.h"
 #include "User.h"
+#include "UserList.h"
 #include <string>
-
-TEST(Gtest, Test1Equals1) {
-	EXPECT_EQ(1,1);
-}
 
 TEST(DatabaseHandler, WriteAndRead) {
 	std::string clave = "clave";
@@ -153,11 +150,74 @@ TEST(UserTest, UserAcceptRequestSerialization) {
 }
 
 
+TEST(UserTest, UserVoteForOtherUser) {
+	std::string user = "{\"user\" : {	\"fb_id\" : \"tomas_fb_id\", \"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : {	\"fb_id\" : \"luis_fb_id\", \"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+	tomas.vote_for(luis);
+	EXPECT_EQ(luis.votes(), 1);
+	tomas.vote_for(luis);
+	EXPECT_EQ(luis.votes(), 1);
+}
+
+TEST(UserTest, WhoVotedForMe) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"fb_id\" : \"luis_fb_id\",	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+
+	EXPECT_FALSE(luis.was_voted_by(tomas));
+	tomas.vote_for(luis);
+	EXPECT_TRUE(luis.was_voted_by(tomas));
+	EXPECT_FALSE(luis.was_voted_by(luis));
+}
+
 TEST(UserHandlerTest, createUser) {
 	std::string user_key = "a-fb-user-id";
 	DatabaseHandler::get_instance().delete_key(user_key);
 	UserHandler::get_instance().create_user(user_key);
 	EXPECT_TRUE(UserHandler::get_instance().user_exists(user_key));
+}
+
+
+TEST(UserListTest, createFromString) {
+	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
+	UserList list(users);
+	EXPECT_EQ(list.users_size(), 2);
+	EXPECT_TRUE(list.user_exists("fb_id_tomas"));
+	EXPECT_TRUE(list.user_exists("fb_id_luis"));
+	EXPECT_FALSE(list.user_exists("tomas"));
+	EXPECT_FALSE(list.user_exists(""));
+}
+
+TEST(UserListTest, emptyList) {
+	std::string users = "{\"users\":[]}";
+	UserList list(users);
+	EXPECT_EQ(list.users_size(), 0);
+	EXPECT_FALSE(list.user_exists("tomas"));
+	EXPECT_FALSE(list.user_exists(""));
+}
+
+TEST(UserListTest, databaseSerialize) {
+	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
+	UserList list(users);
+	std::string expected = "{\n\t\"users\" : \n\t[\n\t\t\"fb_id_tomas\",\n\t\t\"fb_id_luis\"\n\t]\n}";
+	EXPECT_EQ(list.database_serialize(), expected);
+}
+
+TEST(UserListTest, userListCopy) {
+	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
+	UserList list(users);
+	std::list<std::string> copy = list.users();
+	list.add_user("new_fb_id");
+	std::list<std::string>::iterator it = copy.begin();
+	EXPECT_EQ((*it).compare("fb_id_tomas"), 0);
+	it++;
+	EXPECT_EQ((*it).compare("fb_id_luis"), 0);
+	it++;
+	EXPECT_EQ(it, copy.end());
+	EXPECT_TRUE(list.user_exists("new_fb_id"));
 }
 
 int main(int argc, char **argv) {

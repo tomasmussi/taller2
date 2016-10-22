@@ -54,7 +54,16 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void add_contact(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
-		void accept_request(Mongoose::Request &request, Mongoose::JsonResponse &response);
+		void answer_contact(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void lookup(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void get_contacts(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void vote(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void popular(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 };
 
 

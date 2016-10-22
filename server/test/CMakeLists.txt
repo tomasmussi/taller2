@@ -8,21 +8,21 @@ set(SOURCES
     test.cpp
 )
 
+#EZE: agregue este comando que ingresa en la variable SOURCES_PROGRAM un listado 
+#de todos los archivos que contiene la capeta especificada
 FILE(GLOB SOURCES_PROGRAM ../src/*.cpp)
 
 set(PRUEBA ${CMAKE_CURRENT_SOURCE_DIR}/..src//main.cpp)
-message("${PRUEBA}")
+
 #Elimino el main del app_server ya que sino no me deja compilar
+#ya que voy a tener dos main el de los test y el del server
 list(REMOVE_ITEM SOURCES_PROGRAM ${CMAKE_CURRENT_SOURCE_DIR}/../src/main.cpp)
 
-message("${SOURCES_PROGRAM}")
-#set(CMAKE_CXX_FLAGS "-std=c++11")
 include_directories ("../mongoose-cpp")
 
 SET(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage --coverage")
 SET(CMAKE_C_FLAGS "-g -O0 -Wall -W -fprofile-arcs -ftest-coverage --coverage")
 SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage --coverage")
-#set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra -Wconversion -Wtype-limits -pedantic -pedantic-errors")
 
 # Generar el ejecutable
 add_executable (${PROJECT_NAME} ${SOURCES} ${SOURCES_PROGRAM})
@@ -39,7 +39,6 @@ target_link_libraries (${PROJECT_NAME} pthread)
 target_link_libraries (${PROJECT_NAME} mongoose)
 target_link_libraries (${PROJECT_NAME} leveldb)
 target_link_libraries (${PROJECT_NAME} jsoncpp)
-#target_link_libraries (${PROJECT_NAME} server_sources)
 target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries (${PROJECT_NAME} mongoose)
 target_link_libraries (${PROJECT_NAME} curlpp)

@@ -4,18 +4,22 @@
 #include <leveldb/db.h>
 #include <string>
 #include <list>
+#include <map>
+#include <queue>
 
 #include "User.h"
 
+struct OrderByVotes {
+	bool operator() (User const &a, User const &b) {
+		return a.votes() < b.votes();
+	}
+};
+typedef std::priority_queue<User, std::vector<User>, OrderByVotes> vote_queue;
+
 class UserHandler {
 private:
-	/* List with user ids */
-	std::list<std::string> users_;
 	UserHandler();
 	~UserHandler();
-
-	/* Loads existing users from database */
-	void load_users();
 
 	/* In singleton, make private to deny making a copy */
 	UserHandler(UserHandler const &);
@@ -34,9 +38,17 @@ public:
 
 	void save_user(User &user);
 
+	std::map<std::string, std::string> lookup(std::string query);
+
 	void send_request(std::string from_user, std::string to_user);
 
-	void accept_request(std::string from_user, std::string to_user);
+	void answer_request(std::string from_user, std::string to_user, bool accept);
+
+	std::map<std::string, std::string> get_friends(std::string user_id);
+
+	void user_vote(std::string from_user, std::string voted_user);
+
+	vote_queue most_popular();
 };
 
 
