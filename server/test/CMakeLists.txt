@@ -20,7 +20,7 @@ list(REMOVE_ITEM SOURCES_PROGRAM ${CMAKE_CURRENT_SOURCE_DIR}/../src/main.cpp)
 
 include_directories ("../mongoose-cpp")
 
-SET(CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage --coverage")
+SET(CMAKE_CXX_FLAGS "-g -std=c++11 -O0 -Wall -fprofile-arcs -ftest-coverage --coverage")
 SET(CMAKE_C_FLAGS "-g -O0 -Wall -W -fprofile-arcs -ftest-coverage --coverage")
 SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage --coverage")
 
