@@ -1,11 +1,9 @@
-mainApp.controller('jobPositionController', function($scope,$http,$resource) {
-	// var allCategories = $resource("http://localhost:5000/categories");
+mainApp.controller('jobPositionController', function($scope,$http) {
+	
     $scope.jobPosition = {
       name: "Ej: developer",
       description: "Ej: desarrollador web",
 	  category: "Ej: software",
-	  //categories: ["Emil", "Tobias", "Linus"],
-
 		reset : function(){
 			$scope.jobPosition.name = "Ej: developer";
 			$scope.jobPosition.description = "Ej: desarrollador web";
