@@ -50,10 +50,11 @@
                         jobPosition.category.$invalid" ng-click="jobPosition.submit()">Submit</button>
                   </td>
                </tr>
-					
             </table>
          </form>
+         <div ng-show="jobPosition.errorState" class="alert alert-danger">{{jobPosition.error}}</div>
       </div> 
-</div>	  
+</div>
+
    </body>
 </html>
