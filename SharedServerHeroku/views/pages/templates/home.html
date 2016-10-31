@@ -1,66 +1,65 @@
-<lx-tabs>
-	<lx-tab heading="Job Positions">
-		<div class="p+">
-			<div class="card">
-<div class="datagrid">
-<table align = "center">
-			<tr>
-				<thead><tr><th>Name</th><th>Description</th><th>category</th><th colspan = 2>
-				<a href="templates/form.html"><i class="material-icons">add_box</i></a></th></thead>
-			</tr>
-			<tr ng-repeat="jobi in jobs">
-				<td><i>{{jobi.name}}</i></td>
-				<td><i>{{jobi.description}}</i></td>
-				<td><i>{{jobi.category}}</i></td>
-				<td><i class="material-icons">create</i></td>
-				<td><i class="material-icons">clear</i>
-			</tr>
-			</table>
-		</div>
-		</div>
-	</div>
-	</lx-tab>
-
-	<lx-tab heading="Categories">
-		<div class="p+">
-			<div class="card">
-				<div class="datagrid">
-					<table align = "center">
-						<tr>
-							<thead><tr><th>Name</th><th>Description</th><th colspan = 2><i class="material-icons">add_box</i></th></thead>
-						</tr>
-					<tr ng-repeat="category in categories">
-						<td><i>{{category.name}}</i></td>
-						<td><i>{{category.description}}</i></td>
-						<td><i class="material-icons">create</i></td>
-					<td><i class="material-icons">clear</i>
+	<lx-tabs>
+		<lx-tab heading="Job Positions">
+			<div class="p+">
+				<div class="card">
+	<div class="datagrid">
+			<table align = "center">
+				<tr>
+					<thead><tr><th>Name</th><th>Description</th><th>category</th><th colspan = 2>
+					<a href="templates/formAltaJP.html"><i class="material-icons">add_box</i></a></th></thead>
+				</tr>
+					<tr ng-repeat="jobi in jobs">
+						<td><i>{{jobi.name}}</i></td>
+						<td><i>{{jobi.description}}</i></td>
+						<td><i>{{jobi.category}}</i></td>
+						<td><a ng-href="templates/formEditJP.html?nameToEdit={{jobi.name}}&categoryToEdit={{jobi.category}}"><i class="material-icons">create</i></a></td>
+						<td><i class="material-icons">clear</i>
 					</tr>
-					</table>
-				</div>
+				</table>
 			</div>
-		</div>	
-
-	</lx-tab>
-
-	<lx-tab heading="Skills">
-		<div class="p+">
-			<div class="card">
-				<div class="datagrid">
-					<table align = "center">
-						<tr>
-							<thead><tr><th>Name</th><th>Description</th><th>Category</th><th colspan = 2><i class="material-icons">add_box</i></th></thead>
-						</tr>
-					<tr ng-repeat="skill in skills">
-						<td><i>{{skill.name}}</i></td>
-						<td><i>{{skill.description}}</i></td>
-						<td><i>{{skill.category}}</i></td>
-						<td><i class="material-icons">create</i></td>
-					<td><i class="material-icons">clear</i>
-					</tr>
-					</table>
-				</div>
 			</div>
 		</div>
-	</lx-tab>
+		</lx-tab>
+		<lx-tab heading="Categories">
+			<div class="p+">
+				<div class="card">
+					<div class="datagrid">
+						<table align = "center">
+							<tr>
+								<thead><tr><th>Name</th><th>Description</th><th colspan = 2><i class="material-icons">add_box</i></th></thead>
+							</tr>
+						<tr ng-repeat="category in categories">
+							<td><i>{{category.name}}</i></td>
+							<td><i>{{category.description}}</i></td>
+							<td><i class="material-icons">create</i></td>
+						<td><i class="material-icons">clear</i>
+						</tr>
+						</table>
+					</div>
+				</div>
+			</div>	
 
-</lx-tabs>
+		</lx-tab>
+
+		<lx-tab heading="Skills">
+			<div class="p+">
+				<div class="card">
+					<div class="datagrid">
+						<table align = "center">
+							<tr>
+								<thead><tr><th>Name</th><th>Description</th><th>Category</th><th colspan = 2><i class="material-icons">add_box</i></th></thead>
+							</tr>
+						<tr ng-repeat="skill in skills">
+							<td><i>{{skill.name}}</i></td>
+							<td><i>{{skill.description}}</i></td>
+							<td><i>{{skill.category}}</i></td>
+							<td><i class="material-icons">create</i></td>
+						<td><i class="material-icons">clear</i>
+						</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</lx-tab>
+
+	</lx-tabs>
