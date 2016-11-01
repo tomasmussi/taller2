@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Jsoncpp-Mongoose-LevelDB &#8212; documentación de Jobify - Taller de Programación II - 1.0</title>
+    
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Log4cpp" href="Log4cpp.html" />
+    <link rel="prev" title="Heroku-Node-Postgresql" href="Heroku-Node-Postgresql.html" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body role="document">
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             accesskey="I">índice</a></li>
+        <li class="right" >
+          <a href="Log4cpp.html" title="Log4cpp"
+             accesskey="N">siguiente</a> |</li>
+        <li class="right" >
+          <a href="Heroku-Node-Postgresql.html" title="Heroku-Node-Postgresql"
+             accesskey="P">anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">documentación de Jobify - Taller de Programación II - 1.0</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="instalacion.html" accesskey="U">Instalación</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="jsoncpp-mongoose-leveldb">
+<h1>Jsoncpp-Mongoose-LevelDB<a class="headerlink" href="#jsoncpp-mongoose-leveldb" title="Enlazar permanentemente con este título">¶</a></h1>
+<p>## <strong>1- Guia de instalacion leveldb</strong></p>
+<p>Instalar git-core and libsnappy-dev &lt;br&gt;</p>
+<blockquote>
+<div>sudo apt-get install git-core libsnappy-dev</div></blockquote>
+<p>Clonar leveldb del repositorio de git &lt;br&gt;</p>
+<blockquote>
+<div>git clone  <a class="reference external" href="https://github.com/google/leveldb.git">https://github.com/google/leveldb.git</a></div></blockquote>
+<p>Compilación &lt;br&gt;</p>
+<blockquote>
+<div>cd leveldb
+make</div></blockquote>
+<p>Instalación &lt;br&gt;</p>
+<blockquote>
+<div>cd out-shared
+sudo cp &#8211;preserve=links libleveldb.* /usr/local/lib
+cd ../include
+sudo cp -R leveldb /usr/local/include/
+sudo ldconfig</div></blockquote>
+<p>## <strong>2- Instalacion mongoose-cpp y jsoncpp</strong></p>
+<p>Para instalar mongoose-cpp y jsoncpp y poder compilar el server, se deben seguir estos pasos</p>
+<ol class="arabic">
+<li><p class="first">Hacer un checkout del proyecto [jsoncpp](<a class="reference external" href="https://github.com/open-source-parsers/jsoncpp">https://github.com/open-source-parsers/jsoncpp</a>) &lt;br&gt;</p>
+<blockquote>
+<div><p>git clone <a class="reference external" href="https://github.com/open-source-parsers/jsoncpp.git">https://github.com/open-source-parsers/jsoncpp.git</a></p>
+</div></blockquote>
+</li>
+<li><dl class="first docutils">
+<dt>dentro de jsoncpp ejecutar comandos:</dt>
+<dd><p class="first last">mkdir build
+cd build
+cmake ..
+sudo make install</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Con esto logramos instalar jsoncpp en linux, creo que lo que hace es copiar todo el codigo a /usr/local/include y cuando compilas, se buscan todos los includes en $PATH que contiene a /usr/local/include.
+Y listo! Porque la carpeta de mongoose-cpp la tenemos dentro de nuestro proyecto, asi que los pasos son:</p>
+<blockquote>
+<div>cd server
+mkdir build &amp;&amp; cd build
+cmake ..
+make
+./src/server</div></blockquote>
+<p>Y ya está el server andando escuchando en localhost, puerto 8080. Abrir en el navegador:</p>
+<blockquote>
+<div>localhost:8080/</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Tema anterior</h4>
+  <p class="topless"><a href="Heroku-Node-Postgresql.html"
+                        title="capítulo anterior">Heroku-Node-Postgresql</a></p>
+  <h4>Próximo tema</h4>
+  <p class="topless"><a href="Log4cpp.html"
+                        title="próximo capítulo">Log4cpp</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Búsqueda rápida</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Ir a" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navegación</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Índice General"
+             >índice</a></li>
+        <li class="right" >
+          <a href="Log4cpp.html" title="Log4cpp"
+             >siguiente</a> |</li>
+        <li class="right" >
+          <a href="Heroku-Node-Postgresql.html" title="Heroku-Node-Postgresql"
+             >anterior</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">documentación de Jobify - Taller de Programación II - 1.0</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="instalacion.html" >Instalación</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Luis Arancibia, Tomás Mussi, Alfredo, Ezequiel Dufau.
+      Creado con <a href="http://sphinx-doc.org/">Sphinx</a> 1.5a2.
+    </div>
+  </body>
+</html>

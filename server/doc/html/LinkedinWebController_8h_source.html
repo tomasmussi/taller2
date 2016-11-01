@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>My Project: Fichero Fuente /home/ezequiel/taller2/taller2/server/src/LinkedinWebController.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">My Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">LinkedinWebController.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="LinkedinWebController_8h.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef APP_SERVER_LINKEDINWEBCONTROLLER_H</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define APP_SERVER_LINKEDINWEBCONTROLLER_H</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;mongoose/WebController.h&gt;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="classLinkedinWebController.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="classLinkedinWebController.html">LinkedinWebController</a> : <span class="keyword">public</span> Mongoose::WebController {</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">private</span>:</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">public</span>:</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="classLinkedinWebController.html#a68424eeecce77f91b7e2a9f34928fde0">LinkedinWebController</a>();</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="classLinkedinWebController.html#a9f795c0874b74594b8434317e2795e9a">~LinkedinWebController</a>();</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#aa685544945b192b9149deaba1304f33b">setup</a>();</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#af300383547b94080bc7edbee9624b852">hello</a>(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response);</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#a56c448409227ffb804019899ff5d4488">form</a>(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response);</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#a20cc880e30969f5626f6553c6182a78f">formPost</a>(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response);</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#acdbbbe5c9139f0f7959ca70df699c255">session</a>(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response);</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#a44ae4397ca88552b07b6bc8e57c713fc">forbid</a>(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response);</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#abe96bf2fa8e3084d45b34dda30331171">exception</a>(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response);</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#a380a3e6b865576901e066b82a7279460">uploadForm</a>(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response);</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classLinkedinWebController.html#a8cd6c4499d69595ddc6c349fa31c2c28">upload</a>(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response);</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* APP_SERVER_LINKEDINWEBCONTROLLER_H */</span><span class="preprocessor"></span></div><div class="ttc" id="classLinkedinWebController_html_acdbbbe5c9139f0f7959ca70df699c255"><div class="ttname"><a href="classLinkedinWebController.html#acdbbbe5c9139f0f7959ca70df699c255">LinkedinWebController::session</a></div><div class="ttdeci">void session(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response)</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:27</div></div>
+<div class="ttc" id="classLinkedinWebController_html_a380a3e6b865576901e066b82a7279460"><div class="ttname"><a href="classLinkedinWebController.html#a380a3e6b865576901e066b82a7279460">LinkedinWebController::uploadForm</a></div><div class="ttdeci">void uploadForm(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response)</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:51</div></div>
+<div class="ttc" id="classLinkedinWebController_html_aa685544945b192b9149deaba1304f33b"><div class="ttname"><a href="classLinkedinWebController.html#aa685544945b192b9149deaba1304f33b">LinkedinWebController::setup</a></div><div class="ttdeci">virtual void setup()</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:72</div></div>
+<div class="ttc" id="classLinkedinWebController_html_a8cd6c4499d69595ddc6c349fa31c2c28"><div class="ttname"><a href="classLinkedinWebController.html#a8cd6c4499d69595ddc6c349fa31c2c28">LinkedinWebController::upload</a></div><div class="ttdeci">void upload(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response)</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:60</div></div>
+<div class="ttc" id="classLinkedinWebController_html_a68424eeecce77f91b7e2a9f34928fde0"><div class="ttname"><a href="classLinkedinWebController.html#a68424eeecce77f91b7e2a9f34928fde0">LinkedinWebController::LinkedinWebController</a></div><div class="ttdeci">LinkedinWebController()</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:3</div></div>
+<div class="ttc" id="classLinkedinWebController_html_a9f795c0874b74594b8434317e2795e9a"><div class="ttname"><a href="classLinkedinWebController.html#a9f795c0874b74594b8434317e2795e9a">LinkedinWebController::~LinkedinWebController</a></div><div class="ttdeci">~LinkedinWebController()</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:7</div></div>
+<div class="ttc" id="classLinkedinWebController_html_a20cc880e30969f5626f6553c6182a78f"><div class="ttname"><a href="classLinkedinWebController.html#a20cc880e30969f5626f6553c6182a78f">LinkedinWebController::formPost</a></div><div class="ttdeci">void formPost(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response)</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:23</div></div>
+<div class="ttc" id="classLinkedinWebController_html_af300383547b94080bc7edbee9624b852"><div class="ttname"><a href="classLinkedinWebController.html#af300383547b94080bc7edbee9624b852">LinkedinWebController::hello</a></div><div class="ttdeci">void hello(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response)</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:11</div></div>
+<div class="ttc" id="classLinkedinWebController_html_a44ae4397ca88552b07b6bc8e57c713fc"><div class="ttname"><a href="classLinkedinWebController.html#a44ae4397ca88552b07b6bc8e57c713fc">LinkedinWebController::forbid</a></div><div class="ttdeci">void forbid(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response)</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:39</div></div>
+<div class="ttc" id="classLinkedinWebController_html_abe96bf2fa8e3084d45b34dda30331171"><div class="ttname"><a href="classLinkedinWebController.html#abe96bf2fa8e3084d45b34dda30331171">LinkedinWebController::exception</a></div><div class="ttdeci">void exception(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response)</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:45</div></div>
+<div class="ttc" id="classLinkedinWebController_html"><div class="ttname"><a href="classLinkedinWebController.html">LinkedinWebController</a></div><div class="ttdef"><b>Definition:</b> LinkedinWebController.h:6</div></div>
+<div class="ttc" id="classLinkedinWebController_html_a56c448409227ffb804019899ff5d4488"><div class="ttname"><a href="classLinkedinWebController.html#a56c448409227ffb804019899ff5d4488">LinkedinWebController::form</a></div><div class="ttdeci">void form(Mongoose::Request &amp;request, Mongoose::StreamResponse &amp;response)</div><div class="ttdef"><b>Definition:</b> LinkedinWebController.cpp:15</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

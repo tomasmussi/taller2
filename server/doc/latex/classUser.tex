@@ -1,0 +1,189 @@
+\hypertarget{classUser}{}\section{Referencia de la Clase User}
+\label{classUser}\index{User@{User}}
+
+
+{\ttfamily \#include $<$User.\+h$>$}
+
+\subsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classUser_a39b6626888c80680166832d96a8ac4c7}{User} (std\+::string json\+\_\+value)
+\item 
+\hyperlink{classUser_a4a0137053e591fbb79d9057dd7d2283d}{User} ()
+\item 
+\hyperlink{classUser_ac00b72ad64eb4149f7b21b9f5468c2b2}{$\sim$\+User} ()
+\item 
+std\+::string \hyperlink{classUser_a3394f9749a9e0c807ff34d148d9f835a}{serialize} ()
+\item 
+std\+::string \hyperlink{classUser_a027b5483be61adf2d2b18c06e0f76409}{database\+\_\+serialize} ()
+\item 
+std\+::string \hyperlink{classUser_ac140c8f3831f0c137a0356b5c5d1ac0c}{id} () const
+\item 
+std\+::string \hyperlink{classUser_afced0a5a8d577143c88f9ec8d36e0510}{get\+\_\+email} ()
+\item 
+std\+::string \hyperlink{classUser_a86c6040cbc76ac12c7f154b054bd1035}{get\+\_\+name} ()
+\item 
+std\+::string \hyperlink{classUser_a6f128d38b5cf38e1345b109f7264624f}{get\+\_\+dob} ()
+\item 
+std\+::string \hyperlink{classUser_a0b1c6d729cb6260557efcc614019ad3d}{get\+\_\+city} ()
+\item 
+std\+::string \hyperlink{classUser_abd12a463644dad79711a99e9b4ca5f81}{get\+\_\+summary} ()
+\item 
+std\+::string \hyperlink{classUser_aca8fcd8329ceba292fc4b762962f514a}{get\+\_\+profile\+\_\+photo} ()
+\item 
+void \hyperlink{classUser_afe3e0fa5e2a7189e2ec94cb126cb1ee0}{replace\+\_\+not\+\_\+null} (std\+::string field, std\+::string value)
+\item 
+void \hyperlink{classUser_a4452f9cee8e5928ca3feb248ddf61ed5}{send\+\_\+request} (\hyperlink{classUser}{User} \&other\+\_\+user)
+\item 
+int \hyperlink{classUser_aa165982b75d55551626758b6fffac803}{requests} ()
+\item 
+void \hyperlink{classUser_aecb82a4b3775064eb10fcdaf288fbfa4}{accept\+\_\+request} (\hyperlink{classUser}{User} \&other\+\_\+user)
+\item 
+void \hyperlink{classUser_a6b431d3face2db990dcdf48d74e745d6}{reject\+\_\+request} (\hyperlink{classUser}{User} \&other\+\_\+user)
+\item 
+std\+::list$<$ std\+::string $>$ \hyperlink{classUser_a4d4864c9959ed4db8c1e92ab924f0d76}{friends} ()
+\item 
+void \hyperlink{classUser_ae7bca2cb41eac8d576a781ac2de1b150}{vote\+\_\+for} (\hyperlink{classUser}{User} \&other\+\_\+user)
+\item 
+size\+\_\+t \hyperlink{classUser_a0b8e3871b4c9623b37dcfed43ddee1b3}{votes} () const
+\item 
+bool \hyperlink{classUser_a29b6fe2813703559ecb60f2f5614302f}{was\+\_\+voted\+\_\+by} (const \hyperlink{classUser}{User} \&other\+\_\+user)
+\end{DoxyCompactItemize}
+
+
+\subsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{classUser_a39b6626888c80680166832d96a8ac4c7}\label{classUser_a39b6626888c80680166832d96a8ac4c7}} 
+\index{User@{User}!User@{User}}
+\index{User@{User}!User@{User}}
+\subsubsection{\texorpdfstring{User()}{User()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily User\+::\+User (\begin{DoxyParamCaption}\item[{std\+::string}]{json\+\_\+value }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a4a0137053e591fbb79d9057dd7d2283d}\label{classUser_a4a0137053e591fbb79d9057dd7d2283d}} 
+\index{User@{User}!User@{User}}
+\index{User@{User}!User@{User}}
+\subsubsection{\texorpdfstring{User()}{User()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily User\+::\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_ac00b72ad64eb4149f7b21b9f5468c2b2}\label{classUser_ac00b72ad64eb4149f7b21b9f5468c2b2}} 
+\index{User@{User}!````~User@{$\sim$\+User}}
+\index{````~User@{$\sim$\+User}!User@{User}}
+\subsubsection{\texorpdfstring{$\sim$\+User()}{~User()}}
+{\footnotesize\ttfamily User\+::$\sim$\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{classUser_aecb82a4b3775064eb10fcdaf288fbfa4}\label{classUser_aecb82a4b3775064eb10fcdaf288fbfa4}} 
+\index{User@{User}!accept\+\_\+request@{accept\+\_\+request}}
+\index{accept\+\_\+request@{accept\+\_\+request}!User@{User}}
+\subsubsection{\texorpdfstring{accept\+\_\+request()}{accept\_request()}}
+{\footnotesize\ttfamily void User\+::accept\+\_\+request (\begin{DoxyParamCaption}\item[{\hyperlink{classUser}{User} \&}]{other\+\_\+user }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a027b5483be61adf2d2b18c06e0f76409}\label{classUser_a027b5483be61adf2d2b18c06e0f76409}} 
+\index{User@{User}!database\+\_\+serialize@{database\+\_\+serialize}}
+\index{database\+\_\+serialize@{database\+\_\+serialize}!User@{User}}
+\subsubsection{\texorpdfstring{database\+\_\+serialize()}{database\_serialize()}}
+{\footnotesize\ttfamily std\+::string User\+::database\+\_\+serialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a4d4864c9959ed4db8c1e92ab924f0d76}\label{classUser_a4d4864c9959ed4db8c1e92ab924f0d76}} 
+\index{User@{User}!friends@{friends}}
+\index{friends@{friends}!User@{User}}
+\subsubsection{\texorpdfstring{friends()}{friends()}}
+{\footnotesize\ttfamily std\+::list$<$ std\+::string $>$ User\+::friends (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a0b1c6d729cb6260557efcc614019ad3d}\label{classUser_a0b1c6d729cb6260557efcc614019ad3d}} 
+\index{User@{User}!get\+\_\+city@{get\+\_\+city}}
+\index{get\+\_\+city@{get\+\_\+city}!User@{User}}
+\subsubsection{\texorpdfstring{get\+\_\+city()}{get\_city()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+\_\+city (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a6f128d38b5cf38e1345b109f7264624f}\label{classUser_a6f128d38b5cf38e1345b109f7264624f}} 
+\index{User@{User}!get\+\_\+dob@{get\+\_\+dob}}
+\index{get\+\_\+dob@{get\+\_\+dob}!User@{User}}
+\subsubsection{\texorpdfstring{get\+\_\+dob()}{get\_dob()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+\_\+dob (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_afced0a5a8d577143c88f9ec8d36e0510}\label{classUser_afced0a5a8d577143c88f9ec8d36e0510}} 
+\index{User@{User}!get\+\_\+email@{get\+\_\+email}}
+\index{get\+\_\+email@{get\+\_\+email}!User@{User}}
+\subsubsection{\texorpdfstring{get\+\_\+email()}{get\_email()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+\_\+email (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a86c6040cbc76ac12c7f154b054bd1035}\label{classUser_a86c6040cbc76ac12c7f154b054bd1035}} 
+\index{User@{User}!get\+\_\+name@{get\+\_\+name}}
+\index{get\+\_\+name@{get\+\_\+name}!User@{User}}
+\subsubsection{\texorpdfstring{get\+\_\+name()}{get\_name()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_aca8fcd8329ceba292fc4b762962f514a}\label{classUser_aca8fcd8329ceba292fc4b762962f514a}} 
+\index{User@{User}!get\+\_\+profile\+\_\+photo@{get\+\_\+profile\+\_\+photo}}
+\index{get\+\_\+profile\+\_\+photo@{get\+\_\+profile\+\_\+photo}!User@{User}}
+\subsubsection{\texorpdfstring{get\+\_\+profile\+\_\+photo()}{get\_profile\_photo()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+\_\+profile\+\_\+photo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_abd12a463644dad79711a99e9b4ca5f81}\label{classUser_abd12a463644dad79711a99e9b4ca5f81}} 
+\index{User@{User}!get\+\_\+summary@{get\+\_\+summary}}
+\index{get\+\_\+summary@{get\+\_\+summary}!User@{User}}
+\subsubsection{\texorpdfstring{get\+\_\+summary()}{get\_summary()}}
+{\footnotesize\ttfamily std\+::string User\+::get\+\_\+summary (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_ac140c8f3831f0c137a0356b5c5d1ac0c}\label{classUser_ac140c8f3831f0c137a0356b5c5d1ac0c}} 
+\index{User@{User}!id@{id}}
+\index{id@{id}!User@{User}}
+\subsubsection{\texorpdfstring{id()}{id()}}
+{\footnotesize\ttfamily std\+::string User\+::id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classUser_a6b431d3face2db990dcdf48d74e745d6}\label{classUser_a6b431d3face2db990dcdf48d74e745d6}} 
+\index{User@{User}!reject\+\_\+request@{reject\+\_\+request}}
+\index{reject\+\_\+request@{reject\+\_\+request}!User@{User}}
+\subsubsection{\texorpdfstring{reject\+\_\+request()}{reject\_request()}}
+{\footnotesize\ttfamily void User\+::reject\+\_\+request (\begin{DoxyParamCaption}\item[{\hyperlink{classUser}{User} \&}]{other\+\_\+user }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_afe3e0fa5e2a7189e2ec94cb126cb1ee0}\label{classUser_afe3e0fa5e2a7189e2ec94cb126cb1ee0}} 
+\index{User@{User}!replace\+\_\+not\+\_\+null@{replace\+\_\+not\+\_\+null}}
+\index{replace\+\_\+not\+\_\+null@{replace\+\_\+not\+\_\+null}!User@{User}}
+\subsubsection{\texorpdfstring{replace\+\_\+not\+\_\+null()}{replace\_not\_null()}}
+{\footnotesize\ttfamily void User\+::replace\+\_\+not\+\_\+null (\begin{DoxyParamCaption}\item[{std\+::string}]{field,  }\item[{std\+::string}]{value }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_aa165982b75d55551626758b6fffac803}\label{classUser_aa165982b75d55551626758b6fffac803}} 
+\index{User@{User}!requests@{requests}}
+\index{requests@{requests}!User@{User}}
+\subsubsection{\texorpdfstring{requests()}{requests()}}
+{\footnotesize\ttfamily int User\+::requests (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a4452f9cee8e5928ca3feb248ddf61ed5}\label{classUser_a4452f9cee8e5928ca3feb248ddf61ed5}} 
+\index{User@{User}!send\+\_\+request@{send\+\_\+request}}
+\index{send\+\_\+request@{send\+\_\+request}!User@{User}}
+\subsubsection{\texorpdfstring{send\+\_\+request()}{send\_request()}}
+{\footnotesize\ttfamily void User\+::send\+\_\+request (\begin{DoxyParamCaption}\item[{\hyperlink{classUser}{User} \&}]{other\+\_\+user }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a3394f9749a9e0c807ff34d148d9f835a}\label{classUser_a3394f9749a9e0c807ff34d148d9f835a}} 
+\index{User@{User}!serialize@{serialize}}
+\index{serialize@{serialize}!User@{User}}
+\subsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily std\+::string User\+::serialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_ae7bca2cb41eac8d576a781ac2de1b150}\label{classUser_ae7bca2cb41eac8d576a781ac2de1b150}} 
+\index{User@{User}!vote\+\_\+for@{vote\+\_\+for}}
+\index{vote\+\_\+for@{vote\+\_\+for}!User@{User}}
+\subsubsection{\texorpdfstring{vote\+\_\+for()}{vote\_for()}}
+{\footnotesize\ttfamily void User\+::vote\+\_\+for (\begin{DoxyParamCaption}\item[{\hyperlink{classUser}{User} \&}]{other\+\_\+user }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classUser_a0b8e3871b4c9623b37dcfed43ddee1b3}\label{classUser_a0b8e3871b4c9623b37dcfed43ddee1b3}} 
+\index{User@{User}!votes@{votes}}
+\index{votes@{votes}!User@{User}}
+\subsubsection{\texorpdfstring{votes()}{votes()}}
+{\footnotesize\ttfamily size\+\_\+t User\+::votes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classUser_a29b6fe2813703559ecb60f2f5614302f}\label{classUser_a29b6fe2813703559ecb60f2f5614302f}} 
+\index{User@{User}!was\+\_\+voted\+\_\+by@{was\+\_\+voted\+\_\+by}}
+\index{was\+\_\+voted\+\_\+by@{was\+\_\+voted\+\_\+by}!User@{User}}
+\subsubsection{\texorpdfstring{was\+\_\+voted\+\_\+by()}{was\_voted\_by()}}
+{\footnotesize\ttfamily bool User\+::was\+\_\+voted\+\_\+by (\begin{DoxyParamCaption}\item[{const \hyperlink{classUser}{User} \&}]{other\+\_\+user }\end{DoxyParamCaption})}
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+/home/ezequiel/taller2/taller2/server/src/\hyperlink{User_8h}{User.\+h}\item 
+/home/ezequiel/taller2/taller2/server/src/\hyperlink{User_8cpp}{User.\+cpp}\end{DoxyCompactItemize}
