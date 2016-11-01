@@ -44,6 +44,7 @@ app.get('/categories',db.getAllCategories);
 app.get('/skills',db.getAllSkills);
 app.post('/job_positions/categories/:category',db.postJobPosition);
 app.put('/job_positions/categories/:category/:name',db.putJobPosition);
+app.delete('/job_positions/categories/:category/:name',db.deleteJobPosition);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
