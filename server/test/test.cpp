@@ -2,6 +2,7 @@
 #include "DatabaseHandler.h"
 #include "UserHandler.h"
 #include "User.h"
+#include "UserList.h"
 #include <string>
 
 TEST(Gtest, Test1Equals1) {
@@ -158,6 +159,46 @@ TEST(UserHandlerTest, createUser) {
 	DatabaseHandler::get_instance().delete_key(user_key);
 	UserHandler::get_instance().create_user(user_key);
 	EXPECT_TRUE(UserHandler::get_instance().user_exists(user_key));
+}
+
+
+TEST(UserListTest, createFromString) {
+	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
+	UserList list(users);
+	EXPECT_EQ(list.users_size(), 2);
+	EXPECT_TRUE(list.user_exists("fb_id_tomas"));
+	EXPECT_TRUE(list.user_exists("fb_id_luis"));
+	EXPECT_FALSE(list.user_exists("tomas"));
+	EXPECT_FALSE(list.user_exists(""));
+}
+
+TEST(UserListTest, emptyList) {
+	std::string users = "{\"users\":[]}";
+	UserList list(users);
+	EXPECT_EQ(list.users_size(), 0);
+	EXPECT_FALSE(list.user_exists("tomas"));
+	EXPECT_FALSE(list.user_exists(""));
+}
+
+TEST(UserListTest, databaseSerialize) {
+	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
+	UserList list(users);
+	std::string expected = "{\n\t\"users\" : \n\t[\n\t\t\"fb_id_tomas\",\n\t\t\"fb_id_luis\"\n\t]\n}";
+	EXPECT_EQ(list.database_serialize(), expected);
+}
+
+TEST(UserListTest, userListCopy) {
+	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
+	UserList list(users);
+	std::list<std::string> copy = list.users();
+	list.add_user("new_fb_id");
+	std::list<std::string>::iterator it = copy.begin();
+	EXPECT_EQ((*it).compare("fb_id_tomas"), 0);
+	it++;
+	EXPECT_EQ((*it).compare("fb_id_luis"), 0);
+	it++;
+	EXPECT_EQ(it, copy.end());
+	EXPECT_TRUE(list.user_exists("new_fb_id"));
 }
 
 int main(int argc, char **argv) {

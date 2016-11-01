@@ -13,6 +13,8 @@ set(SOURCES
 		User.cpp
 		UserHandler.h
 		UserHandler.cpp
+		UserList.h
+		UserList.cpp
 		base64.h
 		base64.cpp
 		md5.h
