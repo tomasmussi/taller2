@@ -3,7 +3,7 @@
 #include "HerokuService.h"
 #include "UserHandler.h"
 #include "User.h"
-
+#include "log.h"
 #include <json/json.h>
 
 #include "md5.h"
@@ -12,14 +12,6 @@
 ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
 		user_tokens_() {
-	std::string key = "users";
-	// TODO(tomas) Comentar esta linea una vez que funcionen los usuarios.
-	DatabaseHandler::get_instance().write(key, "{\"users\":[ \"tomasmussi\", \"luis\"]}");
-	// La idea es darlos de alta desde otro servicio y hacer un append a esta lista
-	DatabaseHandler::get_instance().write("user-luis", "{\"user\" : {	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\",\"pass\" : \"luis\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"El number one\", \"skills\": [1, 2], \"contacts\" : 10, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-	DatabaseHandler::get_instance().write("user-tomasmussi", "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }");
-
-	DatabaseHandler::get_instance().delete_key("user-a-fb-id");
 }
 
 ApiJsonController::~ApiJsonController() {
@@ -57,10 +49,19 @@ void ApiJsonController::setup() {
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_contact));
 
 	registerRoute("GET", "/accept_contact",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::accept_contact));
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::answer_contact));
 
 	registerRoute("GET", "/lookup",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::lookup));
+
+	registerRoute("GET", "/get_contacts",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_contacts));
+
+	registerRoute("GET", "/vote",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::vote));
+
+	registerRoute("GET", "/popular",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::popular));
 
 }
 
@@ -73,6 +74,7 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario o contraseña invalidados");
 		return;
 	}
 	User user = UserHandler::get_instance().get_user(user_tokens_[request.get("token", "")]);
@@ -86,7 +88,8 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 	UserHandler::get_instance().save_user(user);
 	Json::Value data;
 	data["status"] = "OK";
-	data["message"] = "Usuario modificado existosamente";
+	data["message"] = "Usuario modificado exitosamente";
+	Log::get_instance()->log_info("Usuario modificado exitosamente");
 	response["data"].append(data);
 }
 
@@ -135,6 +138,7 @@ void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse
 	if (user.compare("(unknown)") == 0 || pass.compare("(unknown)") == 0) {
 		response["status"] = "ERROR";
 		response["message"] = "Usuario o contraseña invalidos";
+		Log::get_instance()->log_info("Usuario o contraseña invalidados");
 		return;
 	}
 	if (this->_login(user, pass)) {
@@ -150,6 +154,7 @@ void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario o contrasenia invalidos";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario o contraseña invalidados");
 	}
 
 }
@@ -250,7 +255,7 @@ void ApiJsonController::add_contact(Mongoose::Request &request, Mongoose::JsonRe
 	response["data"].append(data);
 }
 
-void ApiJsonController::accept_contact(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+void ApiJsonController::answer_contact(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
 	if (!is_user_logged(request)) {
@@ -262,10 +267,17 @@ void ApiJsonController::accept_contact(Mongoose::Request &request, Mongoose::Jso
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string wanted_user_id = request.get("contact_fb_id", "");
-	std::string accepted = request.get("accept", "empty"); // "true" / "false"
+	std::string accepted = request.get("accept", ""); // "true" / "false"
+	if (accepted.empty()) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "No se envio respuesta si acepta o rechaza";
+		response["errors"].append(errors);
+		return;
+	}
 	if (UserHandler::get_instance().user_exists(user_logged_id)
 		&& UserHandler::get_instance().user_exists(wanted_user_id)) {
-		UserHandler::get_instance().accept_request(user_logged_id, wanted_user_id);
+		UserHandler::get_instance().answer_request(user_logged_id, wanted_user_id, accepted.compare("true") == 0);
 	} else {
 		Json::Value errors;
 		errors["status"] = "ERROR";
@@ -275,7 +287,6 @@ void ApiJsonController::accept_contact(Mongoose::Request &request, Mongoose::Jso
 	}
 	Json::Value data;
 	data["status"] = "OK";
-	data["message"] = "Enviada solicitud a contacto";
 	response["data"].append(data);
 }
 
@@ -296,6 +307,7 @@ void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonRespo
 		errors["status"] = "ERROR";
 		errors["message"] = "Facebook user ID invalido";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Facebook user ID invalidado");
 		return;
 	}
 	if (! UserHandler::get_instance().user_exists(fb_user_id)) {
@@ -317,12 +329,13 @@ void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonRespons
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado para ejecutar lookup");
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string lookup_name = request.get("query", "");
 	std::map<std::string, std::string> users = UserHandler::get_instance().lookup(lookup_name);
-	Json::Value data(Json::arrayValue) ;
+	Json::Value data(Json::arrayValue);
 	for (std::map<std::string, std::string>::iterator it = users.begin(); it != users.end(); ++it) {
 		Json::Value user;
 		user["fb_id"] = it->first;
@@ -331,7 +344,7 @@ void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonRespons
 	}
 	response["data"].append(data);
 }
-/*
+
 
 void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["data"] = Json::Value(Json::arrayValue);
@@ -341,14 +354,18 @@ void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonR
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizaro para get_contacts");
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
-	std::list algo = UserHandler.get_instance().get_contacts(user_logged_id);
-
-	Json::Value data;
-	data["status"] = "OK";
-	data["message"] = "Enviada solicitud a contacto";
+	std::map<std::string, std::string> friends = UserHandler::get_instance().get_friends(user_logged_id);
+	Json::Value data(Json::arrayValue);
+	for (std::map<std::string, std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
+		Json::Value user;
+		user["fb_id"] = it->first;
+		user["name"] = it->second;
+		data.append(user);
+	}
 	response["data"].append(data);
 }
 
@@ -360,15 +377,43 @@ void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse 
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado para votar");
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string voted_user_id = user_tokens_[request.get("contact_fb_id", "")];
-	UserHandler.get_instance().user_vote(user_logged_id, voted_user_id);
+	UserHandler::get_instance().user_vote(user_logged_id, voted_user_id);
 
 	Json::Value data;
 	data["status"] = "OK";
 	data["message"] = "Enviada solicitud a contacto";
+	Log::get_instance()->log_info("Enviada votacion a contacto " + voted_user_id);
 	response["data"].append(data);
 }
-*/
+
+
+void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - popular");		
+		return;
+	}
+	vote_queue most_pop = UserHandler::get_instance().most_popular();
+	Json::Value data(Json::arrayValue);
+	int count = 0;
+	while (!most_pop.empty() && count < 10) {
+		Json::Value user;
+		User it = most_pop.top();
+		user["fb_id"] = it.id();
+		user["votes"] = it.votes();
+		data.append(user);
+		most_pop.pop();
+		count++;
+	}
+	response["data"].append(data);
+}

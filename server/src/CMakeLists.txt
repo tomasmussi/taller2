@@ -1,29 +1,11 @@
 cmake_minimum_required(VERSION 2.6)
 
-set(SOURCES
-		ApiJsonController.h
-		ApiJsonController.cpp
-		DatabaseHandler.h
-		DatabaseHandler.cpp
-		HerokuService.h
-		HerokuService.cpp
-		LinkedinWebController.h
-		LinkedinWebController.cpp
-		User.h
-		User.cpp
-		UserHandler.h
-		UserHandler.cpp
-		UserList.h
-		UserList.cpp
-		base64.h
-		base64.cpp
-		md5.h
-		md5.cpp
-        main.cpp
-)
+FILE(GLOB SOURCES ./*.cpp)
+	
+set(CMAKE_CXX_FLAGS "-std=c++11 -fprofile-arcs -ftest-coverage -Wall")
+set( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -lgcov" )
 
-#set(CMAKE_CXX_FLAGS "-std=c++11 -fprofile-arcs -ftest-coverage -Wall")
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
+#set(CMAKE_CXX_FLAGS "-std=c++11 -Wall")
 #set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra -Wconversion -Wtype-limits -pedantic -pedantic-errors")
 
 # Generar el ejecutable
@@ -44,3 +26,4 @@ target_link_libraries (${PROJECT_NAME} mongoose)
 target_link_libraries (${PROJECT_NAME} leveldb)
 target_link_libraries (${PROJECT_NAME} curlpp)
 target_link_libraries (${PROJECT_NAME} curl)
+target_link_libraries (${PROJECT_NAME} log4cpp)
