@@ -1,1 +1,1 @@
-var mainApp = angular.module("SharedServerApp", []);
+var mainApp = angular.module("SharedServerApp", ['ngRoute']);
