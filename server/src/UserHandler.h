@@ -49,6 +49,14 @@ public:
 	void user_vote(std::string from_user, std::string voted_user);
 
 	vote_queue most_popular();
+
+	void add_user_skill(std::string user_logged_id, std::string new_skill);
+
+	void delete_user_skill(std::string user_logged_id, std::string new_skill);
+
+	void add_user_job(std::string user_logged_id, std::string new_job);
+
+	void delete_user_job(std::string user_logged_id, std::string new_job);
 };
 
 

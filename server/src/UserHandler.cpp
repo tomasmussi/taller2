@@ -114,3 +114,27 @@ vote_queue UserHandler::most_popular() {
 	}
 	return answer;
 }
+
+void UserHandler::add_user_skill(std::string user_logged_id, std::string new_skill) {
+	User user = get_user(user_logged_id);
+	user.add_skill(new_skill);
+	save_user(user);
+}
+
+void UserHandler::delete_user_skill(std::string user_logged_id, std::string new_skill) {
+	User user = get_user(user_logged_id);
+	user.delete_skill(new_skill);
+	save_user(user);
+}
+
+void UserHandler::add_user_job(std::string user_logged_id, std::string new_job) {
+	User user = get_user(user_logged_id);
+	user.add_job_position(new_job);
+	save_user(user);
+}
+
+void UserHandler::delete_user_job(std::string user_logged_id, std::string new_job) {
+	User user = get_user(user_logged_id);
+	user.delete_job_position(new_job);
+	save_user(user);
+}

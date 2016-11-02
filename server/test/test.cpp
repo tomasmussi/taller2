@@ -38,8 +38,15 @@ TEST(UserTest, SerializeToJson) {
 		\"contacts\" : 0,\n\
 		\"dob\" : \"11/07/1991\",\n\
 		\"email\" : \"tomasmussi@gmail.com\",\n\
+		\"job_positions\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
+		\"requests\" : [],\n\
+		\"skills\" : \n\
+		[\n\
+			\"1\",\n\
+			\"2\"\n\
+		],\n\
 		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
 	}\n\
 }";
@@ -58,10 +65,17 @@ TEST(UserTest, SerializeToJsonWithId) {
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"fb_id\" : \"\",\n\
 		\"friends\" : [],\n\
+		\"job_positions\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : [],\n\
-		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
+		\"skills\" : \n\
+		[\n\
+			\"1\",\n\
+			\"2\"\n\
+		],\n\
+		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\",\n\
+		\"votes\" : []\n\
 	}\n\
 }";
 	User tomas(user);
@@ -116,10 +130,13 @@ TEST(UserTest, UserSendRequestSerialization) {
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"fb_id\" : \"\",\n\
 		\"friends\" : [],\n\
+		\"job_positions\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
-		\"summary\" : \"\"\n\
+		\"skills\" : [],\n\
+		\"summary\" : \"\",\n\
+		\"votes\" : []\n\
 	}\n\
 }";
 	EXPECT_EQ(tomas.database_serialize(), expected);
@@ -140,10 +157,13 @@ TEST(UserTest, UserAcceptRequestSerialization) {
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"fb_id\" : \"\",\n\
 		\"friends\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
+		\"job_positions\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : [],\n\
-		\"summary\" : \"\"\n\
+		\"skills\" : [],\n\
+		\"summary\" : \"\",\n\
+		\"votes\" : []\n\
 	}\n\
 }";
 	EXPECT_EQ(tomas.database_serialize(), expected);
@@ -171,6 +191,56 @@ TEST(UserTest, WhoVotedForMe) {
 	tomas.vote_for(luis);
 	EXPECT_TRUE(luis.was_voted_by(tomas));
 	EXPECT_FALSE(luis.was_voted_by(luis));
+}
+
+TEST(UserTest, AddSkill) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string skill = "programming";
+	User tomas(user);
+	EXPECT_FALSE(tomas.has_skill(skill));
+	tomas.add_skill(skill);
+	EXPECT_TRUE(tomas.has_skill(skill));
+}
+
+TEST(UserTest, DeleteSkill) {
+	std::string skill = "programming";
+	std::string user = "{\"user\" : {\
+		\"fb_id\" : \"tomas_fb_id\",\
+		\"name\" : \"Tomas Mussi\",\
+		\"email\": \"tomasmussi@gmail.com\",\
+		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\
+		\"skills\" : [\"" + skill + "\"],\n\
+	} }";
+
+	User tomas(user);
+	EXPECT_TRUE(tomas.has_skill(skill));
+	tomas.delete_skill(skill);
+	EXPECT_FALSE(tomas.has_skill(skill));
+}
+
+TEST(UserTest, AddJobPosition) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string job = "programmer at Google";
+	User tomas(user);
+	EXPECT_FALSE(tomas.has_job_position(job));
+	tomas.add_job_position(job);
+	EXPECT_TRUE(tomas.has_job_position(job));
+}
+
+TEST(UserTest, DeleteJobPosition) {
+	std::string job = "programmer at Google";
+	std::string user = "{\"user\" : {\
+		\"fb_id\" : \"tomas_fb_id\",\
+		\"name\" : \"Tomas Mussi\",\
+		\"email\": \"tomasmussi@gmail.com\",\
+		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\
+		\"job_positions\" : [\"" + job + "\"],\n\
+	} }";
+
+	User tomas(user);
+	EXPECT_TRUE(tomas.has_job_position(job));
+	tomas.delete_job_position(job);
+	EXPECT_FALSE(tomas.has_job_position(job));
 }
 
 TEST(UserHandlerTest, createUser) {

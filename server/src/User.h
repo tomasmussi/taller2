@@ -1,6 +1,8 @@
 #ifndef APP_SERVER_USER_H
 #define APP_SERVER_USER_H
 
+#include <json/json.h>
+
 #include <string>
 #include <list>
 #include <map>
@@ -18,10 +20,17 @@ private:
 	std::list<std::string> requests_;
 	std::list<std::string> friends_;
 	std::map<std::string, int> votes_;
+
+	std::list<std::string> skills_;
+	std::list<std::string> job_positions_;
+	void serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
+
 public:
 	User(std::string json_value);
 	User();
 	~User();
+
+	void load_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
 
 	/* Serialize for sending as JSON */
 	std::string serialize();
@@ -55,6 +64,18 @@ public:
 	size_t votes() const;
 
 	bool was_voted_by(const User &other_user);
+
+	void add_skill(std::string new_skill);
+
+	bool has_skill(std::string skill);
+
+	void delete_skill(std::string skill);
+
+	void add_job_position(std::string new_job);
+
+	bool has_job_position(std::string job);
+
+	void delete_job_position(std::string job);
 
 };
 

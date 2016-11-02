@@ -1,8 +1,8 @@
 #include "User.h"
 
-#include <json/json.h>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 /* Construct User from string parsed as JSON
  * JSON format is:
@@ -38,15 +38,25 @@ User::User(std::string json_value) : requests_(), friends_() {
 	city_ = root["user"]["city"].asString();
 	summary_ = root["user"]["summary"].asString();
 	profile_photo_ = root["user"]["profile_photo"].asString();
-	for (unsigned int i = 0; i < root["user"]["requests"].size(); i++) {
-		requests_.push_back(root["user"]["requests"][i].asString());
-	}
+
+	load_list(root, "job_positions", job_positions_);
+	load_list(root, "friends", friends_);
+	load_list(root, "skills", skills_);
+	load_list(root, "requests", requests_);
 }
 
 User::User() {
 }
 
 User::~User() {
+}
+
+
+
+void User::load_list(Json::Value &root, std::string param_name, std::list<std::string> &list) {
+	for (unsigned int i = 0; i < root["user"][param_name].size(); i++) {
+		list.push_back(root["user"][param_name][i].asString());
+	}
 }
 
 std::string User::serialize() {
@@ -58,13 +68,19 @@ std::string User::serialize() {
 	root["user"]["city"] = city_;
 	root["user"]["summary"] = summary_;
 	root["user"]["profile_photo"] = profile_photo_;
-	unsigned int count = 0;
-	for (std::list<std::string>::iterator it = requests_.begin(); it != requests_.end(); ++it) {
-		root["user"]["requests"][count++] = (*it);
-	}
+	serialize_list(root, "requests", requests_);
+	serialize_list(root, "skills", skills_);
+	serialize_list(root, "job_positions", job_positions_);
 	std::ostringstream os;
 	os << root;
 	return os.str();
+}
+
+void User::serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list) {
+	root["user"][param_name] = Json::Value(Json::arrayValue);
+	for (std::list<std::string>::iterator it = list.begin(); it != list.end(); ++it) {
+		root["user"][param_name].append(*it);
+	}
 }
 
 std::string User::database_serialize() {
@@ -76,13 +92,13 @@ std::string User::database_serialize() {
 	root["user"]["city"] = city_;
 	root["user"]["summary"] = summary_;
 	root["user"]["profile_photo"] = profile_photo_;
-	root["user"]["requests"] = Json::Value(Json::arrayValue);
-	for (std::list<std::string>::iterator it = requests_.begin(); it != requests_.end(); ++it) {
-		root["user"]["requests"].append(*it);
-	}
-	root["user"]["friends"] = Json::Value(Json::arrayValue);
-	for (std::list<std::string>::iterator it = friends_.begin(); it != friends_.end(); ++it) {
-		root["user"]["friends"].append(*it);
+	serialize_list(root, "requests", requests_);
+	serialize_list(root, "friends", friends_);
+	serialize_list(root, "skills", skills_);
+	serialize_list(root, "job_positions", job_positions_);
+	root["user"]["votes"] = Json::Value(Json::arrayValue);
+	for (std::map<std::string, int>::iterator it = votes_.begin(); it != votes_.end(); ++it) {
+		root["user"]["votes"].append(it->first);
 	}
 	std::ostringstream os;
 	os << root;
@@ -175,4 +191,36 @@ size_t User::votes() const {
 
 bool User::was_voted_by(const User &other_user) {
 	return votes_.find(other_user.id()) != votes_.end();
+}
+
+bool User::has_skill(std::string skill) {
+	return (std::find(skills_.begin(), skills_.end(), skill) != skills_.end());
+}
+
+void User::add_skill(std::string new_skill) {
+	if (! has_skill(new_skill)) {
+		skills_.push_back(new_skill);
+	}
+}
+
+void User::delete_skill(std::string skill) {
+	if (has_skill(skill)) {
+		skills_.erase(std::find(skills_.begin(), skills_.end(), skill));
+	}
+}
+
+bool User::has_job_position(std::string job) {
+	return (std::find(job_positions_.begin(), job_positions_.end(), job) != job_positions_.end());
+}
+
+void User::add_job_position(std::string new_job) {
+	if (! has_job_position(new_job)) {
+		job_positions_.push_back(new_job);
+	}
+}
+
+void User::delete_job_position(std::string job) {
+	if (has_job_position(job)) {
+		job_positions_.erase(std::find(job_positions_.begin(), job_positions_.end(), job));
+	}
 }
