@@ -218,6 +218,31 @@ TEST(UserTest, DeleteSkill) {
 	EXPECT_FALSE(tomas.has_skill(skill));
 }
 
+TEST(UserTest, AddJobPosition) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string job = "programmer at Google";
+	User tomas(user);
+	EXPECT_FALSE(tomas.has_job_position(job));
+	tomas.add_job_position(job);
+	EXPECT_TRUE(tomas.has_job_position(job));
+}
+
+TEST(UserTest, DeleteJobPosition) {
+	std::string job = "programmer at Google";
+	std::string user = "{\"user\" : {\
+		\"fb_id\" : \"tomas_fb_id\",\
+		\"name\" : \"Tomas Mussi\",\
+		\"email\": \"tomasmussi@gmail.com\",\
+		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\
+		\"job_positions\" : [\"" + job + "\"],\n\
+	} }";
+
+	User tomas(user);
+	EXPECT_TRUE(tomas.has_job_position(job));
+	tomas.delete_job_position(job);
+	EXPECT_FALSE(tomas.has_job_position(job));
+}
+
 TEST(UserHandlerTest, createUser) {
 	std::string user_key = "a-fb-user-id";
 	DatabaseHandler::get_instance().delete_key(user_key);

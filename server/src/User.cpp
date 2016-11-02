@@ -208,3 +208,19 @@ void User::delete_skill(std::string skill) {
 		skills_.erase(std::find(skills_.begin(), skills_.end(), skill));
 	}
 }
+
+bool User::has_job_position(std::string job) {
+	return (std::find(job_positions_.begin(), job_positions_.end(), job) != job_positions_.end());
+}
+
+void User::add_job_position(std::string new_job) {
+	if (! has_job_position(new_job)) {
+		job_positions_.push_back(new_job);
+	}
+}
+
+void User::delete_job_position(std::string job) {
+	if (has_job_position(job)) {
+		job_positions_.erase(std::find(job_positions_.begin(), job_positions_.end(), job));
+	}
+}

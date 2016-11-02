@@ -71,6 +71,12 @@ public:
 
 	void delete_skill(std::string skill);
 
+	void add_job_position(std::string new_job);
+
+	bool has_job_position(std::string job);
+
+	void delete_job_position(std::string job);
+
 };
 
 
