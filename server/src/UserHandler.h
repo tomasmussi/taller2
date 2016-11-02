@@ -51,6 +51,8 @@ public:
 	vote_queue most_popular();
 
 	void add_user_skill(std::string user_logged_id, std::string new_skill);
+
+	void delete_user_skill(std::string user_logged_id, std::string new_skill);
 };
 
 

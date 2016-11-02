@@ -66,6 +66,8 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void add_skill(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		void delete_skill(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 };
 
 

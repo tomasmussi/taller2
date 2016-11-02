@@ -66,6 +66,9 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/add_skill",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_skill));
 
+	registerRoute("DELETE", "/delete_skill",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_skill));
+
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -436,6 +439,30 @@ void ApiJsonController::add_skill(Mongoose::Request &request, Mongoose::JsonResp
 	std::string new_skill = request.get("skill", "");
 	if (new_skill.empty()) {
 		UserHandler::get_instance().add_user_skill(user_logged_id, new_skill);
+		Json::Value data;
+		data["status"] = "OK";
+		data["message"] = "Enviada solicitud a contacto";
+		response["data"].append(data);
+	} else {
+		Log::get_instance()->log_info("Skill vacio - add skill");
+	}
+}
+
+void ApiJsonController::delete_skill(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - add skill");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string new_skill = request.get("skill", "");
+	if (new_skill.empty()) {
+		UserHandler::get_instance().delete_user_skill(user_logged_id, new_skill);
 		Json::Value data;
 		data["status"] = "OK";
 		data["message"] = "Enviada solicitud a contacto";
