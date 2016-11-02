@@ -30,6 +30,8 @@ public:
 	User();
 	~User();
 
+	void load_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
+
 	/* Serialize for sending as JSON */
 	std::string serialize();
 	std::string database_serialize();
@@ -62,6 +64,12 @@ public:
 	size_t votes() const;
 
 	bool was_voted_by(const User &other_user);
+
+	void add_skill(std::string new_skill);
+
+	bool has_skill(std::string skill);
+
+	void delete_skill(std::string skill);
 
 };
 

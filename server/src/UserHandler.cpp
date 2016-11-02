@@ -114,3 +114,9 @@ vote_queue UserHandler::most_popular() {
 	}
 	return answer;
 }
+
+void UserHandler::add_user_skill(std::string user_logged_id, std::string new_skill) {
+	User user = get_user(user_logged_id);
+	user.add_skill(new_skill);
+	save_user(user);
+}

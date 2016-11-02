@@ -42,7 +42,11 @@ TEST(UserTest, SerializeToJson) {
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : [],\n\
-		\"skills\" : [],\n\
+		\"skills\" : \n\
+		[\n\
+			\"1\",\n\
+			\"2\"\n\
+		],\n\
 		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
 	}\n\
 }";
@@ -65,7 +69,11 @@ TEST(UserTest, SerializeToJsonWithId) {
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : [],\n\
-		\"skills\" : [],\n\
+		\"skills\" : \n\
+		[\n\
+			\"1\",\n\
+			\"2\"\n\
+		],\n\
 		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\",\n\
 		\"votes\" : []\n\
 	}\n\
@@ -183,6 +191,31 @@ TEST(UserTest, WhoVotedForMe) {
 	tomas.vote_for(luis);
 	EXPECT_TRUE(luis.was_voted_by(tomas));
 	EXPECT_FALSE(luis.was_voted_by(luis));
+}
+
+TEST(UserTest, AddSkill) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string skill = "programming";
+	User tomas(user);
+	EXPECT_FALSE(tomas.has_skill(skill));
+	tomas.add_skill(skill);
+	EXPECT_TRUE(tomas.has_skill(skill));
+}
+
+TEST(UserTest, DeleteSkill) {
+	std::string skill = "programming";
+	std::string user = "{\"user\" : {\
+		\"fb_id\" : \"tomas_fb_id\",\
+		\"name\" : \"Tomas Mussi\",\
+		\"email\": \"tomasmussi@gmail.com\",\
+		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\
+		\"skills\" : [\"" + skill + "\"],\n\
+	} }";
+
+	User tomas(user);
+	EXPECT_TRUE(tomas.has_skill(skill));
+	tomas.delete_skill(skill);
+	EXPECT_FALSE(tomas.has_skill(skill));
 }
 
 TEST(UserHandlerTest, createUser) {

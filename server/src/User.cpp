@@ -2,6 +2,7 @@
 
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 /* Construct User from string parsed as JSON
  * JSON format is:
@@ -37,15 +38,25 @@ User::User(std::string json_value) : requests_(), friends_() {
 	city_ = root["user"]["city"].asString();
 	summary_ = root["user"]["summary"].asString();
 	profile_photo_ = root["user"]["profile_photo"].asString();
-	for (unsigned int i = 0; i < root["user"]["requests"].size(); i++) {
-		requests_.push_back(root["user"]["requests"][i].asString());
-	}
+
+	load_list(root, "job_positions", job_positions_);
+	load_list(root, "friends", friends_);
+	load_list(root, "skills", skills_);
+	load_list(root, "requests", requests_);
 }
 
 User::User() {
 }
 
 User::~User() {
+}
+
+
+
+void User::load_list(Json::Value &root, std::string param_name, std::list<std::string> &list) {
+	for (unsigned int i = 0; i < root["user"][param_name].size(); i++) {
+		list.push_back(root["user"][param_name][i].asString());
+	}
 }
 
 std::string User::serialize() {
@@ -180,4 +191,20 @@ size_t User::votes() const {
 
 bool User::was_voted_by(const User &other_user) {
 	return votes_.find(other_user.id()) != votes_.end();
+}
+
+bool User::has_skill(std::string skill) {
+	return (std::find(skills_.begin(), skills_.end(), skill) != skills_.end());
+}
+
+void User::add_skill(std::string new_skill) {
+	if (! has_skill(new_skill)) {
+		skills_.push_back(new_skill);
+	}
+}
+
+void User::delete_skill(std::string skill) {
+	if (has_skill(skill)) {
+		skills_.erase(std::find(skills_.begin(), skills_.end(), skill));
+	}
 }
