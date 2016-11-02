@@ -38,8 +38,11 @@ TEST(UserTest, SerializeToJson) {
 		\"contacts\" : 0,\n\
 		\"dob\" : \"11/07/1991\",\n\
 		\"email\" : \"tomasmussi@gmail.com\",\n\
+		\"job_positions\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
+		\"requests\" : [],\n\
+		\"skills\" : [],\n\
 		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
 	}\n\
 }";
@@ -58,10 +61,13 @@ TEST(UserTest, SerializeToJsonWithId) {
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"fb_id\" : \"\",\n\
 		\"friends\" : [],\n\
+		\"job_positions\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : [],\n\
-		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
+		\"skills\" : [],\n\
+		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\",\n\
+		\"votes\" : []\n\
 	}\n\
 }";
 	User tomas(user);
@@ -116,10 +122,13 @@ TEST(UserTest, UserSendRequestSerialization) {
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"fb_id\" : \"\",\n\
 		\"friends\" : [],\n\
+		\"job_positions\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
-		\"summary\" : \"\"\n\
+		\"skills\" : [],\n\
+		\"summary\" : \"\",\n\
+		\"votes\" : []\n\
 	}\n\
 }";
 	EXPECT_EQ(tomas.database_serialize(), expected);
@@ -140,10 +149,13 @@ TEST(UserTest, UserAcceptRequestSerialization) {
 		\"email\" : \"tomasmussi@gmail.com\",\n\
 		\"fb_id\" : \"\",\n\
 		\"friends\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
+		\"job_positions\" : [],\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : [],\n\
-		\"summary\" : \"\"\n\
+		\"skills\" : [],\n\
+		\"summary\" : \"\",\n\
+		\"votes\" : []\n\
 	}\n\
 }";
 	EXPECT_EQ(tomas.database_serialize(), expected);

@@ -1,6 +1,5 @@
 #include "User.h"
 
-#include <json/json.h>
 #include <string>
 #include <sstream>
 
@@ -58,13 +57,19 @@ std::string User::serialize() {
 	root["user"]["city"] = city_;
 	root["user"]["summary"] = summary_;
 	root["user"]["profile_photo"] = profile_photo_;
-	unsigned int count = 0;
-	for (std::list<std::string>::iterator it = requests_.begin(); it != requests_.end(); ++it) {
-		root["user"]["requests"][count++] = (*it);
-	}
+	serialize_list(root, "requests", requests_);
+	serialize_list(root, "skills", skills_);
+	serialize_list(root, "job_positions", job_positions_);
 	std::ostringstream os;
 	os << root;
 	return os.str();
+}
+
+void User::serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list) {
+	root["user"][param_name] = Json::Value(Json::arrayValue);
+	for (std::list<std::string>::iterator it = list.begin(); it != list.end(); ++it) {
+		root["user"][param_name].append(*it);
+	}
 }
 
 std::string User::database_serialize() {
@@ -76,13 +81,13 @@ std::string User::database_serialize() {
 	root["user"]["city"] = city_;
 	root["user"]["summary"] = summary_;
 	root["user"]["profile_photo"] = profile_photo_;
-	root["user"]["requests"] = Json::Value(Json::arrayValue);
-	for (std::list<std::string>::iterator it = requests_.begin(); it != requests_.end(); ++it) {
-		root["user"]["requests"].append(*it);
-	}
-	root["user"]["friends"] = Json::Value(Json::arrayValue);
-	for (std::list<std::string>::iterator it = friends_.begin(); it != friends_.end(); ++it) {
-		root["user"]["friends"].append(*it);
+	serialize_list(root, "requests", requests_);
+	serialize_list(root, "friends", friends_);
+	serialize_list(root, "skills", skills_);
+	serialize_list(root, "job_positions", job_positions_);
+	root["user"]["votes"] = Json::Value(Json::arrayValue);
+	for (std::map<std::string, int>::iterator it = votes_.begin(); it != votes_.end(); ++it) {
+		root["user"]["votes"].append(it->first);
 	}
 	std::ostringstream os;
 	os << root;

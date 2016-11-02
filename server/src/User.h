@@ -1,6 +1,8 @@
 #ifndef APP_SERVER_USER_H
 #define APP_SERVER_USER_H
 
+#include <json/json.h>
+
 #include <string>
 #include <list>
 #include <map>
@@ -18,6 +20,11 @@ private:
 	std::list<std::string> requests_;
 	std::list<std::string> friends_;
 	std::map<std::string, int> votes_;
+
+	std::list<std::string> skills_;
+	std::list<std::string> job_positions_;
+	void serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
+
 public:
 	User(std::string json_value);
 	User();

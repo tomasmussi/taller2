@@ -400,7 +400,7 @@ void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonRespon
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
-		Log::get_instance()->log_info("Usuario no autorizado - popular");		
+		Log::get_instance()->log_info("Usuario no autorizado - popular");
 		return;
 	}
 	vote_queue most_pop = UserHandler::get_instance().most_popular();
