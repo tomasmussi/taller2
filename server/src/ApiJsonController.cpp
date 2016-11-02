@@ -69,6 +69,12 @@ void ApiJsonController::setup() {
 	registerRoute("DELETE", "/delete_skill",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_skill));
 
+	registerRoute("GET", "/add_job_position",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_job_position));
+
+	registerRoute("DELETE", "/delete_job_position",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_job_position));
+
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -456,7 +462,7 @@ void ApiJsonController::delete_skill(Mongoose::Request &request, Mongoose::JsonR
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario no autorizado para realizar accion";
 		response["errors"].append(errors);
-		Log::get_instance()->log_info("Usuario no autorizado - add skill");
+		Log::get_instance()->log_info("Usuario no autorizado - delete skill");
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
@@ -468,6 +474,54 @@ void ApiJsonController::delete_skill(Mongoose::Request &request, Mongoose::JsonR
 		data["message"] = "Enviada solicitud a contacto";
 		response["data"].append(data);
 	} else {
-		Log::get_instance()->log_info("Skill vacio - add skill");
+		Log::get_instance()->log_info("Skill vacio - delete skill");
+	}
+}
+
+void ApiJsonController::add_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - add job");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string new_job = request.get("job", "");
+	if (new_job.empty()) {
+		UserHandler::get_instance().add_user_job(user_logged_id, new_job);
+		Json::Value data;
+		data["status"] = "OK";
+		data["message"] = "Enviada solicitud a contacto";
+		response["data"].append(data);
+	} else {
+		Log::get_instance()->log_info("Job vacio - add job");
+	}
+}
+
+void ApiJsonController::delete_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - delete job");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string new_job_position = request.get("job", "");
+	if (new_job_position.empty()) {
+		UserHandler::get_instance().delete_user_job(user_logged_id, new_job_position);
+		Json::Value data;
+		data["status"] = "OK";
+		data["message"] = "Enviada solicitud a contacto";
+		response["data"].append(data);
+	} else {
+		Log::get_instance()->log_info("Job vacio - delete job");
 	}
 }
