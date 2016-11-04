@@ -55,7 +55,9 @@ std::map<std::string, std::string> UserHandler::lookup(std::string query) {
 	std::string value = DatabaseHandler::get_instance().read("users");
 	std::list<std::string> users = UserList(value).users();
 	for (std::list<std::string>::iterator it = users.begin(); it != users.end(); ++it) {
-		if ((*(it)).compare(query) == 0) {
+		// Users is a list of ids, need user to compare to name
+		User user = get_user((*it));
+		if (user.get_name().compare(query) == 0) {
 			User user = get_user((*it));
 			answer[user.id()] = user.get_name();
 		}
