@@ -144,11 +144,27 @@ void UserHandler::delete_user_job(std::string user_logged_id, std::string new_jo
 void UserHandler::send_message(std::string sender_id, std::string receiver_id, std::string message) {
 	User sender = get_user(sender_id);
 	User receiver = get_user(receiver_id);
-	std::string chat = DatabaseHandler::get_instance().read("chat-" + sender.id() + "-" + receiver.id());
+	std::string first_attempt = "chat-" + sender.id() + "-" + receiver.id();
+	std::string second_attempt = "chat-" + receiver.id() + "-" + sender.id();
+
+	std::string chat = DatabaseHandler::get_instance().read(first_attempt);
 	if (chat.empty()) {
-		chat = DatabaseHandler::get_instance().read("chat-" + receiver.id() + "-" + sender.id());
+		std::cout << "No se encontro el chat: " << first_attempt << ". Buscando al reves" << second_attempt << std::endl;
+		chat = DatabaseHandler::get_instance().read(second_attempt);
+		if (chat.empty()) {
+			std::cout << "Creando chat vacio entre usuarios: [" << sender.id() << "] y [" << receiver.id() << "] " << std::endl;
+		} else {
+			std::cout << "Chat existente: [" << second_attempt << "]" << std::endl;
+		}
+	} else {
+		std::cout << "Chat existente: [" << first_attempt << "]" << std::endl;
 	}
+
 	Chat user_chats(chat);
 	user_chats.add_message(sender.id(), receiver.id(), message);
+	std::string new_key = "chat-" + sender.id() + "-" + receiver.id();
+	std::cout << "key: [" << new_key << "]" << std::endl;
+	std::cout << "escribiendo en base de datos: " << user_chats.database_serialize() << std::endl;
+	DatabaseHandler::get_instance().write(new_key, user_chats.database_serialize());
 }
 

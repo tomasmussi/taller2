@@ -25,9 +25,9 @@ public:
 	std::string database_serialize();
 
 	std::string get_sender_id() const;
-	std::string get_receiver_id();
-	std::string get_message();
-	std::string get_timestamp();
+	std::string get_receiver_id() const;
+	std::string get_message() const;
+	std::string get_timestamp() const;
 
 };
 

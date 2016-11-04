@@ -1,8 +1,12 @@
 #include "Message.h"
 
+
+#include <iostream>
+
 #include <string>
 #include <sstream>
-#include <algorithm>
+// #include <algorithm>
+#include <ctime>
 
 Message::Message(std::string json_value) {
 	Json::Value root;
@@ -18,6 +22,17 @@ Message::Message(std::string sender_id,std::string receiver_id, std::string mess
 	sender_id_ = sender_id;
 	receiver_id_ = receiver_id;
 	message_ = message;
+	time_t rawtime;
+	struct tm * timeinfo;
+	char buffer[80];
+
+	time (&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
+	timestamp_ = std::string(buffer);
+	std::cout << "timestamp: " << timestamp_ << std::endl;
 }
 
 Message::Message() {
@@ -52,15 +67,15 @@ std::string Message::get_sender_id() const {
 	return sender_id_;
 }
 
-std::string Message::get_receiver_id() {
+std::string Message::get_receiver_id() const {
 	return receiver_id_;
 }
 
-std::string Message::get_message() {
+std::string Message::get_message() const {
 	return message_;
 }
 
-std::string Message::get_timestamp() {
+std::string Message::get_timestamp() const {
 	return timestamp_;
 }
 

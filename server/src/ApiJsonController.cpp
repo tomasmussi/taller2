@@ -12,6 +12,8 @@
 ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
 		user_tokens_() {
+	DatabaseHandler::get_instance().delete_key("chat-a-user-id-nuevo-user");
+	DatabaseHandler::get_instance().delete_key("chat-nuevo-user-a-user-id");
 }
 
 ApiJsonController::~ApiJsonController() {
@@ -74,6 +76,9 @@ void ApiJsonController::setup() {
 
 	registerRoute("DELETE", "/delete_job_position",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_job_position));
+
+	registerRoute("POST", "/send_message",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::send_message));
 
 }
 
@@ -565,4 +570,8 @@ void ApiJsonController::send_message(Mongoose::Request &request, Mongoose::JsonR
 		return;
 	}
 	UserHandler::get_instance().send_message(user_logged_id, receiver_id, message);
+	Json::Value data;
+	data["status"] = "OK";
+	data["message"] = "Mensaje enviado exitosamente";
+	response["data"].append(data);
 }
