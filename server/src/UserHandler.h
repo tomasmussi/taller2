@@ -57,6 +57,8 @@ public:
 	void add_user_job(std::string user_logged_id, std::string new_job);
 
 	void delete_user_job(std::string user_logged_id, std::string new_job);
+
+	void send_message(std::string sender_id, std::string receiver_id, std::string message);
 };
 
 

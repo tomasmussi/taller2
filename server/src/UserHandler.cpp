@@ -1,6 +1,6 @@
+#include "Chat.h"
 #include "DatabaseHandler.h"
 #include "UserHandler.h"
-
 #include "UserList.h"
 
 #include <json/json.h>
@@ -140,3 +140,15 @@ void UserHandler::delete_user_job(std::string user_logged_id, std::string new_jo
 	user.delete_job_position(new_job);
 	save_user(user);
 }
+
+void UserHandler::send_message(std::string sender_id, std::string receiver_id, std::string message) {
+	User sender = get_user(sender_id);
+	User receiver = get_user(receiver_id);
+	std::string chat = DatabaseHandler::get_instance().read("chat-" + sender.id() + "-" + receiver.id());
+	if (chat.empty()) {
+		chat = DatabaseHandler::get_instance().read("chat-" + receiver.id() + "-" + sender.id());
+	}
+	Chat user_chats(chat);
+	user_chats.add_message(sender.id(), receiver.id(), message);
+}
+

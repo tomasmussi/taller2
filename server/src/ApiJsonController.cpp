@@ -533,3 +533,36 @@ void ApiJsonController::delete_job_position(Mongoose::Request &request, Mongoose
 		Log::get_instance()->log_info("Job vacio - delete job");
 	}
 }
+
+void ApiJsonController::send_message(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - send_message");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string message = request.get("message", "");
+	std::string receiver_id = request.get("contact_fb_id", "");
+	if (message.empty()) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Mensaje vacio";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Envio de mensaje vacio");
+		return;
+	}
+	if (receiver_id.empty() || !UserHandler::get_instance().user_exists(receiver_id)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario [" + receiver_id + "] no existe o no es valido";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario [" + receiver_id + "] no existe o no es valido");
+		return;
+	}
+	UserHandler::get_instance().send_message(user_logged_id, receiver_id, message);
+}
