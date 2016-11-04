@@ -1,6 +1,7 @@
 #include "ApiJsonController.h"
 #include "DatabaseHandler.h"
 #include "HerokuService.h"
+#include "Message.h"
 #include "UserHandler.h"
 #include "User.h"
 #include "log.h"
@@ -78,6 +79,8 @@ void ApiJsonController::setup() {
 	registerRoute("POST", "/send_message",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::send_message));
 
+	registerRoute("GET", "/view_messages",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::view_messages));
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -573,3 +576,38 @@ void ApiJsonController::send_message(Mongoose::Request &request, Mongoose::JsonR
 	data["message"] = "Mensaje enviado exitosamente";
 	response["data"].append(data);
 }
+
+void ApiJsonController::view_messages(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - send_message");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string receiver_id = request.get("contact_fb_id", "");
+	std::string limit = request.get("limit", "10");
+	if (receiver_id.empty() || !UserHandler::get_instance().user_exists(receiver_id)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario [" + receiver_id + "] no existe o no es valido";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario [" + receiver_id + "] no existe o no es valido");
+		return;
+	}
+	std::list<Message> messages = UserHandler::get_instance().view_messages(user_logged_id, receiver_id, limit);
+
+	Json::Value data;
+	data["status"] = "OK";
+	data["messages"] = Json::Value(Json::arrayValue);
+
+	for (std::list<Message>::iterator it = messages.begin(); it != messages.end(); ++it) {
+		data["messages"].append((*it).serialize());
+	}
+	response["data"].append(data);
+}
+

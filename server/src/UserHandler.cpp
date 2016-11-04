@@ -171,3 +171,31 @@ void UserHandler::send_message(std::string sender_id, std::string receiver_id, s
 	DatabaseHandler::get_instance().write(new_key, user_chats.database_serialize());
 }
 
+
+std::list<Message> UserHandler::view_messages(std::string sender_id, std::string receiver_id, std::string limit) {
+	User sender = get_user(sender_id);
+	User receiver = get_user(receiver_id);
+	std::string first_attempt = "chat-" + sender.id() + "-" + receiver.id();
+	std::string second_attempt = "chat-" + receiver.id() + "-" + sender.id();
+	std::string new_key;
+
+	std::string chat = DatabaseHandler::get_instance().read(first_attempt);
+	if (chat.empty()) {
+		std::cout << "No se encontro el chat: " << first_attempt << ". Buscando al reves: " << second_attempt << std::endl;
+		chat = DatabaseHandler::get_instance().read(second_attempt);
+		if (chat.empty()) {
+			std::cout << "Creando chat vacio entre usuarios: [" << sender.id() << "] y [" << receiver.id() << "] " << std::endl;
+			new_key = first_attempt;
+		} else {
+			std::cout << "Chat existente second_attempt: [" << second_attempt << "]" << std::endl;
+			new_key = second_attempt;
+		}
+	} else {
+		std::cout << "Chat existente first_attempt: [" << first_attempt << "]" << std::endl;
+		new_key = first_attempt;
+	}
+
+	Chat user_chats(chat);
+	return user_chats.view_messages(limit);
+}
+

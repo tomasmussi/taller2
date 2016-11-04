@@ -73,6 +73,8 @@ class ApiJsonController : public Mongoose::JsonController {
 		void delete_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void send_message(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void view_messages(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 

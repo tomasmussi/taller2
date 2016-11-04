@@ -15,6 +15,8 @@ public:
 	std::string database_serialize();
 
 	void add_message(std::string sender_id, std::string receiver_id, std::string message);
+
+	std::list<Message> view_messages(std::string limit);
 };
 
 

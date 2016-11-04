@@ -50,4 +50,17 @@ void Chat::add_message(std::string sender_id, std::string receiver_id, std::stri
 	messages_.sort(PComp<Message>);
 }
 
+std::list<Message> Chat::view_messages(std::string limit) {
+	int int_limit = atoi(limit.c_str());
+	std::list<Message> list;
+	int count = 0;
+	for (std::list<Message>::iterator it = messages_.begin(); it != messages_.end(); ++it) {
+		list.push_back(*it);
+		count++;
+		if (int_limit != 0 && count >= int_limit) {
+			break;
+		}
+	}
+	return list;
+}
 
