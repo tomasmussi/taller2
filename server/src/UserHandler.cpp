@@ -56,7 +56,10 @@ std::map<std::string, std::string> UserHandler::lookup(std::string query) {
 	std::list<std::string> users = UserList(value).users();
 	for (std::list<std::string>::iterator it = users.begin(); it != users.end(); ++it) {
 		// Users is a list of ids, need user to compare to name
+		// TODO(tomas) Delete couts
+		std::cout << "user: " << (*it) << std::endl;
 		User user = get_user((*it));
+		std::cout << "nombre: " << user.id() << "\t" << user.get_name() << std::endl;
 		if (user.get_name().compare(query) == 0) {
 			User user = get_user((*it));
 			answer[user.id()] = user.get_name();
