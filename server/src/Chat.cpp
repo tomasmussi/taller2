@@ -1,5 +1,7 @@
 #include "Chat.h"
 
+#include <iostream>
+
 #include <json/json.h>
 #include <sstream>
 #include <algorithm>
@@ -24,14 +26,18 @@ Chat::Chat(std::string value) : messages_() {
 		std::string key = root["messages"][i].asString();
 		messages_.push_back(Message(key));
 	}
+	std::cout << "en el chat hay " << messages_.size() << " mensajes" << std::endl;
 }
 
 std::string Chat::database_serialize() {
 	Json::Value root;
 	root["messages"] = Json::Value(Json::arrayValue);
+	unsigned count = 0;
 	for (std::list<Message>::iterator it = messages_.begin(); it != messages_.end(); ++it) {
 		root["messages"].append((*it).database_serialize());
+		count++;
 	}
+	std::cout << "se guardan " << count << " mensajes en la bbdd" << std::endl;
 	std::ostringstream os;
 	os << root;
 	return os.str();

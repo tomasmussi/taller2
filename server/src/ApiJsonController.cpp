@@ -12,8 +12,6 @@
 ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
 		user_tokens_() {
-	DatabaseHandler::get_instance().delete_key("chat-a-user-id-nuevo-user");
-	DatabaseHandler::get_instance().delete_key("chat-nuevo-user-a-user-id");
 }
 
 ApiJsonController::~ApiJsonController() {
