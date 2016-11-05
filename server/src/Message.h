@@ -21,7 +21,7 @@ public:
 	~Message();
 
 	/* Serialize for sending as JSON */
-	std::string serialize();
+	Json::Value serialize();
 	std::string database_serialize();
 
 	std::string get_sender_id() const;

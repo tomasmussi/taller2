@@ -41,15 +41,13 @@ Message::Message() {
 Message::~Message() {
 }
 
-std::string Message::serialize() {
+Json::Value Message::serialize() {
 	Json::Value root;
 	root["sender_id_"] = sender_id_;
 	root["receiver_id"] = receiver_id_;
 	root["message"] = message_;
 	root["timestamp"] = timestamp_;
-	std::ostringstream os;
-	os << root;
-	return os.str();
+	return root;
 }
 
 std::string Message::database_serialize() {
