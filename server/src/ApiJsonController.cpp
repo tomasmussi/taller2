@@ -393,12 +393,20 @@ void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse 
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
-	std::string voted_user_id = user_tokens_[request.get("contact_fb_id", "")];
+	std::string voted_user_id = request.get("contact_fb_id", "");
+	if (voted_user_id.empty() || !UserHandler::get_instance().user_exists(voted_user_id)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario [" + voted_user_id + "] no existe o no es valido";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario [" + voted_user_id + "] no existe o no es valido");
+		return;
+	}
 	UserHandler::get_instance().user_vote(user_logged_id, voted_user_id);
 
 	Json::Value data;
 	data["status"] = "OK";
-	data["message"] = "Enviada solicitud a contacto";
+	data["message"] = "Enviada votacion a contacto";
 	Log::get_instance()->log_info("Enviada votacion a contacto " + voted_user_id);
 	response["data"].append(data);
 }

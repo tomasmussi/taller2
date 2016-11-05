@@ -43,6 +43,10 @@ User::User(std::string json_value) : requests_(), friends_() {
 	load_list(root, "friends", friends_);
 	load_list(root, "skills", skills_);
 	load_list(root, "requests", requests_);
+
+	for (unsigned int i = 0; i < root["user"]["votes"].size(); i++) {
+		votes_[(root["user"]["votes"][i].asString())] = 1;
+	}
 }
 
 User::User() {
