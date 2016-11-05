@@ -16,7 +16,7 @@ public:
 
 	void add_message(std::string sender_id, std::string receiver_id, std::string message);
 
-	std::list<Message> view_messages(std::string limit);
+	std::list<Message> view_messages(std::string limit = "10");
 };
 
 

@@ -1,9 +1,16 @@
 #include <gtest/gtest.h>
+#include <json/json.h>
+
+#include <ctime>
+#include <string>
+
+#include "Chat.h"
 #include "DatabaseHandler.h"
 #include "UserHandler.h"
 #include "User.h"
 #include "UserList.h"
-#include <string>
+
+
 
 TEST(DatabaseHandler, WriteAndRead) {
 	std::string clave = "clave";
@@ -288,6 +295,110 @@ TEST(UserListTest, userListCopy) {
 	it++;
 	EXPECT_EQ(it, copy.end());
 	EXPECT_TRUE(list.user_exists("new_fb_id"));
+}
+
+TEST(MessageTest, ConstructFromString) {
+	std::string users = "{\"message\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
+	std::string message_json = "{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"recv_id\",\n\t\"sender_id\" : \"send_id\",\n\t\"timestamp\" : \"2016-11-04 22:28:01\"\n}";
+	Message m(message_json);
+	EXPECT_EQ(m.get_message(), "hola");
+	EXPECT_EQ(m.get_sender_id(), "send_id");
+	EXPECT_EQ(m.get_receiver_id(), "recv_id");
+	EXPECT_EQ(m.get_timestamp(), "2016-11-04 22:28:01");
+}
+
+TEST(MessageTest, CreateNewMessage) {
+	Message m("sender", "receiver", "message");
+	time_t rawtime;
+	struct tm * timeinfo;
+	char buffer[80];
+
+	time (&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
+	std::string time_stamp(buffer);
+	EXPECT_EQ(m.get_message(), "message");
+	EXPECT_EQ(m.get_sender_id(), "sender");
+	EXPECT_EQ(m.get_receiver_id(), "receiver");
+	EXPECT_GE(m.get_timestamp(), time_stamp);
+}
+
+TEST(MessageTest, MessageSerialize) {
+	Message m("sender", "receiver", "message");
+	time_t rawtime;
+	struct tm * timeinfo;
+	char buffer[80];
+
+	time (&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
+	std::string time_stamp(buffer);
+	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id_\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
+	Json::Value root = m.serialize();
+	std::ostringstream os;
+	os << root;
+	EXPECT_EQ(expected, os.str());
+}
+
+TEST(MessageTest, MessageDatabaseSerialize) {
+	Message m("sender", "receiver", "message");
+	time_t rawtime;
+	struct tm * timeinfo;
+	char buffer[80];
+
+	time (&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
+	std::string time_stamp(buffer);
+	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id_\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
+	EXPECT_EQ(expected, m.database_serialize());
+}
+
+TEST(ChatTest, CreateEmptyChat) {
+	Chat chat("");
+	std::string expected = "{\n\t\"messages\" : []\n}";
+	EXPECT_EQ(expected, chat.database_serialize());
+}
+
+TEST(ChatTest, CreateChatWithMessage) {
+	time_t rawtime;
+	struct tm * timeinfo;
+	char buffer[80];
+
+	time (&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
+	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
+	std::string time_stamp(buffer);
+	Chat chat("");
+	chat.add_message("send", "recv", "hola");
+	std::string expected = "{\n\t\"messages\" : \n\t[\n\t\t\"{\\n\\t\\\"message\\\" : \\\"hola\\\",\\n\\t\\\"receiver_id\\\" : \\\"recv\\\",\\n\\t\\\"sender_id_\\\" : \\\"send\\\",\\n\\t\\\"timestamp\\\" : \\\"" + time_stamp + "\\\"\\n}\"\n\t]\n}";
+	EXPECT_EQ(expected, chat.database_serialize());
+}
+
+TEST(ChatTest, RetrieveMessagesWithLimit) {
+	Chat chat("");
+	chat.add_message("send", "recv", "hola");
+	chat.add_message("send", "recv", "hola");
+	chat.add_message("send", "recv", "hola");
+	chat.add_message("send", "recv", "hola");
+
+	EXPECT_EQ(4, chat.view_messages().size());
+	EXPECT_EQ(1, chat.view_messages("1").size());
+	EXPECT_EQ(3, chat.view_messages("3").size());
+
+	for (int i = 0; i < 10; i++) {
+		chat.add_message("send", "recv", "hola");
+	}
+	EXPECT_EQ(10, chat.view_messages().size());
+	EXPECT_EQ(14, chat.view_messages("0").size());
 }
 
 int main(int argc, char **argv) {

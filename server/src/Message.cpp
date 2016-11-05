@@ -5,14 +5,13 @@
 
 #include <string>
 #include <sstream>
-// #include <algorithm>
 #include <ctime>
 
 Message::Message(std::string json_value) {
 	Json::Value root;
 	Json::Reader reader;
 	reader.parse(json_value, root);
-	sender_id_ = root["sender_id_"].asString();
+	sender_id_ = root["sender_id"].asString();
 	receiver_id_ = root["receiver_id"].asString();
 	message_ = root["message"].asString();
 	timestamp_ = root["timestamp"].asString();
@@ -32,7 +31,6 @@ Message::Message(std::string sender_id,std::string receiver_id, std::string mess
 	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
 	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
 	timestamp_ = std::string(buffer);
-	std::cout << "timestamp: " << timestamp_ << std::endl;
 }
 
 Message::Message() {
