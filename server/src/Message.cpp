@@ -41,7 +41,7 @@ Message::~Message() {
 
 Json::Value Message::serialize() {
 	Json::Value root;
-	root["sender_id_"] = sender_id_;
+	root["sender_id"] = sender_id_;
 	root["receiver_id"] = receiver_id_;
 	root["message"] = message_;
 	root["timestamp"] = timestamp_;
@@ -50,7 +50,7 @@ Json::Value Message::serialize() {
 
 std::string Message::database_serialize() {
 	Json::Value root;
-	root["sender_id_"] = sender_id_;
+	root["sender_id"] = sender_id_;
 	root["receiver_id"] = receiver_id_;
 	root["message"] = message_;
 	root["timestamp"] = timestamp_;

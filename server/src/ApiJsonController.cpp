@@ -259,7 +259,7 @@ void ApiJsonController::profile(Mongoose::Request &request, Mongoose::JsonRespon
 		return;
 	}
 	std::string user_id = request.get("contact_fb_id", "");
-	if (user_id.empty() || UserHandler::get_instance().user_exists(user_id)) {
+	if (user_id.empty() || !UserHandler::get_instance().user_exists(user_id)) {
 		Json::Value errors;
 		errors["status"] = "ERROR";
 		errors["message"] = "Usuario vacio o inválido";
@@ -485,11 +485,11 @@ void ApiJsonController::add_skill(Mongoose::Request &request, Mongoose::JsonResp
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string new_skill = request.get("skill", "");
-	if (new_skill.empty()) {
+	if (!new_skill.empty()) {
 		UserHandler::get_instance().add_user_skill(user_logged_id, new_skill);
 		Json::Value data;
 		data["status"] = "OK";
-		data["message"] = "Enviada solicitud a contacto";
+		data["message"] = "Skill agregado";
 		response["data"].append(data);
 	} else {
 		Log::get_instance()->log_info("Skill vacio - add skill");
