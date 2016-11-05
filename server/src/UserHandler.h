@@ -26,6 +26,7 @@ private:
 	UserHandler(UserHandler const &);
 	void operator=(UserHandler const &);
 
+
 public:
 
 	/* Returns signleton database instance */

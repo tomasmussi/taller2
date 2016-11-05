@@ -1,4 +1,5 @@
 #include "Chat.h"
+#include "log.h"
 
 #include <iostream>
 
@@ -26,7 +27,6 @@ Chat::Chat(std::string value) : messages_() {
 		std::string key = root["messages"][i].asString();
 		messages_.push_back(Message(key));
 	}
-	std::cout << "en el chat hay " << messages_.size() << " mensajes" << std::endl;
 }
 
 std::string Chat::database_serialize() {
@@ -37,7 +37,6 @@ std::string Chat::database_serialize() {
 		root["messages"].append((*it).database_serialize());
 		count++;
 	}
-	std::cout << "se guardan " << count << " mensajes en la bbdd" << std::endl;
 	std::ostringstream os;
 	os << root;
 	return os.str();
