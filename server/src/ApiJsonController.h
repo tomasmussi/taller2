@@ -46,6 +46,8 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void my_profile(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		void profile(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 		void fb_login(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void edit(Mongoose::Request &request, Mongoose::JsonResponse &response);

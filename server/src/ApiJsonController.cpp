@@ -40,6 +40,9 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/my_profile",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::my_profile));
 
+	registerRoute("GET", "/profile",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::profile));
+
 	registerRoute("GET", "/fb_login",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::fb_login));
 
@@ -243,6 +246,31 @@ void ApiJsonController::my_profile(Mongoose::Request &request, Mongoose::JsonRes
 		reader.parse(user.serialize(), root);
 		response["data"].append(root);
 	}
+}
+
+void ApiJsonController::profile(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		return;
+	}
+	std::string user_id = request.get("contact_fb_id", "");
+	if (user_id.empty() || UserHandler::get_instance().user_exists(user_id)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario vacio o inválido";
+		response["errors"].append(errors);
+		return;
+	}
+	User user = UserHandler::get_instance().get_user(user_id);
+	Json::Value root;
+	Json::Reader reader;
+	reader.parse(user.serialize(), root);
+	response["data"].append(root);
 }
 
 void ApiJsonController::add_contact(Mongoose::Request &request, Mongoose::JsonResponse &response) {
