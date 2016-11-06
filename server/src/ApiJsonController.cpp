@@ -457,6 +457,8 @@ void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonRespon
 		Json::Value user;
 		User it = most_pop.top();
 		user["fb_id"] = it.id();
+		user["name"] = it.get_name();
+		user["photo"] = it.get_profile_photo();
 		user["votes"] = it.votes();
 		data.append(user);
 		most_pop.pop();
