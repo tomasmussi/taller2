@@ -356,13 +356,15 @@ void ApiJsonController::fb_login(Mongoose::Request &request, Mongoose::JsonRespo
 		Log::get_instance()->log_info("Facebook user ID invalidado");
 		return;
 	}
-	if (! UserHandler::get_instance().user_exists(fb_user_id)) {
+	bool user_exists = UserHandler::get_instance().user_exists(fb_user_id);
+	if (! user_exists) {
 		UserHandler::get_instance().create_user(fb_user_id);
 	}
 	std::string token = md5(fb_user_id + SALT);
 	user_tokens_[token] = fb_user_id;
 	Json::Value data;
 	data["token"] = token;
+	data["user_exists"] = ((user_exists) ? "true" : "false");
 	response["data"].append(data);
 }
 
