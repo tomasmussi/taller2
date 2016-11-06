@@ -384,7 +384,7 @@ void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonRespons
 	std::string lookup_name = request.get("query", "");
 
 	Json::Value data(Json::arrayValue);
-	UserHandler::get_instance().lookup(lookup_name, data);
+	UserHandler::get_instance().lookup(user_logged_id, lookup_name, data);
 	response["data"].append(data);
 }
 
@@ -450,6 +450,8 @@ void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonRespon
 		Log::get_instance()->log_info("Usuario no autorizado - popular");
 		return;
 	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	User me = UserHandler::get_instance().get_user(user_logged_id);
 	vote_queue most_pop = UserHandler::get_instance().most_popular();
 	Json::Value data(Json::arrayValue);
 	int count = 0;
@@ -460,6 +462,7 @@ void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonRespon
 		user["name"] = it.get_name();
 		user["photo"] = it.get_profile_photo();
 		user["votes"] = it.votes();
+		user["is_contact"] = (me.is_friend(it) ? "true" : "false");
 		data.append(user);
 		most_pop.pop();
 		count++;

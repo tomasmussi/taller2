@@ -176,6 +176,23 @@ TEST(UserTest, UserAcceptRequestSerialization) {
 	EXPECT_EQ(tomas.database_serialize(), expected);
 }
 
+TEST(UserTest, UsersAreFriends) {
+	std::string user = "{\"user\" : { \"friends\" : [\"luis_fb_id\"], \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"friends\" : [\"tomas_fb_id\"], \"fb_id\" : \"luis_fb_id\",	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+	EXPECT_TRUE(tomas.is_friend(luis));
+	EXPECT_TRUE(luis.is_friend(tomas));
+}
+
+TEST(UserTest, UsersAreNOTFriends) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"fb_id\" : \"luis_fb_id\",	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+	EXPECT_FALSE(tomas.is_friend(luis));
+	EXPECT_FALSE(luis.is_friend(tomas));
+}
 
 TEST(UserTest, UserVoteForFriendUser) {
 	std::string user = "{\"user\" : { \"friends\" : [\"luis_fb_id\"], \"fb_id\" : \"tomas_fb_id\", \"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";

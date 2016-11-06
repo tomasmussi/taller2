@@ -40,7 +40,7 @@ public:
 
 	void save_user(User &user);
 
-	void lookup(std::string query, Json::Value &array);
+	void lookup(std::string user_logged_id, std::string query, Json::Value &array);
 
 	void send_request(std::string from_user, std::string to_user);
 

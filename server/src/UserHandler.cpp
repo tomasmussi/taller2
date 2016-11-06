@@ -48,8 +48,8 @@ void UserHandler::save_user(User &user) {
 	DatabaseHandler::get_instance().write("user-" + user.id(), user.database_serialize());
 }
 
-void UserHandler::lookup(std::string query, Json::Value &array) {
-
+void UserHandler::lookup(std::string user_logged_id, std::string query, Json::Value &array) {
+	User me = get_user(user_logged_id);
 	/* Por ahora es match directo contra el nombre */
 	std::string value = DatabaseHandler::get_instance().read("users");
 	std::list<std::string> users = UserList(value).users();
@@ -62,6 +62,7 @@ void UserHandler::lookup(std::string query, Json::Value &array) {
 			user_value["fb_id"] = user.id();
 			user_value["name"] = user.get_name();
 			user_value["photo"] = user.get_profile_photo();
+			user_value["is_contact"] = (me.is_friend(user) ? "true" : "false");
 			array.append(user_value);
 		}
 	}
@@ -91,11 +92,12 @@ void UserHandler::load_friends(std::string user_id, Json::Value &array) {
 	User user = get_user(user_id);
 	std::list<std::string> friends = user.friends();
 	for (std::list<std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
-		User user = get_user((*it));
+		User user_friend = get_user((*it));
 		Json::Value user_value;
-		user_value["fb_id"] = user.id();
-		user_value["name"] = user.get_name();
-		user_value["photo"] = user.get_profile_photo();
+		user_value["fb_id"] = user_friend.id();
+		user_value["name"] = user_friend.get_name();
+		user_value["photo"] = user_friend.get_profile_photo();
+		user_value["is_contact"] = (user.is_friend(user_friend) ? "true" : "false");
 		array.append(user_value);
 	}
 }

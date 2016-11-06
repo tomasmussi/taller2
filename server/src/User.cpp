@@ -181,6 +181,10 @@ std::list<std::string> User::friends() {
 	return friends_;
 }
 
+bool User::is_friend(const User &other_user) {
+	return std::find(friends_.begin(), friends_.end(), other_user.id()) != friends_.end();
+}
+
 void User::vote_for(User &other_user) {
 	if (other_user.id().compare(id()) == 0) {
 		// Cant vote for myself
