@@ -186,6 +186,10 @@ void User::vote_for(User &other_user) {
 		// Cant vote for myself
 		return;
 	}
+	if (std::find(friends_.begin(), friends_.end(), other_user.id()) == friends_.end()) {
+		// Users are not friends. Cant vote for them
+		return;
+	}
 	other_user.votes_[id()] = 1;
 }
 
