@@ -380,14 +380,9 @@ void ApiJsonController::lookup(Mongoose::Request &request, Mongoose::JsonRespons
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string lookup_name = request.get("query", "");
-	std::map<std::string, std::string> users = UserHandler::get_instance().lookup(lookup_name);
+
 	Json::Value data(Json::arrayValue);
-	for (std::map<std::string, std::string>::iterator it = users.begin(); it != users.end(); ++it) {
-		Json::Value user;
-		user["fb_id"] = it->first;
-		user["name"] = it->second;
-		data.append(user);
-	}
+	UserHandler::get_instance().lookup(lookup_name, data);
 	response["data"].append(data);
 }
 
@@ -404,14 +399,10 @@ void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonR
 		return;
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
-	std::map<std::string, std::string> friends = UserHandler::get_instance().get_friends(user_logged_id);
+
+
 	Json::Value data(Json::arrayValue);
-	for (std::map<std::string, std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
-		Json::Value user;
-		user["fb_id"] = it->first;
-		user["name"] = it->second;
-		data.append(user);
-	}
+	UserHandler::get_instance().load_friends(user_logged_id, data);
 	response["data"].append(data);
 }
 

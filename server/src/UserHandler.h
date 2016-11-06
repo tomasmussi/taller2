@@ -40,13 +40,13 @@ public:
 
 	void save_user(User &user);
 
-	std::map<std::string, std::string> lookup(std::string query);
+	void lookup(std::string query, Json::Value &array);
 
 	void send_request(std::string from_user, std::string to_user);
 
 	void answer_request(std::string from_user, std::string to_user, bool accept);
 
-	std::map<std::string, std::string> get_friends(std::string user_id);
+	void load_friends(std::string user_id, Json::Value &array);
 
 	void user_vote(std::string from_user, std::string voted_user);
 

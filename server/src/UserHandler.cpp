@@ -48,8 +48,7 @@ void UserHandler::save_user(User &user) {
 	DatabaseHandler::get_instance().write("user-" + user.id(), user.database_serialize());
 }
 
-std::map<std::string, std::string> UserHandler::lookup(std::string query) {
-	std::map<std::string, std::string> answer;
+void UserHandler::lookup(std::string query, Json::Value &array) {
 
 	/* Por ahora es match directo contra el nombre */
 	std::string value = DatabaseHandler::get_instance().read("users");
@@ -59,10 +58,13 @@ std::map<std::string, std::string> UserHandler::lookup(std::string query) {
 		User user = get_user((*it));
 		if (user.get_name().compare(query) == 0) {
 			User user = get_user((*it));
-			answer[user.id()] = user.get_name();
+			Json::Value user_value;
+			user_value["fb_id"] = user.id();
+			user_value["name"] = user.get_name();
+			user_value["photo"] = user.get_profile_photo();
+			array.append(user_value);
 		}
 	}
-	return answer;
 }
 
 void UserHandler::send_request(std::string from_user, std::string to_user) {
@@ -85,15 +87,17 @@ void UserHandler::answer_request(std::string from_user, std::string to_user, boo
 	save_user(user_to);
 }
 
-std::map<std::string, std::string> UserHandler::get_friends(std::string user_id) {
-	std::map<std::string, std::string> answer;
+void UserHandler::load_friends(std::string user_id, Json::Value &array) {
 	User user = get_user(user_id);
 	std::list<std::string> friends = user.friends();
 	for (std::list<std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
 		User user = get_user((*it));
-		answer[user.id()] = user.get_name();
+		Json::Value user_value;
+		user_value["fb_id"] = user.id();
+		user_value["name"] = user.get_name();
+		user_value["photo"] = user.get_profile_photo();
+		array.append(user_value);
 	}
-	return answer;
 }
 
 
