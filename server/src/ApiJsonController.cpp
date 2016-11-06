@@ -429,11 +429,16 @@ void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse 
 		Log::get_instance()->log_info("Usuario [" + voted_user_id + "] no existe o no es valido");
 		return;
 	}
-	UserHandler::get_instance().user_vote(user_logged_id, voted_user_id);
+	bool success = UserHandler::get_instance().user_vote(user_logged_id, voted_user_id);
 
 	Json::Value data;
-	data["status"] = "OK";
-	data["message"] = "Enviada votacion a contacto";
+	if (success) {
+		data["status"] = "OK";
+		data["message"] = "Enviada votacion a contacto";
+	} else {
+		data["status"] = "ERROR";
+		data["message"] = "No puede votar por contactos que no son amigos o por ud mismo";
+	}
 	Log::get_instance()->log_info("Enviada votacion a contacto " + voted_user_id);
 	response["data"].append(data);
 }

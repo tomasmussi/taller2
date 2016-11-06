@@ -48,7 +48,7 @@ public:
 
 	void load_friends(std::string user_id, Json::Value &array);
 
-	void user_vote(std::string from_user, std::string voted_user);
+	bool user_vote(std::string from_user, std::string voted_user);
 
 	vote_queue most_popular();
 

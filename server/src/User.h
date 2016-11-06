@@ -61,7 +61,7 @@ public:
 
 	bool is_friend(const User &other_user);
 
-	void vote_for(User &other_user);
+	bool vote_for(User &other_user);
 
 	size_t votes() const;
 

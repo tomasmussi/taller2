@@ -103,12 +103,13 @@ void UserHandler::load_friends(std::string user_id, Json::Value &array) {
 }
 
 
-void UserHandler::user_vote(std::string from_user, std::string voted_user_id) {
+bool UserHandler::user_vote(std::string from_user, std::string voted_user_id) {
 	User user_from = get_user(from_user);
 	User voted_user = get_user(voted_user_id);
-	user_from.vote_for(voted_user);
+	bool success = user_from.vote_for(voted_user);
 	save_user(user_from);
 	save_user(voted_user);
+	return success;
 }
 
 /* WARNING! Este metodo tiene dependencias de todos lados. Testear profundamente */
