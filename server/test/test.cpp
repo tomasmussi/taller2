@@ -337,7 +337,7 @@ TEST(MessageTest, MessageSerialize) {
 	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
 	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
 	std::string time_stamp(buffer);
-	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id_\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
+	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
 	Json::Value root = m.serialize();
 	std::ostringstream os;
 	os << root;
@@ -356,7 +356,7 @@ TEST(MessageTest, MessageDatabaseSerialize) {
 	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
 	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
 	std::string time_stamp(buffer);
-	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id_\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
+	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
 	EXPECT_EQ(expected, m.database_serialize());
 }
 
@@ -379,7 +379,7 @@ TEST(ChatTest, CreateChatWithMessage) {
 	std::string time_stamp(buffer);
 	Chat chat("");
 	chat.add_message("send", "recv", "hola");
-	std::string expected = "{\n\t\"messages\" : \n\t[\n\t\t\"{\\n\\t\\\"message\\\" : \\\"hola\\\",\\n\\t\\\"receiver_id\\\" : \\\"recv\\\",\\n\\t\\\"sender_id_\\\" : \\\"send\\\",\\n\\t\\\"timestamp\\\" : \\\"" + time_stamp + "\\\"\\n}\"\n\t]\n}";
+	std::string expected = "{\n\t\"messages\" : \n\t[\n\t\t\"{\\n\\t\\\"message\\\" : \\\"hola\\\",\\n\\t\\\"receiver_id\\\" : \\\"recv\\\",\\n\\t\\\"sender_id\\\" : \\\"send\\\",\\n\\t\\\"timestamp\\\" : \\\"" + time_stamp + "\\\"\\n}\"\n\t]\n}";
 	EXPECT_EQ(expected, chat.database_serialize());
 }
 
