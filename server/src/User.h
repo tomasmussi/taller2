@@ -37,12 +37,12 @@ public:
 	std::string database_serialize();
 
 	std::string id() const;
-	std::string get_email();
-	std::string get_name();
-	std::string get_dob();
-	std::string get_city();
-	std::string get_summary();
-	std::string get_profile_photo();
+	std::string get_email() const;
+	std::string get_name() const;
+	std::string get_dob() const;
+	std::string get_city() const;
+	std::string get_summary() const;
+	std::string get_profile_photo() const;
 
 	void replace_not_null(std::string field, std::string value);
 

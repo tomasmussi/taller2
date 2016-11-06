@@ -113,24 +113,24 @@ std::string User::id() const {
 	return id_;
 }
 
-std::string User::get_email() {
+std::string User::get_email() const {
 	return email_;
 }
 
-std::string User::get_name() {
+std::string User::get_name() const {
 	return name_;
 }
 
-std::string User::get_dob() {
+std::string User::get_dob() const {
 	return dob_;
 }
-std::string User::get_city() {
+std::string User::get_city() const {
 	return city_;
 }
-std::string User::get_summary() {
+std::string User::get_summary() const {
 	return summary_;
 }
-std::string User::get_profile_photo() {
+std::string User::get_profile_photo() const {
 	return profile_photo_;
 }
 

@@ -26,6 +26,7 @@ private:
 	UserHandler(UserHandler const &);
 	void operator=(UserHandler const &);
 
+	bool lookup_match(const User &other_user, std::string query);
 
 public:
 

@@ -48,6 +48,10 @@ void UserHandler::save_user(User &user) {
 	DatabaseHandler::get_instance().write("user-" + user.id(), user.database_serialize());
 }
 
+bool UserHandler::lookup_match(const User &u, std::string query) {
+	return u.get_name().compare(query) == 0 || u.id().compare(query) == 0;
+}
+
 void UserHandler::lookup(std::string user_logged_id, std::string query, Json::Value &array) {
 	User me = get_user(user_logged_id);
 	/* Por ahora es match directo contra el nombre */
@@ -56,7 +60,7 @@ void UserHandler::lookup(std::string user_logged_id, std::string query, Json::Va
 	for (std::list<std::string>::iterator it = users.begin(); it != users.end(); ++it) {
 		// Users is a list of ids, need user to compare to name
 		User user = get_user((*it));
-		if (user.get_name().compare(query) == 0) {
+		if (lookup_match(user, query)) {
 			User user = get_user((*it));
 			Json::Value user_value;
 			user_value["fb_id"] = user.id();
