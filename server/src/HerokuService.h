@@ -12,6 +12,7 @@ public:
 	HerokuService(std::string url, std::string service_name);
 	~HerokuService();
 	void overload_response(Mongoose::JsonResponse &response);
+	void get_data();
 };
 
 

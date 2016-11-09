@@ -73,6 +73,9 @@ void ApiJsonController::setup() {
 	registerRoute("DELETE", "/delete_skill",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_skill));
 
+	registerRoute("GET", "/get_skill",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_skill));
+
 	registerRoute("GET", "/add_job_position",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_job_position));
 
@@ -521,6 +524,23 @@ void ApiJsonController::delete_skill(Mongoose::Request &request, Mongoose::JsonR
 	} else {
 		Log::get_instance()->log_info("Skill vacio - delete skill");
 	}
+}
+
+void ApiJsonController::get_skill(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - get skill");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string name = request.get("name", "");
+	HerokuService service("https://guarded-sands-84788.herokuapp.com", "skills");
+	service.get_data();
 }
 
 void ApiJsonController::add_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response) {
