@@ -1,0 +1,64 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageDivergence.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageDotProduct.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageLogarithmicScale.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageLogic.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageMagnitude.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageMaskBits.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageMathematics.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageWeightedSum.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageDivergence.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageDotProduct.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageLogarithmicScale.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageLogic.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageMagnitude.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageMaskBits.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageMathematics.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Math/vtkImageWeightedSum.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Imaging/Math/vtkImagingMathModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkImagingMath"
+		],
+		"name" : "vtkImagingMath"
+	}
+}

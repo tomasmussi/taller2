@@ -1,0 +1,100 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkBooleanTexture.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkCheckerboardSplatter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkFastSplatter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkGaussianSplatter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkImageCursor3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkImageRectilinearWipe.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkImageToPoints.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkPointLoad.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkSampleFunction.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkShepardMethod.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkSliceCubes.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkSurfaceReconstructionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkTriangularTexture.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkVoxelModeller.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkBooleanTexture.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkCheckerboardSplatter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkFastSplatter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkGaussianSplatter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkImageCursor3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkImageRectilinearWipe.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkImageToPoints.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkPointLoad.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkSampleFunction.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkShepardMethod.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkSliceCubes.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkSurfaceReconstructionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkTriangularTexture.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Hybrid/vtkVoxelModeller.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Imaging/Hybrid/vtkImagingHybridModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkImagingHybrid"
+		],
+		"name" : "vtkImagingHybrid"
+	}
+}

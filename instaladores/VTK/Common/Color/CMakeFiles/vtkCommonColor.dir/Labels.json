@@ -1,0 +1,28 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Common/Color/vtkColorSeries.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Common/Color/vtkNamedColors.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Common/Color/vtkColorSeries.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Common/Color/vtkNamedColors.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Common/Color/vtkCommonColorModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkCommonColor"
+		],
+		"name" : "vtkCommonColor"
+	}
+}

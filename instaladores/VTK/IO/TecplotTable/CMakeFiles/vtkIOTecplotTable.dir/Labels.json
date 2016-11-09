@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/IO/TecplotTable/vtkTecplotTableReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/TecplotTable/vtkTecplotTableReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/IO/TecplotTable/vtkIOTecplotTableModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkIOTecplotTable"
+		],
+		"name" : "vtkIOTecplotTable"
+	}
+}

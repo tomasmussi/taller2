@@ -1,0 +1,34 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Statistics/vtkImageAccumulate.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Statistics/vtkImageHistogram.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Statistics/vtkImageHistogramStatistics.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Statistics/vtkImageAccumulate.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Statistics/vtkImageHistogram.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Statistics/vtkImageHistogramStatistics.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Imaging/Statistics/vtkImagingStatisticsModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkImagingStatistics"
+		],
+		"name" : "vtkImagingStatistics"
+	}
+}

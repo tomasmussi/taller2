@@ -1,0 +1,11 @@
+# Target labels
+ vtkTestingRendering
+# Source files and their labels
+/home/ezequiel/VTK/Testing/Rendering/vtkRegressionTestImage.h
+/home/ezequiel/VTK/Testing/Rendering/vtkTesting.cxx
+/home/ezequiel/VTK/Testing/Rendering/vtkTestingInteractor.cxx
+/home/ezequiel/VTK/Testing/Rendering/vtkTestingObjectFactory.cxx
+/home/ezequiel/VTK/Testing/Rendering/vtkTesting.h
+/home/ezequiel/VTK/Testing/Rendering/vtkTestingInteractor.h
+/home/ezequiel/VTK/Testing/Rendering/vtkTestingObjectFactory.h
+/home/ezequiel/VTK/build/Testing/Rendering/vtkTestingRenderingModule.h

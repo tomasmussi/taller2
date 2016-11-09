@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Utilities/DICOMParser/DICOMFile.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Utilities/DICOMParser/DICOMParser.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Utilities/DICOMParser/DICOMAppHelper.cxx"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkDICOMParser"
+		],
+		"name" : "vtkDICOMParser"
+	}
+}

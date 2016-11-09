@@ -1,0 +1,22 @@
+# Target labels
+ vtkImagingFourier
+# Source files and their labels
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageButterworthHighPass.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageButterworthLowPass.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageFFT.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageFourierCenter.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageFourierFilter.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageIdealHighPass.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageIdealLowPass.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageRFFT.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkTableFFT.cxx
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageButterworthHighPass.h
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageButterworthLowPass.h
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageFFT.h
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageFourierCenter.h
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageFourierFilter.h
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageIdealHighPass.h
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageIdealLowPass.h
+/home/ezequiel/VTK/Imaging/Fourier/vtkImageRFFT.h
+/home/ezequiel/VTK/Imaging/Fourier/vtkTableFFT.h
+/home/ezequiel/VTK/build/Imaging/Fourier/vtkImagingFourierModule.h

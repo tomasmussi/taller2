@@ -1,0 +1,38 @@
+# Target labels
+ vtkFiltersStatistics
+# Source files and their labels
+/home/ezequiel/VTK/Filters/Statistics/vtkAutoCorrelativeStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkBivariateLinearTableThreshold.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkComputeQuartiles.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkContingencyStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkCorrelativeStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkDescriptiveStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkHighestDensityRegionsStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkExtractFunctionalBagPlot.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkKMeansDistanceFunctorCalculator.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkKMeansDistanceFunctor.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkKMeansStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkMultiCorrelativeStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkOrderStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkPCAStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkStatisticsAlgorithm.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkStrahlerMetric.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkStreamingStatistics.cxx
+/home/ezequiel/VTK/Filters/Statistics/vtkAutoCorrelativeStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkBivariateLinearTableThreshold.h
+/home/ezequiel/VTK/Filters/Statistics/vtkComputeQuartiles.h
+/home/ezequiel/VTK/Filters/Statistics/vtkContingencyStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkCorrelativeStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkDescriptiveStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkHighestDensityRegionsStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkExtractFunctionalBagPlot.h
+/home/ezequiel/VTK/Filters/Statistics/vtkKMeansDistanceFunctorCalculator.h
+/home/ezequiel/VTK/Filters/Statistics/vtkKMeansDistanceFunctor.h
+/home/ezequiel/VTK/Filters/Statistics/vtkKMeansStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkMultiCorrelativeStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkOrderStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkPCAStatistics.h
+/home/ezequiel/VTK/Filters/Statistics/vtkStatisticsAlgorithm.h
+/home/ezequiel/VTK/Filters/Statistics/vtkStrahlerMetric.h
+/home/ezequiel/VTK/Filters/Statistics/vtkStreamingStatistics.h
+/home/ezequiel/VTK/build/Filters/Statistics/vtkFiltersStatisticsModule.h

@@ -1,0 +1,8 @@
+# Target labels
+ vtkCommonColor
+# Source files and their labels
+/home/ezequiel/VTK/Common/Color/vtkColorSeries.cxx
+/home/ezequiel/VTK/Common/Color/vtkNamedColors.cxx
+/home/ezequiel/VTK/Common/Color/vtkColorSeries.h
+/home/ezequiel/VTK/Common/Color/vtkNamedColors.h
+/home/ezequiel/VTK/build/Common/Color/vtkCommonColorModule.h

@@ -1,0 +1,37 @@
+# Target labels
+ vtkDomainsChemistry
+# Source files and their labels
+/home/ezequiel/VTK/Domains/Chemistry/vtkBlueObeliskData.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkBlueObeliskDataInternal.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkBlueObeliskDataParser.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkCMLMoleculeReader.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkGaussianCubeReader2.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeAlgorithm.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeMapper.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeToAtomBallFilter.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeToBondStickFilter.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeToPolyDataFilter.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkPeriodicTable.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkProgrammableElectronicData.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkProteinRibbonFilter.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkSimpleBondPerceiver.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkVASPAnimationReader.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkVASPTessellationReader.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkXYZMolReader2.cxx
+/home/ezequiel/VTK/Domains/Chemistry/vtkBlueObeliskData.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkBlueObeliskDataParser.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkCMLMoleculeReader.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkGaussianCubeReader2.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeAlgorithm.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeMapper.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeToAtomBallFilter.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeToBondStickFilter.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkMoleculeToPolyDataFilter.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkPeriodicTable.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkProgrammableElectronicData.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkProteinRibbonFilter.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkSimpleBondPerceiver.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkVASPAnimationReader.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkVASPTessellationReader.h
+/home/ezequiel/VTK/Domains/Chemistry/vtkXYZMolReader2.h
+/home/ezequiel/VTK/build/Domains/Chemistry/vtkDomainsChemistryModule.h

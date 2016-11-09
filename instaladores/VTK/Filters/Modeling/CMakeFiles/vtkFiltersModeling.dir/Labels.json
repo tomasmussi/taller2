@@ -1,0 +1,166 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkAdaptiveSubdivisionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkBandedPolyDataContourFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkButterflySubdivisionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkDijkstraGraphGeodesicPath.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkDijkstraImageGeodesicPath.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkFillHolesFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkGeodesicPath.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkGraphGeodesicPath.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkLinearExtrusionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkLinearSubdivisionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkLoopSubdivisionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkPolyDataPointSampler.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkProjectedTexture.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkQuadRotationalExtrusionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkRibbonFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkRotationalExtrusionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkRuledSurfaceFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSelectEnclosedPoints.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSelectPolyData.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSpherePuzzleArrows.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSpherePuzzle.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSubdivideTetra.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkOutlineFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSectorSource.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkVolumeOfRevolutionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkAdaptiveSubdivisionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkBandedPolyDataContourFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkButterflySubdivisionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkDijkstraGraphGeodesicPath.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkDijkstraImageGeodesicPath.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkFillHolesFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkGeodesicPath.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkGraphGeodesicPath.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkLinearExtrusionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkLinearSubdivisionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkLoopSubdivisionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkPolyDataPointSampler.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkProjectedTexture.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkQuadRotationalExtrusionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkRibbonFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkRotationalExtrusionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkRuledSurfaceFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSelectEnclosedPoints.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSelectPolyData.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSpherePuzzleArrows.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSpherePuzzle.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSubdivideTetra.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkOutlineFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkSectorSource.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Modeling/vtkVolumeOfRevolutionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Filters/Modeling/vtkFiltersModelingModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkFiltersModeling"
+		],
+		"name" : "vtkFiltersModeling"
+	}
+}

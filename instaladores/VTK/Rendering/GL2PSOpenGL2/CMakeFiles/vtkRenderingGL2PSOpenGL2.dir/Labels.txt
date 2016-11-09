@@ -1,0 +1,8 @@
+# Target labels
+ vtkRenderingGL2PSOpenGL2
+# Source files and their labels
+/home/ezequiel/VTK/Rendering/GL2PSOpenGL2/vtkOpenGLGL2PSHelperImpl.cxx
+/home/ezequiel/VTK/build/Rendering/GL2PSOpenGL2/vtkRenderingGL2PSOpenGL2ObjectFactory.cxx
+/home/ezequiel/VTK/Rendering/GL2PSOpenGL2/vtkOpenGLGL2PSHelperImpl.h
+/home/ezequiel/VTK/build/Rendering/GL2PSOpenGL2/vtkRenderingGL2PSOpenGL2ObjectFactory.h
+/home/ezequiel/VTK/build/Rendering/GL2PSOpenGL2/vtkRenderingGL2PSOpenGL2Module.h

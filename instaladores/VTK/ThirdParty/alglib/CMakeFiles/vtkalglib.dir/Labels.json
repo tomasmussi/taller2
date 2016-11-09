@@ -1,0 +1,40 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/ap.cpp"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/bdsvd.cpp"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/bidiagonal.cpp"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/blas.cpp"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/lq.cpp"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/qr.cpp"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/reflections.cpp"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/rotations.cpp"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/alglib/svd.cpp"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkalglib"
+		],
+		"name" : "vtkalglib"
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/expat/vtkexpat/xmlparse.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/expat/vtkexpat/xmltok.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/expat/vtkexpat/xmlrole.c"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkexpat"
+		],
+		"name" : "vtkexpat"
+	}
+}

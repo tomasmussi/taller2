@@ -1,0 +1,70 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRDataSetCache.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRBaseParticlesReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRBaseReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMREnzoParticlesReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMREnzoReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMREnzoReaderInternal.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRFlashParticlesReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRFlashReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRFlashReaderInternal.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRDataSetCache.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRBaseParticlesReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRBaseReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMREnzoParticlesReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMREnzoReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMREnzoReaderInternal.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRFlashParticlesReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRFlashReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/AMR/vtkAMRFlashReaderInternal.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/IO/AMR/vtkIOAMRModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkIOAMR"
+		],
+		"name" : "vtkIOAMR"
+	}
+}

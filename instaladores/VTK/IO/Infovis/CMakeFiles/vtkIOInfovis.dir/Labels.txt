@@ -1,0 +1,36 @@
+# Target labels
+ vtkIOInfovis
+# Source files and their labels
+/home/ezequiel/VTK/IO/Infovis/vtkBiomTableReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkChacoGraphReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkDelimitedTextReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkDIMACSGraphReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkDIMACSGraphWriter.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkFixedWidthTextReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkISIReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkMultiNewickTreeReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkNewickTreeReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkNewickTreeWriter.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkPhyloXMLTreeReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkPhyloXMLTreeWriter.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkRISReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkTulipReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkXGMLReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkXMLTreeReader.cxx
+/home/ezequiel/VTK/IO/Infovis/vtkBiomTableReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkChacoGraphReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkDelimitedTextReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkDIMACSGraphReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkDIMACSGraphWriter.h
+/home/ezequiel/VTK/IO/Infovis/vtkFixedWidthTextReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkISIReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkMultiNewickTreeReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkNewickTreeReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkNewickTreeWriter.h
+/home/ezequiel/VTK/IO/Infovis/vtkPhyloXMLTreeReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkPhyloXMLTreeWriter.h
+/home/ezequiel/VTK/IO/Infovis/vtkRISReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkTulipReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkXGMLReader.h
+/home/ezequiel/VTK/IO/Infovis/vtkXMLTreeReader.h
+/home/ezequiel/VTK/build/IO/Infovis/vtkIOInfovisModule.h

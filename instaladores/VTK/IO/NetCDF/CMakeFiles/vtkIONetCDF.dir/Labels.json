@@ -1,0 +1,58 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkMPASReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkNetCDFCAMReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkNetCDFCFReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkNetCDFPOPReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkNetCDFReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkSLACParticleReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkSLACReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkMPASReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkNetCDFCAMReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkNetCDFCFReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkNetCDFPOPReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkNetCDFReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkSLACParticleReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/NetCDF/vtkSLACReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/IO/NetCDF/vtkIONetCDFModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkIONetCDF"
+		],
+		"name" : "vtkIONetCDF"
+	}
+}

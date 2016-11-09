@@ -1,0 +1,73 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkCPExodusIIElementBlock.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkCPExodusIIInSituReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkCPExodusIINodalCoordinatesTemplate.txx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkCPExodusIIResultsArrayTemplate.txx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIICache.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIIReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIIReaderParser.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIIReaderVariableCheck.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIIWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkModelMetadata.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkCPExodusIINodalCoordinatesTemplate.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkCPExodusIIResultsArrayTemplate.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkCPExodusIIElementBlock.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkCPExodusIIInSituReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIICache.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIIReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIIReaderParser.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkExodusIIWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Exodus/vtkModelMetadata.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/IO/Exodus/vtkIOExodusModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkIOExodus"
+		],
+		"name" : "vtkIOExodus"
+	}
+}

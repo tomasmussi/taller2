@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/glew/vtkglew/src/glew.c"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkglew"
+		],
+		"name" : "vtkglew"
+	}
+}

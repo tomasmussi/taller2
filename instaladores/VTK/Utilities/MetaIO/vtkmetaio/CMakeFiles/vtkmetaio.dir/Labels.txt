@@ -1,0 +1,36 @@
+# Target labels
+ vtkMetaIO
+# Source files and their labels
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaTypes.h
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaUtils.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaArrow.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaBlob.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaCommand.h
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaCommand.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaContour.h
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaContour.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaDTITube.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaEllipse.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaGroup.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaGaussian.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaImage.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaImageUtils.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaLandmark.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaLine.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaMesh.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaMesh.h
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaObject.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaOutput.h
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaOutput.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaScene.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaSurface.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaTube.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaVesselTube.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaTransform.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaTubeGraph.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaForm.h
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaForm.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaArray.h
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaArray.cxx
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaFEMObject.h
+/home/ezequiel/VTK/Utilities/MetaIO/vtkmetaio/metaFEMObject.cxx

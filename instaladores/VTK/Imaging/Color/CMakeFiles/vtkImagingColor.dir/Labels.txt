@@ -1,0 +1,24 @@
+# Target labels
+ vtkImagingColor
+# Source files and their labels
+/home/ezequiel/VTK/Imaging/Color/vtkImageHSIToRGB.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageHSVToRGB.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageYIQToRGB.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageLuminance.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageMapToRGBA.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageMapToWindowLevelColors.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageQuantizeRGBToIndex.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToHSI.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToHSV.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToYIQ.cxx
+/home/ezequiel/VTK/Imaging/Color/vtkImageHSIToRGB.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageHSVToRGB.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageYIQToRGB.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageLuminance.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageMapToRGBA.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageMapToWindowLevelColors.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageQuantizeRGBToIndex.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToHSI.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToHSV.h
+/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToYIQ.h
+/home/ezequiel/VTK/build/Imaging/Color/vtkImagingColorModule.h

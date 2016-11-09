@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/gl2ps/vtkgl2ps/gl2ps.c"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkgl2ps"
+		],
+		"name" : "vtkgl2ps"
+	}
+}

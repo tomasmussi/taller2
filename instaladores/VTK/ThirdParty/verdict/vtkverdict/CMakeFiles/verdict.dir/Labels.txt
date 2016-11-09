@@ -1,0 +1,13 @@
+# Target labels
+ vtkverdict
+# Source files and their labels
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_EdgeMetric.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_GaussIntegration.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_HexMetric.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_KnifeMetric.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_PyramidMetric.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_QuadMetric.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_TetMetric.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_TriMetric.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/VerdictVector.cpp
+/home/ezequiel/VTK/ThirdParty/verdict/vtkverdict/V_WedgeMetric.cpp

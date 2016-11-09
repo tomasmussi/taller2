@@ -1,0 +1,4 @@
+# Target labels
+ vtkUtilitiesEncodeString
+# Source files and their labels
+/home/ezequiel/VTK/Utilities/EncodeString/vtkEncodeString.cxx

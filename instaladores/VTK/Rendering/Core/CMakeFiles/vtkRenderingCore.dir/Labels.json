@@ -1,0 +1,784 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractMapper3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractVolumeMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkActor2DCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkActor2D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkActorCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkActor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAssembly.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkBackgroundColorMonitor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkBillboardTextActor3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCameraActor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCamera.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCameraInterpolator.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCellCenterDepthSort.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkColorTransferFunction.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCompositeDataDisplayAttributes.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCompositePolyDataMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCoordinate.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCullerCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCuller.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkDataSetMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkDiscretizableColorTransferFunction.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkDistanceToCamera.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkFollower.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkFrameBufferObjectBase.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkFrustumCoverageCuller.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkFXAAOptions.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGenericRenderWindowInteractor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGenericVertexAttributeMapping.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGlyph3DMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGPUInfo.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGPUInfoList.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGraphicsFactory.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGraphMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGraphToGlyphs.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkHardwareSelector.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkHierarchicalPolyDataMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageActor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageMapper3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageProperty.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageSlice.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageSliceMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorEventRecorder.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorObserver.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLabeledContourMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLightActor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLightCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLight.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLightKit.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLogLookupTable.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLookupTableWithEnabling.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkMapArrayValues.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkMapper2D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkMapperCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkObserverMediator.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPolyDataMapper2D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPolyDataMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProp3DCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProp3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProp3DFollower.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPropAssembly.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPropCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPropPicker3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProp.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProperty2D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProperty.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRendererCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderer.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRendererDelegate.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRendererSource.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderPass.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderState.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWindowCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWindow.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWindowInteractor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWindowInteractor3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkSelectVisiblePoints.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkShaderDeviceAdapter2.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextActor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextActor3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTexture.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTexturedActor2D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTransformCoordinateSystems.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTransformInterpolator.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTupleInterpolator.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkViewDependentErrorMetric.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkViewport.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkVisibilitySort.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkVolumeCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkVolume.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkVolumeProperty.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkWindowLevelLookupTable.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkWindowToImageFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAssemblyNode.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAssemblyPath.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAssemblyPaths.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAreaPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractPropPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPropPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPickingManager.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLODProp3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkWorldPointPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCellPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPointPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderedAreaPicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkScenePicker.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorStyle.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorStyleSwitchBase.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorStyle3D.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTDxInteractorStyle.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTDxInteractorStyleCamera.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTDxInteractorStyleSettings.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkStringToImage.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextProperty.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextPropertyCollection.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextRenderer.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractInteractionDevice.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractRenderDevice.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWidget.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPointGaussianMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGPUInfoListArray.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkNoise200x200.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPythagoreanQuadruples.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRayCastStructures.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderingCoreEnums.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTDxMotionEventInfo.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractMapper3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractVolumeMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkActor2DCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkActor2D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkActorCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkActor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAssembly.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkBackgroundColorMonitor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkBillboardTextActor3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCameraActor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCamera.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCameraInterpolator.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCellCenterDepthSort.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkColorTransferFunction.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCompositeDataDisplayAttributes.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCompositePolyDataMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCoordinate.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCullerCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCuller.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkDataSetMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkDiscretizableColorTransferFunction.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkDistanceToCamera.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkFollower.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkFrameBufferObjectBase.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkFrustumCoverageCuller.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkFXAAOptions.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGenericRenderWindowInteractor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGenericVertexAttributeMapping.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGlyph3DMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGPUInfo.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGPUInfoList.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGraphicsFactory.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGraphMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkGraphToGlyphs.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkHardwareSelector.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkHierarchicalPolyDataMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageActor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageMapper3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageProperty.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageSlice.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkImageSliceMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorEventRecorder.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorObserver.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLabeledContourMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLightActor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLightCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLight.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLightKit.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLogLookupTable.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLookupTableWithEnabling.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkMapArrayValues.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkMapper2D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkMapperCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkObserverMediator.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPolyDataMapper2D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPolyDataMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProp3DCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProp3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProp3DFollower.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPropAssembly.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPropCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPropPicker3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProp.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProperty2D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkProperty.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRendererCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderer.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRendererDelegate.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRendererSource.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderPass.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderState.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWindowCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWindow.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWindowInteractor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWindowInteractor3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkSelectVisiblePoints.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkShaderDeviceAdapter2.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextActor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextActor3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTexture.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTexturedActor2D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTransformCoordinateSystems.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTransformInterpolator.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTupleInterpolator.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkViewDependentErrorMetric.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkViewport.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkVisibilitySort.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkVolumeCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkVolume.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkVolumeProperty.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkWindowLevelLookupTable.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkWindowToImageFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAssemblyNode.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAssemblyPath.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAssemblyPaths.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAreaPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractPropPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPropPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPickingManager.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkLODProp3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkWorldPointPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkCellPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPointPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderedAreaPicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkScenePicker.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorStyle.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorStyleSwitchBase.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkInteractorStyle3D.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTDxInteractorStyle.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTDxInteractorStyleCamera.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTDxInteractorStyleSettings.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkStringToImage.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextProperty.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextPropertyCollection.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkTextRenderer.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractInteractionDevice.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkAbstractRenderDevice.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkRenderWidget.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/Core/vtkPointGaussianMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/Core/vtkRenderingCoreModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkRenderingCore"
+		],
+		"name" : "vtkRenderingCore"
+	}
+}

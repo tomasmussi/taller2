@@ -1,0 +1,70 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/VolumeOpenGL2/vtkOpenGLGPUVolumeRayCastMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/VolumeOpenGL2/vtkOpenGLProjectedTetrahedraMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/VolumeOpenGL2/vtkOpenGLRayCastImageDisplayHelper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/VolumeOpenGL2/vtkSmartVolumeMapper.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/raycasterfs.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/raycastervs.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/vtkglProjectedTetrahedraVS.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/vtkglProjectedTetrahedraFS.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/vtkRenderingVolumeOpenGL2ObjectFactory.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/VolumeOpenGL2/vtkOpenGLGPUVolumeRayCastMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/VolumeOpenGL2/vtkOpenGLProjectedTetrahedraMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/VolumeOpenGL2/vtkOpenGLRayCastImageDisplayHelper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Rendering/VolumeOpenGL2/vtkSmartVolumeMapper.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/vtkRenderingVolumeOpenGL2ObjectFactory.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/vtkRenderingVolumeOpenGL2Module.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/raycasterfs.cxx.rule"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/raycastervs.cxx.rule"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/vtkglProjectedTetrahedraVS.cxx.rule"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Rendering/VolumeOpenGL2/vtkglProjectedTetrahedraFS.cxx.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkRenderingVolumeOpenGL2"
+		],
+		"name" : "vtkRenderingVolumeOpenGL2"
+	}
+}

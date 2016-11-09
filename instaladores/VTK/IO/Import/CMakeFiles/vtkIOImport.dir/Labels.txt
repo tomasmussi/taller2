@@ -1,0 +1,15 @@
+# Target labels
+ vtkIOImport
+# Source files and their labels
+/home/ezequiel/VTK/IO/Import/vtk3DSImporter.cxx
+/home/ezequiel/VTK/IO/Import/vtkImporter.cxx
+/home/ezequiel/VTK/IO/Import/vtkVRMLImporter.cxx
+/home/ezequiel/VTK/IO/Import/vtkOBJImporter.cxx
+/home/ezequiel/VTK/IO/Import/vtkOBJImporterInternals.cxx
+/home/ezequiel/VTK/IO/Import/vtk3DS.h
+/home/ezequiel/VTK/IO/Import/vtk3DSImporter.h
+/home/ezequiel/VTK/IO/Import/vtkImporter.h
+/home/ezequiel/VTK/IO/Import/vtkVRMLImporter.h
+/home/ezequiel/VTK/IO/Import/vtkOBJImporter.h
+/home/ezequiel/VTK/IO/Import/vtkOBJImporterInternals.h
+/home/ezequiel/VTK/build/IO/Import/vtkIOImportModule.h

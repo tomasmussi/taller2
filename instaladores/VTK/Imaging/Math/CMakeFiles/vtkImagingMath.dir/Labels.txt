@@ -1,0 +1,20 @@
+# Target labels
+ vtkImagingMath
+# Source files and their labels
+/home/ezequiel/VTK/Imaging/Math/vtkImageDivergence.cxx
+/home/ezequiel/VTK/Imaging/Math/vtkImageDotProduct.cxx
+/home/ezequiel/VTK/Imaging/Math/vtkImageLogarithmicScale.cxx
+/home/ezequiel/VTK/Imaging/Math/vtkImageLogic.cxx
+/home/ezequiel/VTK/Imaging/Math/vtkImageMagnitude.cxx
+/home/ezequiel/VTK/Imaging/Math/vtkImageMaskBits.cxx
+/home/ezequiel/VTK/Imaging/Math/vtkImageMathematics.cxx
+/home/ezequiel/VTK/Imaging/Math/vtkImageWeightedSum.cxx
+/home/ezequiel/VTK/Imaging/Math/vtkImageDivergence.h
+/home/ezequiel/VTK/Imaging/Math/vtkImageDotProduct.h
+/home/ezequiel/VTK/Imaging/Math/vtkImageLogarithmicScale.h
+/home/ezequiel/VTK/Imaging/Math/vtkImageLogic.h
+/home/ezequiel/VTK/Imaging/Math/vtkImageMagnitude.h
+/home/ezequiel/VTK/Imaging/Math/vtkImageMaskBits.h
+/home/ezequiel/VTK/Imaging/Math/vtkImageMathematics.h
+/home/ezequiel/VTK/Imaging/Math/vtkImageWeightedSum.h
+/home/ezequiel/VTK/build/Imaging/Math/vtkImagingMathModule.h

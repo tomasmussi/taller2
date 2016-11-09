@@ -1,0 +1,88 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPDataSetWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPDataWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPImageDataWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPPolyDataWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPRectilinearGridWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPStructuredDataWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPStructuredGridWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPUnstructuredDataWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPUnstructuredGridWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPHierarchicalBoxDataWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPMultiBlockDataWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPUniformGridAMRWriter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPDataSetWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPDataWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPImageDataWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPPolyDataWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPRectilinearGridWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPStructuredDataWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPStructuredGridWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPUnstructuredDataWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPUnstructuredGridWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPHierarchicalBoxDataWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPMultiBlockDataWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/ParallelXML/vtkXMLPUniformGridAMRWriter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/IO/ParallelXML/vtkIOParallelXMLModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkIOParallelXML"
+		],
+		"name" : "vtkIOParallelXML"
+	}
+}

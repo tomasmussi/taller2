@@ -1,0 +1,58 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkImageStencil.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkImageStencilToImage.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkImageToImageStencil.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkImplicitFunctionToImageStencil.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkLassoStencilSource.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkPolyDataToImageStencil.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkROIStencilSource.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkImageStencil.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkImageStencilToImage.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkImageToImageStencil.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkImplicitFunctionToImageStencil.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkLassoStencilSource.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkPolyDataToImageStencil.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Stencil/vtkROIStencilSource.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Imaging/Stencil/vtkImagingStencilModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkImagingStencil"
+		],
+		"name" : "vtkImagingStencil"
+	}
+}

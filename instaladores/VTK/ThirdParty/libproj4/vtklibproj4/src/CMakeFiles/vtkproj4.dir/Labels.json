@@ -1,0 +1,499 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/nad_init.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_aea.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_aeqd.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_airy.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_aitoff.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_august.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_bacon.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_bipc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_boggs.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_bonne.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_calcofi.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_cass.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_cc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_cea.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_chamb.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_collg.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_crast.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_denoy.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_eck1.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_eck2.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_eck3.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_eck4.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_eck5.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_eqc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_eqdc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_fahey.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_fouc_s.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_gall.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_geos.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_gins8.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_gnom.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_gn_sinu.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_goode.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_gstmerc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_hammer.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_hatano.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_igh.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_isea.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_imw_p.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_krovak.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_labrd.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_laea.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_lagrng.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_larr.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_lask.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_lcca.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_lcc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_loxim.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_lsat.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_mbt_fps.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_mbtfpp.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_mbtfpq.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_merc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_mill.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_mod_ster.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_moll.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_natearth.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_nell.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_nell_h.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_nocol.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_nsper.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_nzmg.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_ob_tran.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_ocea.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_oea.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_omerc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_ortho.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_poly.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_putp2.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_putp3.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_putp4p.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_putp5.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_putp6.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_qsc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_robin.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_rpoly.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_sconics.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_somerc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_sterea.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_stere.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_sts.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_tcc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_tcea.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_tmerc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_tpeqd.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_urm5.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_urmfps.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_vandg.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_vandg2.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_vandg4.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_wag2.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_wag3.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_wag7.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_wink1.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_wink2.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/proj_etmerc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/aasincos.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/adjlon.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/bch2bps.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/bchgen.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/biveval.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/dmstor.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/emess.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/emess.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/geocent.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/geocent.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/geodesic.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/mk_cheby.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/nad_cvt.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/nad_intr.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_apply_gridshift.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_apply_vgridshift.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_auth.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_ctx.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_fileapi.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_datum_set.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_datums.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_deriv.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_ell_set.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_ellps.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_errno.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_factors.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_fwd.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_gauss.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_gc_reader.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_geocent.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_gridcatalog.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_gridinfo.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_gridlist.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/PJ_healpix.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_init.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_initcache.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_inv.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_latlong.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_list.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_list.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_log.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_malloc.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_mlfn.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_msfn.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_mutex.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_open_lib.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_param.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_phi2.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_pr_list.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_qsfn.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_release.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_strerrno.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_transform.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_tsfn.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_units.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_utils.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_zpoly1.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/proj_mdist.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/proj_rouss.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/rtodms.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/vector1.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/pj_strtod.c"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/ThirdParty/libproj4/vtklibproj4/src/proj_config.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/projects.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/proj_api.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/ThirdParty/libproj4/vtklibproj4/src/geodesic.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtklibproj4"
+		],
+		"name" : "vtkproj4"
+	}
+}

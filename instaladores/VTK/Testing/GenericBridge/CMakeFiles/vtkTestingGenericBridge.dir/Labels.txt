@@ -1,0 +1,31 @@
+# Target labels
+ vtkTestingGenericBridge
+# Source files and their labels
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeAttribute.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCell.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIterator.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorOnCellBoundaries.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorOnCellList.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorOnDataSet.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorOne.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorStrategy.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeDataSet.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeExport.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgePointIterator.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgePointIteratorOnCell.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgePointIteratorOnDataSet.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgePointIteratorOne.cxx
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeAttribute.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCell.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIterator.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorOnCellBoundaries.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorOnCellList.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorOnDataSet.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorOne.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeCellIteratorStrategy.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgeDataSet.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgePointIterator.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgePointIteratorOnCell.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgePointIteratorOnDataSet.h
+/home/ezequiel/VTK/Testing/GenericBridge/vtkBridgePointIteratorOne.h
+/home/ezequiel/VTK/build/Testing/GenericBridge/vtkTestingGenericBridgeModule.h

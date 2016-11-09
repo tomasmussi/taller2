@@ -1,0 +1,5 @@
+# Target labels
+ vtkjsoncpp
+# Source files and their labels
+/home/ezequiel/VTK/ThirdParty/jsoncpp/vtkjsoncpp/json/json.h
+/home/ezequiel/VTK/ThirdParty/jsoncpp/vtkjsoncpp/jsoncpp.cpp

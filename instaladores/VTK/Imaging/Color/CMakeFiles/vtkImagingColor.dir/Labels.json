@@ -1,0 +1,76 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageHSIToRGB.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageHSVToRGB.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageYIQToRGB.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageLuminance.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageMapToRGBA.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageMapToWindowLevelColors.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageQuantizeRGBToIndex.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToHSI.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToHSV.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToYIQ.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageHSIToRGB.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageHSVToRGB.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageYIQToRGB.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageLuminance.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageMapToRGBA.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageMapToWindowLevelColors.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageQuantizeRGBToIndex.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToHSI.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToHSV.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Imaging/Color/vtkImageRGBToYIQ.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Imaging/Color/vtkImagingColorModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkImagingColor"
+		],
+		"name" : "vtkImagingColor"
+	}
+}

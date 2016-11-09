@@ -1,0 +1,10 @@
+# Target labels
+ vtkFiltersVerdict
+# Source files and their labels
+/home/ezequiel/VTK/Filters/Verdict/vtkCellQuality.cxx
+/home/ezequiel/VTK/Filters/Verdict/vtkMatrixMathFilter.cxx
+/home/ezequiel/VTK/Filters/Verdict/vtkMeshQuality.cxx
+/home/ezequiel/VTK/Filters/Verdict/vtkCellQuality.h
+/home/ezequiel/VTK/Filters/Verdict/vtkMatrixMathFilter.h
+/home/ezequiel/VTK/Filters/Verdict/vtkMeshQuality.h
+/home/ezequiel/VTK/build/Filters/Verdict/vtkFiltersVerdictModule.h

@@ -1,0 +1,10 @@
+# Target labels
+ vtkFiltersSelection
+# Source files and their labels
+/home/ezequiel/VTK/Filters/Selection/vtkKdTreeSelector.cxx
+/home/ezequiel/VTK/Filters/Selection/vtkLinearSelector.cxx
+/home/ezequiel/VTK/Filters/Selection/vtkCellDistanceSelector.cxx
+/home/ezequiel/VTK/Filters/Selection/vtkKdTreeSelector.h
+/home/ezequiel/VTK/Filters/Selection/vtkLinearSelector.h
+/home/ezequiel/VTK/Filters/Selection/vtkCellDistanceSelector.h
+/home/ezequiel/VTK/build/Filters/Selection/vtkFiltersSelectionModule.h

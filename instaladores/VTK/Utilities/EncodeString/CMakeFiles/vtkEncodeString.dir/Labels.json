@@ -1,0 +1,16 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Utilities/EncodeString/vtkEncodeString.cxx"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkUtilitiesEncodeString"
+		],
+		"name" : "vtkEncodeString"
+	}
+}

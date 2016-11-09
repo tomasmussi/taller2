@@ -1,0 +1,23 @@
+# Target labels
+ vtkIOMINC
+# Source files and their labels
+/home/ezequiel/VTK/IO/MINC/vtkMINCImageAttributes.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMINCImageReader.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMINCImageWriter.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMNIObjectReader.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMNIObjectWriter.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMNITagPointReader.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMNITagPointWriter.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMNITransformReader.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMNITransformWriter.cxx
+/home/ezequiel/VTK/IO/MINC/vtkMINC.h
+/home/ezequiel/VTK/IO/MINC/vtkMINCImageAttributes.h
+/home/ezequiel/VTK/IO/MINC/vtkMINCImageReader.h
+/home/ezequiel/VTK/IO/MINC/vtkMINCImageWriter.h
+/home/ezequiel/VTK/IO/MINC/vtkMNIObjectReader.h
+/home/ezequiel/VTK/IO/MINC/vtkMNIObjectWriter.h
+/home/ezequiel/VTK/IO/MINC/vtkMNITagPointReader.h
+/home/ezequiel/VTK/IO/MINC/vtkMNITagPointWriter.h
+/home/ezequiel/VTK/IO/MINC/vtkMNITransformReader.h
+/home/ezequiel/VTK/IO/MINC/vtkMNITransformWriter.h
+/home/ezequiel/VTK/build/IO/MINC/vtkIOMINCModule.h

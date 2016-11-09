@@ -1,0 +1,6 @@
+# Target labels
+ vtkexpat
+# Source files and their labels
+/home/ezequiel/VTK/ThirdParty/expat/vtkexpat/xmlparse.c
+/home/ezequiel/VTK/ThirdParty/expat/vtkexpat/xmltok.c
+/home/ezequiel/VTK/ThirdParty/expat/vtkexpat/xmlrole.c

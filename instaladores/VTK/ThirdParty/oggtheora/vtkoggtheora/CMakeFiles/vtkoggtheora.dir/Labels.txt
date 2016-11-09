@@ -1,0 +1,38 @@
+# Target labels
+ vtkoggtheora
+# Source files and their labels
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libogg-1.1.4/src/framing.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libogg-1.1.4/src/bitwise.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/analyze.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/apiwrapper.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/bitpack.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/decapiwrapper.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/decinfo.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/decode.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/dequant.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/encapiwrapper.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/encfrag.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/encinfo.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/encode.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/enquant.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/fdct.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/fragment.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/huffdec.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/huffenc.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/idct.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/info.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/internal.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/mathops.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/mcenc.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/quant.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/rate.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/state.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/tokenize.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/x86/mmxencfrag.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/x86/mmxfdct.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/x86/mmxfrag.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/x86/mmxidct.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/x86/mmxstate.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/x86/x86enc.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/x86/x86state.c
+/home/ezequiel/VTK/ThirdParty/oggtheora/vtkoggtheora/libtheora-1.1.1/lib/x86/sse2fdct.c

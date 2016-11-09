@@ -1,0 +1,154 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkCompositeDataGeometryFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkGeometryFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkHierarchicalDataSetGeometryFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkImageDataGeometryFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkImageDataToUniformGrid.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkLinearToQuadraticCellsFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkProjectSphereFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkRectilinearGridGeometryFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredGridGeometryFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredPointsGeometryFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkUnstructuredGridGeometryFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkDataSetSurfaceFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkDataSetRegionSurfaceFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkAbstractGridConnectivity.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkDataSetGhostGenerator.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkRectilinearGridPartitioner.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredAMRNeighbor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredAMRGridConnectivity.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredGridConnectivity.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredGridGhostDataGenerator.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredGridPartitioner.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredNeighbor.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkUniformGridGhostDataGenerator.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkCompositeDataGeometryFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkGeometryFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkHierarchicalDataSetGeometryFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkImageDataGeometryFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkImageDataToUniformGrid.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkLinearToQuadraticCellsFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkProjectSphereFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkRectilinearGridGeometryFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredGridGeometryFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredPointsGeometryFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkUnstructuredGridGeometryFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkDataSetSurfaceFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkDataSetRegionSurfaceFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkAbstractGridConnectivity.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkDataSetGhostGenerator.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkRectilinearGridPartitioner.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredAMRNeighbor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredAMRGridConnectivity.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredGridConnectivity.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredGridGhostDataGenerator.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredGridPartitioner.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkStructuredNeighbor.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Geometry/vtkUniformGridGhostDataGenerator.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Filters/Geometry/vtkFiltersGeometryModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkFiltersGeometry"
+		],
+		"name" : "vtkFiltersGeometry"
+	}
+}

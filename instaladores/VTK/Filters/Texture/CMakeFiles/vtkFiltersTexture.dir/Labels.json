@@ -1,0 +1,58 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTextureMapToCylinder.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTextureMapToPlane.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTextureMapToSphere.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkImplicitTextureCoords.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkThresholdTextureCoords.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTransformTextureCoords.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTriangularTCoords.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTextureMapToCylinder.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTextureMapToPlane.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTextureMapToSphere.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkImplicitTextureCoords.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkThresholdTextureCoords.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTransformTextureCoords.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Texture/vtkTriangularTCoords.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Filters/Texture/vtkFiltersTextureModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkFiltersTexture"
+		],
+		"name" : "vtkFiltersTexture"
+	}
+}

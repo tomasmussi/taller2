@@ -1,0 +1,22 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/IO/Video/vtkVideoSource.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/Video/vtkVideoSource.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/IO/Video/vtkIOVideoModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkIOVideo"
+		],
+		"name" : "vtkIOVideo"
+	}
+}

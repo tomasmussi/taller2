@@ -1,0 +1,238 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkAngularPeriodicFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkCollectGraph.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkCollectPolyData.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkCollectTable.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkCutMaterial.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkDuplicatePolyData.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkExtractCTHPart.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkExtractPolyDataPiece.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkExtractUnstructuredGridPiece.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkExtractUserDefinedPiece.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPCellDataToPointData.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPExtractArraysOverTime.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPeriodicFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPKdTree.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPLinearExtrusionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPMaskPoints.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPOutlineCornerFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPOutlineFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPOutlineFilterInternals.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPPolyDataNormals.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPProbeFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPProjectSphereFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPReflectionFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPResampleFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPSphereSource.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPYoungsMaterialInterface.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPassThroughFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPieceRequestFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPieceScalars.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPipelineSize.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkProcessIdScalars.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkRectilinearGridOutlineFilter.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitPolyDataPiece.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitStructuredDataPiece.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitRectilinearGridPiece.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitStructuredGridPiece.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitUnstructuredGridPiece.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkAngularPeriodicFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkCollectGraph.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkCollectPolyData.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkCollectTable.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkCutMaterial.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkDuplicatePolyData.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkExtractCTHPart.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkExtractPolyDataPiece.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkExtractUnstructuredGridPiece.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkExtractUserDefinedPiece.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPCellDataToPointData.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPExtractArraysOverTime.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPeriodicFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPKdTree.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPLinearExtrusionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPMaskPoints.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPOutlineCornerFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPOutlineFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPOutlineFilterInternals.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPPolyDataNormals.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPProbeFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPProjectSphereFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPReflectionFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPResampleFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPSphereSource.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPYoungsMaterialInterface.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPassThroughFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPieceRequestFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPieceScalars.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkPipelineSize.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkProcessIdScalars.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkRectilinearGridOutlineFilter.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitPolyDataPiece.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitStructuredDataPiece.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitRectilinearGridPiece.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitStructuredGridPiece.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/Filters/Parallel/vtkTransmitUnstructuredGridPiece.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/Filters/Parallel/vtkFiltersParallelModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkFiltersParallel"
+		],
+		"name" : "vtkFiltersParallel"
+	}
+}

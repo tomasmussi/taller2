@@ -1,0 +1,8 @@
+# Target labels
+ vtkRenderingLOD
+# Source files and their labels
+/home/ezequiel/VTK/Rendering/LOD/vtkLODActor.cxx
+/home/ezequiel/VTK/Rendering/LOD/vtkQuadricLODActor.cxx
+/home/ezequiel/VTK/Rendering/LOD/vtkLODActor.h
+/home/ezequiel/VTK/Rendering/LOD/vtkQuadricLODActor.h
+/home/ezequiel/VTK/build/Rendering/LOD/vtkRenderingLODModule.h

@@ -1,0 +1,58 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSight6BinaryReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSight6Reader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSightGoldReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSightMasterServerReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSightReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkGenericEnSightReader.cxx"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSight6BinaryReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSight6Reader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSightGoldBinaryReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSightGoldReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSightMasterServerReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkEnSightReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/IO/EnSight/vtkGenericEnSightReader.h"
+		},
+		{
+			"file" : "/home/ezequiel/VTK/build/IO/EnSight/vtkIOEnSightModule.h"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"vtkIOEnSight"
+		],
+		"name" : "vtkIOEnSight"
+	}
+}
