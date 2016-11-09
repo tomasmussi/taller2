@@ -18,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.margonari.tdp2_frontend.R;
+import com.example.margonari.taller2_frontend.R;
 import com.facebook.login.LoginManager;
 import com.fiuba.taller2.adapters.CategoriesAdapter;
 import com.fiuba.taller2.domain.CatogoryLN;

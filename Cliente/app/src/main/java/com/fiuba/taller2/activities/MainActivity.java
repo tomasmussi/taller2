@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.margonari.tdp2_frontend.R;
+import com.example.margonari.taller2_frontend.R;
 import com.firebase.ui.auth.AuthUI;
 import com.fiuba.taller2.adapters.ImageAdapter;
 import com.fiuba.taller2.domain.Categoria;
@@ -75,7 +75,10 @@ public class MainActivity extends AppCompatActivity
             profilePicture= auth.getCurrentUser().getPhotoUrl().toString();
             InitApiTokenFromServer(userEmail);
         }else{
-            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setProviders(
+            startActivityForResult(AuthUI.getInstance()
+
+                    .createSignInIntentBuilder().
+                            setProviders(
                     AuthUI.FACEBOOK_PROVIDER,
                     AuthUI.GOOGLE_PROVIDER
             ).build(),RC_SIGN_IN);
@@ -120,6 +123,7 @@ public class MainActivity extends AppCompatActivity
                     InitApiTokenFromServer(auth.getCurrentUser().getEmail());
                     userEmail=auth.getCurrentUser().getEmail();
                     firstName=auth.getCurrentUser().getDisplayName();
+                    Log.d("NOMBRE DEL WACHIN", firstName);
                     profilePicture= auth.getCurrentUser().getPhotoUrl().toString();
                 }
         }else{Log.d("AUTH","User not autenticated");}
@@ -197,7 +201,10 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Log.d("AUTH", "User LOGGED OUT");
-                    startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setProviders(
+                    startActivityForResult(AuthUI.getInstance()
+
+                            .createSignInIntentBuilder().setIsSmartLockEnabled(false).
+                                    setProviders(
                             AuthUI.FACEBOOK_PROVIDER,
                             AuthUI.GOOGLE_PROVIDER
                     ).build(),RC_SIGN_IN);

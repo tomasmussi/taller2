@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.example.margonari.tdp2_frontend.R;
+import com.example.margonari.taller2_frontend.R;
 import com.fiuba.taller2.domain.LDJobPosition;
 import com.fiuba.taller2.services.LDJobPositionsServices;
 

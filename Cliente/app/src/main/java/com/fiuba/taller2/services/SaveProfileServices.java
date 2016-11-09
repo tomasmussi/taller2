@@ -12,7 +12,7 @@ public class SaveProfileServices extends AbstractServices {
     public boolean ifExistsErrors(String...params) {
         String coursesQuery = this.getQueryBy(params);
         System.out.println("Job query" +coursesQuery);
-        SaveProfileDto coursesDTO = (SaveProfileDto) postDataOftDTO(coursesQuery, SaveProfileDto.class);
+        SaveProfileDto coursesDTO = (SaveProfileDto) geDataOftDTO(coursesQuery, SaveProfileDto.class);
         return  !((String)coursesDTO.getData()[0].getStatus()).equals("OK") ;
 
     }

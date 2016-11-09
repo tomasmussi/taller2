@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.margonari.tdp2_frontend.R;
+import com.example.margonari.taller2_frontend.R;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.services.LDMyProfileServices;
 import com.fiuba.taller2.services.SaveProfileServices;

@@ -8,9 +8,11 @@ import org.springframework.web.client.RestTemplate;
  */
 public abstract class AbstractServices {
 
+    //public static final String urlBase="http://127.0.0.1:8080/";
+
     //public static final String urlBase="http://10.0.2.2:8080/";
-  //  public static final String urlBase="http://192.168.43.222:8080/";
-    public static final String urlBase="http://192.168.1.102:8080/";
+    //public static final String urlBase="http://192.168.43.222:8080/";
+    public static final String urlBase="http://192.168.0.101:8080/";
     protected String api_security;
 
     protected Object geDataOftDTO(String url, Class object) {
