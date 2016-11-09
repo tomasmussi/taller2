@@ -113,24 +113,24 @@ std::string User::id() const {
 	return id_;
 }
 
-std::string User::get_email() {
+std::string User::get_email() const {
 	return email_;
 }
 
-std::string User::get_name() {
+std::string User::get_name() const {
 	return name_;
 }
 
-std::string User::get_dob() {
+std::string User::get_dob() const {
 	return dob_;
 }
-std::string User::get_city() {
+std::string User::get_city() const {
 	return city_;
 }
-std::string User::get_summary() {
+std::string User::get_summary() const {
 	return summary_;
 }
-std::string User::get_profile_photo() {
+std::string User::get_profile_photo() const {
 	return profile_photo_;
 }
 
@@ -181,12 +181,21 @@ std::list<std::string> User::friends() {
 	return friends_;
 }
 
-void User::vote_for(User &other_user) {
+bool User::is_friend(const User &other_user) {
+	return std::find(friends_.begin(), friends_.end(), other_user.id()) != friends_.end();
+}
+
+bool User::vote_for(User &other_user) {
 	if (other_user.id().compare(id()) == 0) {
 		// Cant vote for myself
-		return;
+		return false;
+	}
+	if (std::find(friends_.begin(), friends_.end(), other_user.id()) == friends_.end()) {
+		// Users are not friends. Cant vote for them
+		return false;
 	}
 	other_user.votes_[id()] = 1;
+	return true;
 }
 
 size_t User::votes() const {

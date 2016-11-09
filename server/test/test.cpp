@@ -176,10 +176,27 @@ TEST(UserTest, UserAcceptRequestSerialization) {
 	EXPECT_EQ(tomas.database_serialize(), expected);
 }
 
+TEST(UserTest, UsersAreFriends) {
+	std::string user = "{\"user\" : { \"friends\" : [\"luis_fb_id\"], \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"friends\" : [\"tomas_fb_id\"], \"fb_id\" : \"luis_fb_id\",	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+	EXPECT_TRUE(tomas.is_friend(luis));
+	EXPECT_TRUE(luis.is_friend(tomas));
+}
 
-TEST(UserTest, UserVoteForOtherUser) {
-	std::string user = "{\"user\" : {	\"fb_id\" : \"tomas_fb_id\", \"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
-	std::string user2 = "{\"user\" : {	\"fb_id\" : \"luis_fb_id\", \"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+TEST(UserTest, UsersAreNOTFriends) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"fb_id\" : \"luis_fb_id\",	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+	EXPECT_FALSE(tomas.is_friend(luis));
+	EXPECT_FALSE(luis.is_friend(tomas));
+}
+
+TEST(UserTest, UserVoteForFriendUser) {
+	std::string user = "{\"user\" : { \"friends\" : [\"luis_fb_id\"], \"fb_id\" : \"tomas_fb_id\", \"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"friends\" : [\"tomas_fb_id\"], \"fb_id\" : \"luis_fb_id\", \"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
 	User tomas(user);
 	User luis(user2);
 	tomas.vote_for(luis);
@@ -188,9 +205,21 @@ TEST(UserTest, UserVoteForOtherUser) {
 	EXPECT_EQ(luis.votes(), 1);
 }
 
+TEST(UserTest, UserCantVoteForNONFriendUser) {
+	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\", \"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"fb_id\" : \"luis_fb_id\", \"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	User tomas(user);
+	User luis(user2);
+	EXPECT_EQ(luis.votes(), 0);
+	tomas.vote_for(luis);
+	EXPECT_EQ(luis.votes(), 0);
+	tomas.vote_for(luis);
+	EXPECT_EQ(luis.votes(), 0);
+}
+
 TEST(UserTest, WhoVotedForMe) {
-	std::string user = "{\"user\" : { \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
-	std::string user2 = "{\"user\" : { \"fb_id\" : \"luis_fb_id\",	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
+	std::string user = "{\"user\" : { \"friends\" : [\"luis_fb_id\"], \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	std::string user2 = "{\"user\" : { \"friends\" : [\"tomas_fb_id\"], \"fb_id\" : \"luis_fb_id\",	\"name\" : \"Luis Arancibia\", \"email\": \"aran.com.ar\", \"dob\" : \"12/08/1991\", \"city\" : \"Ciudad de Buenos Aires\"}";
 	User tomas(user);
 	User luis(user2);
 
@@ -198,6 +227,15 @@ TEST(UserTest, WhoVotedForMe) {
 	tomas.vote_for(luis);
 	EXPECT_TRUE(luis.was_voted_by(tomas));
 	EXPECT_FALSE(luis.was_voted_by(luis));
+}
+
+TEST(UserTest, UserCantVoteForHimself) {
+	std::string user = "{\"user\" : { \"friends\" : [\"luis_fb_id\"], \"fb_id\" : \"tomas_fb_id\",	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\", \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
+	User tomas(user);
+	EXPECT_EQ(tomas.votes(), 0);
+	tomas.vote_for(tomas);
+	EXPECT_EQ(tomas.votes(), 0);
+	EXPECT_FALSE(tomas.was_voted_by(tomas));
 }
 
 TEST(UserTest, AddSkill) {
@@ -337,7 +375,7 @@ TEST(MessageTest, MessageSerialize) {
 	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
 	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
 	std::string time_stamp(buffer);
-	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id_\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
+	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
 	Json::Value root = m.serialize();
 	std::ostringstream os;
 	os << root;
@@ -356,7 +394,7 @@ TEST(MessageTest, MessageDatabaseSerialize) {
 	// strftime(buffer,80,"%d-%m-%Y %I:%M:%S",timeinfo);
 	strftime(buffer,80,"%Y-%m-%d %H:%M:%S",timeinfo);
 	std::string time_stamp(buffer);
-	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id_\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
+	std::string expected = "{\n\t\"message\" : \"message\",\n\t\"receiver_id\" : \"receiver\",\n\t\"sender_id\" : \"sender\",\n\t\"timestamp\" : \"" + time_stamp + "\"\n}";
 	EXPECT_EQ(expected, m.database_serialize());
 }
 
@@ -379,7 +417,7 @@ TEST(ChatTest, CreateChatWithMessage) {
 	std::string time_stamp(buffer);
 	Chat chat("");
 	chat.add_message("send", "recv", "hola");
-	std::string expected = "{\n\t\"messages\" : \n\t[\n\t\t\"{\\n\\t\\\"message\\\" : \\\"hola\\\",\\n\\t\\\"receiver_id\\\" : \\\"recv\\\",\\n\\t\\\"sender_id_\\\" : \\\"send\\\",\\n\\t\\\"timestamp\\\" : \\\"" + time_stamp + "\\\"\\n}\"\n\t]\n}";
+	std::string expected = "{\n\t\"messages\" : \n\t[\n\t\t\"{\\n\\t\\\"message\\\" : \\\"hola\\\",\\n\\t\\\"receiver_id\\\" : \\\"recv\\\",\\n\\t\\\"sender_id\\\" : \\\"send\\\",\\n\\t\\\"timestamp\\\" : \\\"" + time_stamp + "\\\"\\n}\"\n\t]\n}";
 	EXPECT_EQ(expected, chat.database_serialize());
 }
 

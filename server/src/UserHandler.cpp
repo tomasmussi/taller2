@@ -48,21 +48,28 @@ void UserHandler::save_user(User &user) {
 	DatabaseHandler::get_instance().write("user-" + user.id(), user.database_serialize());
 }
 
-std::map<std::string, std::string> UserHandler::lookup(std::string query) {
-	std::map<std::string, std::string> answer;
+bool UserHandler::lookup_match(const User &u, std::string query) {
+	return u.get_name().compare(query) == 0 || u.id().compare(query) == 0;
+}
 
+void UserHandler::lookup(std::string user_logged_id, std::string query, Json::Value &array) {
+	User me = get_user(user_logged_id);
 	/* Por ahora es match directo contra el nombre */
 	std::string value = DatabaseHandler::get_instance().read("users");
 	std::list<std::string> users = UserList(value).users();
 	for (std::list<std::string>::iterator it = users.begin(); it != users.end(); ++it) {
 		// Users is a list of ids, need user to compare to name
 		User user = get_user((*it));
-		if (user.get_name().compare(query) == 0) {
+		if (lookup_match(user, query)) {
 			User user = get_user((*it));
-			answer[user.id()] = user.get_name();
+			Json::Value user_value;
+			user_value["fb_id"] = user.id();
+			user_value["name"] = user.get_name();
+			user_value["photo"] = user.get_profile_photo();
+			user_value["is_contact"] = (me.is_friend(user) ? "true" : "false");
+			array.append(user_value);
 		}
 	}
-	return answer;
 }
 
 void UserHandler::send_request(std::string from_user, std::string to_user) {
@@ -85,24 +92,28 @@ void UserHandler::answer_request(std::string from_user, std::string to_user, boo
 	save_user(user_to);
 }
 
-std::map<std::string, std::string> UserHandler::get_friends(std::string user_id) {
-	std::map<std::string, std::string> answer;
+void UserHandler::load_friends(std::string user_id, Json::Value &array) {
 	User user = get_user(user_id);
 	std::list<std::string> friends = user.friends();
 	for (std::list<std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
-		User user = get_user((*it));
-		answer[user.id()] = user.get_name();
+		User user_friend = get_user((*it));
+		Json::Value user_value;
+		user_value["fb_id"] = user_friend.id();
+		user_value["name"] = user_friend.get_name();
+		user_value["photo"] = user_friend.get_profile_photo();
+		user_value["is_contact"] = (user.is_friend(user_friend) ? "true" : "false");
+		array.append(user_value);
 	}
-	return answer;
 }
 
 
-void UserHandler::user_vote(std::string from_user, std::string voted_user_id) {
+bool UserHandler::user_vote(std::string from_user, std::string voted_user_id) {
 	User user_from = get_user(from_user);
 	User voted_user = get_user(voted_user_id);
-	user_from.vote_for(voted_user);
+	bool success = user_from.vote_for(voted_user);
 	save_user(user_from);
 	save_user(voted_user);
+	return success;
 }
 
 /* WARNING! Este metodo tiene dependencias de todos lados. Testear profundamente */
