@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
 
-FIND_PACKAGE(VTK REQUIRED)
-
 FILE(GLOB SOURCES ./*.cpp)
 	
 set(CMAKE_CXX_FLAGS "-std=c++11 -fprofile-arcs -ftest-coverage -Wall")
@@ -29,11 +27,3 @@ target_link_libraries (${PROJECT_NAME} leveldb)
 target_link_libraries (${PROJECT_NAME} curlpp)
 target_link_libraries (${PROJECT_NAME} curl)
 target_link_libraries (${PROJECT_NAME} log4cpp)
-
-INSTALL(TARGETS ${PROJECT_NAME} DESTINATION appserver)
- 
-SET(CPACK_GENERATOR "DEB")
-SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "DreamTeam") #required
- 
-INCLUDE(CPack)
- 
