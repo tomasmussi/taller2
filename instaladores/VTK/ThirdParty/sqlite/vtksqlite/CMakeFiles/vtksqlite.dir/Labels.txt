@@ -1,4 +1,0 @@
-# Target labels
- vtksqlite
-# Source files and their labels
-/home/ezequiel/VTK/ThirdParty/sqlite/vtksqlite/vtk_sqlite3.c

@@ -1,4 +1,0 @@
-# Target labels
- vtkgl2ps
-# Source files and their labels
-/home/ezequiel/VTK/ThirdParty/gl2ps/vtkgl2ps/gl2ps.c

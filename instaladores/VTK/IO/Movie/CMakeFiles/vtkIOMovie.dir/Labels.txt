@@ -1,9 +1,0 @@
-# Target labels
- vtkIOMovie
-# Source files and their labels
-/home/ezequiel/VTK/IO/Movie/vtkGenericMovieWriter.cxx
-/home/ezequiel/VTK/IO/Movie/vtkOggTheoraWriter.cxx
-/home/ezequiel/VTK/build/IO/Movie/vtkIOMovieConfigure.h
-/home/ezequiel/VTK/IO/Movie/vtkGenericMovieWriter.h
-/home/ezequiel/VTK/IO/Movie/vtkOggTheoraWriter.h
-/home/ezequiel/VTK/build/IO/Movie/vtkIOMovieModule.h

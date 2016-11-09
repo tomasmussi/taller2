@@ -1,4 +1,0 @@
-# Target labels
- vtkglew
-# Source files and their labels
-/home/ezequiel/VTK/ThirdParty/glew/vtkglew/src/glew.c

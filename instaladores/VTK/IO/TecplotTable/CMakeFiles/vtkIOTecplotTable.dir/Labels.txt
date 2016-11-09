@@ -1,6 +1,0 @@
-# Target labels
- vtkIOTecplotTable
-# Source files and their labels
-/home/ezequiel/VTK/IO/TecplotTable/vtkTecplotTableReader.cxx
-/home/ezequiel/VTK/IO/TecplotTable/vtkTecplotTableReader.h
-/home/ezequiel/VTK/build/IO/TecplotTable/vtkIOTecplotTableModule.h

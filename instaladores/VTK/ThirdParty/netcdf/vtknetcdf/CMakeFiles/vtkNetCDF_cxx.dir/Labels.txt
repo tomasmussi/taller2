@@ -1,5 +1,0 @@
-# Target labels
- vtknetcdf
-# Source files and their labels
-/home/ezequiel/VTK/ThirdParty/netcdf/vtknetcdf/cxx/netcdf.cpp
-/home/ezequiel/VTK/ThirdParty/netcdf/vtknetcdf/cxx/ncvalues.cpp
