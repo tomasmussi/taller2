@@ -7,6 +7,7 @@ class ApiJsonController : public Mongoose::JsonController {
 	private:
 		const std::string SALT;
 		const std::string API_SEC_KEY;
+		const std::string HEROKU_URL;
 		std::map<std::string, std::string> user_tokens_;
 
 		/* Loads existing users from database */
@@ -75,6 +76,8 @@ class ApiJsonController : public Mongoose::JsonController {
 		void add_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void delete_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void get_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void send_message(Mongoose::Request &request, Mongoose::JsonResponse &response);
 

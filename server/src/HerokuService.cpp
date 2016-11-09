@@ -1,7 +1,5 @@
 #include "HerokuService.h"
 
-#include <json/json.h>
-
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -34,9 +32,7 @@ void HerokuService::overload_response(Mongoose::JsonResponse &response) {
 	reader.parse(os.str(), response["data"]);
 }
 
-#include <iostream>
-
-void HerokuService::get_data() {
+Json::Value HerokuService::get_data(std::string name, std::string type) {
 	curlpp::options::Url myUrl(url_ + "/" + service_name_);
 	curlpp::Easy myRequest;
 	myRequest.setOpt(myUrl);
@@ -52,14 +48,15 @@ void HerokuService::get_data() {
 	Json::Reader reader;
 	Json::Value root;
 	reader.parse(os.str(), root);
-	std::cout << os.str() << std::endl;
 
-	for (unsigned int i = 0; i < root["skills"].size(); i++) {
-		std::cout << root["skills"][i]["name"].asString() << std::endl;
-		std::cout << std::endl;
-		std::cout << root["skills"][i]["description"].asString() << std::endl;
-		std::cout << std::endl;
-		std::cout << root["skills"][i]["category"].asString() << std::endl;
-		std::cout << std::endl;
+	Json::Value ans;
+	for (unsigned int i = 0; i < root[type].size(); i++) {
+		if (root[type][i]["name"].asString().compare(name) == 0) {
+			ans["name"] = root[type][i]["name"].asString();
+			ans["description"] = root[type][i]["description"].asString();
+			ans["category"] = root[type][i]["category"].asString();
+			break;
+		}
 	}
+	return ans;
 }

@@ -12,6 +12,7 @@
 
 ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
+		HEROKU_URL("https://guarded-sands-84788.herokuapp.com"),
 		user_tokens_() {
 }
 
@@ -81,6 +82,9 @@ void ApiJsonController::setup() {
 
 	registerRoute("DELETE", "/delete_job_position",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_job_position));
+
+	registerRoute("GET", "/get_job_position",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_job_position));
 
 	registerRoute("POST", "/send_message",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::send_message));
@@ -207,7 +211,7 @@ void ApiJsonController::job_positions(Mongoose::Request &request, Mongoose::Json
 		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	HerokuService service("https://guarded-sands-84788.herokuapp.com", "job_positions");
+	HerokuService service(HEROKU_URL, "job_positions");
 	service.overload_response(response);
 }
 
@@ -217,7 +221,7 @@ void ApiJsonController::categories(Mongoose::Request &request, Mongoose::JsonRes
 		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	HerokuService service("https://guarded-sands-84788.herokuapp.com", "categories");
+	HerokuService service(HEROKU_URL, "categories");
 	service.overload_response(response);
 }
 
@@ -227,7 +231,7 @@ void ApiJsonController::skills(Mongoose::Request &request, Mongoose::JsonRespons
 		response["errors"]["message"] = "Usuario no autorizado para realizar accion";
 		return;
 	}
-	HerokuService service("https://guarded-sands-84788.herokuapp.com", "skills");
+	HerokuService service(HEROKU_URL, "skills");
 	service.overload_response(response);
 }
 
@@ -539,8 +543,8 @@ void ApiJsonController::get_skill(Mongoose::Request &request, Mongoose::JsonResp
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string name = request.get("name", "");
-	HerokuService service("https://guarded-sands-84788.herokuapp.com", "skills");
-	service.get_data();
+	HerokuService service(HEROKU_URL, "skills");
+	response["data"].append(service.get_data(name, "skills"));
 }
 
 void ApiJsonController::add_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -589,6 +593,23 @@ void ApiJsonController::delete_job_position(Mongoose::Request &request, Mongoose
 	} else {
 		Log::get_instance()->log_info("Job vacio - delete job");
 	}
+}
+
+void ApiJsonController::get_job_position(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - get job position");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string name = request.get("name", "");
+	HerokuService service(HEROKU_URL, "job_positions");
+	response["data"].append(service.get_data(name, "job_positions"));
 }
 
 void ApiJsonController::send_message(Mongoose::Request &request, Mongoose::JsonResponse &response) {
