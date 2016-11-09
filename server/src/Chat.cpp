@@ -1,8 +1,6 @@
 #include "Chat.h"
 #include "log.h"
 
-#include <iostream>
-
 #include <json/json.h>
 #include <sstream>
 #include <algorithm>
