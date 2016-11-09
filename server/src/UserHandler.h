@@ -7,6 +7,7 @@
 #include <map>
 #include <queue>
 
+#include "Message.h"
 #include "User.h"
 
 struct OrderByVotes {
@@ -24,6 +25,7 @@ private:
 	/* In singleton, make private to deny making a copy */
 	UserHandler(UserHandler const &);
 	void operator=(UserHandler const &);
+
 
 public:
 
@@ -57,6 +59,10 @@ public:
 	void add_user_job(std::string user_logged_id, std::string new_job);
 
 	void delete_user_job(std::string user_logged_id, std::string new_job);
+
+	void send_message(std::string sender_id, std::string receiver_id, std::string message);
+
+	std::list<Message> view_messages(std::string sender_id, std::string receiver_id, std::string limit);
 };
 
 

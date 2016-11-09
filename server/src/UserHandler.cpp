@@ -1,11 +1,11 @@
+#include "Chat.h"
 #include "DatabaseHandler.h"
 #include "UserHandler.h"
-
 #include "UserList.h"
+#include "log.h"
 
 #include <json/json.h>
 
-#include <iostream>
 #include <sstream>
 #include <string>
 
@@ -140,3 +140,45 @@ void UserHandler::delete_user_job(std::string user_logged_id, std::string new_jo
 	user.delete_job_position(new_job);
 	save_user(user);
 }
+
+void UserHandler::send_message(std::string sender_id, std::string receiver_id, std::string message) {
+	User sender = get_user(sender_id);
+	User receiver = get_user(receiver_id);
+	std::string first_attempt = "chat-" + sender.id() + "-" + receiver.id();
+	std::string second_attempt = "chat-" + receiver.id() + "-" + sender.id();
+	std::string new_key;
+
+	std::string chat = DatabaseHandler::get_instance().read(first_attempt);
+	if (chat.empty()) {
+		chat = DatabaseHandler::get_instance().read(second_attempt);
+		if (chat.empty()) {
+			new_key = first_attempt;
+		} else {
+			new_key = second_attempt;
+		}
+	} else {
+		new_key = first_attempt;
+	}
+	Chat user_chats(chat);
+	user_chats.add_message(sender.id(), receiver.id(), message);
+	Log::get_instance()->log_info("Chat: [" + new_key + "]");
+	Log::get_instance()->log_info("Chat: [" + user_chats.database_serialize() + "]");
+	DatabaseHandler::get_instance().write(new_key, user_chats.database_serialize());
+}
+
+
+std::list<Message> UserHandler::view_messages(std::string sender_id, std::string receiver_id, std::string limit) {
+	User sender = get_user(sender_id);
+	User receiver = get_user(receiver_id);
+	std::string first_attempt = "chat-" + sender.id() + "-" + receiver.id();
+	std::string second_attempt = "chat-" + receiver.id() + "-" + sender.id();
+
+	std::string chat = DatabaseHandler::get_instance().read(first_attempt);
+	if (chat.empty()) {
+		chat = DatabaseHandler::get_instance().read(second_attempt);
+	}
+
+	Chat user_chats(chat);
+	return user_chats.view_messages(limit);
+}
+

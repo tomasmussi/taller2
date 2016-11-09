@@ -34,10 +34,11 @@ void Log::log_info(const std::string& menssage) {
 	category.info(menssage);
 }
 
-void Log::log_debug(const std::string& menssage){	
+void Log::log_debug(const std::string& menssage){
 	category.debug(menssage);
 }
 
 Log::~Log() {
 	log4cpp::Category::shutdown();
+	delete Log::instance;
 }
