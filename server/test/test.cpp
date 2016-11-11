@@ -452,6 +452,52 @@ TEST(UserHandlerTest, PopularUsers) {
 	EXPECT_EQ(user_key, top.id());
 }
 
+TEST(UserHandlerTest, AddUserSkill) {
+	std::string user_key = "a-fb-user-id";
+	std::string skill = "a-skill";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().add_user_skill(user_key, skill);
+	User u = UserHandler::get_instance().get_user(user_key);
+	EXPECT_TRUE(u.has_skill(skill));
+}
+
+TEST(UserHandlerTest, AddUserJob) {
+	std::string user_key = "a-fb-user-id";
+	std::string job = "a-job";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().add_user_job(user_key, job);
+	User u = UserHandler::get_instance().get_user(user_key);
+	EXPECT_TRUE(u.has_job_position(job));
+}
+
+TEST(UserHandlerTest, DeleteUserSkill) {
+	std::string user_key = "a-fb-user-id";
+	std::string skill = "a-skill";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().add_user_skill(user_key, skill);
+	User u = UserHandler::get_instance().get_user(user_key);
+	EXPECT_TRUE(u.has_skill(skill));
+	UserHandler::get_instance().delete_user_skill(user_key, skill);
+	u = UserHandler::get_instance().get_user(user_key);
+	EXPECT_FALSE(u.has_skill(skill));
+}
+
+TEST(UserHandlerTest, DeleteUserJob) {
+	std::string user_key = "a-fb-user-id";
+	std::string job = "a-job";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().add_user_job(user_key, job);
+	User u = UserHandler::get_instance().get_user(user_key);
+	EXPECT_TRUE(u.has_job_position(job));
+	UserHandler::get_instance().delete_user_job(user_key, job);
+	u = UserHandler::get_instance().get_user(user_key);
+	EXPECT_FALSE(u.has_job_position(job));
+}
+
 
 TEST(UserListTest, createFromString) {
 	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
