@@ -9,7 +9,7 @@
 #include "UserHandler.h"
 #include "User.h"
 #include "UserList.h"
-
+#include "md5.h"
 
 
 TEST(DatabaseHandler, WriteAndRead) {
@@ -437,6 +437,12 @@ TEST(ChatTest, RetrieveMessagesWithLimit) {
 	}
 	EXPECT_EQ(10, chat.view_messages().size());
 	EXPECT_EQ(14, chat.view_messages("0").size());
+}
+
+TEST(MD5Test, MD5HashTest) {
+	std::string key = "tomasmussi";
+	std::string expected = "06feda1ffef52c90b9dc41ce1c70d8e5";
+	EXPECT_EQ(expected, md5(key));
 }
 
 int main(int argc, char **argv) {
