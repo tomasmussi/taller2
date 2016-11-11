@@ -498,6 +498,24 @@ TEST(UserHandlerTest, DeleteUserJob) {
 	EXPECT_FALSE(u.has_job_position(job));
 }
 
+TEST(UserHandlerTest, UserSendsMessage) {
+	std::string user_key = "a-fb-user-id";
+	std::string other_key = "other-user-id";
+	DatabaseHandler::get_instance().delete_key("chat-" + user_key + "-" + other_key);
+	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(other_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(other_key);
+
+	UserHandler::get_instance().send_request(user_key, other_key);
+	UserHandler::get_instance().answer_request(other_key, user_key, true);
+	UserHandler::get_instance().send_message(user_key, other_key, "hola");
+	std::list<Message> messages = UserHandler::get_instance().view_messages(user_key, other_key, "10");
+	EXPECT_EQ(1, messages.size());
+	Message front = messages.front();
+	EXPECT_EQ("hola", front.get_message());
+}
+
 
 TEST(UserListTest, createFromString) {
 	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
