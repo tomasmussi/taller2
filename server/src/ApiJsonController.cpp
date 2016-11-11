@@ -23,8 +23,8 @@ void ApiJsonController::setup() {
 
 	setPrefix("/api");
 
-	registerRoute("GET", "/login",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::login));
+	registerRoute("GET", "/fb_login",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::fb_login));
 
 	registerRoute("GET", "/logout",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::logout));
@@ -32,32 +32,63 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/job_positions",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::job_positions));
 
+	/* Old GET add_job_position */
+	registerRoute("POST", "/job_positions",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_job_position));
+
+	/* Old delete_job_position */
+	registerRoute("DELETE", "/job_positions",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_job_position));
+
+	/* Old get_job_position */
+	registerRoute("GET", "/job_position",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_job_position));
+
+
 	registerRoute("GET", "/categories",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::categories));
 
 	registerRoute("GET", "/skills",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::skills));
 
-	registerRoute("GET", "/my_profile",
+	/* Old add_skill */
+	registerRoute("POST", "/add_skill",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_skill));
+
+	/* Old delete_skill */
+	registerRoute("DELETE", "/skills",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_skill));
+
+	/* Old get_skill */
+	registerRoute("GET", "/skill",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_skill));
+
+
+	/* Old my_profile */
+	registerRoute("GET", "/profile",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::my_profile));
 
-	registerRoute("GET", "/profile",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::profile));
-
-	registerRoute("GET", "/fb_login",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::fb_login));
-
-	registerRoute("GET", "/edit",
+	/* Old edit */
+	registerRoute("PUT", "/profile",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::edit));
 
-	registerRoute("POST", "/add_contact",
+	/* Old profile*/
+	registerRoute("GET", "/profile/others",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::profile));
+
+
+	/* Old add_contact */
+	registerRoute("POST", "/contact",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_contact));
 
-	registerRoute("GET", "/accept_contact",
+	/* Old answer_contact */
+	registerRoute("PUT", "/contact",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::answer_contact));
 
+	/* New service */
 	registerRoute("GET", "/contact",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_requests_list));
+
 
 	registerRoute("GET", "/lookup",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::lookup));
@@ -68,31 +99,16 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/vote",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::vote));
 
-	registerRoute("GET", "/popular",
+	/* Old popular */
+	registerRoute("GET", "/vote/popular",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::popular));
 
-	registerRoute("GET", "/add_skill",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_skill));
-
-	registerRoute("DELETE", "/delete_skill",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_skill));
-
-	registerRoute("GET", "/get_skill",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_skill));
-
-	registerRoute("GET", "/add_job_position",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_job_position));
-
-	registerRoute("DELETE", "/delete_job_position",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_job_position));
-
-	registerRoute("GET", "/get_job_position",
-		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_job_position));
-
-	registerRoute("POST", "/send_message",
+	/* Old send_message */
+	registerRoute("POST", "/message",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::send_message));
 
-	registerRoute("GET", "/view_messages",
+	/* Old view_messages */
+	registerRoute("GET", "/message",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::view_messages));
 }
 
@@ -159,35 +175,6 @@ bool ApiJsonController::_login(std::string user, std::string pass) {
 		}
 	}
 	return false;
-}
-
-void ApiJsonController::login(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	response["data"] = Json::Value(Json::arrayValue);
-	response["errors"] = Json::Value(Json::arrayValue);
-	std::string user = request.get("user", "(unknown)");
-	std::string pass = request.get("pass", "(unknown)");
-	if (user.compare("(unknown)") == 0 || pass.compare("(unknown)") == 0) {
-		response["status"] = "ERROR";
-		response["message"] = "Usuario o contraseña invalidos";
-		Log::get_instance()->log_info("Usuario o contraseña invalidados");
-		return;
-	}
-	if (this->_login(user, pass)) {
-		Json::Value data;
-		std::string token = generate_token(user);
-		user_tokens_[token] = user;
-		data["token"] = token;
-		data["requests"] = "Falta implementar";
-		data["new_messages"] = 5;
-		response["data"].append(data);
-	} else {
-		Json::Value errors;
-		errors["status"] = "ERROR";
-		errors["message"] = "Usuario o contrasenia invalidos";
-		response["errors"].append(errors);
-		Log::get_instance()->log_info("Usuario o contraseña invalidados");
-	}
-
 }
 
 void ApiJsonController::logout(Mongoose::Request &request, Mongoose::JsonResponse &response) {
