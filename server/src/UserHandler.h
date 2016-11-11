@@ -47,6 +47,8 @@ public:
 
 	void answer_request(std::string from_user, std::string to_user, bool accept);
 
+	void get_requests(std::string user_id, Json::Value &array);
+
 	void load_friends(std::string user_id, Json::Value &array);
 
 	bool user_vote(std::string from_user, std::string voted_user);

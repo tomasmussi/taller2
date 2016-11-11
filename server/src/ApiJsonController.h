@@ -59,6 +59,8 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void answer_contact(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		void get_requests_list(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 		void lookup(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void get_contacts(Mongoose::Request &request, Mongoose::JsonResponse &response);
