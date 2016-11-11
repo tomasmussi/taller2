@@ -25,10 +25,9 @@ private:
 	/* In singleton, make private to deny making a copy */
 	UserHandler(UserHandler const &);
 	void operator=(UserHandler const &);
+public:
 
 	bool lookup_match(const User &other_user, std::string query);
-
-public:
 
 	/* Returns signleton database instance */
 	static UserHandler& get_instance();

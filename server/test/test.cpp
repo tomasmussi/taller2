@@ -295,6 +295,163 @@ TEST(UserHandlerTest, createUser) {
 	EXPECT_TRUE(UserHandler::get_instance().user_exists(user_key));
 }
 
+TEST(UserHandlerTest, getUser) {
+	std::string user_key = "a-fb-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	User user = UserHandler::get_instance().get_user(user_key);
+	EXPECT_EQ(user_key, user.id());
+}
+
+TEST(UserHandlerTest, saveUserInformation) {
+	std::string user_key = "a-fb-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	User user = UserHandler::get_instance().get_user(user_key);
+	user.replace_not_null("name", "tomasmussi");
+	UserHandler::get_instance().save_user(user);
+
+	User again = UserHandler::get_instance().get_user(user_key);
+	EXPECT_EQ(user_key, again.id());
+	EXPECT_EQ("tomasmussi", again.get_name());
+}
+
+TEST(UserHandlerTest, LookupMatchUser) {
+	std::string user_key = "a-fb-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	User user = UserHandler::get_instance().get_user(user_key);
+	std::string user_name = "tomasmussi";
+	user.replace_not_null("name", user_name);
+	UserHandler::get_instance().save_user(user);
+
+	User again = UserHandler::get_instance().get_user(user_key);
+	EXPECT_FALSE(UserHandler::get_instance().lookup_match(again, "fake-id"));
+	EXPECT_TRUE(UserHandler::get_instance().lookup_match(again, user_key));
+	EXPECT_TRUE(UserHandler::get_instance().lookup_match(again, user_name));
+}
+
+TEST(UserHandlerTest, LookupUsers) {
+	std::string user_key = "a-fb-user-id";
+	std::string other_key = "other-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(other_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(other_key);
+
+	User user = UserHandler::get_instance().get_user(user_key);
+	user.replace_not_null("name", "tomasmussi");
+	UserHandler::get_instance().save_user(user);
+
+	User other = UserHandler::get_instance().get_user(other_key);
+	other.replace_not_null("name", "luisarancibia");
+	UserHandler::get_instance().save_user(other);
+	Json::Value ans;
+	UserHandler::get_instance().lookup(user_key, "luisarancibia", ans);
+	std::ostringstream os;
+	os << ans;
+	std::string expeted = "[\n\t{\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"luisarancibia\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	EXPECT_EQ(expeted , os.str());
+}
+
+TEST(UserHandlerTest, SendUserRequest) {
+	std::string user_key = "a-fb-user-id";
+	std::string other_key = "other-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(other_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(other_key);
+
+	UserHandler::get_instance().send_request(user_key, other_key);
+	User user = UserHandler::get_instance().get_user(other_key);
+	EXPECT_EQ(1, user.requests());
+}
+
+TEST(UserHandlerTest, AcceptUserRequest) {
+	std::string user_key = "a-fb-user-id";
+	std::string other_key = "other-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(other_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(other_key);
+
+	UserHandler::get_instance().send_request(user_key, other_key);
+	UserHandler::get_instance().answer_request(other_key, user_key, true);
+	User user = UserHandler::get_instance().get_user(other_key);
+	EXPECT_TRUE(std::find(user.friends().begin(), user.friends().end(), user_key) != user.friends().end());
+}
+
+TEST(UserHandlerTest, ListUserRequests) {
+	std::string user_key = "a-fb-user-id";
+	std::string other_key = "other-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(other_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(other_key);
+
+	UserHandler::get_instance().send_request(user_key, other_key);
+	Json::Value ans;
+	UserHandler::get_instance().get_requests(other_key, ans);
+	std::ostringstream os;
+	os << ans;
+	std::string expeted = "[\n\t{\n\t\t\"fb_id\" : \"a-fb-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	EXPECT_EQ(expeted , os.str());
+}
+
+TEST(UserHandlerTest, GetUserFriends) {
+	std::string user_key = "a-fb-user-id";
+	std::string other_key = "other-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(other_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(other_key);
+
+	UserHandler::get_instance().send_request(user_key, other_key);
+	UserHandler::get_instance().answer_request(other_key, user_key, true);
+	User user = UserHandler::get_instance().get_user(other_key);
+	Json::Value ans;
+	UserHandler::get_instance().load_friends(user_key, ans);
+	std::ostringstream os;
+	os << ans;
+	std::string expeted = "[\n\t{\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"true\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	EXPECT_EQ(expeted , os.str());
+}
+
+TEST(UserHandlerTest, UserVotes) {
+	std::string user_key = "a-fb-user-id";
+	std::string other_key = "other-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(other_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(other_key);
+
+	UserHandler::get_instance().send_request(user_key, other_key);
+	UserHandler::get_instance().answer_request(other_key, user_key, true);
+	UserHandler::get_instance().user_vote(user_key, other_key);
+	User user = UserHandler::get_instance().get_user(user_key);
+	User other = UserHandler::get_instance().get_user(other_key);
+	EXPECT_TRUE(other.was_voted_by(user));
+}
+
+TEST(UserHandlerTest, PopularUsers) {
+	std::string user_key = "a-fb-user-id";
+	std::string other_key = "other-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(other_key);
+	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(other_key);
+
+	UserHandler::get_instance().send_request(user_key, other_key);
+	UserHandler::get_instance().answer_request(other_key, user_key, true);
+	UserHandler::get_instance().user_vote(user_key, other_key);
+	vote_queue queue = UserHandler::get_instance().most_popular();
+	User top = queue.top();
+	EXPECT_EQ(other_key, top.id());
+	queue.pop();
+	top = queue.top();
+	EXPECT_EQ(user_key, top.id());
+}
+
 
 TEST(UserListTest, createFromString) {
 	std::string users = "{\"users\":[ \"fb_id_tomas\", \"fb_id_luis\"]}";
