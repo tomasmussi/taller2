@@ -52,7 +52,7 @@ void ApiJsonController::setup() {
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::skills));
 
 	/* Old add_skill */
-	registerRoute("POST", "/add_skill",
+	registerRoute("POST", "/skills",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_skill));
 
 	/* Old delete_skill */
@@ -96,7 +96,7 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/get_contacts",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_contacts));
 
-	registerRoute("GET", "/vote",
+	registerRoute("POST", "/vote",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::vote));
 
 	/* Old popular */
@@ -131,7 +131,6 @@ void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse 
 	user.replace_not_null("city", request.get("city","empty"));
 	user.replace_not_null("summary", request.get("summary","empty"));
 	user.replace_not_null("profile_photo", request.get("profile_photo","empty"));
-
 	UserHandler::get_instance().save_user(user);
 	Json::Value data;
 	data["status"] = "OK";
@@ -330,6 +329,7 @@ void ApiJsonController::answer_contact(Mongoose::Request &request, Mongoose::Jso
 	}
 	Json::Value data;
 	data["status"] = "OK";
+	data["message"] = "Respondida solicitud a contacto";
 	response["data"].append(data);
 }
 
@@ -536,7 +536,7 @@ void ApiJsonController::delete_skill(Mongoose::Request &request, Mongoose::JsonR
 		UserHandler::get_instance().delete_user_skill(user_logged_id, new_skill);
 		Json::Value data;
 		data["status"] = "OK";
-		data["message"] = "Enviada solicitud a contacto";
+		data["message"] = "Skill eliminado";
 		response["data"].append(data);
 	} else {
 		Log::get_instance()->log_info("Skill vacio - delete skill");
@@ -577,7 +577,7 @@ void ApiJsonController::add_job_position(Mongoose::Request &request, Mongoose::J
 		UserHandler::get_instance().add_user_job(user_logged_id, new_job);
 		Json::Value data;
 		data["status"] = "OK";
-		data["message"] = "Enviada solicitud a contacto";
+		data["message"] = "Job position agregado";
 		response["data"].append(data);
 	} else {
 		Log::get_instance()->log_info("Job vacio - add job");
@@ -601,7 +601,7 @@ void ApiJsonController::delete_job_position(Mongoose::Request &request, Mongoose
 		UserHandler::get_instance().delete_user_job(user_logged_id, new_job_position);
 		Json::Value data;
 		data["status"] = "OK";
-		data["message"] = "Enviada solicitud a contacto";
+		data["message"] = "Job position eliminado";
 		response["data"].append(data);
 	} else {
 		Log::get_instance()->log_info("Job vacio - delete job");
