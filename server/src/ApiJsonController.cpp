@@ -110,6 +110,9 @@ void ApiJsonController::setup() {
 	/* Old view_messages */
 	registerRoute("GET", "/message",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::view_messages));
+
+	registerRoute("POST", "/location",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::location));
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -696,3 +699,31 @@ void ApiJsonController::view_messages(Mongoose::Request &request, Mongoose::Json
 	response["data"].append(data);
 }
 
+void ApiJsonController::location(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizado - location");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	std::string latitude = request.get("latitude", "");
+	std::string longitude = request.get("longitude", "");
+	if (latitude.empty() || longitude.empty() ) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Latitud o longitud vacios";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Latitud o longitud vacios - location");
+		return;
+	}
+	UserHandler::get_instance().update_user_location(user_logged_id, latitude, longitude);
+	Json::Value data;
+	data["status"] = "OK";
+	data["messages"] = "Ubicacion de usuario actualizada";
+	response["data"].append(data);
+}
