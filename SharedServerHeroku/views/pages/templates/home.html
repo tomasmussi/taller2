@@ -47,14 +47,14 @@
 					<div class="datagrid">
 						<table align = "center">
 							<tr>
-								<thead><tr><th>Name</th><th>Description</th><th>Category</th><th colspan = 2><i class="material-icons">add_box</i></th></thead>
+								<thead><tr><th>Name</th><th>Description</th><th>Category</th><th colspan = 2><a href="templates/formAltaSkill.html"><i class="material-icons">add_box</i></a></th></thead>
 							</tr>
 						<tr ng-repeat="skill in skills">
 							<td><i>{{skill.name}}</i></td>
 							<td><i>{{skill.description}}</i></td>
 							<td><i>{{skill.category}}</i></td>
-							<td><i class="material-icons">create</i></td>
-						<td><i class="material-icons">clear</i>
+							<td><a ng-href="templates/formEditSkill.html?nameToEdit={{skill.name}}&categoryToEdit={{skill.category}}"><i class="material-icons">create</i></a></td>
+						<td><a ng-href="templates/formBajaSkill.html?nameToDelete={{skill.name}}&categoryToDelete={{skill.category}}"><i class="material-icons">clear</i></a></td>
 						</tr>
 						</table>
 					</div>

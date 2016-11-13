@@ -1,23 +1,24 @@
 <html>
    <head>
-      <title>Alta Skill</title>
+      <title>Edit Skill</title>
       <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-      <script src="https://code.angularjs.org/1.4.0-beta.5/angular-route.min.js"></script>
-      <script src = "../js/skill/mainApp.js"></script>
+      	<script src="https://code.angularjs.org/1.4.0-beta.5/angular-route.min.js"></script>
+	  <script src = "../js/skill/mainApp.js"></script>
       <script src = "../js/skill/skillController.js"></script>  
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
    </head>
    <body> 
 <div class="container">   
-      <h2>Alta de Skill</h2>
+      <h2>Modificacion de Skill</h2>
+
       <div ng-app = "SharedServerApp" ng-controller = "skillController">
-         
-         <form name = "altaskillForm" novalidate>
+        <h3>Nombre: {{nameOld}} Categoria: {{categoryOld}} </h3> 
+         <form name = "edidskillForm" novalidate>
             <table border = "0">
-               <tr>        
-                  <td>Ingrese nombre del puesto:</td>
+               <tr>			
+                  <td>Ingrese nuevo nombre:</td>
                   <td>
-               <input name = "name" type = "text" ng-model = "skill.name" required>
+					<input name = "name" type = "text" ng-model = "skill.name" required>
                      <span style = "color:red" ng-show = "skill.name.$dirty && skill.name.$invalid">
                         <span ng-show = "skill.name.$error.required">Nombre es requerido.</span>
                      </span>
@@ -25,15 +26,15 @@
                </tr>
                
                <tr>
-                  <td>Ingrese descripcion: </td>
+                  <td>Ingrese nueva descripcion: </td>
                   <td><input name = "description"  type = "text" ng-model = "skill.description" required>
                      <span style = "color:red" ng-show = "skill.description.$dirty && skill.description.$invalid">
                         <span ng-show = "skill.description.$error.required">Descripcion es requerida.</span>
                      </span>
                   </td>
                </tr>
-            <tr>
-                  <td>Ingrese categoria: </td>
+			   <tr>
+                  <td>Ingrese nueva categoria: </td>
                   <td><input name = "category"  type = "text" ng-model = "skill.category" required>
                      <span style = "color:red" ng-show = "skill.category.$dirty && skill.category.$invalid">
                         <span ng-show = "skill.category.$error.required">Categoria requerida.</span>
@@ -48,7 +49,7 @@
                      <button class="btn btn-default" ng-disabled = "skill.name.$dirty &&
                         skill.name.$invalid || skill.description.$dirty &&
                         skill.description.$invalid || skill.category.$dirty &&
-                        skill.category.$invalid" ng-click="skill.submit()">Submit</button>
+                        skill.category.$invalid" ng-click="skill.edit()">Modificar</button>
                   </td>
                </tr>
             </table>
