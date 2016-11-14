@@ -1,0 +1,52 @@
+<html>
+   <head>
+      <title>Alta Category</title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+      <script src="https://code.angularjs.org/1.4.0-beta.5/angular-route.min.js"></script>
+      <script src = "../js/category/mainApp.js"></script>
+      <script src = "../js/category/categoryController.js"></script>  
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   </head>
+   <body> 
+<div class="container">   
+      <h2>Alta de Categoria</h2>
+      <div ng-app = "SharedServerApp" ng-controller = "categoryController">
+         
+         <form name = "altacategoryForm" novalidate>
+            <table border = "0">
+               <tr>        
+                  <td>Ingrese nombre:</td>
+                  <td>
+               <input name = "name" type = "text" ng-model = "category.name" required>
+                     <span style = "color:red" ng-show = "category.name.$dirty && category.name.$invalid">
+                        <span ng-show = "category.name.$error.required">Nombre es requerido.</span>
+                     </span>
+                  </td>
+               </tr>
+               
+               <tr>
+                  <td>Ingrese descripcion: </td>
+                  <td><input name = "description"  type = "text" ng-model = "category.description" required>
+                     <span style = "color:red" ng-show = "category.description.$dirty && category.description.$invalid">
+                        <span ng-show = "category.description.$error.required">Descripcion es requerida.</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <button type="button" class="btn btn-danger" ng-click = "category.reset()">Reset</button>
+                  </td>
+                  <td>
+                     <button class="btn btn-default" ng-disabled = "category.name.$dirty &&
+                        category.name.$invalid || category.description.$dirty &&
+                        category.description.$invalid" ng-click="category.submit()">Submit</button>
+                  </td>
+               </tr>
+            </table>
+         </form>
+         <div ng-show="category.errorState" class="alert alert-danger">{{category.error}}</div>
+      </div> 
+</div>
+
+   </body>
+</html>
