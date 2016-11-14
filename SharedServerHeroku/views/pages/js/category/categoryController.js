@@ -1,45 +1,42 @@
-mainApp.controller('jobPositionController', function($scope,$http,$window, $route, $routeParams,$rootElement,$location) {
+mainApp.controller('categoryController', function($scope,$http,$window, $route, $routeParams,$rootElement,$location) {
 	
     $scope.category = {
       name: "Ej: developer",
       description: "Ej: desarrollador web",
-	  category: "Ej: software",
 		reset : function(){
-			$scope.jobPosition.name = "Ej: developer";
-			$scope.jobPosition.description = "Ej: desarrollador web";
-			$scope.jobPosition.category = "Ej: software";
-            $scope.jobPosition.error = "";
-            $scope.jobPosition.errorState=false;
+			$scope.category.name = "Ej: developer";
+			$scope.category.description = "Ej: desarrollador web";
+            $scope.category.error = "";
+            $scope.category.errorState=false;
 		},
 		submit : function(){
 			var data = {
-                "name": $scope.jobPosition.name,
-                "description": $scope.jobPosition.description
+                "name": $scope.category.name,
+                "description": $scope.category.description
             };
-            $http.post('http://localhost:5000/job_positions/categories/'+$scope.jobPosition.category, data)
+            $http.post('http://localhost:5000/categories/', data)
             .success(function (data, status, headers, config) {
                 $scope.PostDataResponse = data;
                 $window.location.href = 'http://localhost:5000';
             })
             .error(function (data, status, header, config) {
-                $scope.jobPosition.error="Error al guardar Job Position, por favor presione Reset y vuelva a intentar";
-                $scope.jobPosition.errorState=true;
+                $scope.category.error="Error al guardar categoria, por favor presione Reset y vuelva a intentar";
+                $scope.category.errorState=true;
             });
 		},
         edit : function(){
             var data = {
-                "name": $scope.jobPosition.name,
-                "description": $scope.jobPosition.description,
-                "category": $scope.jobPosition.category
+                "name": $scope.category.name,
+                "description": $scope.category.description,
             };
-            $http.put('http://localhost:5000/job_positions/categories/'+$scope.categoryOld+'/'+$scope.nameOld, data)
+            $http.put('http://localhost:5000/categories/'+$scope.nameOld, data)
             .success(function (data, status, headers, config) {
                 $scope.PostDataResponse = data;
                 $window.location.href = 'http://localhost:5000';
             })
             .error(function (data, status, header, config) {
-                $scope.jobPosition.error="Error al guardar Job Position, por favor presione Reset y vuelva a intentar";
-                $scope.jobPosition.errorState=true;
+                $scope.category.error="Error al guardar categoria, por favor presione Reset y vuelva a intentar";
+                $scope.category.errorState=true;
             });
         },
         cancel : function(){
@@ -47,17 +44,16 @@ mainApp.controller('jobPositionController', function($scope,$http,$window, $rout
         },
         delete : function(){
             var data = {
-                "name":  $scope.nameToDelete,
-                "category": $scope.categoryToDelete
+                "name":  $scope.nameToDelete
             };
-            $http.delete('http://localhost:5000/job_positions/categories/'+$scope.categoryToDelete+'/'+$scope.nameToDelete,data)
+            $http.delete('http://localhost:5000/categories/'+$scope.nameToDelete,data)
             .success(function (data, status, headers, config) {
                 
                 $window.location.href = 'http://localhost:5000';
             })
             .error(function (data, status, header, config) {
-                $scope.jobPosition.error="Error al Borrar Job Position, por favor presione Cancelar y vuelva a intentar";
-                $scope.jobPosition.errorState=true;
+                $scope.category.error="Error al Borrar categoria, por favor presione Cancelar y vuelva a intentar";
+                $scope.category.errorState=true;
             });
         }
 

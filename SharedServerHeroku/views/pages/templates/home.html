@@ -26,13 +26,13 @@
 					<div class="datagrid">
 						<table align = "center">
 							<tr>
-								<thead><tr><th>Name</th><th>Description</th><th colspan = 2><i class="material-icons">add_box</i></th></thead>
+								<thead><tr><th>Name</th><th>Description</th><th colspan = 2><a href="templates/formAltaCategory.html"><i class="material-icons">add_box</i></a></th></thead>
 							</tr>
 						<tr ng-repeat="category in categories">
 							<td><i>{{category.name}}</i></td>
 							<td><i>{{category.description}}</i></td>
-							<td><i class="material-icons">create</i></td>
-						<td><i class="material-icons">clear</i>
+							<td><a ng-href="templates/formEditCategory.html?nameToEdit={{category.name}}"><i class="material-icons">create</i></a></td>
+						<td><a ng-href="templates/formBajaCategory.html?nameToDelete={{category.name}}"><i class="material-icons">clear</i></a></td>
 						</tr>
 						</table>
 					</div>
