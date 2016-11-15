@@ -6,7 +6,8 @@
 #include "User.h"
 #include "log.h"
 #include <json/json.h>
-
+#include "TokenFCM.h"
+#include "TokenFCMHandler.h"
 #include "md5.h"
 #include <sstream>
 
@@ -99,7 +100,33 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/send_notification",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::send_notification));
 
+	registerRoute("POST", "/token_FCM",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::send_notification));
+
 }
+
+void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+
+	std::string fb_id = request.get("fb_id", "");
+	std::string token_FCM = request.get("token_FCM","");
+	
+	Token_FCM token(fb_id,token_FCM); 
+	
+	TokenFCMHandler::get_instance().save_token(token);
+
+	Json::Value data;
+	data["status"] = "OK";
+	data["message"] = "Token dado de alta";
+	std::ostringstream mensaje ("tocken_FCM: ");
+	mensaje << token_FCM;
+	mensaje << "fb_id: ";
+	mensaje << fb_id;
+	Log::get_instance()->log_info(mensaje.str());
+	response["data"].append(data);
+}
+
 
 void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	curlpp::options::Url myUrl("https://fcm.googleapis.com/fcm/send");
