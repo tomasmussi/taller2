@@ -9,8 +9,24 @@
 #include "UserHandler.h"
 #include "User.h"
 #include "UserList.h"
+#include "TokenFCMHandler.h"
+#include "TokenFCM.h"
 
+TEST(Token_FCM,WriteAndRead){
+	std::string fb_id = "id_fb";
+	std::string token_FCM = "1234";
+	Token_FCM token(fb_id,token_FCM);
+	EXPECT_EQ(token.get_fb_id(),"id_fb");
+	EXPECT_EQ(token.get_token(),"1234");
+}
 
+TEST(TokenFCMHandler, WriteAndRead){
+	std::string fb_id = "id_fb";
+	std::string token_FCM = "1234";
+	Token_FCM token(fb_id,token_FCM);
+	TokenFCMHandler::get_instance().save_token(token);
+	EXPECT_EQ(TokenFCMHandler::get_instance().read_token(fb_id), "1234");
+}
 
 TEST(DatabaseHandler, WriteAndRead) {
 	std::string clave = "clave";

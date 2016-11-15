@@ -16,6 +16,7 @@ void TokenFCMHandler::save_token(Token_FCM token){
 	DatabaseHandler::get_instance().write("token_FCM-" + token.get_fb_id(), 
 											token.get_token());
 }
-std::string read_token(std::string fb_id){
+
+std::string TokenFCMHandler::read_token(std::string fb_id){
 	return DatabaseHandler::get_instance().read("token_FCM-" + fb_id);
 }
