@@ -18,10 +18,6 @@ void handle_signal(int sig) {
 
 
 int main() {
-	int t;
-	t = time(NULL);
-	srand(t);
-
 	signal(SIGINT, handle_signal);
 	ApiJsonController json;
 

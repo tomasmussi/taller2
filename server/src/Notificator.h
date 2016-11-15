@@ -3,7 +3,7 @@
 #include <string>
 #include "TokenFCM.h"
 
-enum TYPENOTIFICATOR{
+enum TYPE_NOTIFICATOR{
 		CHAT=0,
 		FRIEND_REQUEST
 	};
@@ -15,10 +15,10 @@ private:
 	std::string fb_id_sender; //Indica quien realizo el envio 
 	std::string message; //Mensaje
 	std::string tokenFCM; //token del destinatario
-	TYPENOTIFICATOR type;
+	TYPE_NOTIFICATOR type;
 public:
 	
-	Notificator(Token_FCM & token,TYPENOTIFICATOR type, std::string message);
+	Notificator(Token_FCM & token,TYPE_NOTIFICATOR type, std::string message);
 	void send();
 };
 

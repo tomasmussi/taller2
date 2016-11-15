@@ -6,7 +6,7 @@
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
 
-Notificator::Notificator(Token_FCM & token,TYPENOTIFICATOR type, std::string message):
+Notificator::Notificator(Token_FCM & token,TYPE_NOTIFICATOR type, std::string message):
 	FIREBASE_KEY("AIzaSyB0Dd993SZP4dAUySqZzcNZnt4HFd_RLWo"){
 		fb_id_sender = token.get_fb_id();
 		this->message = message;
@@ -33,10 +33,10 @@ void Notificator::send(){
  
 	data["mensaje"] = this->message;
 	switch(type){
-		case TYPENOTIFICATOR::CHAT:
+		case TYPE_NOTIFICATOR::CHAT:
 			data["type"] = "CHAT";
 			break;
-		case TYPENOTIFICATOR::FRIEND_REQUEST:
+		case TYPE_NOTIFICATOR::FRIEND_REQUEST:
 			data["type"] = "FRIEND_REQUEST";
 			break;
 		default:
