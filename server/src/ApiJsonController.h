@@ -82,6 +82,8 @@ class ApiJsonController : public Mongoose::JsonController {
 		void send_message(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void view_messages(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+	void send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 

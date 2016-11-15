@@ -10,6 +10,10 @@
 #include "md5.h"
 #include <sstream>
 
+#include <curlpp/cURLpp.hpp>
+#include <curlpp/Easy.hpp>
+#include <curlpp/Options.hpp>
+
 ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
 		HEROKU_URL("https://guarded-sands-84788.herokuapp.com"),
@@ -91,6 +95,37 @@ void ApiJsonController::setup() {
 
 	registerRoute("GET", "/view_messages",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::view_messages));
+
+	registerRoute("GET", "/send_notification",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::send_notification));
+
+}
+
+void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	curlpp::options::Url myUrl("https://fcm.googleapis.com/fcm/send");
+	curlpp::Easy myRequest;
+	myRequest.setOpt(myUrl);
+
+	//myRequest.perform();
+	std::list<std::string> header;
+header.push_back("Content-Type: application/json");
+	header.push_back("Authorization: key=AIzaSyB0Dd993SZP4dAUySqZzcNZnt4HFd_RLWo");
+	myRequest.setOpt(new curlpp::options::HttpHeader(header));
+	std::string body = "{\"data\": { \"mensaje\": \"oh por dios\"}, \"to\": \"eDSpyrzlxKQ:APA91bGBze7mTQK3OnIWJf-WTNRIYvFDbLNGsVjtMMliVRcjUF6AqsNbZhXTYcSS5srb6fSUSZ-yrB9NC7mX2hV6AjJAmF1Vz2fFuWVUX8oSDnPV1KcnStt6DNR0gyhLibjrMXuu2-MA\"}";
+	myRequest.setOpt(new curlpp::options::PostFields(body.c_str()));
+	myRequest.setOpt(new curlpp::options::PostFieldSize(body.size()));
+	myRequest.perform();
+
+	std::ostringstream os;
+	curlpp::options::WriteStream ws(&os);
+	myRequest.setOpt(ws);
+	myRequest.perform();
+
+	os << myRequest;
+	//Json::Reader reader;
+	std::cout<<os.str()<<std::endl;
+	//reader.parse(os.str(), response["data"]);
+
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
