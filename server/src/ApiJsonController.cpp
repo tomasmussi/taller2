@@ -10,7 +10,7 @@
 #include "TokenFCMHandler.h"
 #include "md5.h"
 #include <sstream>
-
+#include "Notificator.h"
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
@@ -138,7 +138,7 @@ void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResp
 
 
 void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	curlpp::options::Url myUrl("https://fcm.googleapis.com/fcm/send");
+	/*curlpp::options::Url myUrl("https://fcm.googleapis.com/fcm/send");
 	curlpp::Easy myRequest;
 	myRequest.setOpt(myUrl);
 
@@ -161,7 +161,9 @@ header.push_back("Content-Type: application/json");
 	//Json::Reader reader;
 	std::cout<<os.str()<<std::endl;
 	//reader.parse(os.str(), response["data"]);
-
+*/	Token_FCM token("fb_id","1234");
+	Notificator notificator(token,TYPENOTIFICATOR::CHAT, "HOLA");
+	notificator.send();
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
