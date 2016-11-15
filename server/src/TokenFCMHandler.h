@@ -13,7 +13,7 @@ private:
 
 public:
 	static TokenFCMHandler & get_instance();
-	void save_token(Token_FCM token);
-	std::string read_token(std::string fb_id);
+	void save_token(const Token_FCM & token);
+	Token_FCM read_token(const std::string & fb_id);
 };
 #endif

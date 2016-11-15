@@ -9,7 +9,7 @@ class Token_FCM{
 
 	public:
 	Token_FCM(std::string fb_id,std::string token_FCM);
-	std::string get_fb_id();
-	std::string get_token();	
+	std::string get_fb_id() const;
+	std::string get_token() const ;	
 };
 #endif //TOKEN_FCM_H

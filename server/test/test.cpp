@@ -25,7 +25,8 @@ TEST(TokenFCMHandler, WriteAndRead){
 	std::string token_FCM = "1234";
 	Token_FCM token(fb_id,token_FCM);
 	TokenFCMHandler::get_instance().save_token(token);
-	EXPECT_EQ(TokenFCMHandler::get_instance().read_token(fb_id), "1234");
+	Token_FCM tokenLeido = TokenFCMHandler::get_instance().read_token(fb_id);
+	EXPECT_EQ(tokenLeido.get_token(), "1234");
 }
 
 TEST(DatabaseHandler, WriteAndRead) {
