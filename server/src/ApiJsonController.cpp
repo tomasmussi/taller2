@@ -109,6 +109,15 @@ void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResp
 	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
 
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("No se permite almacenar el token de un usuario no logueado");
+		return;
+	}
+
 	std::string fb_id = request.get("fb_id", "");
 	std::string token_FCM = request.get("token_FCM","");
 	
