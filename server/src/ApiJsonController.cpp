@@ -135,6 +135,7 @@ void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResp
 
 
 void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	
 	Token_FCM token("fb_id","eDSpyrzlxKQ:APA91bGBze7mTQK3OnIWJf-WTNRIYvFDbLNGsVjtMMliVRcjUF6AqsNbZhXTYcSS5srb6fSUSZ-yrB9NC7mX2hV6AjJAmF1Vz2fFuWVUX8oSDnPV1KcnStt6DNR0gyhLibjrMXuu2-MA");
 	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "HOLA");
 	notificator.send();
@@ -342,6 +343,11 @@ void ApiJsonController::add_contact(Mongoose::Request &request, Mongoose::JsonRe
 	if (UserHandler::get_instance().user_exists(user_logged_id)
 		&& UserHandler::get_instance().user_exists(wanted_user_id)) {
 		UserHandler::get_instance().send_request(user_logged_id, wanted_user_id);
+	
+		Token_FCM token = TokenFCMHandler::get_instance().read_token(wanted_user_id);
+		Notificator notificator(token, TYPE_NOTIFICATOR::FRIEND_REQUEST, "Usted ha recibido una solicitud de amistad nueva");
+		notificator.send();		
+
 	} else {
 		Json::Value errors;
 		errors["status"] = "ERROR";
@@ -690,6 +696,11 @@ void ApiJsonController::send_message(Mongoose::Request &request, Mongoose::JsonR
 		return;
 	}
 	UserHandler::get_instance().send_message(user_logged_id, receiver_id, message);
+	
+	Token_FCM token = TokenFCMHandler::get_instance().read_token(receiver_id);
+	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "Usted ha recibido un mensaje nuevo");
+	notificator.send();
+
 	Json::Value data;
 	data["status"] = "OK";
 	data["message"] = "Mensaje enviado exitosamente";
