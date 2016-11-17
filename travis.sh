@@ -44,6 +44,14 @@ cd ../..
 ##sudo make install
 ##cd ..
 
+cd instaladores
+git clone git://vtk.org/VTK.git
+cd VTK
+mkdir build
+cd build
+cmake .. 
+cd ../..
+
 dir
 #Instalacion de log4cpp
 cd instaladores

@@ -42,9 +42,15 @@ app.get('/job_positions',db.getAllJobPositions);
 app.get('/job_positions/categories/:name',db.getAllJobPositionsByCategory);
 app.get('/categories',db.getAllCategories);
 app.get('/skills',db.getAllSkills);
+app.post('/skills/categories/:category',db.postskill);
 app.post('/job_positions/categories/:category',db.postJobPosition);
+app.post('/categories/',db.postCategory);
+app.put('/categories/:name',db.putCategory);
 app.put('/job_positions/categories/:category/:name',db.putJobPosition);
+app.put('/skills/categories/:category/:name',db.putSkill);
 app.delete('/job_positions/categories/:category/:name',db.deleteJobPosition);
+app.delete('/skills/categories/:category/:name',db.deleteSkill);
+app.delete('/categories/:name',db.deleteCategory);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

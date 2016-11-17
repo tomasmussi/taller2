@@ -1,18 +1,18 @@
 mainApp.controller('jobPositionController', function($scope,$http,$window, $route, $routeParams,$rootElement,$location) {
-	
+    
     $scope.jobPosition = {
       name: "Ej: developer",
       description: "Ej: desarrollador web",
-	  category: "Ej: software",
-		reset : function(){
-			$scope.jobPosition.name = "Ej: developer";
-			$scope.jobPosition.description = "Ej: desarrollador web";
-			$scope.jobPosition.category = "Ej: software";
+      category: "Ej: software",
+        reset : function(){
+            $scope.jobPosition.name = "Ej: developer";
+            $scope.jobPosition.description = "Ej: desarrollador web";
+            $scope.jobPosition.category = "Ej: software";
             $scope.jobPosition.error = "";
             $scope.jobPosition.errorState=false;
-		},
-		submit : function(){
-			var data = {
+        },
+        submit : function(){
+            var data = {
                 "name": $scope.jobPosition.name,
                 "description": $scope.jobPosition.description
             };
@@ -25,7 +25,7 @@ mainApp.controller('jobPositionController', function($scope,$http,$window, $rout
                 $scope.jobPosition.error="Error al guardar Job Position, por favor presione Reset y vuelva a intentar";
                 $scope.jobPosition.errorState=true;
             });
-		},
+        },
         edit : function(){
             var data = {
                 "name": $scope.jobPosition.name,
@@ -61,8 +61,8 @@ mainApp.controller('jobPositionController', function($scope,$http,$window, $rout
             });
         }
 
-		
-	}
+        
+    }
     function getParameterByName(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
