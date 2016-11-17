@@ -12,6 +12,35 @@
 #include "TokenFCMHandler.h"
 #include "TokenFCM.h"
 
+#include <mongoose/Server.h>
+#include "ApiJsonController.h"
+volatile static bool running = true;
+
+void handle_signal(int sig) {
+	(void) sig;
+	if (running) {
+		cout << "Exiting..." << endl;
+		running = false;
+	}
+}
+
+TEST(SERVER,integration){
+		signal(SIGINT, handle_signal);
+	ApiJsonController json;
+
+	Mongoose::Server server(8080);
+	server.registerController(&json);
+	server.setOption("enable_directory_listing", "false");
+	server.start();
+
+	std::cout << "Server started, routes:" << std::endl;
+	json.dumpRoutes();
+
+	while (running) {
+		sleep(1);
+	}
+	server.stop();
+}
 TEST(Token_FCM,WriteAndRead){
 	std::string fb_id = "id_fb";
 	std::string token_FCM = "1234";
