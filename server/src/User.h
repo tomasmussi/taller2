@@ -25,6 +25,9 @@ private:
 	std::list<std::string> job_positions_;
 	void serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
 
+	std::string latitude_;
+	std::string longitude_;
+
 public:
 	User(std::string json_value);
 	User();
@@ -50,6 +53,8 @@ public:
 	void send_request(User &other_user);
 
 	int requests();
+
+	std::list<std::string> requests_list() const;
 
 	/* Accept another user request */
 	void accept_request(User &other_user);
@@ -78,6 +83,14 @@ public:
 	bool has_job_position(std::string job);
 
 	void delete_job_position(std::string job);
+
+	void set_location(std::string latitude, std::string longitude);
+
+	std::string get_latitude() const;
+
+	std::string get_longitude() const;
+
+	std::string distance_to(const User &other);
 
 };
 

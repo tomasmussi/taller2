@@ -26,12 +26,6 @@ class ApiJsonController : public Mongoose::JsonController {
 		ApiJsonController();
 		~ApiJsonController();
 		virtual void setup();
-		/* HEROKU curl*/
-		void hello(Mongoose::Request &request, Mongoose::JsonResponse &response);
-		void testdb(Mongoose::Request &request, Mongoose::JsonResponse &response);
-
-		/* Login service */
-		void login(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		/* Logout service */
 		void logout(Mongoose::Request &request, Mongoose::JsonResponse &response);
@@ -59,6 +53,8 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void answer_contact(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		void get_requests_list(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 		void lookup(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void get_contacts(Mongoose::Request &request, Mongoose::JsonResponse &response);
@@ -83,9 +79,12 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void view_messages(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+
 		void send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void token_FCM(Mongoose::Request & request, Mongoose::JsonResponse & response);
+
+		void location(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 
