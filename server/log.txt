@@ -1,0 +1,41 @@
+ 2016-11-17 20:15:59,898:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-17 20:15:59,902:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-17 20:15:59,936:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-17 20:16:25,259:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-17 20:16:25,259:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-17 20:16:25\"\n}"
+	]
+}]
+ 2016-11-17 20:53:13,091:INFO - Usuario no autorizado - add job
+ 2016-11-17 20:53:13,095:INFO - Usuario no autorizado - delete job
+ 2016-11-17 20:53:13,113:INFO - Usuario no autorizado - get skill
+ 2016-11-17 20:53:13,116:INFO - Usuario o contraseña invalidados
+ 2016-11-17 20:53:13,133:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-17 20:53:13,137:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-17 20:53:13,140:INFO - Usuario no autorizado para votar
+ 2016-11-17 20:53:13,144:INFO - Usuario no autorizado - popular
+ 2016-11-17 20:53:13,147:INFO - Usuario no autorizado - send_message
+ 2016-11-17 20:53:13,151:INFO - Usuario no autorizado - send_message
+ 2016-11-17 20:53:13,154:INFO - Usuario no autorizado - location
+ 2016-11-17 20:53:13,158:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-17 20:56:10,289:INFO - Usuario no autorizado - add job
+ 2016-11-17 20:56:10,293:INFO - Usuario no autorizado - delete job
+ 2016-11-17 20:56:10,313:INFO - Usuario no autorizado - get skill
+ 2016-11-17 20:56:10,316:INFO - Usuario o contraseña invalidados
+ 2016-11-17 20:56:10,335:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-17 20:56:10,338:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-17 20:56:10,342:INFO - Usuario no autorizado para votar
+ 2016-11-17 20:56:10,345:INFO - Usuario no autorizado - popular
+ 2016-11-17 20:56:10,349:INFO - Usuario no autorizado - send_message
+ 2016-11-17 20:56:10,352:INFO - Usuario no autorizado - send_message
+ 2016-11-17 20:56:10,355:INFO - Usuario no autorizado - location
+ 2016-11-17 20:56:10,359:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-17 20:56:15,588:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-17 20:56:15,589:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-17 20:56:15\"\n}"
+	]
+}]

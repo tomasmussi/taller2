@@ -3,7 +3,7 @@ import requests
 
 def test_request_response_login():
     """Test de response de login"""
-    response = requests.get('http://localhost:8080/api/login')
+    response = requests.get('http://localhost:8080/api/fb_login')
     assert_true(response.ok)
 
 def test_request_response_logout():
@@ -11,9 +11,19 @@ def test_request_response_logout():
     response = requests.get('http://localhost:8080/api/logout')
     assert_true(response.ok)
 
-def test_request_response_job_positions():
+def test_request_response_job_get_positions():
     """Test de response de job_positions"""
     response = requests.get('http://localhost:8080/api/job_positions')
+    assert_true(response.ok)
+
+def test_request_response_post_job_positions():
+    """Test de response de job_positions"""
+    response = requests.post('http://localhost:8080/api/job_positions')
+    assert_true(response.ok)
+
+def test_request_response_delete_job_positions():
+    """Test de response de job_positions"""
+    response = requests.delete('http://localhost:8080/api/job_positions')
     assert_true(response.ok)
 
 def test_request_response_categories():
@@ -26,34 +36,49 @@ def test_request_response_skills():
     response = requests.get('http://localhost:8080/api/skills')
     assert_true(response.ok)
 
-def test_request_response_my_profile():
-    """Test de response de my_profile"""
-    response = requests.get('http://localhost:8080/api/my_profile')
+def test_request_response_post_skill():
+    """Test de response de skill"""
+    response = requests.post('http://localhost:8080/api/skill')
     assert_true(response.ok)
 
-def test_request_response_profile():
-    """Test de response de profile"""
+def test_request_response_delete_skill():
+    """Test de response de skill"""
+    response = requests.delete('http://localhost:8080/api/skill')
+    assert_true(response.ok)
+
+def test_request_response_get_skill():
+    """Test de response de skill"""
+    response = requests.get('http://localhost:8080/api/skill')
+    assert_true(response.ok)
+
+def test_request_response_my_profile():
+    """Test de response de my_profile"""
     response = requests.get('http://localhost:8080/api/profile')
     assert_true(response.ok)
 
-def test_request_response_fb_login():
-    """Test de response de fb_login"""
-    response = requests.get('http://localhost:8080/api/my_profile')
+def test_request_response_put_my_profile():
+    """Test de response de my_profile"""
+    response = requests.put('http://localhost:8080/api/profile')
     assert_true(response.ok)
 
-def test_request_response_edit():
-    """Test de response de edit"""
-    response = requests.get('http://localhost:8080/api/edit')
+def test_request_response_my_profile():
+    """Test de response de my_profile"""
+    response = requests.get('http://localhost:8080/api/profile/others')
     assert_true(response.ok)
 
-def test_request_response_add_contact():
+def test_request_response_post_contact():
     """Test de response de add_contact"""
-    response = requests.post('http://localhost:8080/api/add_contact')
+    response = requests.post('http://localhost:8080/api/contact')
     assert_true(response.ok)
 
-def test_request_response_add_contact():
+def test_request_response_put_contact():
     """Test de response de add_contact"""
-    response = requests.post('http://localhost:8080/api/add_contact')
+    response = requests.put('http://localhost:8080/api/contact')
+    assert_true(response.ok)
+
+def test_request_response_get_contact():
+    """Test de response de my_profile"""
+    response = requests.get('http://localhost:8080/api/contact')
     assert_true(response.ok)
 
 def test_request_response_lookup():
@@ -68,47 +93,27 @@ def test_request_response_get_contacts():
 
 def test_request_response_vote():
     """Test de response de vote"""
-    response = requests.get('http://localhost:8080/api/vote')
+    response = requests.post('http://localhost:8080/api/vote')
     assert_true(response.ok)
 
 def test_request_response_popular():
     """Test de response de popular"""
-    response = requests.get('http://localhost:8080/api/popular')
-    assert_true(response.ok)
-
-def test_request_response_add_skill():
-    """Test de response de add_skill"""
-    response = requests.get('http://localhost:8080/api/add_skill')
-    assert_true(response.ok)
-
-def test_request_response_delete_skill():
-    """Test de response de delete_skill"""
-    response = requests.delete('http://localhost:8080/api/delete_skill')
-    assert_true(response.ok)
-
-def test_request_response_get_skill():
-    """Test de response de get skill"""
-    response = requests.get('http://localhost:8080/api/get_skill')
-    assert_true(response.ok)
-
-def test_request_response_add_job_position():
-    """Test de response de add_job_position"""
-    response = requests.get('http://localhost:8080/api/add_job_position')
-    assert_true(response.ok)
-
-def test_request_response_delete_job_position():
-    """Test de response delete job_position"""
-    response = requests.delete('http://localhost:8080/api/delete_job_position')
+    response = requests.get('http://localhost:8080/api/vote/popular')
     assert_true(response.ok)
 
 def test_request_response_send_message():
     """Test de response de send_message"""
-    response = requests.post('http://localhost:8080/api/send_message')
+    response = requests.post('http://localhost:8080/api/message')
     assert_true(response.ok)
 
-def test_request_response_view_messages():
+def test_request_response_view_message():
     """Test de response view_messages"""
-    response = requests.get('http://localhost:8080/api/view_messages')
+    response = requests.get('http://localhost:8080/api/message')
+    assert_true(response.ok)
+
+def test_request_response_location():
+    """Test de response de tokenFCM"""
+    response = requests.post('http://localhost:8080/api/location')
     assert_true(response.ok)
 
 def test_request_response_token_FCM():
