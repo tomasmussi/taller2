@@ -14,6 +14,8 @@
 
 #include <mongoose/Server.h>
 #include "ApiJsonController.h"
+
+bool ejecutarTestServer = false;
 volatile static bool running = true;
 
 void handle_signal(int sig) {
@@ -25,21 +27,22 @@ void handle_signal(int sig) {
 }
 
 TEST(SERVER,integration){
+	if(ejecutarTestServer){
 		signal(SIGINT, handle_signal);
-	ApiJsonController json;
+		ApiJsonController json;
+		Mongoose::Server server(8080);
+		server.registerController(&json);
+		server.setOption("enable_directory_listing", "false");
+		server.start();
 
-	Mongoose::Server server(8080);
-	server.registerController(&json);
-	server.setOption("enable_directory_listing", "false");
-	server.start();
+		std::cout << "Server started, routes:" << 	std::endl;
+		json.dumpRoutes();
 
-	std::cout << "Server started, routes:" << std::endl;
-	json.dumpRoutes();
-
-	while (running) {
-		sleep(1);
+		while (running) {
+			sleep(1);
+		}
+		server.stop();
 	}
-	server.stop();
 }
 TEST(Token_FCM,WriteAndRead){
 	std::string fb_id = "id_fb";
@@ -487,6 +490,7 @@ TEST(ChatTest, RetrieveMessagesWithLimit) {
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest( &argc, argv );
+	if(argc>1) ejecutarTestServer = true;
     return RUN_ALL_TESTS();
 }
 
