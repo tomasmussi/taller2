@@ -54,11 +54,11 @@ void ApiJsonController::setup() {
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::skills));
 
 	/* Old add_skill */
-	registerRoute("POST", "/skills",
+	registerRoute("POST", "/skill",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::add_skill));
 
 	/* Old delete_skill */
-	registerRoute("DELETE", "/skills",
+	registerRoute("DELETE", "/skill",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::delete_skill));
 
 	/* Old get_skill */
