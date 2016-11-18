@@ -39,3 +39,748 @@
 		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-17 20:56:15\"\n}"
 	]
 }]
+ 2016-11-18 08:47:53,662:INFO - Usuario no autorizado - add job
+ 2016-11-18 08:47:53,678:INFO - Usuario no autorizado - delete job
+ 2016-11-18 08:47:53,729:INFO - Usuario no autorizado - add skill
+ 2016-11-18 08:47:53,750:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 08:47:53,766:INFO - Usuario no autorizado - get skill
+ 2016-11-18 08:47:53,781:INFO - Usuario o contraseña invalidados
+ 2016-11-18 08:47:53,865:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 08:47:53,885:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 08:47:53,902:INFO - Usuario no autorizado para votar
+ 2016-11-18 08:47:53,916:INFO - Usuario no autorizado - popular
+ 2016-11-18 08:47:53,939:INFO - Usuario no autorizado - send_message
+ 2016-11-18 08:47:53,952:INFO - Usuario no autorizado - send_message
+ 2016-11-18 08:47:53,971:INFO - Usuario no autorizado - location
+ 2016-11-18 08:47:53,991:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 08:48:41,163:INFO - Usuario no autorizado - add job
+ 2016-11-18 08:48:41,184:INFO - Usuario no autorizado - delete job
+ 2016-11-18 08:48:41,233:INFO - Usuario no autorizado - add skill
+ 2016-11-18 08:48:41,246:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 08:48:41,266:INFO - Usuario no autorizado - get skill
+ 2016-11-18 08:48:41,282:INFO - Usuario o contraseña invalidados
+ 2016-11-18 08:48:41,370:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 08:48:41,384:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 08:48:41,407:INFO - Usuario no autorizado para votar
+ 2016-11-18 08:48:41,420:INFO - Usuario no autorizado - popular
+ 2016-11-18 08:48:41,444:INFO - Usuario no autorizado - send_message
+ 2016-11-18 08:48:41,457:INFO - Usuario no autorizado - send_message
+ 2016-11-18 08:48:41,477:INFO - Usuario no autorizado - location
+ 2016-11-18 08:48:41,495:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:08:26,169:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:08:26,189:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:08:26,242:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:08:26,256:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:08:26,279:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:08:26,293:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:08:26,379:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:08:26,397:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:08:26,417:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:08:26,430:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:08:26,452:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:08:26,467:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:08:26,486:INFO - Usuario no autorizado - location
+ 2016-11-18 09:08:26,505:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:09:27,451:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:09:27,471:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:09:27,519:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:09:27,534:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:09:27,551:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:09:27,572:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:09:27,650:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:09:27,670:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:09:27,684:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:09:27,703:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:09:27,720:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:09:27,734:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:09:27,757:INFO - Usuario no autorizado - location
+ 2016-11-18 09:09:27,771:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:10:10,016:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:10:10,031:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:10:10,098:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:10:10,122:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:10:10,138:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:10:10,157:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:10:10,260:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:10:10,296:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:10:10,310:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:10:10,328:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:10:10,349:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:10:10,364:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:10:10,390:INFO - Usuario no autorizado - location
+ 2016-11-18 09:10:10,404:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:10:51,161:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:10:51,177:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:10:51,227:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:10:51,245:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:10:51,264:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:10:51,278:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:10:51,367:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:10:51,390:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:10:51,403:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:10:51,422:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:10:51,441:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:10:51,454:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:10:51,478:INFO - Usuario no autorizado - location
+ 2016-11-18 09:10:51,492:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:11:33,883:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:11:33,903:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:11:33,953:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:11:33,967:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:11:33,988:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:11:34,004:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:11:34,090:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:11:34,103:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:11:34,121:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:11:34,140:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:11:34,154:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:11:34,174:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:11:34,192:INFO - Usuario no autorizado - location
+ 2016-11-18 09:11:34,206:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:13:22,877:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:13:22,896:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:13:22,948:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:13:22,961:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:13:22,985:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:13:22,999:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:13:23,083:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:13:23,100:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:13:23,120:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:13:23,133:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:13:23,153:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:13:23,170:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:13:23,185:INFO - Usuario no autorizado - location
+ 2016-11-18 09:13:23,208:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:14:34,232:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:14:34,253:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:14:34,303:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:14:34,316:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:14:34,339:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:14:34,353:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:14:34,439:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:14:34,456:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:14:34,477:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:14:34,490:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:14:34,511:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:14:34,527:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:14:34,547:INFO - Usuario no autorizado - location
+ 2016-11-18 09:14:34,566:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:21:59,864:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:21:59,884:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:21:59,937:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:21:59,955:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:21:59,975:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:21:59,989:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:22:00,079:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:22:00,100:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:22:00,123:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:22:00,137:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:22:00,161:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:22:00,175:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:22:00,197:INFO - Usuario no autorizado - location
+ 2016-11-18 09:22:00,212:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:22:22,314:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:22:22,334:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:22:22,384:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:22:22,398:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:22:22,419:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:22:22,434:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:22:22,517:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:22:22,530:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:22:22,553:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:22:22,567:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:22:22,580:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:22:22,602:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:22:22,617:INFO - Usuario no autorizado - location
+ 2016-11-18 09:22:22,634:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:22:41,989:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:22:42,010:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:22:42,059:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:22:42,073:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:22:42,094:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:22:42,109:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:22:42,193:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:22:42,207:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:22:42,230:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:22:42,243:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:22:42,261:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:22:42,280:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:22:42,294:INFO - Usuario no autorizado - location
+ 2016-11-18 09:22:42,314:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:23:58,418:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:23:58,440:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:23:58,489:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:23:58,503:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:23:58,523:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:23:58,539:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:23:58,625:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:23:58,638:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:23:58,661:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:23:58,681:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:23:58,705:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:23:58,718:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:23:58,739:INFO - Usuario no autorizado - location
+ 2016-11-18 09:23:58,757:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:24:32,623:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:24:32,637:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:24:32,708:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:24:32,723:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:24:32,744:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:24:32,773:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:24:32,880:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:24:32,902:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:24:32,917:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:24:32,940:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:24:32,958:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:24:32,989:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:24:33,007:INFO - Usuario no autorizado - location
+ 2016-11-18 09:24:33,030:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:25:01,850:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:25:01,882:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:25:02,006:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:25:02,027:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:25:02,041:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:25:02,064:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:25:02,169:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:25:02,191:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:25:02,240:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:25:02,257:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:25:02,272:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:25:02,302:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:25:02,317:INFO - Usuario no autorizado - location
+ 2016-11-18 09:25:02,338:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:29:38,378:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-18 09:29:38,379:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-18 09:29:38\"\n}"
+	]
+}]
+ 2016-11-18 09:49:11,788:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:49:11,807:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:49:11,858:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:49:11,876:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:49:11,897:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:49:11,911:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:49:12,001:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:49:12,024:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:49:12,037:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:49:12,055:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:49:12,075:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:49:12,088:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:49:12,103:INFO - Usuario no autorizado - location
+ 2016-11-18 09:49:12,124:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:49:56,453:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:49:56,475:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:49:56,525:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:49:56,540:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:49:56,562:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:49:56,576:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:49:56,666:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:49:56,682:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:49:56,703:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:49:56,717:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:49:56,736:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:49:56,754:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:49:56,771:INFO - Usuario no autorizado - location
+ 2016-11-18 09:49:56,795:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 09:52:52,735:INFO - Facebook user ID invalidado
+ 2016-11-18 09:53:32,828:INFO - Usuario no autorizado - add job
+ 2016-11-18 09:53:32,845:INFO - Usuario no autorizado - delete job
+ 2016-11-18 09:53:32,896:INFO - Usuario no autorizado - add skill
+ 2016-11-18 09:53:32,916:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 09:53:32,934:INFO - Usuario no autorizado - get skill
+ 2016-11-18 09:53:32,949:INFO - Usuario o contraseña invalidados
+ 2016-11-18 09:53:33,035:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 09:53:33,058:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 09:53:33,073:INFO - Usuario no autorizado para votar
+ 2016-11-18 09:53:33,088:INFO - Usuario no autorizado - popular
+ 2016-11-18 09:53:33,111:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:53:33,126:INFO - Usuario no autorizado - send_message
+ 2016-11-18 09:53:33,147:INFO - Usuario no autorizado - location
+ 2016-11-18 09:53:33,165:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:05:15,859:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:05:15,882:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:05:15,934:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:05:15,954:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:05:15,972:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:05:15,987:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:05:16,075:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:05:16,096:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:05:16,113:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:05:16,127:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:05:16,151:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:05:16,164:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:05:16,186:INFO - Usuario no autorizado - location
+ 2016-11-18 10:05:16,204:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:06:17,840:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:06:17,857:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:06:17,909:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:06:17,930:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:06:17,947:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:06:17,961:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:06:18,049:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:06:18,067:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:06:18,087:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:06:18,101:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:06:18,122:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:06:18,138:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:06:18,157:INFO - Usuario no autorizado - location
+ 2016-11-18 10:06:18,177:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:06:45,708:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:06:45,729:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:06:45,785:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:06:45,803:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:06:45,824:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:06:45,837:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:06:45,927:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:06:45,948:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:06:45,965:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:06:45,982:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:06:46,004:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:06:46,018:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:06:46,041:INFO - Usuario no autorizado - location
+ 2016-11-18 10:06:46,057:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:38:05,256:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:38:05,277:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:38:05,333:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:38:05,357:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:38:05,372:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:38:05,391:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:38:05,492:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:38:05,506:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:38:05,525:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:38:05,543:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:38:05,565:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:38:05,584:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:38:05,603:INFO - Usuario no autorizado - location
+ 2016-11-18 10:38:05,627:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:39:18,896:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:39:18,916:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:39:18,970:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:39:18,994:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:39:19,016:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:39:19,039:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:39:19,138:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:39:19,153:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:39:19,175:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:39:19,190:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:39:19,209:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:39:19,229:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:39:19,249:INFO - Usuario no autorizado - location
+ 2016-11-18 10:39:19,272:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:41:32,067:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:41:32,082:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:41:32,138:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:41:32,160:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:41:32,175:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:41:32,199:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:41:32,293:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:41:32,308:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:41:32,330:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:41:32,348:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:41:32,367:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:41:32,388:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:41:32,404:INFO - Usuario no autorizado - location
+ 2016-11-18 10:41:32,429:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:41:34,266:INFO - Facebook user ID invalidado
+ 2016-11-18 10:43:26,782:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:43:26,806:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:43:26,904:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:43:26,966:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:43:27,029:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:43:27,070:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:43:27,165:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:43:27,194:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:43:27,209:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:43:27,229:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:43:27,249:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:43:27,285:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:43:27,308:INFO - Usuario no autorizado - location
+ 2016-11-18 10:43:27,331:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:43:43,106:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:43:43,129:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:43:43,184:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:43:43,205:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:43:43,226:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:43:43,248:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:43:43,345:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:43:43,366:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:43:43,382:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:43:43,405:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:43:43,420:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:43:43,435:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:43:43,458:INFO - Usuario no autorizado - location
+ 2016-11-18 10:43:43,473:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:44:08,224:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:44:08,249:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:44:08,302:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:44:08,317:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:44:08,339:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:44:08,353:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:44:08,441:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:44:08,454:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:44:08,475:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:44:08,492:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:44:08,507:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:44:08,531:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:44:08,546:INFO - Usuario no autorizado - location
+ 2016-11-18 10:44:08,572:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:44:09,674:INFO - Facebook user ID invalidado
+ 2016-11-18 10:49:47,405:INFO - Facebook user ID invalidado
+ 2016-11-18 10:52:07,223:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:52:07,242:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:52:07,294:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:52:07,316:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:52:07,341:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:52:07,364:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:52:07,452:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:52:07,466:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:52:07,484:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:52:07,505:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:52:07,519:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:52:07,539:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:52:07,559:INFO - Usuario no autorizado - location
+ 2016-11-18 10:52:07,574:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:52:59,773:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:52:59,797:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:52:59,850:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:52:59,873:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:52:59,889:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:52:59,907:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:52:59,995:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:53:00,023:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:53:00,036:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:53:00,050:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:53:00,074:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:53:00,092:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:53:00,117:INFO - Usuario no autorizado - location
+ 2016-11-18 10:53:00,133:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:54:34,997:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:54:35,017:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:54:35,071:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:54:35,090:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:54:35,110:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:54:35,124:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:54:35,213:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:54:35,234:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:54:35,250:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:54:35,265:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:54:35,290:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:54:35,304:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:54:35,330:INFO - Usuario no autorizado - location
+ 2016-11-18 10:54:35,343:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:54:36,455:INFO - Facebook user ID invalidado
+ 2016-11-18 10:54:36,461:INFO - Facebook user ID invalidado
+ 2016-11-18 10:55:09,349:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:55:09,370:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:55:09,421:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:55:09,440:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:55:09,460:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:55:09,473:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:55:09,564:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:55:09,584:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:55:09,602:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:55:09,616:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:55:09,641:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:55:09,654:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:55:09,677:INFO - Usuario no autorizado - location
+ 2016-11-18 10:55:09,693:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:55:34,700:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:55:34,725:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:55:34,785:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:55:34,817:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:55:34,845:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:55:34,862:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:55:34,971:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:55:34,991:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:55:35,011:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:55:35,034:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:55:35,050:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:55:35,066:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:55:35,088:INFO - Usuario no autorizado - location
+ 2016-11-18 10:55:35,113:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:55:44,958:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:55:44,976:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:55:45,046:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:55:45,066:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:55:45,089:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:55:45,116:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:55:45,225:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:55:45,244:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:55:45,264:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:55:45,284:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:55:45,311:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:55:45,325:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:55:45,347:INFO - Usuario no autorizado - location
+ 2016-11-18 10:55:45,364:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:56:32,809:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:56:32,826:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:56:32,905:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:56:32,919:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:56:32,953:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:56:32,981:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:56:33,090:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:56:33,108:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:56:33,125:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:56:33,153:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:56:33,182:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:56:33,199:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:56:33,223:INFO - Usuario no autorizado - location
+ 2016-11-18 10:56:33,241:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:56:55,506:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:56:55,520:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:56:55,583:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:56:55,611:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:56:55,627:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:56:55,656:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:56:55,762:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:56:55,778:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:56:55,799:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:56:55,816:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:56:55,853:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:56:55,869:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:56:55,895:INFO - Usuario no autorizado - location
+ 2016-11-18 10:56:55,909:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 10:57:34,550:INFO - Usuario no autorizado - add job
+ 2016-11-18 10:57:34,572:INFO - Usuario no autorizado - delete job
+ 2016-11-18 10:57:34,626:INFO - Usuario no autorizado - add skill
+ 2016-11-18 10:57:34,639:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 10:57:34,664:INFO - Usuario no autorizado - get skill
+ 2016-11-18 10:57:34,678:INFO - Usuario o contraseña invalidados
+ 2016-11-18 10:57:34,765:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 10:57:34,782:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 10:57:34,803:INFO - Usuario no autorizado para votar
+ 2016-11-18 10:57:34,817:INFO - Usuario no autorizado - popular
+ 2016-11-18 10:57:34,835:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:57:34,854:INFO - Usuario no autorizado - send_message
+ 2016-11-18 10:57:34,868:INFO - Usuario no autorizado - location
+ 2016-11-18 10:57:34,889:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:01:16,750:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:01:16,770:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:01:16,820:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:01:16,834:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:01:16,854:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:01:16,872:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:01:16,956:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:01:16,969:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:01:16,989:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:01:17,007:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:01:17,020:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:01:17,038:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:01:17,058:INFO - Usuario no autorizado - location
+ 2016-11-18 11:01:17,072:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:01:51,862:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:01:51,881:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:01:51,933:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:01:51,949:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:01:51,974:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:01:51,989:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:01:52,077:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:01:52,098:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:01:52,117:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:01:52,131:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:01:52,156:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:01:52,169:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:01:52,184:INFO - Usuario no autorizado - location
+ 2016-11-18 11:01:52,210:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:02:34,136:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:02:34,156:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:02:34,231:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:02:34,245:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:02:34,269:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:02:34,303:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:02:34,427:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:02:34,451:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:02:34,469:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:02:34,499:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:02:34,523:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:02:34,541:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:02:34,566:INFO - Usuario no autorizado - location
+ 2016-11-18 11:02:34,588:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:02:35,984:INFO - Facebook user ID invalidado
+ 2016-11-18 11:04:38,853:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:04:38,873:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:04:38,924:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:04:38,945:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:04:38,966:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:04:38,981:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:04:39,069:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:04:39,090:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:04:39,107:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:04:39,120:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:04:39,144:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:04:39,158:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:04:39,182:INFO - Usuario no autorizado - location
+ 2016-11-18 11:04:39,198:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:05:03,108:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:05:03,129:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:05:03,181:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:05:03,194:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:05:03,221:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:05:03,234:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:05:03,321:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:05:03,342:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:05:03,359:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:05:03,373:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:05:03,397:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:05:03,411:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:05:03,433:INFO - Usuario no autorizado - location
+ 2016-11-18 11:05:03,450:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:05:21,392:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:05:21,413:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:05:21,463:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:05:21,476:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:05:21,498:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:05:21,513:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:05:21,600:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:05:21,614:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:05:21,637:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:05:21,651:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:05:21,669:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:05:21,689:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:05:21,703:INFO - Usuario no autorizado - location
+ 2016-11-18 11:05:21,725:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:05:50,165:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:05:50,180:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:05:50,231:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:05:50,253:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:05:50,268:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:05:50,284:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:05:50,374:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:05:50,395:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:05:50,410:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:05:50,426:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:05:50,448:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:05:50,461:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:05:50,482:INFO - Usuario no autorizado - location
+ 2016-11-18 11:05:50,501:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:05:51,607:INFO - Facebook user ID invalidado
+ 2016-11-18 11:06:58,126:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:06:58,146:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:06:58,194:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:06:58,210:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:06:58,227:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:06:58,249:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:06:58,338:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:06:58,351:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:06:58,375:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:06:58,389:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:06:58,409:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:06:58,427:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:06:58,442:INFO - Usuario no autorizado - location
+ 2016-11-18 11:06:58,468:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:06:59,581:INFO - Facebook user ID invalidado
+ 2016-11-18 11:14:16,087:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:14:16,103:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:14:16,153:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:14:16,174:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:14:16,191:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:14:16,205:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:14:16,291:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:14:16,305:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:14:16,328:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:14:16,341:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:14:16,361:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:14:16,379:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:14:16,393:INFO - Usuario no autorizado - location
+ 2016-11-18 11:14:16,418:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:14:17,549:INFO - Facebook user ID invalidado
+ 2016-11-18 11:14:40,879:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:14:40,900:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:14:40,954:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:14:40,976:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:14:40,993:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:14:41,008:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:14:41,095:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:14:41,117:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:14:41,132:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:14:41,150:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:14:41,170:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:14:41,183:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:14:41,206:INFO - Usuario no autorizado - location
+ 2016-11-18 11:14:41,222:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:14:42,319:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:14:42,371:INFO - Facebook user ID invalidado
+ 2016-11-18 11:15:36,498:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:15:36,518:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:15:36,571:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:15:36,585:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:15:36,611:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:15:36,625:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:15:36,712:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:15:36,729:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:15:36,749:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:15:36,763:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:15:36,789:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:15:36,802:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:15:36,824:INFO - Usuario no autorizado - location
+ 2016-11-18 11:15:36,841:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:15:37,930:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:15:37,984:INFO - Facebook user ID invalidado
+ 2016-11-18 11:16:42,121:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:16:42,153:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:16:42,215:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:16:42,231:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:16:42,261:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:16:42,282:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:16:42,392:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:16:42,416:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:16:42,432:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:16:42,452:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:16:42,482:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:16:42,507:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:16:42,526:INFO - Usuario no autorizado - location
+ 2016-11-18 11:16:42,545:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:16:43,957:INFO - Facebook user ID invalidado
+ 2016-11-18 11:16:59,208:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:16:59,241:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:16:59,361:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:16:59,394:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:16:59,437:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:16:59,460:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:16:59,631:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:16:59,661:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:16:59,745:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:16:59,766:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:16:59,788:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:16:59,810:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:16:59,831:INFO - Usuario no autorizado - location
+ 2016-11-18 11:16:59,852:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:17:01,432:INFO - Facebook user ID invalidado
+ 2016-11-18 11:18:46,692:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-18 11:18:46,692:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-18 11:18:46\"\n}"
+	]
+}]
+ 2016-11-18 11:20:04,787:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-18 11:20:04,788:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-18 11:20:04\"\n}"
+	]
+}]
+ 2016-11-18 11:21:12,887:INFO - Usuario no autorizado - add job
+ 2016-11-18 11:21:12,909:INFO - Usuario no autorizado - delete job
+ 2016-11-18 11:21:12,973:INFO - Usuario no autorizado - add skill
+ 2016-11-18 11:21:12,991:INFO - Usuario no autorizado - delete skill
+ 2016-11-18 11:21:13,014:INFO - Usuario no autorizado - get skill
+ 2016-11-18 11:21:13,033:INFO - Usuario o contraseña invalidados
+ 2016-11-18 11:21:13,132:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-18 11:21:13,148:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-18 11:21:13,169:INFO - Usuario no autorizado para votar
+ 2016-11-18 11:21:13,184:INFO - Usuario no autorizado - popular
+ 2016-11-18 11:21:13,201:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:21:13,224:INFO - Usuario no autorizado - send_message
+ 2016-11-18 11:21:13,239:INFO - Usuario no autorizado - location
+ 2016-11-18 11:21:13,265:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-18 11:21:14,693:INFO - Facebook user ID invalidado
+ 2016-11-18 11:21:17,850:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-18 11:21:17,850:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-18 11:21:17\"\n}"
+	]
+}]

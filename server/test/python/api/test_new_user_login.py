@@ -6,18 +6,17 @@ from urlparse import urlparse
 from mock import patch
 from pprint import pprint
 
-
-    
 def request():
-    url = "http://localhost:5000/skills"
+    body = "api_sec=7dd52e16c17ff193362961b387687bf8"
+    fb_id = "fb_user_id=eze"
+    url = "http://localhost:8080/api/fb_login?"+body+"&"+fb_id
     response = urlopen(url)
     raw_data = response.read().decode('utf-8')
     return json.loads(raw_data)
-
-class ClientTestCase(unittest.TestCase):
+    
+class LoginExitoso(unittest.TestCase):
     def test_request(self):
-        """Test de request en skills"""
+        """Test de new User"""
         response = request()
-        self.assertIn('skills', response)
-        pprint(response)
-        self.assertEqual(response["metadata"]["version"], 0.1)
+        pprint(response["errors"])
+        self.assertEqual(response["errors"], [])
