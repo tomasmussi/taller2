@@ -646,6 +646,7 @@ void ApiJsonController::location(Mongoose::Request &request, Mongoose::JsonRespo
 		Json::Value errors;
 		errors["status"] = "ERROR";
 		errors["message"] = "Latitud o longitud vacios";
+		response.setCode(HTTP_CODE_BAD_REQUEST);
 		response["errors"].append(errors);
 		Log::get_instance()->log_info("Latitud o longitud vacios - location");
 		return;

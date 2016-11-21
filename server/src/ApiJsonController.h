@@ -3,6 +3,8 @@
 
 #include <mongoose/JsonController.h>
 
+#define HTTP_CODE_BAD_REQUEST 400
+
 class ApiJsonController : public Mongoose::JsonController {
 	private:
 		const std::string SALT;
