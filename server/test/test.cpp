@@ -438,7 +438,7 @@ TEST(UserHandlerTest, GetUserFriends) {
 	UserHandler::get_instance().load_friends(user_key, ans);
 	std::ostringstream os;
 	os << ans;
-	std::string expeted = "[\n\t{\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"true\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"true\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\"\n\t}\n]";
 	EXPECT_EQ(expeted , os.str());
 }
 
