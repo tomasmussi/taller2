@@ -5,6 +5,7 @@
 #include <mongoose/Server.h>
 
 #include "ApiJsonController.h"
+#include "DatabaseHandler.h"
 
 volatile static bool running = true;
 
@@ -24,8 +25,11 @@ int main(int argc, char *argv[]) {
 
 	signal(SIGINT, handle_signal);
 	std::string url("https://guarded-sands-84788.herokuapp.com");
-	if (argc == 2) {
+	if (argc > 1) {
 		url = std::string(argv[1]);
+		if (argc == 3) {
+			DatabaseHandler::get_instance(argv[2]);
+		}
 	}
 	ApiJsonController json(url);
 
