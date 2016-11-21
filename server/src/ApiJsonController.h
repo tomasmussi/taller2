@@ -26,6 +26,7 @@ class ApiJsonController : public Mongoose::JsonController {
 
 	public:
 		ApiJsonController();
+		ApiJsonController(std::string heroku_url);
 		~ApiJsonController();
 		virtual void setup();
 
