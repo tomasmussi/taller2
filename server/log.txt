@@ -874,3 +874,24 @@
 		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-23 23:13:00\"\n}"
 	]
 }]
+ 2016-11-23 23:30:57,961:INFO - Usuario no autorizado - add job
+ 2016-11-23 23:30:57,964:INFO - Usuario no autorizado - delete job
+ 2016-11-23 23:30:57,975:INFO - Usuario no autorizado - add skill
+ 2016-11-23 23:30:57,978:INFO - Usuario no autorizado - delete skill
+ 2016-11-23 23:30:57,982:INFO - Usuario no autorizado - get skill
+ 2016-11-23 23:30:58,002:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-23 23:30:58,007:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-23 23:30:58,011:INFO - Usuario no autorizado para votar
+ 2016-11-23 23:30:58,014:INFO - Usuario no autorizado - popular
+ 2016-11-23 23:30:58,018:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:30:58,021:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:30:58,024:INFO - Usuario no autorizado - location
+ 2016-11-23 23:30:58,028:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-23 23:30:58,495:INFO - Facebook user ID invalidado
+ 2016-11-23 23:32:04,599:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-23 23:32:04,600:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-23 23:32:04\"\n}"
+	]
+}]

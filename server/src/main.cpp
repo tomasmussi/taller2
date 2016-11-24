@@ -17,16 +17,11 @@ void handle_signal(int sig) {
 	}
 }
 
-
-<<<<<<< HEAD
-int main() {
-=======
 int main(int argc, char *argv[]) {
 	int t;
 	t = time(NULL);
 	srand(t);
 
->>>>>>> feature/location
 	signal(SIGINT, handle_signal);
 	std::string url("https://guarded-sands-84788.herokuapp.com");
 	if (argc > 1) {
