@@ -11,8 +11,6 @@ import com.fiuba.taller2.rest_dto.CategoriesLNDTO;
 
 public class LDCategoriesServices extends AbstractServices{
 
-
-
     private static final String service_name = "api/categories";
 
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MyProfile implements Serializable{
+public class MyProfile implements Serializable {
 
     private String city;
     private String contacts;

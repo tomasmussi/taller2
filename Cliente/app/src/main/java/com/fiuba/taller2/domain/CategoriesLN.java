@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CategoriesLN implements Serializable{
+public class CategoriesLN implements Serializable {
 
     private ArrayList<CatogoryLN> categories;
 

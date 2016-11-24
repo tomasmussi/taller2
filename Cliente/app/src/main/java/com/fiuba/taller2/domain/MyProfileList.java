@@ -12,9 +12,9 @@ import java.io.Serializable;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MyProfileList implements Serializable{
+public class MyProfileList implements Serializable {
 
-    private MyProfile  user;
+    private MyProfile user;
 
     public MyProfile getUser() {
         return user;

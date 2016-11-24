@@ -1,0 +1,4 @@
+ 2016-11-10 15:11:26,039:INFO - Usuario modificado exitosamente
+ 2016-11-10 15:19:51,255:INFO - Usuario modificado exitosamente
+ 2016-11-10 15:21:27,299:INFO - Usuario modificado exitosamente
+ 2016-11-10 15:26:33,977:INFO - Usuario modificado exitosamente

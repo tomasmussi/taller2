@@ -1,11 +1,16 @@
 package com.fiuba.taller2.activities;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,13 +32,20 @@ import com.firebase.ui.auth.AuthUI;
 import com.fiuba.taller2.adapters.ImageAdapter;
 import com.fiuba.taller2.domain.Categoria;
 import com.fiuba.taller2.domain.CatogoryLN;
+import com.fiuba.taller2.domain.Contact;
+import com.fiuba.taller2.domain.Estado;
 import com.fiuba.taller2.domain.LDJobPosition;
 import com.fiuba.taller2.domain.Login;
 import com.fiuba.taller2.domain.MyProfile;
+import com.fiuba.taller2.services.GetContactsServices;
 import com.fiuba.taller2.services.LDCategoriesServices;
 import com.fiuba.taller2.services.LDJobPositionsServices;
 import com.fiuba.taller2.services.LDMyProfileServices;
 import com.fiuba.taller2.services.LoginServices;
+import com.fiuba.taller2.services.LookupServices;
+import com.fiuba.taller2.services.SendContactRequestServices;
+import com.fiuba.taller2.services.SendContactResponseServices;
+import com.fiuba.taller2.services.SetLocationServices;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -52,13 +64,16 @@ public class MainActivity extends AppCompatActivity
 
     private GridView grillaOpciones;
     private ImageAdapter adapterCategorias;
-    private String  api_token;
+    private String api_token;
     private String userEmail;
     private String firstName;
     private String lastName;
     private String profilePicture;
     private FirebaseAuth auth;
     private GoogleApiClient client;
+    private double longitude;
+    private double latitude;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +81,38 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
-        if ( auth.getCurrentUser()!=null){
+        if (auth.getCurrentUser() != null) {
             Log.d("AUTH", "User LOGGED IN");
-            userEmail=auth.getCurrentUser().getEmail();
-            firstName=auth.getCurrentUser().getDisplayName();
-            Log.d("hola",auth.getCurrentUser().getProviders().toString());
+            userEmail = auth.getCurrentUser().getEmail();
+            firstName = auth.getCurrentUser().getDisplayName();
+            Log.d("hola", auth.getCurrentUser().getProviders().toString());
             auth.getCurrentUser().getProviderData();
-            profilePicture= auth.getCurrentUser().getPhotoUrl().toString();
+            profilePicture = auth.getCurrentUser().getPhotoUrl().toString();
             InitApiTokenFromServer(userEmail);
-        }else{
+        } else {
             startActivityForResult(AuthUI.getInstance()
-
-                    .createSignInIntentBuilder().
+                    .createSignInIntentBuilder().setIsSmartLockEnabled(false).
                             setProviders(
-                    AuthUI.FACEBOOK_PROVIDER,
-                    AuthUI.GOOGLE_PROVIDER
-            ).build(),RC_SIGN_IN);
+                                    AuthUI.FACEBOOK_PROVIDER,
+                                    AuthUI.GOOGLE_PROVIDER
+                            ).build(), RC_SIGN_IN);
         }
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        android.location.Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+         longitude = location.getLongitude();
+         latitude = location.getLatitude();
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -141,6 +171,19 @@ public class MainActivity extends AppCompatActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        AsyncSetLocation asyncSetLocation = new AsyncSetLocation();
+
+        asyncSetLocation.execute(String.valueOf(latitude),String.valueOf(longitude));
+        try {
+            Estado estado = (Estado) asyncSetLocation.get();
+            Log.d("Estado", estado.toString());
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -175,6 +218,112 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.misContactos) {
 
+            Login loginTest;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            HttpRequestTaskLogin httpRequestTask = new HttpRequestTaskLogin();
+
+            httpRequestTask.execute("tomas");
+            try {
+                loginTest = (Login) httpRequestTask.get();
+                Log.d("Login", loginTest.toString());
+                api_token=loginTest.getToken();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            HttpRequestTaskLookup httpRequestTaskLookup = new HttpRequestTaskLookup();
+
+            httpRequestTaskLookup.execute("tomas");
+            try {
+                ArrayList<Contact> contactArrayList = ( ArrayList<Contact>) httpRequestTaskLookup.get();
+                Log.d("Contacts", contactArrayList.toString());
+                Log.d("Contacts", contactArrayList.get(0).toString());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+            AsyncSetLocation asyncSetLocation = new AsyncSetLocation();
+
+            asyncSetLocation.execute("-34.595241","-58.402460");
+            try {
+                Estado estado = (Estado) asyncSetLocation.get();
+                Log.d("Estado", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+
+            AsyncGetContacts asyncGetContacts = new AsyncGetContacts();
+
+            asyncGetContacts.execute();
+            try {
+                ArrayList<Contact> contactArrayList = ( ArrayList<Contact>) asyncGetContacts.get();
+                Log.d("Contacts", contactArrayList.toString());
+                Log.d("Contacts", contactArrayList.get(0).toString());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            AsyncSendContactRequest asyncSendContactRequest = new AsyncSendContactRequest();
+
+            asyncSendContactRequest.execute("aran.com.ar@gmail.com");
+
+            try {
+                Estado estado = (Estado) asyncSendContactRequest.get();
+              if(estado!=null)  Log.d("Estado", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+
+            HttpRequestTaskLogin httpRequestTask2 = new HttpRequestTaskLogin();
+
+            httpRequestTask2.execute("aran.com.ar@gmail.com");
+            try {
+                loginTest = (Login) httpRequestTask2.get();
+                Log.d("Login", loginTest.toString());
+                api_token=loginTest.getToken();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+            AsyncSendContactResponse asyncSendContactResponse = new AsyncSendContactResponse();
+
+            asyncSendContactResponse.execute("tomas","true");
+
+            try {
+                Estado estado = (Estado) asyncSendContactResponse.get();
+                if(estado!=null)  Log.d("Estado", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else if (id == R.id.contactosdestacados) {
 
         } else if (id == R.id.miPerfil) {
@@ -377,4 +526,108 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+    private class AsyncSetLocation extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String latitude =params[0];
+                String longitude=params[1];
+
+                SetLocationServices setLocationServices=new SetLocationServices();
+                setLocationServices.setApi_security(api_token);
+                Estado estado_response = (Estado) setLocationServices.get(latitude,longitude);
+                return estado_response;
+            } catch (Exception e) {
+                Log.e("AsyncSetLocation", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+
+
+    private class AsyncGetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
+        @Override
+        protected ArrayList<Contact> doInBackground(String... params) {
+            try {
+
+                GetContactsServices getContactsServices=new GetContactsServices();
+                getContactsServices.setApi_security(api_token);
+                ArrayList<Contact> listContacts= (ArrayList<Contact>) getContactsServices.get();
+                return listContacts;
+            } catch (Exception e) {
+                Log.e("LookUp", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+    private class HttpRequestTaskLookup extends AsyncTask<String, Void, ArrayList<Contact>> {
+        @Override
+        protected ArrayList<Contact> doInBackground(String... params) {
+            try {
+                String user = params[0];
+
+                LookupServices lookupServices=new LookupServices();
+                lookupServices.setApi_security(api_token);
+                ArrayList<Contact> listContacts= (ArrayList<Contact>) lookupServices.get(user);
+                return listContacts;
+            } catch (Exception e) {
+                Log.e("LookUp", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+    private class AsyncSendContactRequest extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String contact_fb_id = params[0];
+
+                SendContactRequestServices SendContactRequestServices=new SendContactRequestServices();
+                SendContactRequestServices.setApi_security(api_token);
+                Estado estado= (Estado) SendContactRequestServices.get(contact_fb_id);
+                return estado;
+            } catch (Exception e) {
+                Log.e("AsyncSendContactRequest", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+    private class AsyncSendContactResponse extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String contact_fb_id = params[0];
+                String answer = params[1];
+
+
+                SendContactResponseServices SendContactRequestServices=new SendContactResponseServices();
+                SendContactRequestServices.setApi_security(api_token);
+                Estado estado= (Estado) SendContactRequestServices.get(contact_fb_id, answer);
+                return estado;
+            } catch (Exception e) {
+                Log.e("AsyncSendContactRequest", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+
+
 }
+
+
+
