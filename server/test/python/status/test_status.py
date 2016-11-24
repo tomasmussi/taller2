@@ -58,7 +58,7 @@ def test_request_response_my_profile():
 
 def test_request_response_put_my_profile():
     """Test de response de my_profile"""
-    response = requests.put('http://localhost:8080/api/profile')
+    response = requests.post('http://localhost:8080/api/profile')
     assert_true(response.ok)
 
 def test_request_response_my_profile():
@@ -67,17 +67,17 @@ def test_request_response_my_profile():
     assert_true(response.ok)
 
 def test_request_response_post_contact():
-    """Test de response de add_contact"""
+    """Test de response contact post"""
     response = requests.post('http://localhost:8080/api/contact')
     assert_true(response.ok)
 
-def test_request_response_put_contact():
-    """Test de response de add_contact"""
-    response = requests.put('http://localhost:8080/api/contact')
-    assert_true(response.ok)
+#def test_request_reponse_contact():
+#    """Test de response de contact/response"""
+#    response = requests.post('http://localhost:8080/api/contact/response')
+#    assert_true(response.ok)
 
-def test_request_response_get_contact():
-    """Test de response de my_profile"""
+def test_request_get_contact():
+    """Test de response de contact get"""
     response = requests.get('http://localhost:8080/api/contact')
     assert_true(response.ok)
 

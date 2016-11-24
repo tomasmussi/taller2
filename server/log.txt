@@ -895,3 +895,99 @@
 		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-23 23:32:04\"\n}"
 	]
 }]
+ 2016-11-23 23:46:48,713:INFO - Usuario no autorizado - add job
+ 2016-11-23 23:46:48,717:INFO - Usuario no autorizado - delete job
+ 2016-11-23 23:46:48,728:INFO - Usuario no autorizado - add skill
+ 2016-11-23 23:46:48,732:INFO - Usuario no autorizado - delete skill
+ 2016-11-23 23:46:48,735:INFO - Usuario no autorizado - get skill
+ 2016-11-23 23:46:48,739:INFO - Usuario o contraseña invalidados
+ 2016-11-23 23:46:48,757:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-23 23:46:48,761:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-23 23:46:48,765:INFO - Usuario no autorizado para votar
+ 2016-11-23 23:46:48,768:INFO - Usuario no autorizado - popular
+ 2016-11-23 23:46:48,772:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:46:48,775:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:46:48,778:INFO - Usuario no autorizado - location
+ 2016-11-23 23:46:48,781:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-23 23:46:49,238:INFO - Facebook user ID invalidado
+ 2016-11-23 23:49:38,836:INFO - Usuario no autorizado - add job
+ 2016-11-23 23:49:38,839:INFO - Usuario no autorizado - delete job
+ 2016-11-23 23:49:38,851:INFO - Usuario no autorizado - add skill
+ 2016-11-23 23:49:38,855:INFO - Usuario no autorizado - delete skill
+ 2016-11-23 23:49:38,858:INFO - Usuario no autorizado - get skill
+ 2016-11-23 23:49:38,861:INFO - Usuario o contraseña invalidados
+ 2016-11-23 23:49:38,879:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-23 23:49:38,883:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-23 23:49:38,886:INFO - Usuario no autorizado para votar
+ 2016-11-23 23:49:38,890:INFO - Usuario no autorizado - popular
+ 2016-11-23 23:49:38,893:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:49:38,896:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:49:38,900:INFO - Usuario no autorizado - location
+ 2016-11-23 23:49:38,903:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-23 23:49:39,177:INFO - Facebook user ID invalidado
+ 2016-11-23 23:51:16,437:INFO - Usuario no autorizado - add job
+ 2016-11-23 23:51:16,440:INFO - Usuario no autorizado - delete job
+ 2016-11-23 23:51:16,451:INFO - Usuario no autorizado - add skill
+ 2016-11-23 23:51:16,455:INFO - Usuario no autorizado - delete skill
+ 2016-11-23 23:51:16,459:INFO - Usuario no autorizado - get skill
+ 2016-11-23 23:51:16,462:INFO - Usuario o contraseña invalidados
+ 2016-11-23 23:51:16,479:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-23 23:51:16,483:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-23 23:51:16,486:INFO - Usuario no autorizado para votar
+ 2016-11-23 23:51:16,490:INFO - Usuario no autorizado - popular
+ 2016-11-23 23:51:16,493:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:51:16,497:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:51:16,500:INFO - Usuario no autorizado - location
+ 2016-11-23 23:51:16,503:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-23 23:51:16,777:INFO - Facebook user ID invalidado
+ 2016-11-23 23:51:24,854:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-23 23:51:24,854:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-23 23:51:24\"\n}"
+	]
+}]
+ 2016-11-23 23:52:37,801:INFO - Usuario no autorizado - add job
+ 2016-11-23 23:52:37,805:INFO - Usuario no autorizado - delete job
+ 2016-11-23 23:52:37,816:INFO - Usuario no autorizado - add skill
+ 2016-11-23 23:52:37,819:INFO - Usuario no autorizado - delete skill
+ 2016-11-23 23:52:37,823:INFO - Usuario no autorizado - get skill
+ 2016-11-23 23:52:37,826:INFO - Usuario o contraseña invalidados
+ 2016-11-23 23:52:37,845:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-23 23:52:37,849:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-23 23:52:37,852:INFO - Usuario no autorizado para votar
+ 2016-11-23 23:52:37,856:INFO - Usuario no autorizado - popular
+ 2016-11-23 23:52:37,859:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:52:37,862:INFO - Usuario no autorizado - send_message
+ 2016-11-23 23:52:37,866:INFO - Usuario no autorizado - location
+ 2016-11-23 23:52:37,869:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-23 23:52:38,340:INFO - Facebook user ID invalidado
+ 2016-11-23 23:59:02,204:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-23 23:59:02,204:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-23 23:59:02\"\n}"
+	]
+}]
+ 2016-11-24 00:00:34,787:INFO - Usuario no autorizado - add job
+ 2016-11-24 00:00:34,791:INFO - Usuario no autorizado - delete job
+ 2016-11-24 00:00:34,802:INFO - Usuario no autorizado - add skill
+ 2016-11-24 00:00:34,806:INFO - Usuario no autorizado - delete skill
+ 2016-11-24 00:00:34,809:INFO - Usuario no autorizado - get skill
+ 2016-11-24 00:00:34,813:INFO - Usuario o contraseña invalidados
+ 2016-11-24 00:00:34,831:INFO - Usuario no autorizado para ejecutar lookup
+ 2016-11-24 00:00:34,835:INFO - Usuario no autorizaro para get_contacts
+ 2016-11-24 00:00:34,838:INFO - Usuario no autorizado para votar
+ 2016-11-24 00:00:34,844:INFO - Usuario no autorizado - popular
+ 2016-11-24 00:00:34,850:INFO - Usuario no autorizado - send_message
+ 2016-11-24 00:00:34,853:INFO - Usuario no autorizado - send_message
+ 2016-11-24 00:00:34,857:INFO - Usuario no autorizado - location
+ 2016-11-24 00:00:34,860:INFO - No se permite almacenar el token de un usuario no logueado
+ 2016-11-24 00:00:35,336:INFO - Facebook user ID invalidado
+ 2016-11-24 00:04:37,670:INFO - Chat: [chat-a-fb-user-id-other-user-id]
+ 2016-11-24 00:04:37,670:INFO - Chat: [{
+	"messages" : 
+	[
+		"{\n\t\"message\" : \"hola\",\n\t\"receiver_id\" : \"other-user-id\",\n\t\"sender_id\" : \"a-fb-user-id\",\n\t\"timestamp\" : \"2016-11-24 00:04:37\"\n}"
+	]
+}]
