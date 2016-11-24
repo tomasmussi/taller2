@@ -58,3 +58,20 @@ class LoginExitoso(unittest.TestCase):
         self.assertEqual(response["data"]["user"]["city"], "Lanus Oeste")
         self.assertEqual(response["data"]["user"]["summary"], "Estudiante de ingenieria")
         self.assertEqual(response["data"]["user"]["profile_photo"], "asdf")
+
+def requestViewProfileUserNotExist(token):
+    url = "http://localhost:8080/api/profile/others?token="+token
+    response = urlopen(url)
+    raw_data = response.read().decode('utf-8')
+    return json.loads(raw_data)
+    
+class ViewProfileUserNotExist(unittest.TestCase):
+    def test_requestEdit(self):
+        """Test de view profile user not exist"""
+        token = get_token()
+        requestEditProfile(token)
+        response = requestViewProfileUserNotExist(token)
+        pprint(response["errors"])
+        self.assertEqual(response["errors"][0]["status"], "ERROR")
+        #self.assertEqual(response["errors"][0]["message"], "Usuario vacio o inválido")
+      

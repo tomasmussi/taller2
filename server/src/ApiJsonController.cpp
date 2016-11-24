@@ -166,7 +166,7 @@ void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::
 	
 	Token_FCM token("fb_id","eDSpyrzlxKQ:APA91bGBze7mTQK3OnIWJf-WTNRIYvFDbLNGsVjtMMliVRcjUF6AqsNbZhXTYcSS5srb6fSUSZ-yrB9NC7mX2hV6AjJAmF1Vz2fFuWVUX8oSDnPV1KcnStt6DNR0gyhLibjrMXuu2-MA");
 	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "HOLA");
-	notificator.send();
+	//notificator.send();
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -311,7 +311,7 @@ void ApiJsonController::add_contact(Mongoose::Request &request, Mongoose::JsonRe
 	
 		Token_FCM token = TokenFCMHandler::get_instance().read_token(wanted_user_id);
 		Notificator notificator(token, TYPE_NOTIFICATOR::FRIEND_REQUEST, "Usted ha recibido una solicitud de amistad nueva");
-		notificator.send();		
+		//notificator.send();		
 
 	} else {
 		Json::Value errors;

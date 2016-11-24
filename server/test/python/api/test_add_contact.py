@@ -31,31 +31,11 @@ def add_user():
    print(responseJson["data"]["token"])
    return responseJson["data"]["token"]
 
-def requestVoteNotFriend(token):
-    contact_fb_id = "contact_fb_id=alfred"
-    datos = "token="+token+"&"+contact_fb_id
-    url = "http://localhost:8080/api/vote"
-    request = Request(url)
-    request.add_data(datos)
-    request.get_data()
-    response = urlopen(request)
-    raw_data = response.read().decode('utf-8')
-    return json.loads(raw_data)
-    
-class VoteNotFriend(unittest.TestCase):
-    def test_requestEdit(self):
-        """Test de vote not friend"""
-        token = get_token()
-        add_user()
-        response = requestVoteNotFriend(token)
-        pprint(response["data"])
-        self.assertEqual(response["data"]["message"], "No puede votar por contactos que no son amigos o por ud mismo")
-        self.assertEqual(response["data"]["status"], "ERROR")
 
-def requestVoteUserNotExist(token):
-    contact_fb_id = "contact_fb_id=inexistente"
-    datos = "token="+token+"&"+contact_fb_id
-    url = "http://localhost:8080/api/vote"
+def requestAddContactNotExist(token):
+    contacto = "contact_fb_id=inexistente"
+    datos = "token="+token+"&"+contacto
+    url = "http://localhost:8080/api/contact"
     request = Request(url)
     request.add_data(datos)
     request.get_data()
@@ -63,12 +43,33 @@ def requestVoteUserNotExist(token):
     raw_data = response.read().decode('utf-8')
     return json.loads(raw_data)
     
-class VoteUserNotExist(unittest.TestCase):
+def requestAddContact(token):
+    contacto = "contact_fb_id=alfred"
+    datos = "token="+token+"&"+contacto
+    url = "http://localhost:8080/api/contact"
+    request = Request(url)
+    request.add_data(datos)
+    request.get_data()
+    response = urlopen(request)
+    raw_data = response.read().decode('utf-8')
+    return json.loads(raw_data)
+
+class TestAddContactNotExist(unittest.TestCase):
     def test_requestEdit(self):
-        """Test de vote user not exist"""
+        """Test add contact not exist"""
         token = get_token()
-        response = requestVoteUserNotExist(token)
+        response = requestAddContactNotExist(token)
         pprint(response["errors"])
         self.assertEqual(response["errors"][0]["status"], "ERROR")
-        self.assertEqual(response["errors"][0]["message"], "Usuario [inexistente] no existe o no es valido")
+        self.assertEqual(response["errors"][0]["message"], "El usuario no existe")
+
+class TestAddContact(unittest.TestCase):
+    def test_requestEdit(self):
+        """Test add contact not exist"""
+        token = get_token()
+        add_user()
+        response = requestAddContact(token)
+        pprint(response["errors"])
+        self.assertEqual(response["data"]["status"], "OK")
+        self.assertEqual(response["data"]["message"], "Enviada solicitud a contacto")
 
