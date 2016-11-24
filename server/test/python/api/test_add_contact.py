@@ -54,6 +54,18 @@ def requestAddContact(token):
     raw_data = response.read().decode('utf-8')
     return json.loads(raw_data)
 
+def requestAnswerContact(token,id):
+    contacto = "contact_fb_id="+id
+    accept = "accept=true"
+    datos = "token="+token+"&"+contacto+"&"+accept
+    url = "http://localhost:8080/api/contact/response"
+    request = Request(url)
+    request.add_data(datos)
+    request.get_data()
+    response = urlopen(request)
+    raw_data = response.read().decode('utf-8')
+    return json.loads(raw_data)
+
 class TestAddContactNotExist(unittest.TestCase):
     def test_requestEdit(self):
         """Test add contact not exist"""
@@ -72,4 +84,16 @@ class TestAddContact(unittest.TestCase):
         pprint(response["errors"])
         self.assertEqual(response["data"]["status"], "OK")
         self.assertEqual(response["data"]["message"], "Enviada solicitud a contacto")
+
+class TestAnswercontact(unittest.TestCase):
+    def test_requestEdit(self):
+        """Test add contact"""
+        token1 = get_token()
+        requestAddContact(token1)
+        token2 = add_user()
+        response = requestAnswerContact(token2,"eze")
+        pprint(response["errors"])
+        self.assertEqual(response["data"]["status"], "OK")
+        self.assertEqual(response["data"]["message"], "Respondida solicitud a contacto")
+
 
