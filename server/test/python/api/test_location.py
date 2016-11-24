@@ -32,6 +32,18 @@ def requestNotNull(token):
     raw_data = response.read().decode('utf-8')
     return json.loads(raw_data)
     
+def requestNull(token):
+    latitude = "latitude=2.243"
+    longitude = "longitude=234.3"
+    datos = "token="+token+"&"+latitude
+    url = "http://localhost:8080/api/location"
+    request = Request(url)
+    request.add_data(datos)
+    request.get_data()
+    response = urlopen(request)
+    raw_data = response.read().decode('utf-8')
+    return json.loads(raw_data)
+
 class LoginExitoso(unittest.TestCase):
     def test_requestEdit(self):
         """Test de location"""
@@ -39,3 +51,12 @@ class LoginExitoso(unittest.TestCase):
         response = requestNotNull(token)
         self.assertEqual(response["data"]["status"], "OK")
         self.assertEqual(response["data"]["message"], "Ubicacion de usuario actualizada")
+
+class LocationEmpty(unittest.TestCase):
+    def test_requestEdit(self):
+        """Test de location empty"""
+        token = get_token()
+        response = requestNull(token)
+        pprint(response)
+        self.assertEqual(response["errors"][0]["status"], "ERROR")
+        self.assertEqual(response["errors"][0]["message"], "Latitud o longitud vacios")
