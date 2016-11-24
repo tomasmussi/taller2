@@ -67,6 +67,7 @@ void UserHandler::lookup(std::string user_logged_id, std::string query, Json::Va
 			user_value["name"] = user.get_name();
 			user_value["photo"] = user.get_profile_photo();
 			user_value["is_contact"] = (me.is_friend(user) ? "true" : "false");
+			user_value["distance"] = me.distance_to(user);
 			array.append(user_value);
 		}
 	}
@@ -112,6 +113,7 @@ void UserHandler::load_friends(std::string user_id, Json::Value &array) {
 	for (std::list<std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
 		User user_friend = get_user((*it));
 		Json::Value user_value;
+		user_value["distance"] = user.distance_to(user_friend);
 		user_value["fb_id"] = user_friend.id();
 		user_value["name"] = user_friend.get_name();
 		user_value["photo"] = user_friend.get_profile_photo();
@@ -205,5 +207,11 @@ std::list<Message> UserHandler::view_messages(std::string sender_id, std::string
 
 	Chat user_chats(chat);
 	return user_chats.view_messages(limit);
+}
+
+void UserHandler::update_user_location(std::string user_id, std::string latitude, std::string longitude) {
+	User user = get_user(user_id);
+	user.set_location(latitude, longitude);
+	save_user(user);
 }
 

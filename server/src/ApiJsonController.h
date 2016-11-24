@@ -3,6 +3,8 @@
 
 #include <mongoose/JsonController.h>
 
+#define HTTP_CODE_BAD_REQUEST 400
+
 class ApiJsonController : public Mongoose::JsonController {
 	private:
 		const std::string SALT;
@@ -24,6 +26,7 @@ class ApiJsonController : public Mongoose::JsonController {
 
 	public:
 		ApiJsonController();
+		ApiJsonController(std::string heroku_url);
 		~ApiJsonController();
 		virtual void setup();
 
@@ -78,6 +81,8 @@ class ApiJsonController : public Mongoose::JsonController {
 		void send_message(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void view_messages(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void location(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 

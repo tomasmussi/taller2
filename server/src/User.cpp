@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <math.h>
 
 /* Construct User from string parsed as JSON
  * JSON format is:
@@ -47,6 +48,9 @@ User::User(std::string json_value) : requests_(), friends_() {
 	for (unsigned int i = 0; i < root["user"]["votes"].size(); i++) {
 		votes_[(root["user"]["votes"][i].asString())] = 1;
 	}
+
+	latitude_ = root["user"]["latitude"].asString();
+	longitude_ = root["user"]["longitude"].asString();
 }
 
 User::User() {
@@ -104,6 +108,8 @@ std::string User::database_serialize() {
 	for (std::map<std::string, int>::iterator it = votes_.begin(); it != votes_.end(); ++it) {
 		root["user"]["votes"].append(it->first);
 	}
+	root["user"]["latitude"] = latitude_;
+	root["user"]["longitude"] = longitude_;
 	std::ostringstream os;
 	os << root;
 	return os.str();
@@ -240,4 +246,34 @@ void User::delete_job_position(std::string job) {
 	if (has_job_position(job)) {
 		job_positions_.erase(std::find(job_positions_.begin(), job_positions_.end(), job));
 	}
+}
+
+void User::set_location(std::string latitude, std::string longitude) {
+	latitude_ = latitude;
+	longitude_ = longitude;
+}
+
+std::string User::get_latitude() const {
+	return latitude_;
+}
+
+std::string User::get_longitude() const {
+	return longitude_;
+}
+
+/* Approximate Equirectangular -- works if (lat1,lon1) ~ (lat2,lon2)
+got from:
+http://stackoverflow.com/questions/2741403/get-the-distance-between-two-geo-points
+*/
+std::string User::distance_to(const User &other) {
+	double lat1 = atof(latitude_.c_str());
+	double lat2 = atof(other.get_latitude().c_str());
+	double lon1 = atof(longitude_.c_str());
+	double lon2 = atof(other.get_longitude().c_str());
+
+	int R = 6371; // km
+	double x = (lon2 - lon1) * cos((lat1 + lat2) / 2);
+	double y = (lat2 - lat1);
+	double distance = sqrt(x * x + y * y) * R;
+	return std::to_string(distance / 100); // Return distance in km
 }

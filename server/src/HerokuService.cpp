@@ -4,7 +4,6 @@
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
 
-#include <iostream>
 #include <sstream>
 
 HerokuService::HerokuService(std::string url, std::string service_name)

@@ -73,6 +73,8 @@ TEST(UserTest, SerializeToJsonWithId) {
 		\"fb_id\" : \"\",\n\
 		\"friends\" : [],\n\
 		\"job_positions\" : [],\n\
+		\"latitude\" : \"\",\n\
+		\"longitude\" : \"\",\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : [],\n\
@@ -138,6 +140,8 @@ TEST(UserTest, UserSendRequestSerialization) {
 		\"fb_id\" : \"\",\n\
 		\"friends\" : [],\n\
 		\"job_positions\" : [],\n\
+		\"latitude\" : \"\",\n\
+		\"longitude\" : \"\",\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
@@ -165,6 +169,8 @@ TEST(UserTest, UserAcceptRequestSerialization) {
 		\"fb_id\" : \"\",\n\
 		\"friends\" : \n\t\t[\n\t\t\t\"luis-fb-id\"\n\t\t],\n\
 		\"job_positions\" : [],\n\
+		\"latitude\" : \"\",\n\
+		\"longitude\" : \"\",\n\
 		\"name\" : \"Tomas Mussi\",\n\
 		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
 		\"requests\" : [],\n\
@@ -288,6 +294,25 @@ TEST(UserTest, DeleteJobPosition) {
 	EXPECT_FALSE(tomas.has_job_position(job));
 }
 
+TEST(UserTest, DistanceBetweenUsersInSameLocation) {
+	User u1;
+	User u2;
+	std::string latitude = "-34.603722";
+	std::string longitude = "-58.381592";
+	u1.set_location(latitude, longitude);
+	u2.set_location(latitude, longitude);
+	EXPECT_EQ("0.000000", u1.distance_to(u2));
+}
+
+
+TEST(UserTest, DistanceBetweenUsersInDifferentLocations) {
+	User u1;
+	User u2;
+	u1.set_location("-34.595241", "-58.402460");
+	u2.set_location("-34.603444", "-58.464414");
+	EXPECT_EQ("3.978116", u1.distance_to(u2));
+}
+
 TEST(UserHandlerTest, createUser) {
 	std::string user_key = "a-fb-user-id";
 	DatabaseHandler::get_instance().delete_key(user_key);
@@ -350,7 +375,7 @@ TEST(UserHandlerTest, LookupUsers) {
 	UserHandler::get_instance().lookup(user_key, "luisarancibia", ans);
 	std::ostringstream os;
 	os << ans;
-	std::string expeted = "[\n\t{\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"luisarancibia\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"luisarancibia\",\n\t\t\"photo\" : \"\"\n\t}\n]";
 	EXPECT_EQ(expeted , os.str());
 }
 
@@ -413,7 +438,7 @@ TEST(UserHandlerTest, GetUserFriends) {
 	UserHandler::get_instance().load_friends(user_key, ans);
 	std::ostringstream os;
 	os << ans;
-	std::string expeted = "[\n\t{\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"true\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"true\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\"\n\t}\n]";
 	EXPECT_EQ(expeted , os.str());
 }
 
@@ -514,6 +539,18 @@ TEST(UserHandlerTest, UserSendsMessage) {
 	EXPECT_EQ(1, messages.size());
 	Message front = messages.front();
 	EXPECT_EQ("hola", front.get_message());
+}
+
+TEST(UserHandlerTest, UserUpdatesLocation) {
+	std::string user_key = "a-fb-user-id";
+	DatabaseHandler::get_instance().delete_key(user_key);
+	UserHandler::get_instance().create_user(user_key);
+	std::string latitude = "-34.603722";
+	std::string longitude = "-58.381592";
+	UserHandler::get_instance().update_user_location(user_key, latitude, longitude);
+	User user = UserHandler::get_instance().get_user(user_key);
+	EXPECT_EQ(latitude, user.get_latitude());
+	EXPECT_EQ(longitude, user.get_longitude());
 }
 
 
