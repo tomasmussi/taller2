@@ -131,7 +131,6 @@ registerRoute("POST", "/location",
 }
 
 void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	response["data"] = Json::Value(Json::arrayValue);
 	response["errors"] = Json::Value(Json::arrayValue);
 
 	if (!is_user_logged(request)) {
@@ -143,7 +142,7 @@ void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResp
 		return;
 	}
 
-	std::string fb_id = request.get("fb_id", "");
+	std::string fb_id = request.get("user_fb_id", "");
 	std::string token_FCM = request.get("token_FCM","");
 	
 	Token_FCM token(fb_id,token_FCM); 
@@ -151,14 +150,13 @@ void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResp
 	TokenFCMHandler::get_instance().save_token(token);
 
 	Json::Value data;
-	data["status"] = "OK";
-	data["message"] = "Token dado de alta";
+	response["data"]["status"] = "OK";
+	response["data"]["message"] = "Token FCM dado de alta";
 	std::ostringstream mensaje ("tocken_FCM: ");
 	mensaje << token_FCM;
 	mensaje << "fb_id: ";
 	mensaje << fb_id;
 	Log::get_instance()->log_info(mensaje.str());
-	response["data"].append(data);
 }
 
 

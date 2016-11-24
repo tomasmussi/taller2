@@ -510,21 +510,26 @@ TEST(UserHandlerTest, UserVotes) {
 
 TEST(UserHandlerTest, PopularUsers) {
 	std::string user_key = "a-fb-user-id";
+	std::string user_key2 = "a-fb-user-id2";
 	std::string other_key = "other-user-id";
 	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(user_key2);
 	DatabaseHandler::get_instance().delete_key(other_key);
 	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(user_key2);
 	UserHandler::get_instance().create_user(other_key);
-
+	
 	UserHandler::get_instance().send_request(user_key, other_key);
 	UserHandler::get_instance().answer_request(other_key, user_key, true);
 	UserHandler::get_instance().user_vote(user_key, other_key);
-	vote_queue queue = UserHandler::get_instance().most_popular();
+
+   UserHandler::get_instance().send_request(user_key2, other_key);
+	UserHandler::get_instance().answer_request(other_key, user_key2, true);
+	UserHandler::get_instance().user_vote(user_key2, other_key);
+	
+   vote_queue queue = UserHandler::get_instance().most_popular();
 	User top = queue.top();
 	EXPECT_EQ(other_key, top.id());
-	queue.pop();
-	top = queue.top();
-	EXPECT_EQ(user_key, top.id());
 }
 
 TEST(UserHandlerTest, AddUserSkill) {
