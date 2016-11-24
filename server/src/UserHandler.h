@@ -25,10 +25,9 @@ private:
 	/* In singleton, make private to deny making a copy */
 	UserHandler(UserHandler const &);
 	void operator=(UserHandler const &);
+public:
 
 	bool lookup_match(const User &other_user, std::string query);
-
-public:
 
 	/* Returns signleton database instance */
 	static UserHandler& get_instance();
@@ -47,6 +46,8 @@ public:
 
 	void answer_request(std::string from_user, std::string to_user, bool accept);
 
+	void get_requests(std::string user_id, Json::Value &array);
+
 	void load_friends(std::string user_id, Json::Value &array);
 
 	bool user_vote(std::string from_user, std::string voted_user);
@@ -64,6 +65,8 @@ public:
 	void send_message(std::string sender_id, std::string receiver_id, std::string message);
 
 	std::list<Message> view_messages(std::string sender_id, std::string receiver_id, std::string limit);
+
+	void update_user_location(std::string user_id, std::string latitude, std::string longitude);
 };
 
 

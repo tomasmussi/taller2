@@ -11,6 +11,7 @@ private:
 	leveldb::Options options_;
 
 	DatabaseHandler();
+	DatabaseHandler(std::string database_name);
 	~DatabaseHandler();
 
 	/* In singleton, make private to deny making a copy */
@@ -20,7 +21,7 @@ private:
 public:
 
 	/* Returns signleton database instance */
-	static DatabaseHandler& get_instance();
+	static DatabaseHandler& get_instance(std::string database_name = "testdb");
 
 	/* Read key from database */
 	std::string read(std::string key);

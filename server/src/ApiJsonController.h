@@ -3,6 +3,8 @@
 
 #include <mongoose/JsonController.h>
 
+#define HTTP_CODE_BAD_REQUEST 400
+
 class ApiJsonController : public Mongoose::JsonController {
 	private:
 		const std::string SALT;
@@ -24,14 +26,9 @@ class ApiJsonController : public Mongoose::JsonController {
 
 	public:
 		ApiJsonController();
+		ApiJsonController(std::string heroku_url);
 		~ApiJsonController();
 		virtual void setup();
-		/* HEROKU curl*/
-		void hello(Mongoose::Request &request, Mongoose::JsonResponse &response);
-		void testdb(Mongoose::Request &request, Mongoose::JsonResponse &response);
-
-		/* Login service */
-		void login(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		/* Logout service */
 		void logout(Mongoose::Request &request, Mongoose::JsonResponse &response);
@@ -59,6 +56,8 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void answer_contact(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		void get_requests_list(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 		void lookup(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void get_contacts(Mongoose::Request &request, Mongoose::JsonResponse &response);
@@ -82,6 +81,8 @@ class ApiJsonController : public Mongoose::JsonController {
 		void send_message(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void view_messages(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void location(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };
 
 
