@@ -628,10 +628,12 @@ void ApiJsonController::view_messages(Mongoose::Request &request, Mongoose::Json
 	std::list<Message> messages = UserHandler::get_instance().view_messages(user_logged_id, receiver_id, limit);
 
 	// response["data"]["status"] = "OK";
-	response["data"]["messages"] = Json::Value(Json::arrayValue);
+	// response["data"]["messages"] = Json::Value(Json::arrayValue);
+	response["data"] = Json::Value(Json::arrayValue);
 
 	for (std::list<Message>::iterator it = messages.begin(); it != messages.end(); ++it) {
-		response["data"]["messages"].append((*it).serialize());
+		// response["data"]["messages"].append((*it).serialize());
+		response["data"].append((*it).serialize());
 	}
 }
 
