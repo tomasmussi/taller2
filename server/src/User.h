@@ -24,6 +24,7 @@ private:
 	std::list<std::string> skills_;
 	std::list<std::string> job_positions_;
 	void serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
+	void database_serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
 
 	std::string latitude_;
 	std::string longitude_;

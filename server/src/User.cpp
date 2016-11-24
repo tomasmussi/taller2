@@ -69,13 +69,13 @@ void User::load_list(Json::Value &root, std::string param_name, std::list<std::s
 
 std::string User::serialize() {
 	Json::Value root;
-	root["user"]["contacts"] = friends_.size();
-	root["user"]["email"] = email_;
-	root["user"]["name"] = name_;
-	root["user"]["dob"] = dob_;
-	root["user"]["city"] = city_;
-	root["user"]["summary"] = summary_;
-	root["user"]["profile_photo"] = profile_photo_;
+	root["contacts"] = friends_.size();
+	root["email"] = email_;
+	root["name"] = name_;
+	root["dob"] = dob_;
+	root["city"] = city_;
+	root["summary"] = summary_;
+	root["profile_photo"] = profile_photo_;
 	serialize_list(root, "requests", requests_);
 	serialize_list(root, "skills", skills_);
 	serialize_list(root, "job_positions", job_positions_);
@@ -87,7 +87,7 @@ std::string User::serialize() {
 void User::serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list) {
 	root["user"][param_name] = Json::Value(Json::arrayValue);
 	for (std::list<std::string>::iterator it = list.begin(); it != list.end(); ++it) {
-		root["user"][param_name].append(*it);
+		root[param_name].append(*it);
 	}
 }
 
@@ -100,10 +100,10 @@ std::string User::database_serialize() {
 	root["user"]["city"] = city_;
 	root["user"]["summary"] = summary_;
 	root["user"]["profile_photo"] = profile_photo_;
-	serialize_list(root, "requests", requests_);
-	serialize_list(root, "friends", friends_);
-	serialize_list(root, "skills", skills_);
-	serialize_list(root, "job_positions", job_positions_);
+	database_serialize_list(root, "requests", requests_);
+	database_serialize_list(root, "friends", friends_);
+	database_serialize_list(root, "skills", skills_);
+	database_serialize_list(root, "job_positions", job_positions_);
 	root["user"]["votes"] = Json::Value(Json::arrayValue);
 	for (std::map<std::string, int>::iterator it = votes_.begin(); it != votes_.end(); ++it) {
 		root["user"]["votes"].append(it->first);
@@ -113,6 +113,13 @@ std::string User::database_serialize() {
 	std::ostringstream os;
 	os << root;
 	return os.str();
+}
+
+void User::database_serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list) {
+	root["user"][param_name] = Json::Value(Json::arrayValue);
+	for (std::list<std::string>::iterator it = list.begin(); it != list.end(); ++it) {
+		root["user"][param_name].append(*it);
+	}
 }
 
 std::string User::id() const {

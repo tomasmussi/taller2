@@ -38,25 +38,7 @@ TEST(UserTest, ConstructFromString) {
 TEST(UserTest, SerializeToJson) {
 	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
 
-	std::string expected = "{\n\
-	\"user\" : \n\
-	{\n\
-		\"city\" : \"Ciudad de Buenos Aires\",\n\
-		\"contacts\" : 0,\n\
-		\"dob\" : \"11/07/1991\",\n\
-		\"email\" : \"tomasmussi@gmail.com\",\n\
-		\"job_positions\" : [],\n\
-		\"name\" : \"Tomas Mussi\",\n\
-		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
-		\"requests\" : [],\n\
-		\"skills\" : \n\
-		[\n\
-			\"1\",\n\
-			\"2\"\n\
-		],\n\
-		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
-	}\n\
-}";
+	std::string expected = "{\n\t\"city\" : \"Ciudad de Buenos Aires\",\n\t\"contacts\" : 0,\n\t\"dob\" : \"11/07/1991\",\n\t\"email\" : \"tomasmussi@gmail.com\",\n\t\"name\" : \"Tomas Mussi\",\n\t\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\t\"skills\" : \n\t[\n\t\t\"1\",\n\t\t\"2\"\n\t],\n\t\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\",\n\t\"user\" : \n\t{\n\t\t\"job_positions\" : [],\n\t\t\"requests\" : [],\n\t\t\"skills\" : []\n\t}\n}";
 	User tomas(user);
 	EXPECT_EQ(tomas.serialize(), expected);
 }
