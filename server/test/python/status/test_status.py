@@ -121,4 +121,8 @@ def test_request_response_token_FCM():
     response = requests.post('http://localhost:8080/api/token_FCM')
     assert_true(response.ok)
 
+def test_request_response_location():
+    """Test de response de tokenFCM"""
+    response = requests.post('http://localhost:8080/api/location')
+    assert_true(response.ok)
 
