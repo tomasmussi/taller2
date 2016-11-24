@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 from urllib2 import urlopen
 import urrlib
