@@ -14,8 +14,8 @@ def get_token():
    raw_data = response.read().decode('utf-8')
    responseJson = json.loads(raw_data)
    pprint("Token")
-   pprint(responseJson["data"][0]["token"])
-   return responseJson["data"][0]["token"]
+   pprint(responseJson["data"]["token"])
+   return responseJson["data"]["token"]
 
 def request(token):
     query = "query=eze"
