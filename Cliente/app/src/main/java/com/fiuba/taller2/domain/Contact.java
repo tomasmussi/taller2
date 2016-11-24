@@ -18,6 +18,7 @@ public class Contact implements Serializable{
            private String  is_contact;
            private String  name;
            private String  photo;
+           private String  votes;
 
     public String getDistance() {
         return distance;
@@ -59,6 +60,14 @@ public class Contact implements Serializable{
         this.photo = photo;
     }
 
+    public String getVotes() {
+        return votes;
+    }
+
+    public void setVotes(String votes) {
+        this.votes = votes;
+    }
+
     @Override
     public String toString() {
         return "Contact{" +
@@ -67,6 +76,7 @@ public class Contact implements Serializable{
                 ", is_contact='" + is_contact + '\'' +
                 ", name='" + name + '\'' +
                 ", photo='" + photo + '\'' +
+                ", votes='" + votes + '\'' +
                 '}';
     }
 }

@@ -37,7 +37,9 @@ import com.fiuba.taller2.domain.Estado;
 import com.fiuba.taller2.domain.LDJobPosition;
 import com.fiuba.taller2.domain.Login;
 import com.fiuba.taller2.domain.MyProfile;
+import com.fiuba.taller2.services.GetContactsRequestServices;
 import com.fiuba.taller2.services.GetContactsServices;
+import com.fiuba.taller2.services.GetPopularServices;
 import com.fiuba.taller2.services.LDCategoriesServices;
 import com.fiuba.taller2.services.LDJobPositionsServices;
 import com.fiuba.taller2.services.LDMyProfileServices;
@@ -46,6 +48,7 @@ import com.fiuba.taller2.services.LookupServices;
 import com.fiuba.taller2.services.SendContactRequestServices;
 import com.fiuba.taller2.services.SendContactResponseServices;
 import com.fiuba.taller2.services.SetLocationServices;
+import com.fiuba.taller2.services.VoteServices;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -266,8 +269,10 @@ public class MainActivity extends AppCompatActivity
             AsyncGetContacts asyncGetContacts = new AsyncGetContacts();
 
             asyncGetContacts.execute();
+            ArrayList<Contact> contactArrayList;
+
             try {
-                ArrayList<Contact> contactArrayList = ( ArrayList<Contact>) asyncGetContacts.get();
+                contactArrayList = ( ArrayList<Contact>) asyncGetContacts.get();
                 Log.d("Contacts", contactArrayList.toString());
                 Log.d("Contacts", contactArrayList.get(0).toString());
             } catch (InterruptedException e) {
@@ -275,8 +280,13 @@ public class MainActivity extends AppCompatActivity
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+             catch (NullPointerException e) {
+                e.printStackTrace();
+                 contactArrayList= new ArrayList<Contact>();
+        }
 
-            AsyncSendContactRequest asyncSendContactRequest = new AsyncSendContactRequest();
+
+        AsyncSendContactRequest asyncSendContactRequest = new AsyncSendContactRequest();
 
             asyncSendContactRequest.execute("aran.com.ar@gmail.com");
 
@@ -306,11 +316,26 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
+            AsyncGetContactsRequest asyncGetContactsRequest = new AsyncGetContactsRequest();
+            asyncGetContactsRequest.execute();
+            ArrayList<Contact> contacRequesttArrayList;
+            try {
+                contacRequesttArrayList = ( ArrayList<Contact>) asyncGetContactsRequest.get();
+                Log.d("Contacts", contacRequesttArrayList.toString());
+                Log.d("Contacts", contacRequesttArrayList.get(0).toString());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            catch (NullPointerException e) {
+                e.printStackTrace();
+                contacRequesttArrayList= new ArrayList<Contact>();
+            }
+
 
             AsyncSendContactResponse asyncSendContactResponse = new AsyncSendContactResponse();
-
             asyncSendContactResponse.execute("tomas","true");
-
             try {
                 Estado estado = (Estado) asyncSendContactResponse.get();
                 if(estado!=null)  Log.d("Estado", estado.toString());
@@ -320,6 +345,36 @@ public class MainActivity extends AppCompatActivity
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+
+
+
+            AsyncVoteRequest asyncVoteRequest = new AsyncVoteRequest();
+            asyncVoteRequest.execute("tomas");
+            try {
+                Estado estado = (Estado) asyncVoteRequest.get();
+                if(estado!=null)  Log.d("Estado", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+            AsyncGetPopularRequest asyncGetPopularRequest = new AsyncGetPopularRequest();
+            asyncGetPopularRequest.execute();
+            ArrayList<Contact> contacPupularRequesttArrayList;
+            try {
+                contacPupularRequesttArrayList = ( ArrayList<Contact>) asyncGetPopularRequest.get();
+                if(contacPupularRequesttArrayList!=null)  Log.d("Estado", contacPupularRequesttArrayList.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
 
 
 
@@ -566,6 +621,24 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private class AsyncGetContactsRequest extends AsyncTask<String, Void, ArrayList<Contact>> {
+        @Override
+        protected ArrayList<Contact> doInBackground(String... params) {
+            try {
+
+                GetContactsRequestServices getContactsServices=new GetContactsRequestServices();
+                getContactsServices.setApi_security(api_token);
+                ArrayList<Contact> listContacts= (ArrayList<Contact>) getContactsServices.get();
+                return listContacts;
+            } catch (Exception e) {
+                Log.e("GetContactsRequestServ", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
     private class HttpRequestTaskLookup extends AsyncTask<String, Void, ArrayList<Contact>> {
         @Override
         protected ArrayList<Contact> doInBackground(String... params) {
@@ -577,7 +650,7 @@ public class MainActivity extends AppCompatActivity
                 ArrayList<Contact> listContacts= (ArrayList<Contact>) lookupServices.get(user);
                 return listContacts;
             } catch (Exception e) {
-                Log.e("LookUp", e.getMessage(), e);
+                Log.e("Buscarcontacto", e.getMessage(), e);
             }
 
             return null;
@@ -596,7 +669,7 @@ public class MainActivity extends AppCompatActivity
                 Estado estado= (Estado) SendContactRequestServices.get(contact_fb_id);
                 return estado;
             } catch (Exception e) {
-                Log.e("AsyncSendContactRequest", e.getMessage(), e);
+                Log.e("SendSolicitudContact", e.getMessage(), e);
             }
 
             return null;
@@ -617,7 +690,7 @@ public class MainActivity extends AppCompatActivity
                 Estado estado= (Estado) SendContactRequestServices.get(contact_fb_id, answer);
                 return estado;
             } catch (Exception e) {
-                Log.e("AsyncSendContactRequest", e.getMessage(), e);
+                Log.e("RTASolicitudContacto", e.getMessage(), e);
             }
 
             return null;
@@ -625,6 +698,45 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+
+    private class AsyncVoteRequest extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String contact_fb_id = params[0];
+
+                VoteServices voteServices=new VoteServices();
+                voteServices.setApi_security(api_token);
+                Estado estado= (Estado) voteServices.get(contact_fb_id);
+                return estado;
+            } catch (Exception e) {
+                Log.e("Vote", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+    private class AsyncGetPopularRequest extends AsyncTask<String, Void, ArrayList<Contact> > {
+        @Override
+        protected ArrayList<Contact> doInBackground(String... params) {
+                try {
+
+                    GetPopularServices getPopularServices=new GetPopularServices();
+                    getPopularServices.setApi_security(api_token);
+                    ArrayList<Contact> listContacts= (ArrayList<Contact>) getPopularServices.get();
+                    return listContacts;
+                } catch (Exception e) {
+                    Log.e("GetPopular", e.getMessage(), e);
+                }
+
+                return null;
+            }
+
+
+    }
 
 
 }
