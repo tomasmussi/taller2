@@ -51,6 +51,8 @@ public:
 
 	int requests();
 
+	std::list<std::string> requests_list() const;
+
 	/* Accept another user request */
 	void accept_request(User &other_user);
 

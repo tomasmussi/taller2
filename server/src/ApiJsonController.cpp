@@ -56,6 +56,9 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/accept_contact",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::answer_contact));
 
+	registerRoute("GET", "/contact",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_requests_list));
+
 	registerRoute("GET", "/lookup",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::lookup));
 
@@ -340,6 +343,29 @@ void ApiJsonController::answer_contact(Mongoose::Request &request, Mongoose::Jso
 	}
 	Json::Value data;
 	data["status"] = "OK";
+	response["data"].append(data);
+}
+
+void ApiJsonController::get_requests_list(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["data"] = Json::Value(Json::arrayValue);
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	if (! UserHandler::get_instance().user_exists(user_logged_id)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "El usuario no existe";
+		response["errors"].append(errors);
+		return;
+	}
+	Json::Value data(Json::arrayValue);
+	UserHandler::get_instance().get_requests(user_logged_id, data);
 	response["data"].append(data);
 }
 

@@ -167,6 +167,10 @@ int User::requests() {
 	return requests_.size();
 }
 
+std::list<std::string> User::requests_list() const {
+	return requests_;
+}
+
 void User::accept_request(User &other_user) {
 	requests_.remove(other_user.id_);
 	friends_.push_back(other_user.id_);
