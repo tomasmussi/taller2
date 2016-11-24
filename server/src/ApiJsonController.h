@@ -26,12 +26,6 @@ class ApiJsonController : public Mongoose::JsonController {
 		ApiJsonController();
 		~ApiJsonController();
 		virtual void setup();
-		/* HEROKU curl*/
-		void hello(Mongoose::Request &request, Mongoose::JsonResponse &response);
-		void testdb(Mongoose::Request &request, Mongoose::JsonResponse &response);
-
-		/* Login service */
-		void login(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		/* Logout service */
 		void logout(Mongoose::Request &request, Mongoose::JsonResponse &response);
