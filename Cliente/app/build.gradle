@@ -42,7 +42,8 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
     compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
     compile 'com.google.android.gms:play-services-appindexing:9.6.1'
@@ -59,6 +60,9 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.firebaseui:firebase-ui:0.5.1'
     compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.github.aakira:expandable-layout:1.6.0@aar'
+    compile 'com.github.johnkil.android-robototextview:robototextview:2.5.1'
+    compile 'com.pkmmte.view:circularimageview:1.1'
     testCompile 'junit:junit:4.12'
 
 
@@ -75,6 +79,9 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     testCompile 'org.powermock:powermock-module-junit4:1.6.3'
     testCompile 'org.powermock:powermock-api-mockito:1.6.3'
+
+
+
 }
 
 

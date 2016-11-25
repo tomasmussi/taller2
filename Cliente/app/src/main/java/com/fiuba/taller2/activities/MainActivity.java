@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -36,9 +37,11 @@ import com.fiuba.taller2.domain.Contact;
 import com.fiuba.taller2.domain.Estado;
 import com.fiuba.taller2.domain.LDJobPosition;
 import com.fiuba.taller2.domain.Login;
+import com.fiuba.taller2.domain.Mensaje;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.services.GetContactsRequestServices;
 import com.fiuba.taller2.services.GetContactsServices;
+import com.fiuba.taller2.services.GetConversationServices;
 import com.fiuba.taller2.services.GetPopularServices;
 import com.fiuba.taller2.services.LDCategoriesServices;
 import com.fiuba.taller2.services.LDJobPositionsServices;
@@ -47,6 +50,7 @@ import com.fiuba.taller2.services.LoginServices;
 import com.fiuba.taller2.services.LookupServices;
 import com.fiuba.taller2.services.SendContactRequestServices;
 import com.fiuba.taller2.services.SendContactResponseServices;
+import com.fiuba.taller2.services.SendMesaggeServices;
 import com.fiuba.taller2.services.SetLocationServices;
 import com.fiuba.taller2.services.VoteServices;
 import com.google.android.gms.appindexing.Action;
@@ -111,11 +115,14 @@ public class MainActivity extends AppCompatActivity
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             return;
-        }
-        android.location.Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-         longitude = location.getLongitude();
-         latitude = location.getLatitude();
+        }else {
+            /*Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if(location!=null)
+            Log.d("Location: ", location.toString());
 
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();*/
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -223,6 +230,22 @@ public class MainActivity extends AppCompatActivity
 
             Login loginTest;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            //Envio mensaje a tomas
+            AsyncSendMesagge asyncSendMesagge = new AsyncSendMesagge();
+            asyncSendMesagge.execute("tomas","Hola Tomas, como estas?");
+            try {
+                Estado estado = ( Estado) asyncSendMesagge.get();
+                if(estado!=null)  Log.d("ConversartionList", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //Me logueo como tomas
             HttpRequestTaskLogin httpRequestTask = new HttpRequestTaskLogin();
 
             httpRequestTask.execute("tomas");
@@ -237,6 +260,7 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
+            //Busco a tomas siendo tomas
             HttpRequestTaskLookup httpRequestTaskLookup = new HttpRequestTaskLookup();
 
             httpRequestTaskLookup.execute("tomas");
@@ -251,6 +275,8 @@ public class MainActivity extends AppCompatActivity
             }
 
 
+
+            //Seteo localizacion para tomas
             AsyncSetLocation asyncSetLocation = new AsyncSetLocation();
 
             asyncSetLocation.execute("-34.595241","-58.402460");
@@ -266,6 +292,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
+            //Obtengo lista de contactos de tomas
             AsyncGetContacts asyncGetContacts = new AsyncGetContacts();
 
             asyncGetContacts.execute();
@@ -286,6 +313,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+            //Envio solicitud de contacto a Luis
         AsyncSendContactRequest asyncSendContactRequest = new AsyncSendContactRequest();
 
             asyncSendContactRequest.execute("aran.com.ar@gmail.com");
@@ -301,7 +329,7 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-
+            //Me logueo como Luis
             HttpRequestTaskLogin httpRequestTask2 = new HttpRequestTaskLogin();
 
             httpRequestTask2.execute("aran.com.ar@gmail.com");
@@ -316,6 +344,7 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
+            //Obtengo lista de solicitudes de contactos de Luis
             AsyncGetContactsRequest asyncGetContactsRequest = new AsyncGetContactsRequest();
             asyncGetContactsRequest.execute();
             ArrayList<Contact> contacRequesttArrayList;
@@ -333,7 +362,7 @@ public class MainActivity extends AppCompatActivity
                 contacRequesttArrayList= new ArrayList<Contact>();
             }
 
-
+            //Contesto a la solicitud de tomas con un si, ahora somos contactos el uno del ortro
             AsyncSendContactResponse asyncSendContactResponse = new AsyncSendContactResponse();
             asyncSendContactResponse.execute("tomas","true");
             try {
@@ -347,7 +376,7 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-
+            //Como Luis, voto por tomas
             AsyncVoteRequest asyncVoteRequest = new AsyncVoteRequest();
             asyncVoteRequest.execute("tomas");
             try {
@@ -361,6 +390,8 @@ public class MainActivity extends AppCompatActivity
             }
 
 
+
+            //Consulto los mas populares
             AsyncGetPopularRequest asyncGetPopularRequest = new AsyncGetPopularRequest();
             asyncGetPopularRequest.execute();
             ArrayList<Contact> contacPupularRequesttArrayList;
@@ -376,10 +407,30 @@ public class MainActivity extends AppCompatActivity
 
 
 
+            //Como Luis me fijo que estado tiene la conversacion con tomas
+            AsyncGetConversation asyncGetConversation = new AsyncGetConversation();
+            asyncGetConversation.execute("tomas");
+            ArrayList<Mensaje> casyncGetConversationArrayList;
+            try {
+                casyncGetConversationArrayList = ( ArrayList<Mensaje>) asyncGetConversation.get();
+                if(casyncGetConversationArrayList!=null)  Log.d("ConversartionList", casyncGetConversationArrayList.toString());
 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+
+            Intent intent = new Intent(this,ConversationActivity.class);
+            intent.putExtra("API_TOKEN", api_token);
+            startActivity(intent);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else if (id == R.id.contactosdestacados) {
+
+
 
         } else if (id == R.id.miPerfil) {
             HttpRequestTaskMyProfile httpRequestTaskMyProfile = new HttpRequestTaskMyProfile();
@@ -739,7 +790,46 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-}
 
+    private class AsyncGetConversation extends AsyncTask<String, Void, ArrayList<Mensaje>> {
+        @Override
+        protected ArrayList<Mensaje> doInBackground(String... params) {
+            try {
+                String contact_fb_id = params[0];
+
+                GetConversationServices getConversationServices=new GetConversationServices();
+                getConversationServices.setApi_security(api_token);
+                ArrayList<Mensaje> mensajeArrayList= (ArrayList<Mensaje>) getConversationServices.get(contact_fb_id);
+                return mensajeArrayList;
+            } catch (Exception e) {
+                Log.e("GetConversacion", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+
+    private class AsyncSendMesagge extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String contact_fb_id = params[0];
+                String mesagge =params[1];
+
+                SendMesaggeServices sendMesaggeServices=new SendMesaggeServices();
+                sendMesaggeServices.setApi_security(api_token);
+                Estado estado= (Estado) sendMesaggeServices.get(contact_fb_id,mesagge);
+                return estado;
+            } catch (Exception e) {
+                Log.e("SendMesagge", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+}
 
 
