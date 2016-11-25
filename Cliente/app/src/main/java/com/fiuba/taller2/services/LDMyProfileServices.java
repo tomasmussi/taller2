@@ -12,7 +12,7 @@ import com.fiuba.taller2.rest_dto.MyProfileDTO;
 
 public class LDMyProfileServices extends AbstractServices{
 
-        private static final String service_name = "api/my_profile";
+        private static final String service_name = "api/profile";
 
 
         public MyProfile getProfile() {

@@ -51,6 +51,7 @@
 
         <activity android:name="com.fiuba.taller2.activities.MyProfileActivity" />
         <activity android:name="com.fiuba.taller2.activities.MyProfileEdit" />
+        <activity android:name="com.fiuba.taller2.activities.ConversationActivity" />
 
         <activity
             android:name="com.fiuba.taller2.activities.JobsListActivity"

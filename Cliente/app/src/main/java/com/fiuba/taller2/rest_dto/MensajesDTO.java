@@ -2,7 +2,11 @@ package com.fiuba.taller2.rest_dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fiuba.taller2.domain.Mensaje;
 import com.fiuba.taller2.domain.MyProfileList;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by luis on 05/10/16.
@@ -14,9 +18,9 @@ public class MensajesDTO extends AbstractDTO
 {
 
 
-    public MyProfileList[] getData() { return (MyProfileList[]) data; }
+    public ArrayList<Mensaje> getData() { return (ArrayList<Mensaje>) data; }
 
-    public void setData(MyProfileList[] data) {
+    public void setData(ArrayList<Mensaje> data) {
         this.data = data;
     }
 
