@@ -17,7 +17,6 @@ void handle_signal(int sig) {
 	}
 }
 
-
 int main(int argc, char *argv[]) {
 	int t;
 	t = time(NULL);
