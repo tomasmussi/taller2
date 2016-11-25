@@ -9,8 +9,58 @@
 #include "UserHandler.h"
 #include "User.h"
 #include "UserList.h"
+#include "TokenFCMHandler.h"
+#include "TokenFCM.h"
+
+#include <mongoose/Server.h>
+#include "ApiJsonController.h"
 #include "md5.h"
 
+bool ejecutarTestServer = false;
+volatile static bool running = true;
+
+void handle_signal(int sig) {
+	(void) sig;
+	if (running) {
+		cout << "Exiting..." << endl;
+		running = false;
+	}
+}
+
+TEST(SERVER,integration){
+	if(ejecutarTestServer){
+		signal(SIGINT, handle_signal);
+		ApiJsonController json;
+		Mongoose::Server server(8080);
+		server.registerController(&json);
+		server.setOption("enable_directory_listing", "false");
+		server.start();
+
+		std::cout << "Server started, routes:" << 	std::endl;
+		json.dumpRoutes();
+
+		while (running) {
+			sleep(1);
+		}
+		server.stop();
+	}
+}
+TEST(Token_FCM,WriteAndRead){
+	std::string fb_id = "id_fb";
+	std::string token_FCM = "1234";
+	Token_FCM token(fb_id,token_FCM);
+	EXPECT_EQ(token.get_fb_id(),"id_fb");
+	EXPECT_EQ(token.get_token(),"1234");
+}
+
+TEST(TokenFCMHandler, WriteAndRead){
+	std::string fb_id = "id_fb";
+	std::string token_FCM = "1234";
+	Token_FCM token(fb_id,token_FCM);
+	TokenFCMHandler::get_instance().save_token(token);
+	Token_FCM tokenLeido = TokenFCMHandler::get_instance().read_token(fb_id);
+	EXPECT_EQ(tokenLeido.get_token(), "1234");
+}
 
 TEST(DatabaseHandler, WriteAndRead) {
 	std::string clave = "clave";
@@ -442,21 +492,26 @@ TEST(UserHandlerTest, UserVotes) {
 
 TEST(UserHandlerTest, PopularUsers) {
 	std::string user_key = "a-fb-user-id";
+	std::string user_key2 = "a-fb-user-id2";
 	std::string other_key = "other-user-id";
 	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(user_key2);
 	DatabaseHandler::get_instance().delete_key(other_key);
 	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(user_key2);
 	UserHandler::get_instance().create_user(other_key);
-
+	
 	UserHandler::get_instance().send_request(user_key, other_key);
 	UserHandler::get_instance().answer_request(other_key, user_key, true);
 	UserHandler::get_instance().user_vote(user_key, other_key);
-	vote_queue queue = UserHandler::get_instance().most_popular();
+
+   UserHandler::get_instance().send_request(user_key2, other_key);
+	UserHandler::get_instance().answer_request(other_key, user_key2, true);
+	UserHandler::get_instance().user_vote(user_key2, other_key);
+	
+   vote_queue queue = UserHandler::get_instance().most_popular();
 	User top = queue.top();
 	EXPECT_EQ(other_key, top.id());
-	queue.pop();
-	top = queue.top();
-	EXPECT_EQ(user_key, top.id());
 }
 
 TEST(UserHandlerTest, AddUserSkill) {
@@ -687,6 +742,7 @@ TEST(MD5Test, MD5HashTest) {
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest( &argc, argv );
+	if(argc>1) ejecutarTestServer = true;
     return RUN_ALL_TESTS();
 }
 
