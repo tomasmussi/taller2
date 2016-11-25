@@ -58,6 +58,7 @@ std::list<Message> Chat::view_messages(std::string limit) {
 			break;
 		}
 	}
+	list.reverse();
 	return list;
 }
 
