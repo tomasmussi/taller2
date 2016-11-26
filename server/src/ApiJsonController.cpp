@@ -164,7 +164,7 @@ void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::
 	
 	Token_FCM token("fb_id","eDSpyrzlxKQ:APA91bGBze7mTQK3OnIWJf-WTNRIYvFDbLNGsVjtMMliVRcjUF6AqsNbZhXTYcSS5srb6fSUSZ-yrB9NC7mX2hV6AjJAmF1Vz2fFuWVUX8oSDnPV1KcnStt6DNR0gyhLibjrMXuu2-MA");
 	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "HOLA");
-	//notificator.send();
+	notificator.send();
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
