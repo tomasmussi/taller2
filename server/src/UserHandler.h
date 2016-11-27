@@ -12,7 +12,7 @@
 
 struct OrderByVotes {
 	bool operator() (User const &a, User const &b) {
-		return a.votes() > b.votes();
+		return a.votes() < b.votes();
 	}
 };
 typedef std::priority_queue<User, std::vector<User>, OrderByVotes> vote_queue;
