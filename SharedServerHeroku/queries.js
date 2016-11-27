@@ -7,7 +7,7 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = "postgres://sharedserveruser:shared@localhost:5432/sharedserver";
+var connectionString = process.env.DB_CONNECTION;
 var db = pgp(connectionString);
 var winston = require('winston'); //LOG 
 
