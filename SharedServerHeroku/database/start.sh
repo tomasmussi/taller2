@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo su postgres -c "psql -U postgres < ../sharedserver.sql -W"
+sudo su postgres -c "psql -U postgres < database/sharedserver.sql -W"
