@@ -31,17 +31,18 @@ import com.firebase.ui.auth.AuthUI;
 import com.fiuba.taller2.R;
 import com.fiuba.taller2.adapters.ImageAdapter;
 import com.fiuba.taller2.domain.Categoria;
+import com.fiuba.taller2.domain.Category;
 import com.fiuba.taller2.domain.CatogoryLN;
 import com.fiuba.taller2.domain.Contact;
 import com.fiuba.taller2.domain.Estado;
 import com.fiuba.taller2.domain.JobPosition;
-import com.fiuba.taller2.domain.LDJobPosition;
 import com.fiuba.taller2.domain.Login;
 import com.fiuba.taller2.domain.Mensaje;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.domain.Skill;
 import com.fiuba.taller2.services.DeleteJobPositionServices;
 import com.fiuba.taller2.services.DeleteSkillServices;
+import com.fiuba.taller2.services.GetCategoriesServices;
 import com.fiuba.taller2.services.GetContactsRequestServices;
 import com.fiuba.taller2.services.GetContactsServices;
 import com.fiuba.taller2.services.GetConversationServices;
@@ -187,11 +188,11 @@ public class MainActivity extends AppCompatActivity
         HttpRequestTaskLogin httpRequestTask = new HttpRequestTaskLogin();
 
         httpRequestTask.execute(userEmail);
-        Login login=null;
+        Login login = null;
         try {
-             login = (Login) httpRequestTask.get();
+            login = (Login) httpRequestTask.get();
 
-            api_token=login.getToken();
+            api_token = login.getToken();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -199,13 +200,14 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-            //Registro el push_id
+        //Registro el push_id
         AsyncRegister asyncRegister = new AsyncRegister();
-       if(login!=null) asyncRegister.execute(this.userEmail, FirebaseInstanceId.getInstance().getToken());
+        if (login != null)
+            asyncRegister.execute(this.userEmail, FirebaseInstanceId.getInstance().getToken());
         Estado estado;
         try {
-            estado = ( Estado) asyncRegister.get();
-            if(estado!=null)  Log.d("PUSH_ID", estado.toString());
+            estado = (Estado) asyncRegister.get();
+            if (estado != null) Log.d("PUSH_ID", estado.toString());
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -262,6 +264,19 @@ public class MainActivity extends AppCompatActivity
 
             Login loginTest;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            //Test de Categories
+            AsyncGetCategories asyncGetCategories= new AsyncGetCategories();
+            asyncGetCategories.execute();
+            try {
+                ArrayList<Category> estado = (ArrayList<Category>) asyncGetCategories.get();
+                if (estado != null) Log.d("categories", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
             //Test de Skills
             AsyncgetSkills asyncgetSkills = new AsyncgetSkills();
@@ -359,13 +374,12 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-
             //Envio mensaje a tomas
             AsyncSendMesagge asyncSendMesagge2 = new AsyncSendMesagge();
-            asyncSendMesagge2.execute("aran.com.ar@gmail.com","Hola Luis, como estas?");
+            asyncSendMesagge2.execute("aran.com.ar@gmail.com", "Hola Luis, como estas?");
             try {
-                Estado estado2 = ( Estado) asyncSendMesagge2.get();
-                if(estado2!=null)  Log.d("ConversartionList", estado2.toString());
+                Estado estado2 = (Estado) asyncSendMesagge2.get();
+                if (estado2 != null) Log.d("ConversartionList", estado2.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -531,7 +545,7 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-            Intent intent = new Intent(this,ConversationActivity.class);
+            Intent intent = new Intent(this, ConversationActivity.class);
 
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
@@ -539,7 +553,7 @@ public class MainActivity extends AppCompatActivity
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else if (id == R.id.contactosdestacados) {
 
-            Intent intent = new Intent(this,MyProfileActivity.class);
+            Intent intent = new Intent(this, MyProfileActivity.class);
             intent.putExtra("API_TOKEN", api_token);
 
             startActivity(intent);
@@ -935,16 +949,17 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
     private class AsyncRegister extends AsyncTask<String, Void, Estado> {
         @Override
         protected Estado doInBackground(String... params) {
             try {
-                String user_fb_id =params[0];
-                String token_FCM=params[1];
+                String user_fb_id = params[0];
+                String token_FCM = params[1];
 
-                RegisterPushIdServices registerPushIdServices=new RegisterPushIdServices();
+                RegisterPushIdServices registerPushIdServices = new RegisterPushIdServices();
                 registerPushIdServices.setApi_security(api_token);
-                Estado estado= (Estado) registerPushIdServices.get(user_fb_id,token_FCM);
+                Estado estado = (Estado) registerPushIdServices.get(user_fb_id, token_FCM);
                 return estado;
             } catch (Exception e) {
                 Log.e("SendMesagge", e.getMessage(), e);
@@ -975,9 +990,6 @@ public class MainActivity extends AppCompatActivity
         }
 }
 */
-
-
-
 
 
     private class AsyncgetSkills extends AsyncTask<String, Void, ArrayList<Skill>> {
@@ -1035,7 +1047,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected Skill doInBackground(String... params) {
             try {
-                String nameSkill = params [0];
+                String nameSkill = params[0];
                 GetSkillServices getSkillServices = new GetSkillServices();
                 getSkillServices.setApi_security(api_token);
                 Skill estado = getSkillServices.getSkill(nameSkill);
@@ -1050,70 +1062,87 @@ public class MainActivity extends AppCompatActivity
 
 ////
 
-private class AsyncGetJobPositions extends AsyncTask<String, Void, ArrayList<JobPosition>> {
-    @Override
-    protected ArrayList<JobPosition> doInBackground(String... params) {
-        try {
-            GetJobPositionsServices getJobPositions = new GetJobPositionsServices();
-            getJobPositions.setApi_security(api_token);
-            ArrayList<JobPosition> estado = getJobPositions.get();
-            return estado;
-        } catch (Exception e) {
-            Log.e("JobPositions", e.getMessage(), e);
+    private class AsyncGetJobPositions extends AsyncTask<String, Void, ArrayList<JobPosition>> {
+        @Override
+        protected ArrayList<JobPosition> doInBackground(String... params) {
+            try {
+                GetJobPositionsServices getJobPositions = new GetJobPositionsServices();
+                getJobPositions.setApi_security(api_token);
+                ArrayList<JobPosition> estado = getJobPositions.get();
+                return estado;
+            } catch (Exception e) {
+                Log.e("JobPositions", e.getMessage(), e);
+            }
+            return null;
         }
-        return null;
+
     }
 
+    private class AsyncSetJobPosition extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String nameJobPosition = params[0];
+
+                SetJobPositionServices setJobPositionServices = new SetJobPositionServices();
+                setJobPositionServices.setApi_security(api_token);
+                Estado estado_response = (Estado) setJobPositionServices.get(nameJobPosition);
+                return estado_response;
+            } catch (Exception e) {
+                Log.e("SetJobposition", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+    private class AsyncDeleteJobPosition extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                String nameSkill = params[0];
+
+                DeleteJobPositionServices deleteJobPositionServices = new DeleteJobPositionServices();
+                deleteJobPositionServices.setApi_security(api_token);
+                deleteJobPositionServices.get(nameSkill);
+            } catch (Exception e) {
+                Log.e("SetDeleteJobPosition", e.getMessage(), e);
+            }
+            return null;
+        }
+    }
+
+    private class AsyncGetJobPosition extends AsyncTask<String, Void, JobPosition> {
+        @Override
+        protected JobPosition doInBackground(String... params) {
+            try {
+                String nameJobPosition = params[0];
+                GetJobPositionServices getJobPositionServices = new GetJobPositionServices();
+                getJobPositionServices.setApi_security(api_token);
+                JobPosition estado = getJobPositionServices.get(nameJobPosition);
+                return estado;
+            } catch (Exception e) {
+                Log.e("JobPosition", e.getMessage(), e);
+            }
+            return null;
+        }
+
+    }
+
+    private class AsyncGetCategories extends AsyncTask<String, Void, ArrayList<Category>> {
+        @Override
+        protected ArrayList<Category> doInBackground(String... params) {
+            try {
+                GetCategoriesServices getCategoriesServices = new GetCategoriesServices();
+                getCategoriesServices.setApi_security(api_token);
+                ArrayList<Category> estado = getCategoriesServices.get();
+                return estado;
+            } catch (Exception e) {
+                Log.e("Categories", e.getMessage(), e);
+            }
+            return null;
+        }
+
+    }
 }
-
-private class AsyncSetJobPosition extends AsyncTask<String, Void, Estado> {
-    @Override
-    protected Estado doInBackground(String... params) {
-        try {
-            String nameJobPosition = params[0];
-
-            SetJobPositionServices setJobPositionServices = new SetJobPositionServices();
-            setJobPositionServices.setApi_security(api_token);
-            Estado estado_response = (Estado) setJobPositionServices.get(nameJobPosition);
-            return estado_response;
-        } catch (Exception e) {
-            Log.e("AsyncSetLocation", e.getMessage(), e);
-        }
-
-        return null;
-    }
-
-}
-
-private class AsyncDeleteJobPosition extends AsyncTask<String, Void, Void> {
-    @Override
-    protected Void doInBackground(String... params) {
-        try {
-            String nameSkill = params[0];
-
-            DeleteJobPositionServices deleteJobPositionServices = new DeleteJobPositionServices();
-            deleteJobPositionServices.setApi_security(api_token);
-            deleteJobPositionServices.get(nameSkill);
-        } catch (Exception e) {
-            Log.e("SetDeleteJobPosition", e.getMessage(), e);
-        }
-        return null;
-    }
-}
-
-private class AsyncGetJobPosition extends AsyncTask<String, Void, JobPosition> {
-    @Override
-    protected JobPosition doInBackground(String... params) {
-        try {
-            String nameJobPosition = params [0];
-            GetJobPositionServices getJobPositionServices = new GetJobPositionServices();
-            getJobPositionServices.setApi_security(api_token);
-            JobPosition estado = getJobPositionServices.get(nameJobPosition);
-            return estado;
-        } catch (Exception e) {
-            Log.e("SendMesagge", e.getMessage(), e);
-        }
-        return null;
-    }
-
-}}
