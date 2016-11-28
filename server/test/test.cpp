@@ -11,6 +11,11 @@
 #include "UserList.h"
 #include "md5.h"
 
+TEST(DatabaseHandler, UseOtherDatabase) {
+	time_t seconds = time (NULL);
+	char* dt = ctime(&seconds);
+	DatabaseHandler::get_instance("new_database-" + std::string(dt));
+}
 
 TEST(DatabaseHandler, WriteAndRead) {
 	std::string clave = "clave";
