@@ -99,5 +99,18 @@ public class MyProfile implements Serializable {
         this.summary = summary;
     }
 
-
+    @Override
+    public String toString() {
+        return "MyProfile{" +
+                "city='" + city + '\'' +
+                ", contacts='" + contacts + '\'' +
+                ", dob='" + dob + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", profile_photo='" + profile_photo + '\'' +
+                ", skills=" + skills +
+                ", summary='" + summary + '\'' +
+                ", job_positions=" + job_positions +
+                '}';
+    }
 }

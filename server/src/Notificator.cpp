@@ -7,7 +7,7 @@
 #include <curlpp/Options.hpp>
 
 Notificator::Notificator(Token_FCM & token,TYPE_NOTIFICATOR type, std::string message):
-	FIREBASE_KEY("AIzaSyB0Dd993SZP4dAUySqZzcNZnt4HFd_RLWo"){
+	FIREBASE_KEY("AIzaSyCwjqxjEUOH393aTr6o64nDoCcirwtntFk"){
 		fb_id_sender = token.get_fb_id();
 		this->message = message;
 		tokenFCM = token.get_token();

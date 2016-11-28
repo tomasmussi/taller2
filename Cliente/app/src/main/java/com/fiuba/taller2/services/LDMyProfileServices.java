@@ -19,7 +19,7 @@ public class LDMyProfileServices extends AbstractServices{
             String coursesQuery = this.getQueryBy();
             Log.d("MyProfile: ", coursesQuery);
             MyProfileDTO coursesDTO = (MyProfileDTO) geDataOftDTO(coursesQuery, MyProfileDTO.class);
-
+            Log.d("MyProfile: ", coursesDTO.getData().toString());
             return coursesDTO.getData();
         }
 

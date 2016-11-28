@@ -30,7 +30,7 @@ public abstract class AbstractServices {
     protected void deleteDataOftDTO(String url, Class object) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        restTemplate.delete(url, object);
+        restTemplate.delete(url);
     }
     protected  abstract String getQueryBy(String... params);
 
