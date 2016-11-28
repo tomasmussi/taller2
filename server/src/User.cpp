@@ -171,9 +171,15 @@ void User::replace_not_null(std::string field, std::string value) {
 	}
 }
 
+bool User::request_sent(const User &other_user) {
+	return std::find(other_user.requests_.begin(), other_user.requests_.end(), id_) != other_user.requests_.end();
+}
+
 void User::send_request(User &other_user) {
 	// requests_.push_back(other_user.id_);
-	other_user.requests_.push_back(this->id_);
+	if (!request_sent(other_user)) {
+		other_user.requests_.push_back(this->id_);
+	}
 }
 
 int User::requests() {

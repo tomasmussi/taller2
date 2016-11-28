@@ -50,6 +50,8 @@ public:
 
 	void replace_not_null(std::string field, std::string value);
 
+	bool request_sent(const User &other_user);
+
 	/* Send a request to add contact to my contacts */
 	void send_request(User &other_user);
 
