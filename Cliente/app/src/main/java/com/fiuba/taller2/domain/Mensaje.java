@@ -17,6 +17,10 @@ public class Mensaje implements Serializable{
             private String receiver_id;
             private String sender_id;
             private String timestamp;
+            private String sender_photo;
+            private String sender_name;
+
+
 
     public String getMessage() {
         return message;
@@ -48,5 +52,21 @@ public class Mensaje implements Serializable{
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getSender_photo() {
+        return sender_photo;
+    }
+
+    public void setSender_photo(String sender_photo) {
+        this.sender_photo = sender_photo;
+    }
+
+    public String getSender_name() {
+        return sender_name;
+    }
+
+    public void setSender_name(String sender_name) {
+        this.sender_name = sender_name;
     }
 }

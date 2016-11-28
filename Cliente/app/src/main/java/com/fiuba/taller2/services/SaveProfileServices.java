@@ -1,5 +1,7 @@
 package com.fiuba.taller2.services;
 
+import com.fiuba.taller2.domain.Estado;
+import com.fiuba.taller2.rest_dto.EstadoDTO;
 import com.fiuba.taller2.rest_dto.SaveProfileDto;
 
 /**
@@ -7,13 +9,13 @@ import com.fiuba.taller2.rest_dto.SaveProfileDto;
  */
 
 public class SaveProfileServices extends AbstractServices {
-    private static final String service_name = "api/edit";
+    private static final String service_name = "api/profile";
 
     public boolean ifExistsErrors(String...params) {
         String coursesQuery = this.getQueryBy(params);
-        System.out.println("Job query" +coursesQuery);
-        SaveProfileDto coursesDTO = (SaveProfileDto) geDataOftDTO(coursesQuery, SaveProfileDto.class);
-        return  !((String)coursesDTO.getData()[0].getStatus()).equals("OK") ;
+        System.out.println("SaveProfilequery" +coursesQuery);
+        EstadoDTO coursesDTO = (EstadoDTO) postDataOftDTO(coursesQuery, EstadoDTO.class);
+        return !coursesDTO.getData().getStatus().equals("OK") ;
 
     }
 
@@ -24,6 +26,7 @@ public class SaveProfileServices extends AbstractServices {
          String email   =   params[1];
          String city    =   params[2];
          String dob     =   params[3];
+        String summary = params[4];
 
          String url = urlBase;
         StringBuffer urlStringBuffer = new StringBuffer(url);
@@ -39,7 +42,8 @@ public class SaveProfileServices extends AbstractServices {
         urlStringBuffer.append(city);
         urlStringBuffer.append("&dob=");
         urlStringBuffer.append(dob);
-
+        urlStringBuffer.append("&summary=");
+        urlStringBuffer.append(summary);
 
 
         return urlStringBuffer.toString();

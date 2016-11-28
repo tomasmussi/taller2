@@ -16,8 +16,8 @@
         android:layout_centerVertical="true" />
 
     <com.devspark.robototextview.widget.RobotoTextView
-        android:id="@+id/course_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/profile_user_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/course_photo"
         android:padding="10dp"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/course_photo"
-        android:layout_below="@+id/course_name"
+        android:layout_below="@+id/profile_user_name"
         android:padding="10dp"
         android:maxLines="3"
         android:ellipsize="marquee"

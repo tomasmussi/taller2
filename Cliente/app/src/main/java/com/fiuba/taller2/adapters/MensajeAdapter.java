@@ -32,7 +32,6 @@ public class MensajeAdapter extends RecyclerView
         TextView post_content;
         TextView post_attachment;
         TextView post_date;
-
         Context context;
 
         public MensajeHolder(View itemView) {
@@ -40,7 +39,7 @@ public class MensajeAdapter extends RecyclerView
             post_author_pic = (ImageView) itemView.findViewById(R.id.forum_post_author_pic);
             post_author = (TextView) itemView.findViewById(R.id.forum_post_author);
             post_content = (TextView) itemView.findViewById(R.id.forum_post_content);
-            post_attachment = (TextView) itemView.findViewById(R.id.forum_post_attachment);
+
             post_date = (TextView) itemView.findViewById(R.id.forum_post_creation_date);
 
             context = itemView.getContext();
@@ -63,18 +62,18 @@ public class MensajeAdapter extends RecyclerView
         return dataObjectHolder;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void onBindViewHolder(final MensajeAdapter.MensajeHolder holder, final int position) {
-        holder.post_author_pic.setImageDrawable(holder.context.getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
-       // Picasso.with(mCOntext).load( mDataset.get(position).getAuthor_image()).into(holder.post_author_pic);
-        Picasso.with(mCOntext).load("https://codigoespagueti.com/wp-content/uploads/2016/02/CrashBandicoot.jpg").into(holder.post_author_pic);
-        holder.post_author.setText(mDataset.get(position).getSender_id());
+    public void onBindViewHolder(final MensajeHolder holder, final int position) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.post_author_pic.setImageDrawable(holder.context.getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
+        }
+        if(mDataset.get(position).getSender_photo()!=null)Picasso.with(mCOntext).load(mDataset.get(position).getSender_photo()).into(holder.post_author_pic);
+        if(mDataset.get(position).getSender_name()!=null){
+            holder.post_author.setText(mDataset.get(position).getSender_name());
+        }else{
+            holder.post_author.setText(mDataset.get(position).getSender_id());
+        }
         holder.post_content.setText(mDataset.get(position).getMessage());
-
-        //Log.d("AuthorImageUrl", mDataset.get(position).getAuthor_image()); //Aca recibis la imagen
-
-
 
         holder.post_date.setText(mDataset.get(position).getTimestamp());
     }

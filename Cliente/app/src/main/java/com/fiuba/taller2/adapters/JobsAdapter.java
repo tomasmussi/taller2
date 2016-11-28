@@ -36,7 +36,7 @@ public class JobsAdapter extends RecyclerView
 
         public CourseHolder(View itemView) {
             super(itemView);
-            course_name = (TextView) itemView.findViewById(R.id.course_name);
+            course_name = (TextView) itemView.findViewById(R.id.profile_user_name);
             course_description = (TextView) itemView.findViewById(R.id.course_description);
             course_photo = (ImageView) itemView.findViewById(R.id.course_photo);
             course_session_start = (TextView) itemView.findViewById(R.id.course_next_session);

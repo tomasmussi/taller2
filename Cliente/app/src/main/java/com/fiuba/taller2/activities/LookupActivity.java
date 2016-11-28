@@ -1,29 +1,11 @@
 package com.fiuba.taller2.activities;
 
-import android.app.Activity;
-import android.app.DownloadManager;
-import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,29 +18,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.fiuba.taller2.R;
-import com.fiuba.taller2.adapters.CoursesAdapter;
+import com.fiuba.taller2.adapters.LookupAdapter;
 import com.fiuba.taller2.domain.Contact;
 import com.fiuba.taller2.domain.Login;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.services.LDMyProfileServices;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
 
-import org.apache.commons.io.FilenameUtils;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -83,6 +54,9 @@ public class LookupActivity extends AppCompatActivity
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_my_courses);
+            Log.d("___CLASE : ",getClass().getSimpleName());
+            Log.d("___LAYOUT : ","R.layout.activity_my_courses");
+
 
 
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -118,7 +92,7 @@ public class LookupActivity extends AppCompatActivity
             mRecyclerView.setHasFixedSize(true);
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new CoursesAdapter(coursesList);
+            mAdapter = new LookupAdapter(coursesList);
             mRecyclerView.setAdapter(mAdapter);
         }
 
@@ -217,7 +191,7 @@ public class LookupActivity extends AppCompatActivity
 
                     //TODO Pedir la info según lo que corresponda, por el momento en esta solapa poner
                     // unicamente lo que devuelva la request de mis cursos, luego agregaremos mas logica
-                    mAdapter = new CoursesAdapter(coursesList);
+                    mAdapter = new LookupAdapter(coursesList);
                     mRecyclerView.setAdapter(mAdapter);
                     break;
                 case 1:
@@ -239,7 +213,7 @@ public class LookupActivity extends AppCompatActivity
         @Override
         protected void onResume() {
             super.onResume();
-            ((CoursesAdapter) mAdapter).setOnItemClickListener(new CoursesAdapter
+            ((LookupAdapter) mAdapter).setOnItemClickListener(new LookupAdapter
                     .MyClickListener() {
                 @Override
                 public void onItemClick(int position, View v) {/*

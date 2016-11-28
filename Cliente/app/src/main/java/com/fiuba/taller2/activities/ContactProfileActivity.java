@@ -12,12 +12,12 @@ import android.widget.TextView;
 
 import com.fiuba.taller2.R;
 import com.fiuba.taller2.domain.MyProfile;
-import com.fiuba.taller2.services.LDMyProfileServices;
+import com.fiuba.taller2.services.ContactProfileServices;
 import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.ExecutionException;
 
-public class MyProfileActivity extends AppCompatActivity {
+public class ContactProfileActivity extends AppCompatActivity {
 
     private RecyclerView unitsRecyclerView;
     private RecyclerView.Adapter unitsAdapter;
@@ -27,23 +27,27 @@ public class MyProfileActivity extends AppCompatActivity {
     private RecyclerView.Adapter professorsAdapter;
     private RecyclerView.LayoutManager professorsLayoutManager;
 
-    private static String LOG_TAG = "MyProfileActivity";
+    private static String LOG_TAG = "ContactProfileActivity";
     private String api_token;
     private MyProfile myProfile;
-
+    private String contact_fb_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
 
         setContentView(R.layout.material_my_profile);
-
         Log.d("___CLASE : ",getClass().getSimpleName());
         Log.d("___LAYOUT : ","R.layout.material_my_profile");
 
+
+
+
+
         Intent intent = getIntent();
         api_token = getIntent().getStringExtra("API_TOKEN");
+        contact_fb_id   = getIntent().getStringExtra("CONTACT_FB_ID");
         HttpRequestTaskMyProfile httpRequestTaskMyProfile = new HttpRequestTaskMyProfile();
-        httpRequestTaskMyProfile.execute();
+        httpRequestTaskMyProfile.execute(contact_fb_id);
 
         try {
             myProfile= httpRequestTaskMyProfile.get();
@@ -54,13 +58,12 @@ public class MyProfileActivity extends AppCompatActivity {
         }
 
 
-
-
-
         ImageView profilePhoto= (ImageView) findViewById(R.id.user_profile_photo);
         Picasso.with(this).load( myProfile.getProfile_photo()).into(profilePhoto);
         Log.d("ProfilePhoto", myProfile.getProfile_photo());
 
+        ImageView agregarContacto= (ImageView) findViewById(R.id.drop_down_option_menu);
+        agregarContacto.setVisibility(View.GONE);
 
 
         TextView nameUser = (TextView) findViewById(R.id.user_profile_name);
@@ -72,14 +75,15 @@ public class MyProfileActivity extends AppCompatActivity {
         TextView fechaNac = (TextView) findViewById(R.id.user_profile_birhdate);
         fechaNac.setText( fechaNac.getText()+myProfile.getDob());
 
+        TextView summary = (TextView) findViewById(R.id.user_profile_summary);
+        summary.setText(myProfile.getSummary());
+
 
         TextView ciudad = (TextView) findViewById(R.id.user_profile_city);
-        ciudad.setText( ciudad.getText()+myProfile.getCity());
-
-
-        TextView summary = (TextView) findViewById(R.id.user_profile_summary);
-        summary.setText( summary.getText()+myProfile.getSummary());
+        ciudad.setText(ciudad.getText()+myProfile.getCity());
     }
+
+
 
 
     public void editar(View v){
@@ -97,10 +101,10 @@ public class MyProfileActivity extends AppCompatActivity {
         @Override
         protected MyProfile doInBackground(String... params) {
             try {
-
-                LDMyProfileServices ldMyProfileServices= new LDMyProfileServices();
+                    String contact_fb_id= params[0];
+                ContactProfileServices ldMyProfileServices= new ContactProfileServices();
                 ldMyProfileServices.setApi_security(api_token);
-                myProfile =  ldMyProfileServices.getProfile();
+                myProfile =  ldMyProfileServices.get(contact_fb_id);
 
 
             } catch (Exception e) {

@@ -52,6 +52,7 @@ import com.fiuba.taller2.services.LDMyProfileServices;
 import com.fiuba.taller2.services.LoginServices;
 import com.fiuba.taller2.services.LookupServices;
 import com.fiuba.taller2.services.RegisterPushIdServices;
+import com.fiuba.taller2.services.SaveProfileServices;
 import com.fiuba.taller2.services.SendContactRequestServices;
 import com.fiuba.taller2.services.SendContactResponseServices;
 import com.fiuba.taller2.services.SendMesaggeServices;
@@ -93,6 +94,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("___CLASE : ",getClass().getSimpleName());
+        Log.d("___LAYOUT : ","R.layout.activity_main");
+
 
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
@@ -254,6 +258,36 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.misContactos) {
+
+
+            Intent intent = new Intent(this, MyContactsActivity.class);
+            intent.putExtra("API_TOKEN", api_token);
+            startActivity(intent);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        } else if (id == R.id.contactosdestacados) {
+
+
+        } else if (id == R.id.miPerfil) {
+            HttpRequestTaskMyProfile httpRequestTaskMyProfile = new HttpRequestTaskMyProfile();
+            httpRequestTaskMyProfile.execute();
+            MyProfile myProfile = new MyProfile();
+            try {
+                myProfile = httpRequestTaskMyProfile.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            Intent intent = new Intent(this, MyProfileActivity.class);
+            intent.putExtra("PROFILE", myProfile);
+            intent.putExtra("API_TOKEN", api_token);
+            startActivity(intent);
+        } else if (id == R.id.notificaciones) {
+            Intent intent = new Intent(this,MyProfileActivity.class);
+            intent.putExtra("API_TOKEN", api_token);
+
+            startActivity(intent);
+        } else if (id == R.id.ajustes) {
 
             Login loginTest;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -531,32 +565,6 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        } else if (id == R.id.contactosdestacados) {
-
-            Intent intent = new Intent(this,MyProfileActivity.class);
-            intent.putExtra("API_TOKEN", api_token);
-
-            startActivity(intent);
-
-        } else if (id == R.id.miPerfil) {
-            HttpRequestTaskMyProfile httpRequestTaskMyProfile = new HttpRequestTaskMyProfile();
-            httpRequestTaskMyProfile.execute();
-            MyProfile myProfile = new MyProfile();
-            try {
-                myProfile = httpRequestTaskMyProfile.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            Intent intent = new Intent(this, MyProfileActivity.class);
-            intent.putExtra("PROFILE", myProfile);
-            intent.putExtra("API_TOKEN", api_token);
-            startActivity(intent);
-        } else if (id == R.id.notificaciones) {
-
-        } else if (id == R.id.ajustes) {
 
         } else if (id == R.id.cerrar_sesion) {
             AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -1042,6 +1050,27 @@ public class MainActivity extends AppCompatActivity
                 Log.e("SendMesagge", e.getMessage(), e);
             }
             return null;
+        }
+
+    }
+    private class SaveProfile extends AsyncTask<String, Void, Boolean> {
+        Boolean result;
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                String sessionId = params[0];
+
+
+                SaveProfileServices saveProfileServices =new SaveProfileServices();
+                saveProfileServices.setApi_security(api_token);
+                boolean ifExistsErrors=  saveProfileServices.ifExistsErrors(sessionId);
+                result= new Boolean( ifExistsErrors );
+
+            } catch (Exception e) {
+                Log.e("MyProfileActivity", e.getMessage(), e);
+            }
+
+            return result;
         }
 
     }

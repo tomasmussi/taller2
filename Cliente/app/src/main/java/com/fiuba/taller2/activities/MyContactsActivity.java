@@ -10,14 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.fiuba.taller2.R;
-import com.fiuba.taller2.adapters.LookupAdapter;
+import com.fiuba.taller2.adapters.MyContactsAdapter;
 import com.fiuba.taller2.domain.Contact;
+import com.fiuba.taller2.services.GetContactsServices;
 import com.fiuba.taller2.services.LookupServices;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class SearchableActivity extends AppCompatActivity {
+public class MyContactsActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -36,54 +37,82 @@ public class SearchableActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         api_token = intent.getStringExtra("API_TOKEN");
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             coursesList=search(query);
-        }
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_courses);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         if (coursesList != null) {
-            mAdapter = new LookupAdapter(coursesList);
+            mAdapter = new MyContactsAdapter(coursesList,this);
         } else {
-            mAdapter = new LookupAdapter(new ArrayList<Contact>());
+            mAdapter = new MyContactsAdapter(new ArrayList<Contact>(),this);
         }
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    public void initContactProfile(String contact_fb_id){
+
+        Intent intent = new Intent(this,ContactProfileActivity.class);
+        intent.putExtra("API_TOKEN", api_token);
+        intent.putExtra("CONTACT_FB_ID", contact_fb_id);
+
+        startActivity(intent);
+    }
+
+    public void initConversation(String contact_fb_id){
+
+        Intent intent = new Intent(this,ConversationActivity.class);
+        intent.putExtra("API_TOKEN", api_token);
+        intent.putExtra("CONTACT_FB_ID", contact_fb_id);
+
+        startActivity(intent);
+    }
+
     protected  ArrayList<Contact> search(String query) {
         ArrayList<Contact> contactArrayList=null;
-        HttpRequestTaskLookup httpRequestTaskLookup = new HttpRequestTaskLookup();
-        httpRequestTaskLookup.execute(query);
+        AsyncGetContacts asyncGetContacts = new AsyncGetContacts();
+
+        asyncGetContacts.execute();
+
+
         try {
-            contactArrayList = ( ArrayList<Contact>) httpRequestTaskLookup.get();
+            contactArrayList = (ArrayList<Contact>) asyncGetContacts.get();
+            Log.d("Contacts", contactArrayList.toString());
+            Log.d("Contacts", contactArrayList.get(0).toString());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            contactArrayList = new ArrayList<Contact>();
         }
+
         return contactArrayList;
    }
 
 
-    private class HttpRequestTaskLookup extends AsyncTask<String, Void, ArrayList<Contact>> {
+
+
+    private class AsyncGetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
         @Override
         protected ArrayList<Contact> doInBackground(String... params) {
             try {
-                String user = params[0];
 
-                LookupServices lookupServices=new LookupServices();
-                lookupServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts= (ArrayList<Contact>) lookupServices.get(user);
+                GetContactsServices getContactsServices = new GetContactsServices();
+                getContactsServices.setApi_security(api_token);
+                ArrayList<Contact> listContacts = (ArrayList<Contact>) getContactsServices.get();
                 return listContacts;
             } catch (Exception e) {
-                Log.e("Buscarcontacto", e.getMessage(), e);
+                Log.e("MyContacts", e.getMessage(), e);
             }
 
             return null;
         }
 
     }
+
+
 
 }

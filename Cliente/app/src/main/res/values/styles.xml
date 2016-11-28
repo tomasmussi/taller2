@@ -39,6 +39,12 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="TextCaption_button">
+        <item name="android:fontFamily">roboto</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+
     <style name="TextTile">
         <item name="android:fontFamily">roboto</item>
         <item name="android:textSize">24sp</item>
@@ -55,6 +61,10 @@
     </style>
 
 
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/accent</item>
+        <item name="colorButtonNormal">@color/primary</item>
+    </style>
 
 
 </resources>

@@ -7,14 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fiuba.taller2.R;
+import com.fiuba.taller2.activities.MyContactsActivity;
 import com.fiuba.taller2.domain.Contact;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -22,31 +22,35 @@ import java.util.ArrayList;
 /**
  * Created by Margonari on 18/09/2016.
  */
-public class CoursesAdapter extends RecyclerView
-        .Adapter<CoursesAdapter
+public class MyContactsAdapter extends RecyclerView
+        .Adapter<MyContactsAdapter
         .CourseHolder> {
-    private static String LOG_TAG = "CoursesAdapter";
+    private static String LOG_TAG = "LookupAdapter";
     private ArrayList<Contact> mDataset;
     private static MyClickListener myClickListener;
-
+    private Context mcontexts;
     public static class CourseHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
-        TextView course_name;
-        TextView course_description;
-        ImageView course_photo;
+        TextView contact_name;
+        TextView contact_summary;
+        ImageView contact_photo;
         TextView course_session_start;
         TextView course_duration;
         Context context;
+        Button button_view_profile;
+        Button button_conversation;
 
         public CourseHolder(View itemView) {
             super(itemView);
-            course_name = (TextView) itemView.findViewById(R.id.course_name);
-            course_description = (TextView) itemView.findViewById(R.id.course_description);
-            course_photo = (ImageView) itemView.findViewById(R.id.course_photo);
-            course_session_start = (TextView) itemView.findViewById(R.id.course_next_session);
-           // course_duration = (TextView) itemView.findViewById(R.id.course_duration);
+            contact_photo = (ImageView) itemView.findViewById(R.id.contact_photo);
+            contact_name = (TextView) itemView.findViewById(R.id.contact_name);
+            contact_summary = (TextView) itemView.findViewById(R.id.contact_summary);
+             button_view_profile = (Button) itemView.findViewById(R.id.button_view_profile);
+             button_conversation= (Button) itemView.findViewById(R.id.button_sendMessage);
+
             context = itemView.getContext();
+
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
@@ -61,31 +65,48 @@ public class CoursesAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public CoursesAdapter(ArrayList<Contact> myDataset) {
+    public MyContactsAdapter(ArrayList<Contact> myDataset, Context mcontext) {
         mDataset = myDataset;
+        mcontexts=mcontext;
     }
 
     @Override
     public CourseHolder onCreateViewHolder(ViewGroup parent,
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_row, parent, false);
+                .inflate(R.layout.card_view_my_contacts, parent, false);
 
         CourseHolder dataObjectHolder = new CourseHolder(view);
         return dataObjectHolder;
     }
 
     @Override
-    public void onBindViewHolder(CourseHolder holder, int position) {
-        holder.course_name.setText(mDataset.get(position).getName());
-        holder.course_description.setText(mDataset.get(position).getName());
+    public void onBindViewHolder(CourseHolder holder, final int position) {
+        holder.contact_name.setText(mDataset.get(position).getName());
+        holder.contact_summary.setText("ESTO ES UN RESUMEN DE MI EXPERIENCIA");
+        //TODO: Implementar getSummary en el appServer
 
-        String urlImage ="https://codigoespagueti.com/wp-content/uploads/2016/02/CrashBandicoot.jpg";
-        Picasso.with(holder.context).load(urlImage).into(holder.course_photo);
+        String urlImage ="http://www.thomasandfriends.com/es-es/Images/hero-6-sample-train_tcm1140-190382.png";
+        Picasso.with(holder.context).load(mDataset.get(position).getPhoto()).into(holder.contact_photo);
 
-        //holder.course_duration.setText("Duración estimada del curso: " + mDataset.get(position).getDuration() + " min.");
+        holder.button_view_profile.setOnClickListener(new View.OnClickListener() {
 
-        // older.course_session_start.setText("El curso inicia: " + mDataset.get(position).getCurrent_sessions().get(0).getStart().substring(0,10));
+            @Override
+            public void onClick(View v) {
+                ((MyContactsActivity)mcontexts).initContactProfile(mDataset.get(position).getFb_id());
+
+            }
+        });
+
+        holder.button_conversation.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ((MyContactsActivity)mcontexts).initConversation(mDataset.get(position).getFb_id());
+
+            }
+        });
+
     }
 
     public void addItem(Contact course, int index) {
