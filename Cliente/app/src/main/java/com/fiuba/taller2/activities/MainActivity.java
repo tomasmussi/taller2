@@ -46,6 +46,7 @@ import com.fiuba.taller2.services.GetContactsRequestServices;
 import com.fiuba.taller2.services.GetContactsServices;
 import com.fiuba.taller2.services.GetConversationServices;
 import com.fiuba.taller2.services.GetPopularServices;
+import com.fiuba.taller2.services.GetSkillServices;
 import com.fiuba.taller2.services.GetSkillsServices;
 import com.fiuba.taller2.services.LDCategoriesServices;
 import com.fiuba.taller2.services.LDJobPositionsServices;
@@ -244,6 +245,19 @@ public class MainActivity extends AppCompatActivity
             try {
                 ArrayList<Skill> estado = (ArrayList<Skill>) asyncgetSkills.get();
                 if (estado != null) Log.d("skills", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //Test de Skill (Chequea un skill en particular
+            AsyncGetSkill asyncGetSkill = new AsyncGetSkill();
+            asyncGetSkill.execute();
+            try {
+                Skill estado = (Skill) asyncGetSkill.get();
+                if (estado != null) Log.d("skill", estado.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -911,5 +925,21 @@ public class MainActivity extends AppCompatActivity
                 Log.e("AsyncSetLocation", e.getMessage(), e);
             }
         }
+    }
+
+    private class AsyncGetSkill extends AsyncTask<String, Void, Skill> {
+        @Override
+        protected Skill doInBackground(String... params) {
+            try {
+                GetSkillServices getSkill = new GetSkillServices();
+                getSkill.setApi_security(api_token);
+                Skill estado = getSkill.getSkill();
+                return estado;
+            } catch (Exception e) {
+                Log.e("SendMesagge", e.getMessage(), e);
+            }
+            return null;
+        }
+
     }
 }
