@@ -1,6 +1,6 @@
 package com.fiuba.taller2.domain;
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

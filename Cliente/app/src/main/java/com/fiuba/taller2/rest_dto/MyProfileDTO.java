@@ -2,6 +2,7 @@ package com.fiuba.taller2.rest_dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.domain.MyProfileList;
 
 /**
@@ -14,9 +15,9 @@ public class MyProfileDTO extends AbstractDTO
 {
 
 
-    public MyProfileList[] getData() { return (MyProfileList[]) data; }
+    public MyProfile getData() { return (MyProfile) data; }
 
-    public void setData(MyProfileList[] data) {
+    public void setData(MyProfile data) {
         this.data = data;
     }
 

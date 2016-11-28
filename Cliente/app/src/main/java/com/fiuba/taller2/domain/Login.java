@@ -16,6 +16,7 @@ public class Login {
     public String email;
     public String password;
     public String user_exists;
+    public String photo;
 
     public String getId() {
         return id;
@@ -68,5 +69,11 @@ public class Login {
         this.user_exists = user_exists;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
 
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

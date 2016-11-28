@@ -1,31 +1,17 @@
 package com.fiuba.taller2.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-
 /**
- * Created by luis on 05/10/16.
+ * Created by luis on 27/11/16.
  */
 
+public class User {
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class MyProfile implements Serializable {
-
-    private String city;
-    private String contacts;
-    private String dob;
-    private String email;
-    private String name;
-
-    private String profile_photo;
-
-    private ArrayList<String> skills;
-    private String summary;
-    private ArrayList<String> job_positions;
+          private String  city;
+          private String  contacts;
+          private String  dob;
+          private String  email;
+          private String  name;
+          private String  profile_photo;
 
     public String getCity() {
         return city;
@@ -75,22 +61,6 @@ public class MyProfile implements Serializable {
         this.profile_photo = profile_photo;
     }
 
-    public ArrayList<String> getSkills() {
-        return skills;
-    }
-
-    public ArrayList<String> getJob_positions() {
-        return job_positions;
-    }
-
-    public void setJob_positions(ArrayList<String> job_positions) {
-        this.job_positions = job_positions;
-    }
-
-    public void setSkills(ArrayList<String> skills) {
-        this.skills = skills;
-    }
-
     public String getSummary() {
         return summary;
     }
@@ -98,6 +68,8 @@ public class MyProfile implements Serializable {
     public void setSummary(String summary) {
         this.summary = summary;
     }
+
+    private String  summary;
 
 
 }

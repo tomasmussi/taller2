@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.fiuba.taller2.domain.Job;
 
 public class JobActivity extends AppCompatActivity {

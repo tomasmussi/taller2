@@ -5,88 +5,88 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
+import com.fiuba.taller2.adapters.CoursesAdapter;
+import com.fiuba.taller2.domain.Contact;
 import com.fiuba.taller2.domain.LDJobPosition;
 import com.fiuba.taller2.services.LDJobPositionsServices;
+import com.fiuba.taller2.services.LookupServices;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+public class SearchableActivity extends AppCompatActivity {
 
-public class SearchableActivity extends ListActivity {
-
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private static String LOG_TAG = "CoursesActivity";
+    private  ArrayList<Contact> coursesList;
     private String api_token;
+    private String category_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchable);
+        setContentView(R.layout.activity_courses);
 
-        // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         api_token = intent.getStringExtra("API_TOKEN");
-        System.out.println("APITOKEN SEARCHABLE: " + api_token);
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            search(query);
+            coursesList=search(query);
         }
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_courses);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        if (coursesList != null) {
+            mAdapter = new CoursesAdapter(coursesList);
+        } else {
+            mAdapter = new CoursesAdapter(new ArrayList<Contact>());
+        }
+        mRecyclerView.setAdapter(mAdapter);
     }
 
-    protected void search(String query) {
-
-        HttpRequestTask httpRequestTask = new HttpRequestTask();
-        httpRequestTask.execute(query, api_token);
-
-        ArrayList<String>  values = null;
+    protected  ArrayList<Contact> search(String query) {
+        ArrayList<Contact> contactArrayList=null;
+        HttpRequestTaskLookup httpRequestTaskLookup = new HttpRequestTaskLookup();
+        httpRequestTaskLookup.execute(query);
         try {
-            List<LDJobPosition> jobList = httpRequestTask.get();
-            values = getValuesFromListCourse(jobList);
+            contactArrayList = ( ArrayList<Contact>) httpRequestTaskLookup.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        return contactArrayList;
+   }
 
-        /*String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2" };*/
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
-    }
 
-    private ArrayList<String> getValuesFromListCourse(List<LDJobPosition> jobList) {
-        ArrayList<String> coursesNames = new ArrayList<>();
-        for (LDJobPosition job : jobList) {
-            coursesNames.add(job.getName());
-
-        }
-
-        return coursesNames;
-    }
-
-    private class HttpRequestTask extends AsyncTask<String, Void, List<LDJobPosition>> {
+    private class HttpRequestTaskLookup extends AsyncTask<String, Void, ArrayList<Contact>> {
         @Override
-        protected ArrayList<LDJobPosition> doInBackground(String... params) {
+        protected ArrayList<Contact> doInBackground(String... params) {
             try {
                 String user = params[0];
-                LDJobPositionsServices listCourseServices= new LDJobPositionsServices();
-                listCourseServices.setApi_security(api_token);
-                return listCourseServices.getListCourses().getJobPositions();
 
+                LookupServices lookupServices=new LookupServices();
+                lookupServices.setApi_security(api_token);
+                ArrayList<Contact> listContacts= (ArrayList<Contact>) lookupServices.get(user);
+                return listContacts;
             } catch (Exception e) {
-                Log.e("SearcheableAcivity", e.getMessage(), e);
+                Log.e("Buscarcontacto", e.getMessage(), e);
             }
 
             return null;
         }
 
-
     }
-
 
 }

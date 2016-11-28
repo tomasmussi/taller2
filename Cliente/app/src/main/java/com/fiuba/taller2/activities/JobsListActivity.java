@@ -17,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.facebook.login.LoginManager;
 import com.fiuba.taller2.adapters.JobsAdapter;
 import com.fiuba.taller2.domain.LDJobPosition;
@@ -51,7 +51,7 @@ public class JobsListActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_my_courses);
         navigationView.setNavigationItemSelectedListener(this);
 
-        spinnerCoursesType = (Spinner) findViewById(R.id.spinner_type_of_courses);
+       // spinnerCoursesType = (Spinner) findViewById(R.id.spinner_type_of_courses);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.type_of_courses_array, android.R.layout.simple_spinner_item);
@@ -69,7 +69,7 @@ public class JobsListActivity extends AppCompatActivity
         api_token = getIntent().getStringExtra("API_TOKEN");
         System.out.println("APITOKEN EN MY COURSES: "+ api_token);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_my_courses);
+       // mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_my_courses);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);

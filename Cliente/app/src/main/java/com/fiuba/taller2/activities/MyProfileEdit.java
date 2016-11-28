@@ -8,7 +8,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.services.SaveProfileServices;
 import com.google.firebase.auth.FirebaseAuth;

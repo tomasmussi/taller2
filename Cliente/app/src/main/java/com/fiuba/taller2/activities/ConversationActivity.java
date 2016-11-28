@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.fiuba.taller2.adapters.MensajeAdapter;
 import com.fiuba.taller2.domain.Estado;
 import com.fiuba.taller2.domain.Mensaje;

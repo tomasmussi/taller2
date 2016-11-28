@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.firebase.ui.auth.AuthUI;
 import com.fiuba.taller2.adapters.ImageAdapter;
 import com.fiuba.taller2.domain.Categoria;
@@ -48,6 +48,7 @@ import com.fiuba.taller2.services.LDJobPositionsServices;
 import com.fiuba.taller2.services.LDMyProfileServices;
 import com.fiuba.taller2.services.LoginServices;
 import com.fiuba.taller2.services.LookupServices;
+import com.fiuba.taller2.services.RegisterPushIdServices;
 import com.fiuba.taller2.services.SendContactRequestServices;
 import com.fiuba.taller2.services.SendContactResponseServices;
 import com.fiuba.taller2.services.SendMesaggeServices;
@@ -59,8 +60,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity
@@ -173,8 +176,10 @@ public class MainActivity extends AppCompatActivity
         HttpRequestTaskLogin httpRequestTask = new HttpRequestTaskLogin();
 
         httpRequestTask.execute(userEmail);
+        Login login=null;
         try {
-            Login login = (Login) httpRequestTask.get();
+             login = (Login) httpRequestTask.get();
+
             api_token=login.getToken();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -182,12 +187,27 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
+            //Registro el push_id
+        AsyncRegister asyncRegister = new AsyncRegister();
+       if(login!=null) asyncRegister.execute(this.userEmail, FirebaseInstanceId.getInstance().getToken());
+        Estado estado;
+        try {
+            estado = ( Estado) asyncRegister.get();
+            if(estado!=null)  Log.d("PUSH_ID", estado.toString());
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
         AsyncSetLocation asyncSetLocation = new AsyncSetLocation();
 
         asyncSetLocation.execute(String.valueOf(latitude),String.valueOf(longitude));
         try {
-            Estado estado = (Estado) asyncSetLocation.get();
-            Log.d("Estado", estado.toString());
+            Estado estado_location = (Estado) asyncSetLocation.get();
+            Log.d("Estado", estado_location.toString());
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -253,6 +273,21 @@ public class MainActivity extends AppCompatActivity
                 loginTest = (Login) httpRequestTask.get();
                 Log.d("Login", loginTest.toString());
                 api_token=loginTest.getToken();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
+
+            //Envio mensaje a tomas
+            AsyncSendMesagge asyncSendMesagge2 = new AsyncSendMesagge();
+            asyncSendMesagge2.execute("aran.com.ar@gmail.com","Hola Luis, como estas?");
+            try {
+                Estado estado2 = ( Estado) asyncSendMesagge2.get();
+                if(estado2!=null)  Log.d("ConversartionList", estado2.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -423,6 +458,9 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
+
+
             Intent intent = new Intent(this,ConversationActivity.class);
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
@@ -430,6 +468,10 @@ public class MainActivity extends AppCompatActivity
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else if (id == R.id.contactosdestacados) {
 
+            Intent intent = new Intent(this,MyProfileActivity.class);
+            intent.putExtra("API_TOKEN", api_token);
+
+            startActivity(intent);
 
 
         } else if (id == R.id.miPerfil) {
@@ -529,7 +571,7 @@ public class MainActivity extends AppCompatActivity
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            Intent intent = new Intent(this, CategoriesActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("LIST_CATEGORIES", listJobs);
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
@@ -828,6 +870,46 @@ public class MainActivity extends AppCompatActivity
 
             return null;
         }
+
+    }
+    private class AsyncRegister extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String user_fb_id =params[0];
+                String token_FCM=params[1];
+
+                RegisterPushIdServices registerPushIdServices=new RegisterPushIdServices();
+                registerPushIdServices.setApi_security(api_token);
+                Estado estado= (Estado) registerPushIdServices.get(user_fb_id,token_FCM);
+                return estado;
+            } catch (Exception e) {
+                Log.e("SendMesagge", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+
+
+    private class HttpPosotionJob extends AsyncTask<String, Void, List<LDJobPosition>> {
+        @Override
+        protected ArrayList<LDJobPosition> doInBackground(String... params) {
+            try {
+                String user = params[0];
+                LDJobPositionsServices listCourseServices= new LDJobPositionsServices();
+                listCourseServices.setApi_security(api_token);
+                return listCourseServices.getListCourses().getJobPositions();
+
+            } catch (Exception e) {
+                Log.e("SearcheableAcivity", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
 
     }
 }

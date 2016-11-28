@@ -1,8 +1,5 @@
-package com.fiuba.taller2.adapters;
-
-/**
- * Created by luis on 04/10/16.
- */
+package com.fiuba.taller2.adapters
+        ;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fiuba.taller2.R;
-import com.fiuba.taller2.domain.CatogoryLN;
+import com.fiuba.taller2.domain.Contact;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -22,11 +22,11 @@ import java.util.ArrayList;
 /**
  * Created by Margonari on 18/09/2016.
  */
-public class CategoriesAdapter extends RecyclerView
-        .Adapter<CategoriesAdapter
+public class CoursesAdapter extends RecyclerView
+        .Adapter<CoursesAdapter
         .CourseHolder> {
-    private static String LOG_TAG = "JobsAdapter";
-    private ArrayList<CatogoryLN> mDataset;
+    private static String LOG_TAG = "CoursesAdapter";
+    private ArrayList<Contact> mDataset;
     private static MyClickListener myClickListener;
 
     public static class CourseHolder extends RecyclerView.ViewHolder
@@ -36,6 +36,7 @@ public class CategoriesAdapter extends RecyclerView
         TextView course_description;
         ImageView course_photo;
         TextView course_session_start;
+        TextView course_duration;
         Context context;
 
         public CourseHolder(View itemView) {
@@ -44,6 +45,7 @@ public class CategoriesAdapter extends RecyclerView
             course_description = (TextView) itemView.findViewById(R.id.course_description);
             course_photo = (ImageView) itemView.findViewById(R.id.course_photo);
             course_session_start = (TextView) itemView.findViewById(R.id.course_next_session);
+           // course_duration = (TextView) itemView.findViewById(R.id.course_duration);
             context = itemView.getContext();
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
@@ -59,7 +61,7 @@ public class CategoriesAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public CategoriesAdapter(ArrayList<CatogoryLN> myDataset) {
+    public CoursesAdapter(ArrayList<Contact> myDataset) {
         mDataset = myDataset;
     }
 
@@ -76,16 +78,17 @@ public class CategoriesAdapter extends RecyclerView
     @Override
     public void onBindViewHolder(CourseHolder holder, int position) {
         holder.course_name.setText(mDataset.get(position).getName());
-        holder.course_description.setText(mDataset.get(position).getDescription());
+        holder.course_description.setText(mDataset.get(position).getName());
 
-        //String urlImage = holder.context.getResources().getString(R.string.imagesURL) + mDataset.get(position).getId() + "." + mDataset.get(position).getFile_extension();
-        // Picasso.with(holder.context).load(urlImage).into(holder.course_photo);
+        String urlImage ="https://codigoespagueti.com/wp-content/uploads/2016/02/CrashBandicoot.jpg";
+        Picasso.with(holder.context).load(urlImage).into(holder.course_photo);
 
-        //h
+        //holder.course_duration.setText("Duración estimada del curso: " + mDataset.get(position).getDuration() + " min.");
+
         // older.course_session_start.setText("El curso inicia: " + mDataset.get(position).getCurrent_sessions().get(0).getStart().substring(0,10));
     }
 
-    public void addItem(CatogoryLN course, int index) {
+    public void addItem(Contact course, int index) {
         mDataset.add(index, course);
         notifyItemInserted(index);
     }

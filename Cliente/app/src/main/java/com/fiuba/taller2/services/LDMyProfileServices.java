@@ -18,10 +18,9 @@ public class LDMyProfileServices extends AbstractServices{
         public MyProfile getProfile() {
             String coursesQuery = this.getQueryBy();
             Log.d("MyProfile: ", coursesQuery);
-
             MyProfileDTO coursesDTO = (MyProfileDTO) geDataOftDTO(coursesQuery, MyProfileDTO.class);
-            MyProfileList[] a= (MyProfileList[]) coursesDTO.getData();
-            return ((MyProfileList[])(coursesDTO.getData()))[0].getUser();
+
+            return coursesDTO.getData();
         }
 
         @Override
@@ -33,7 +32,6 @@ public class LDMyProfileServices extends AbstractServices{
             urlStringBuffer.append("?");
             urlStringBuffer.append("token=");
             urlStringBuffer.append(api_security);
-
 
             return urlStringBuffer.toString();
         }

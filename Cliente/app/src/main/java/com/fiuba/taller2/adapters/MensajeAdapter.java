@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.fiuba.taller2.domain.Mensaje;
 import com.squareup.picasso.Picasso;
 

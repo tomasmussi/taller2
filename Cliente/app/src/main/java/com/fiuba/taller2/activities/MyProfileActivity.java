@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.services.LDMyProfileServices;
 import com.fiuba.taller2.services.SaveProfileServices;
@@ -35,8 +35,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.material_design_profile_screen_xml_ui_design);
 
         Intent intent = getIntent();
         api_token = getIntent().getStringExtra("API_TOKEN");
@@ -52,19 +53,23 @@ public class MyProfileActivity extends AppCompatActivity {
         }
 
 
+        ImageView profilePhoto= (ImageView) findViewById(R.id.user_profile_photo);
+        Picasso.with(this).load( myProfile.getProfile_photo()).into(profilePhoto);
+        Log.d("ProfilePhoto", myProfile.getProfile_photo());
 
 
-        TextView nameUser = (TextView) findViewById(R.id.nameOfUser);
+
+        TextView nameUser = (TextView) findViewById(R.id.user_profile_name);
         nameUser.setText(myProfile.getName());
 
-        TextView email = (TextView) findViewById(R.id.email);
-        email.setText(myProfile.getEmail());
+        TextView email = (TextView) findViewById(R.id.user_profile_email);
+        email.setText(email.getText()+myProfile.getEmail());
 
-        TextView fechaNac = (TextView) findViewById(R.id.fechanac);
-        fechaNac.setText( myProfile.getDob());
+        TextView fechaNac = (TextView) findViewById(R.id.user_profile_birhdate);
+        fechaNac.setText( fechaNac.getText()+myProfile.getDob());
 
-        TextView ciudad = (TextView) findViewById(R.id.ciudad);
-        ciudad.setText(myProfile.getCity());
+        /*TextView ciudad = (TextView) findViewById(R.id.ciudad);
+        ciudad.setText(myProfile.getCity());*/
 
 /*        byte[] decodedString = Base64.decode(myProfile.getProfile_photo(), Base64.URL_SAFE);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -74,10 +79,11 @@ public class MyProfileActivity extends AppCompatActivity {
         mImg = (ImageView) findViewById(R.id.imageView);
         mImg.setImageBitmap();
 */
-        ImageView mImg;
+        /*ImageView mImg;
         mImg = (ImageView) findViewById(R.id.imageView);
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        Picasso.with(this).load( auth.getCurrentUser().getPhotoUrl()).into(mImg);
+        Picasso.with(this).load( auth.getCurrentUser().getPhotoUrl()).into(mImg);*/
+
 
     }
 

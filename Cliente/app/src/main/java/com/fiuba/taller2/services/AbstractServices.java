@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
  * Created by luis on 19/09/16.
  */
 public abstract class AbstractServices {
-    public static final String urlBase="http://192.168.1.105:8080/";
+    public static final String urlBase="http://192.168.1.102:8080/";
     protected String api_security;
 
     protected Object geDataOftDTO(String url, Class object) {
