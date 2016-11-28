@@ -32,6 +32,7 @@ import com.example.margonari.taller2_frontend.R;
 import com.firebase.ui.auth.AuthUI;
 import com.fiuba.taller2.adapters.ImageAdapter;
 import com.fiuba.taller2.domain.Categoria;
+import com.fiuba.taller2.domain.CategoriesLN;
 import com.fiuba.taller2.domain.CatogoryLN;
 import com.fiuba.taller2.domain.Contact;
 import com.fiuba.taller2.domain.Estado;
@@ -39,10 +40,13 @@ import com.fiuba.taller2.domain.LDJobPosition;
 import com.fiuba.taller2.domain.Login;
 import com.fiuba.taller2.domain.Mensaje;
 import com.fiuba.taller2.domain.MyProfile;
+import com.fiuba.taller2.domain.Skill;
 import com.fiuba.taller2.services.GetContactsRequestServices;
 import com.fiuba.taller2.services.GetContactsServices;
 import com.fiuba.taller2.services.GetConversationServices;
 import com.fiuba.taller2.services.GetPopularServices;
+import com.fiuba.taller2.services.GetSkills;
+import com.fiuba.taller2.services.GetSkillsServices;
 import com.fiuba.taller2.services.LDCategoriesServices;
 import com.fiuba.taller2.services.LDJobPositionsServices;
 import com.fiuba.taller2.services.LDMyProfileServices;
@@ -231,6 +235,18 @@ public class MainActivity extends AppCompatActivity
             Login loginTest;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            //Test de Skills
+            AsyncgetSkills asyncgetSkills = new AsyncgetSkills();
+            asyncgetSkills.execute();
+            try {
+                ArrayList <Skill> estado = (ArrayList<Skill>) asyncgetSkills.get();
+                if(estado!=null)  Log.d("skills", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
             //Envio mensaje a tomas
             AsyncSendMesagge asyncSendMesagge = new AsyncSendMesagge();
@@ -826,6 +842,22 @@ public class MainActivity extends AppCompatActivity
                 Log.e("SendMesagge", e.getMessage(), e);
             }
 
+            return null;
+        }
+
+    }
+
+    private class AsyncgetSkills extends AsyncTask<String, Void, ArrayList<Skill>> {
+        @Override
+        protected ArrayList<Skill> doInBackground(String... params) {
+            try {
+                GetSkillsServices getSkills= new GetSkillsServices();
+                getSkills.setApi_security(api_token);
+                ArrayList<Skill> estado= getSkills.getListCourses();
+                return estado;
+            } catch (Exception e) {
+                Log.e("SendMesagge", e.getMessage(), e);
+            }
             return null;
         }
 
