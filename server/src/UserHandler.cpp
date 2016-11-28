@@ -68,6 +68,7 @@ void UserHandler::lookup(std::string user_logged_id, std::string query, Json::Va
 			user_value["photo"] = user.get_profile_photo();
 			user_value["is_contact"] = (me.is_friend(user) ? "true" : "false");
 			user_value["distance"] = me.distance_to(user);
+			user_value["summary"] = user.get_summary();
 			array.append(user_value);
 		}
 	}

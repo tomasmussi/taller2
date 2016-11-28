@@ -407,7 +407,7 @@ TEST(UserHandlerTest, LookupUsers) {
 	UserHandler::get_instance().lookup(user_key, "luisarancibia", ans);
 	std::ostringstream os;
 	os << ans;
-	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"luisarancibia\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"luisarancibia\",\n\t\t\"photo\" : \"\",\n\t\t\"summary\" : \"\"\n\t}\n]";
 	EXPECT_EQ(expeted , os.str());
 }
 
@@ -500,7 +500,7 @@ TEST(UserHandlerTest, PopularUsers) {
 	UserHandler::get_instance().create_user(user_key);
 	UserHandler::get_instance().create_user(user_key2);
 	UserHandler::get_instance().create_user(other_key);
-	
+
 	UserHandler::get_instance().send_request(user_key, other_key);
 	UserHandler::get_instance().answer_request(other_key, user_key, true);
 	UserHandler::get_instance().user_vote(user_key, other_key);
@@ -508,7 +508,7 @@ TEST(UserHandlerTest, PopularUsers) {
    UserHandler::get_instance().send_request(user_key2, other_key);
 	UserHandler::get_instance().answer_request(other_key, user_key2, true);
 	UserHandler::get_instance().user_vote(user_key2, other_key);
-	
+
    vote_queue queue = UserHandler::get_instance().most_popular();
 	User top = queue.top();
 	EXPECT_EQ(other_key, top.id());
