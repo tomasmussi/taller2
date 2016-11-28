@@ -144,9 +144,9 @@ void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResp
 
 	std::string fb_id = request.get("user_fb_id", "");
 	std::string token_FCM = request.get("token_FCM","");
-	
-	Token_FCM token(fb_id,token_FCM); 
-	
+
+	Token_FCM token(fb_id,token_FCM);
+
 	TokenFCMHandler::get_instance().save_token(token);
 
 	Json::Value data;
@@ -161,7 +161,7 @@ void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResp
 
 
 void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-	
+
 	Token_FCM token("fb_id","eDSpyrzlxKQ:APA91bGBze7mTQK3OnIWJf-WTNRIYvFDbLNGsVjtMMliVRcjUF6AqsNbZhXTYcSS5srb6fSUSZ-yrB9NC7mX2hV6AjJAmF1Vz2fFuWVUX8oSDnPV1KcnStt6DNR0gyhLibjrMXuu2-MA");
 	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "HOLA");
 	//notificator.send();
@@ -306,10 +306,10 @@ void ApiJsonController::add_contact(Mongoose::Request &request, Mongoose::JsonRe
 	if (UserHandler::get_instance().user_exists(user_logged_id)
 		&& UserHandler::get_instance().user_exists(wanted_user_id)) {
 		UserHandler::get_instance().send_request(user_logged_id, wanted_user_id);
-	
+
 		Token_FCM token = TokenFCMHandler::get_instance().read_token(wanted_user_id);
 		Notificator notificator(token, TYPE_NOTIFICATOR::FRIEND_REQUEST, "Usted ha recibido una solicitud de amistad nueva");
-		//notificator.send();		
+		//notificator.send();
 
 	} else {
 		Json::Value errors;
@@ -575,7 +575,7 @@ void ApiJsonController::add_job_position(Mongoose::Request &request, Mongoose::J
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string new_job = request.get("job", "");
-	if (new_job.empty()) {
+	if (!new_job.empty()) {
 		UserHandler::get_instance().add_user_job(user_logged_id, new_job);
 		response["data"]["status"] = "OK";
 		response["data"]["message"] = "Job position agregado";
@@ -651,7 +651,7 @@ void ApiJsonController::send_message(Mongoose::Request &request, Mongoose::JsonR
 		return;
 	}
 	UserHandler::get_instance().send_message(user_logged_id, receiver_id, message);
-	
+
 	Token_FCM token = TokenFCMHandler::get_instance().read_token(receiver_id);
 	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "Usted ha recibido un mensaje nuevo");
 	notificator.send();
