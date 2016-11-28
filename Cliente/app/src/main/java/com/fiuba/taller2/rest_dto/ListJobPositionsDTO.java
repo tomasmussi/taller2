@@ -2,20 +2,18 @@ package com.fiuba.taller2.rest_dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fiuba.taller2.domain.Skills;
-
-import java.util.ArrayList;
+import com.fiuba.taller2.domain.JobPositions;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class ListSkillsDTO extends AbstractDTO {
+public class ListJobPositionsDTO extends AbstractDTO {
 
-     public Skills getData() {
-        return (Skills) data;
+    public JobPositions getData() {
+        return (JobPositions) data;
     }
 
-    public void setData(Skills data) {
+    public void setData(JobPositions data) {
         this.data = data;
     }
 

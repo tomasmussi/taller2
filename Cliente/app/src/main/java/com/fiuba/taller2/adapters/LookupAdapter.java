@@ -43,8 +43,8 @@ public class LookupAdapter extends RecyclerView
         public CourseHolder(View itemView) {
             super(itemView);
             contact_photo = (ImageView) itemView.findViewById(R.id.contact_photo);
-            contact_name = (TextView) itemView.findViewById(R.id.contact_name);
-            contact_summary = (TextView) itemView.findViewById(R.id.contact_summary);
+            contact_name = (TextView) itemView.findViewById(R.id.skill_name);
+            contact_summary = (TextView) itemView.findViewById(R.id.skill_category);
             context = itemView.getContext();
             button_addContact = (Button) itemView.findViewById(R.id.button_addContact);
             button_sendMessage= (Button) itemView.findViewById(R.id.button_sendMessage);

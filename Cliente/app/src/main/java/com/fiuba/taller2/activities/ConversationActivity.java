@@ -48,6 +48,8 @@ public class ConversationActivity  extends AppCompatActivity {
     private long q;
     private MyProfile user_profile;
     private MyProfile contact_profile;
+    private LinearLayoutManager mLinearLayoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class ConversationActivity  extends AppCompatActivity {
         mensajesAdapter = new MensajeAdapter(mensajeArrayList,ConversationActivity.this);
 
         mensajesRecyclerView.setAdapter(mensajesAdapter);
+        mensajesRecyclerView.scrollToPosition(mensajesAdapter.getItemCount()-1);
         buttonNewPost = (ImageButton) findViewById(R.id.button_new_post);
         buttonNewPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +113,10 @@ public class ConversationActivity  extends AppCompatActivity {
 
 
 
-
-
     }
+
+
+
 
 
     private ArrayList<Mensaje> getDataSetMensajes() {

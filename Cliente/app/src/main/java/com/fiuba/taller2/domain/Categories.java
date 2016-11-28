@@ -13,22 +13,22 @@ import java.util.ArrayList;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class JobPositions implements Serializable {
+public class Categories implements Serializable {
 
-    private ArrayList<JobPosition> job_positions;
+    private ArrayList<Category> Categories;
 
-    public ArrayList<JobPosition> getJob_positions() {
-        return job_positions;
+    public ArrayList<Category> getCategories() {
+        return Categories;
     }
 
-    public void setJob_positions(ArrayList<JobPosition> job_positions) {
-        this.job_positions = job_positions;
+    public void setCategories(ArrayList<Category> Categories) {
+        this.Categories = Categories;
     }
 
     @Override
     public String toString() {
-        return "job_positions{" +
-                "job_positions=" + job_positions +
+        return "Categories{" +
+                "Categories=" + Categories +
                 '}';
     }
 }

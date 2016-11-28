@@ -22,17 +22,17 @@
         android:layout_toEndOf="@+id/contact_photo">
 
         <com.devspark.robototextview.widget.RobotoTextView
-            android:id="@+id/contact_name"
+            android:id="@+id/skill_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextBody"
             app:typeface="roboto_medium" />
 
         <com.devspark.robototextview.widget.RobotoTextView
-            android:id="@+id/contact_summary"
+            android:id="@+id/skill_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/contact_name"
+            android:layout_below="@+id/skill_name"
             android:maxLines="3"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
@@ -49,7 +49,7 @@
             android:layout_height="35dp"
             android:textAppearance="@style/TextCaption_button"
             android:text="Ver perfil"
-            android:layout_below="@+id/contact_summary"
+            android:layout_below="@+id/skill_category"
 
             android:theme="@style/MyButton"/>
         <Button

@@ -82,7 +82,7 @@ public class CategoriesAdapter extends RecyclerView
         // Picasso.with(holder.context).load(urlImage).into(holder.course_photo);
 
         //h
-        // older.course_session_start.setText("El curso inicia: " + mDataset.get(position).getCurrent_sessions().get(0).getStart().substring(0,10));
+        // older.skill_category.setText("El curso inicia: " + mDataset.get(position).getCurrent_sessions().get(0).getStart().substring(0,10));
     }
 
     public void addItem(CatogoryLN course, int index) {

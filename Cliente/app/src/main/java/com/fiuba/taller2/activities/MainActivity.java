@@ -27,22 +27,27 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.fiuba.taller2.R;
 import com.firebase.ui.auth.AuthUI;
+import com.fiuba.taller2.R;
 import com.fiuba.taller2.adapters.ImageAdapter;
 import com.fiuba.taller2.domain.Categoria;
+import com.fiuba.taller2.domain.Category;
 import com.fiuba.taller2.domain.CatogoryLN;
 import com.fiuba.taller2.domain.Contact;
 import com.fiuba.taller2.domain.Estado;
-import com.fiuba.taller2.domain.LDJobPosition;
+import com.fiuba.taller2.domain.JobPosition;
 import com.fiuba.taller2.domain.Login;
 import com.fiuba.taller2.domain.Mensaje;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.domain.Skill;
+import com.fiuba.taller2.services.DeleteJobPositionServices;
 import com.fiuba.taller2.services.DeleteSkillServices;
+import com.fiuba.taller2.services.GetCategoriesServices;
 import com.fiuba.taller2.services.GetContactsRequestServices;
 import com.fiuba.taller2.services.GetContactsServices;
 import com.fiuba.taller2.services.GetConversationServices;
+import com.fiuba.taller2.services.GetJobPositionServices;
+import com.fiuba.taller2.services.GetJobPositionsServices;
 import com.fiuba.taller2.services.GetPopularServices;
 import com.fiuba.taller2.services.GetSkillServices;
 import com.fiuba.taller2.services.GetSkillsServices;
@@ -56,6 +61,7 @@ import com.fiuba.taller2.services.SaveProfileServices;
 import com.fiuba.taller2.services.SendContactRequestServices;
 import com.fiuba.taller2.services.SendContactResponseServices;
 import com.fiuba.taller2.services.SendMesaggeServices;
+import com.fiuba.taller2.services.SetJobPositionServices;
 import com.fiuba.taller2.services.SetLocationServices;
 import com.fiuba.taller2.services.SetSkillServices;
 import com.fiuba.taller2.services.VoteServices;
@@ -186,11 +192,11 @@ public class MainActivity extends AppCompatActivity
         HttpRequestTaskLogin httpRequestTask = new HttpRequestTaskLogin();
 
         httpRequestTask.execute(userEmail);
-        Login login=null;
+        Login login = null;
         try {
-             login = (Login) httpRequestTask.get();
+            login = (Login) httpRequestTask.get();
 
-            api_token=login.getToken();
+            api_token = login.getToken();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -198,13 +204,14 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-            //Registro el push_id
+        //Registro el push_id
         AsyncRegister asyncRegister = new AsyncRegister();
-       if(login!=null) asyncRegister.execute(this.userEmail, FirebaseInstanceId.getInstance().getToken());
+        if (login != null)
+            asyncRegister.execute(this.userEmail, FirebaseInstanceId.getInstance().getToken());
         Estado estado;
         try {
-            estado = ( Estado) asyncRegister.get();
-            if(estado!=null)  Log.d("PUSH_ID", estado.toString());
+            estado = (Estado) asyncRegister.get();
+            if (estado != null) Log.d("PUSH_ID", estado.toString());
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -292,6 +299,90 @@ public class MainActivity extends AppCompatActivity
             Login loginTest;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            //Test de Categories
+            AsyncGetCategories asyncGetCategories= new AsyncGetCategories();
+            asyncGetCategories.execute();
+            try {
+                ArrayList<Category> estado = (ArrayList<Category>) asyncGetCategories.get();
+                if (estado != null) Log.d("categories", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            //Pruebas de JobPositions
+            //Test de JobPositions
+            AsyncGetJobPositions asyncGetJobPositions = new AsyncGetJobPositions();
+            asyncGetJobPositions.execute();
+            try {
+                ArrayList<JobPosition> estado = (ArrayList<JobPosition>) asyncGetJobPositions.get();
+                if (estado != null) Log.d("JobPositions", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //Test de JobPosition (Chequea un jobPosition en particular
+            AsyncGetJobPosition asyncGetJobPosition = new AsyncGetJobPosition();
+            asyncGetJobPosition.execute("dj");
+            try {
+                JobPosition estado = (JobPosition) asyncGetJobPosition.get();
+                if (estado != null) Log.d("Jobposition", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //Seteo un jobPosition para  tomas
+            AsyncSetJobPosition asyncSetJobPosition = new AsyncSetJobPosition();
+
+            asyncSetJobPosition.execute("dj");
+            try {
+                Estado estado = (Estado) asyncSetJobPosition.get();
+                Log.d("Estado", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //Muestro el profile
+            HttpRequestTaskMyProfile httpRequestTaskMyProfile2 = new HttpRequestTaskMyProfile();
+            httpRequestTaskMyProfile2.execute();
+            MyProfile myProfile = new MyProfile();
+            try {
+                myProfile = httpRequestTaskMyProfile2.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //Elimino el jobPosition de tomas
+            AsyncDeleteJobPosition asyncDeleteJobPosition = new AsyncDeleteJobPosition();
+            asyncDeleteJobPosition.execute("dj");
+            Log.d("Estado", "Se elimino un jopbPosition");
+
+
+            //Muestro el profile
+            HttpRequestTaskMyProfile httpRequestTaskMyProfile1 = new HttpRequestTaskMyProfile();
+            httpRequestTaskMyProfile1.execute();
+            MyProfile myProfile1 = new MyProfile();
+            try {
+                myProfile1 = httpRequestTaskMyProfile1.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            //
+
             //Test de Skills
             AsyncgetSkills asyncgetSkills = new AsyncgetSkills();
             asyncgetSkills.execute();
@@ -332,11 +423,11 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
-            HttpRequestTaskMyProfile httpRequestTaskMyProfile2 = new HttpRequestTaskMyProfile();
-            httpRequestTaskMyProfile2.execute();
-            MyProfile myProfile = new MyProfile();
+            HttpRequestTaskMyProfile httpRequestTaskMyProfile3 = new HttpRequestTaskMyProfile();
+            httpRequestTaskMyProfile3.execute();
+            MyProfile myProfile3 = new MyProfile();
             try {
-                myProfile = httpRequestTaskMyProfile2.get();
+                myProfile3 = httpRequestTaskMyProfile3.get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -348,11 +439,11 @@ public class MainActivity extends AppCompatActivity
             asyncDeleteSkill.execute("java");
             Log.d("Estado", "Se elimino un skill");
 
-            HttpRequestTaskMyProfile httpRequestTaskMyProfile1 = new HttpRequestTaskMyProfile();
-            httpRequestTaskMyProfile1.execute();
-            MyProfile myProfile1 = new MyProfile();
+            HttpRequestTaskMyProfile httpRequestTaskMyProfile4 = new HttpRequestTaskMyProfile();
+            httpRequestTaskMyProfile4.execute();
+            MyProfile myProfile4 = new MyProfile();
             try {
-                myProfile1 = httpRequestTaskMyProfile1.get();
+                myProfile4 = httpRequestTaskMyProfile4.get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -388,13 +479,12 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-
             //Envio mensaje a tomas
             AsyncSendMesagge asyncSendMesagge2 = new AsyncSendMesagge();
-            asyncSendMesagge2.execute("aran.com.ar@gmail.com","Hola Luis, como estas?");
+            asyncSendMesagge2.execute("aran.com.ar@gmail.com", "Hola Luis, como estas?");
             try {
-                Estado estado2 = ( Estado) asyncSendMesagge2.get();
-                if(estado2!=null)  Log.d("ConversartionList", estado2.toString());
+                Estado estado2 = (Estado) asyncSendMesagge2.get();
+                if (estado2 != null) Log.d("ConversartionList", estado2.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -560,11 +650,38 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-            Intent intent = new Intent(this,ConversationActivity.class);
+            Intent intent = new Intent(this, ConversationActivity.class);
 
             intent.putExtra("API_TOKEN", api_token);
+            intent.putExtra("CONTACT_FB_ID", "tomas");
             startActivity(intent);
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        } else if (id == R.id.contactosdestacados) {
+
+            Intent intent = new Intent(this, MyProfileActivity.class);
+            intent.putExtra("API_TOKEN", api_token);
+
+            startActivity(intent);
+
+        } else if (id == R.id.miPerfil) {
+            HttpRequestTaskMyProfile httpRequestTaskMyProfile = new HttpRequestTaskMyProfile();
+            httpRequestTaskMyProfile.execute();
+            MyProfile myProfile = new MyProfile();
+            try {
+                myProfile = httpRequestTaskMyProfile.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            Intent intent = new Intent(this, MyProfileActivity.class);
+            intent.putExtra("PROFILE", myProfile);
+            intent.putExtra("API_TOKEN", api_token);
+            startActivity(intent);
+        } else if (id == R.id.notificaciones) {
+
+        } else if (id == R.id.ajustes) {
 
         } else if (id == R.id.cerrar_sesion) {
             AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -652,7 +769,7 @@ public class MainActivity extends AppCompatActivity
         if (item_id == 4) {
             HttpRequestTaskJobs httpRequestTaskJobs = new HttpRequestTaskJobs();
             httpRequestTaskJobs.execute();
-            ArrayList<LDJobPosition> listJobs = new ArrayList<>();
+            ArrayList<JobPosition> listJobs = new ArrayList<>();
             try {
                 listJobs = httpRequestTaskJobs.get();
             } catch (InterruptedException e) {
@@ -727,22 +844,17 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-    private class HttpRequestTaskJobs extends AsyncTask<String, Void, ArrayList<LDJobPosition>> {
+    private class HttpRequestTaskJobs extends AsyncTask<String, Void, ArrayList<JobPosition>> {
         @Override
-        protected ArrayList<LDJobPosition> doInBackground(String... params) {
+        protected ArrayList<JobPosition> doInBackground(String... params) {
             try {
-                //String user = params[0];
-
-                LDJobPositionsServices ldJobPositionsServices = new LDJobPositionsServices();
-                ldJobPositionsServices.setApi_security(api_token);
-                ArrayList<LDJobPosition> listJobs = (ArrayList<LDJobPosition>) ldJobPositionsServices.getListCourses().getJobPositions();
-                Log.d("Primer Trabajo:", listJobs.get(0).getName());
-                return listJobs;
+                GetJobPositionsServices getJobPositions = new GetJobPositionsServices();
+                getJobPositions.setApi_security(api_token);
+                ArrayList<JobPosition> estado = getJobPositions.get();
+                return estado;
             } catch (Exception e) {
-                Log.e("LoginActivity", e.getMessage(), e);
+                Log.e("JobPositions", e.getMessage(), e);
             }
-
             return null;
         }
 
@@ -943,16 +1055,17 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
     private class AsyncRegister extends AsyncTask<String, Void, Estado> {
         @Override
         protected Estado doInBackground(String... params) {
             try {
-                String user_fb_id =params[0];
-                String token_FCM=params[1];
+                String user_fb_id = params[0];
+                String token_FCM = params[1];
 
-                RegisterPushIdServices registerPushIdServices=new RegisterPushIdServices();
+                RegisterPushIdServices registerPushIdServices = new RegisterPushIdServices();
                 registerPushIdServices.setApi_security(api_token);
-                Estado estado= (Estado) registerPushIdServices.get(user_fb_id,token_FCM);
+                Estado estado = (Estado) registerPushIdServices.get(user_fb_id, token_FCM);
                 return estado;
             } catch (Exception e) {
                 Log.e("SendMesagge", e.getMessage(), e);
@@ -964,7 +1077,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
+    //TODO eliminar
+/*
     private class HttpPosotionJob extends AsyncTask<String, Void, List<LDJobPosition>> {
         @Override
         protected ArrayList<LDJobPosition> doInBackground(String... params) {
@@ -972,7 +1086,7 @@ public class MainActivity extends AppCompatActivity
                 String user = params[0];
                 LDJobPositionsServices listCourseServices= new LDJobPositionsServices();
                 listCourseServices.setApi_security(api_token);
-                return listCourseServices.getListCourses().getJobPositions();
+                return listCourseServices.getListCourses().getJob_positions();
 
             } catch (Exception e) {
                 Log.e("SearcheableAcivity", e.getMessage(), e);
@@ -980,10 +1094,8 @@ public class MainActivity extends AppCompatActivity
 
             return null;
         }
-
-
-    }
-
+}
+*/
 
 
     private class AsyncgetSkills extends AsyncTask<String, Void, ArrayList<Skill>> {
@@ -1041,7 +1153,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected Skill doInBackground(String... params) {
             try {
-                String nameSkill = params [0];
+                String nameSkill = params[0];
                 GetSkillServices getSkillServices = new GetSkillServices();
                 getSkillServices.setApi_security(api_token);
                 Skill estado = getSkillServices.getSkill(nameSkill);
@@ -1071,6 +1183,91 @@ public class MainActivity extends AppCompatActivity
             }
 
             return result;
+        }
+
+    }
+
+
+    private class AsyncGetJobPositions extends AsyncTask<String, Void, ArrayList<JobPosition>> {
+        @Override
+        protected ArrayList<JobPosition> doInBackground(String... params) {
+            try {
+                GetJobPositionsServices getJobPositions = new GetJobPositionsServices();
+                getJobPositions.setApi_security(api_token);
+                ArrayList<JobPosition> estado = getJobPositions.get();
+                return estado;
+            } catch (Exception e) {
+                Log.e("JobPositions", e.getMessage(), e);
+            }
+            return null;
+        }
+
+    }
+
+    private class AsyncSetJobPosition extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String nameJobPosition = params[0];
+
+                SetJobPositionServices setJobPositionServices = new SetJobPositionServices();
+                setJobPositionServices.setApi_security(api_token);
+                Estado estado_response = (Estado) setJobPositionServices.get(nameJobPosition);
+                return estado_response;
+            } catch (Exception e) {
+                Log.e("SetJobposition", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+    private class AsyncDeleteJobPosition extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            try {
+                String nameSkill = params[0];
+
+                DeleteJobPositionServices deleteJobPositionServices = new DeleteJobPositionServices();
+                deleteJobPositionServices.setApi_security(api_token);
+                deleteJobPositionServices.get(nameSkill);
+            } catch (Exception e) {
+                Log.e("SetDeleteJobPosition", e.getMessage(), e);
+            }
+            return null;
+        }
+    }
+
+    private class AsyncGetJobPosition extends AsyncTask<String, Void, JobPosition> {
+        @Override
+        protected JobPosition doInBackground(String... params) {
+            try {
+                String nameJobPosition = params[0];
+                GetJobPositionServices getJobPositionServices = new GetJobPositionServices();
+                getJobPositionServices.setApi_security(api_token);
+                JobPosition estado = getJobPositionServices.get(nameJobPosition);
+                return estado;
+            } catch (Exception e) {
+                Log.e("JobPosition", e.getMessage(), e);
+            }
+            return null;
+        }
+
+    }
+
+    private class AsyncGetCategories extends AsyncTask<String, Void, ArrayList<Category>> {
+        @Override
+        protected ArrayList<Category> doInBackground(String... params) {
+            try {
+                GetCategoriesServices getCategoriesServices = new GetCategoriesServices();
+                getCategoriesServices.setApi_security(api_token);
+                ArrayList<Category> estado = getCategoriesServices.get();
+                return estado;
+            } catch (Exception e) {
+                Log.e("Categories", e.getMessage(), e);
+            }
+            return null;
         }
 
     }

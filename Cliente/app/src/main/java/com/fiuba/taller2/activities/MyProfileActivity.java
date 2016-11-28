@@ -7,14 +7,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.fiuba.taller2.R;
+import com.fiuba.taller2.adapters.MensajeAdapter;
+import com.fiuba.taller2.adapters.SkillsAdapter;
 import com.fiuba.taller2.domain.MyProfile;
+import com.fiuba.taller2.domain.Skill;
+import com.fiuba.taller2.domain.Skills;
 import com.fiuba.taller2.services.LDMyProfileServices;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class MyProfileActivity extends AppCompatActivity {
@@ -79,6 +88,30 @@ public class MyProfileActivity extends AppCompatActivity {
 
         TextView summary = (TextView) findViewById(R.id.user_profile_summary);
         summary.setText( summary.getText()+myProfile.getSummary());
+
+
+        Skill skill1= new Skill();
+        Skill skill2= new Skill();
+
+        skill1.setName("tuvieja");
+        skill2.setName("tuviejo");
+
+        skill1.setCategory("una categoria");
+        skill2.setCategory("otra categoria");
+
+        skill1.setDescription("Descripvion1");
+        skill2.setDescription("Descripvion2");
+        //Creamos el adaptador
+        ArrayList<Skill> arrayList=new ArrayList<>();
+        arrayList.add(skill1);
+        arrayList.add(skill2);
+
+        ExpandableListView spinnerCoursesType = (ExpandableListView) findViewById(R.id.user_profile_skills);
+
+        spinnerCoursesType.setAdapter(new SkillsAdapter(this,arrayList));
+      //  ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.,android.R.layout.simple_spinner_item);
+
+
     }
 
 
