@@ -41,11 +41,11 @@ import com.fiuba.taller2.domain.Login;
 import com.fiuba.taller2.domain.Mensaje;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.domain.Skill;
+import com.fiuba.taller2.services.DeleteSkillServices;
 import com.fiuba.taller2.services.GetContactsRequestServices;
 import com.fiuba.taller2.services.GetContactsServices;
 import com.fiuba.taller2.services.GetConversationServices;
 import com.fiuba.taller2.services.GetPopularServices;
-import com.fiuba.taller2.services.GetSkills;
 import com.fiuba.taller2.services.GetSkillsServices;
 import com.fiuba.taller2.services.LDCategoriesServices;
 import com.fiuba.taller2.services.LDJobPositionsServices;
@@ -56,6 +56,7 @@ import com.fiuba.taller2.services.SendContactRequestServices;
 import com.fiuba.taller2.services.SendContactResponseServices;
 import com.fiuba.taller2.services.SendMesaggeServices;
 import com.fiuba.taller2.services.SetLocationServices;
+import com.fiuba.taller2.services.SetSkillServices;
 import com.fiuba.taller2.services.VoteServices;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             return;
-        }else {
+        } else {
             /*Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if(location!=null)
             Log.d("Location: ", location.toString());
@@ -157,20 +158,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        if( requestCode == RC_SIGN_IN){
-                if ( resultCode== RESULT_OK){
-                    Log.d("AUTH",auth.getCurrentUser().getEmail());
-                    Log.d("hola",auth.getCurrentUser().getProviders().toString());
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                Log.d("AUTH", auth.getCurrentUser().getEmail());
+                Log.d("hola", auth.getCurrentUser().getProviders().toString());
 
-                    InitApiTokenFromServer(auth.getCurrentUser().getEmail());
-                    userEmail=auth.getCurrentUser().getEmail();
-                    firstName=auth.getCurrentUser().getDisplayName();
-                    Log.d("NOMBRE DEL WACHIN", firstName);
-                    profilePicture= auth.getCurrentUser().getPhotoUrl().toString();
-                }
-        }else{Log.d("AUTH","User not autenticated");}
+                InitApiTokenFromServer(auth.getCurrentUser().getEmail());
+                userEmail = auth.getCurrentUser().getEmail();
+                firstName = auth.getCurrentUser().getDisplayName();
+                Log.d("NOMBRE DEL WACHIN", firstName);
+                profilePicture = auth.getCurrentUser().getPhotoUrl().toString();
+            }
+        } else {
+            Log.d("AUTH", "User not autenticated");
+        }
     }
 
     private void InitApiTokenFromServer(String userEmail) {
@@ -179,7 +182,7 @@ public class MainActivity extends AppCompatActivity
         httpRequestTask.execute(userEmail);
         try {
             Login login = (Login) httpRequestTask.get();
-            api_token=login.getToken();
+            api_token = login.getToken();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -188,7 +191,7 @@ public class MainActivity extends AppCompatActivity
 
         AsyncSetLocation asyncSetLocation = new AsyncSetLocation();
 
-        asyncSetLocation.execute(String.valueOf(latitude),String.valueOf(longitude));
+        asyncSetLocation.execute(String.valueOf(latitude), String.valueOf(longitude));
         try {
             Estado estado = (Estado) asyncSetLocation.get();
             Log.d("Estado", estado.toString());
@@ -239,8 +242,8 @@ public class MainActivity extends AppCompatActivity
             AsyncgetSkills asyncgetSkills = new AsyncgetSkills();
             asyncgetSkills.execute();
             try {
-                ArrayList <Skill> estado = (ArrayList<Skill>) asyncgetSkills.get();
-                if(estado!=null)  Log.d("skills", estado.toString());
+                ArrayList<Skill> estado = (ArrayList<Skill>) asyncgetSkills.get();
+                if (estado != null) Log.d("skills", estado.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -248,12 +251,33 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
+            //Seteo un skill para  tomas
+            AsyncSetSkill asyncSetSkill = new AsyncSetSkill();
+
+            asyncSetSkill.execute("java");
+            try {
+                Estado estado = (Estado) asyncSetSkill.get();
+                Log.d("Estado", estado.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            //Elimino el skill de tomas
+            AsyncDeleteSkill asyncDeleteSkill = new AsyncDeleteSkill();
+
+            asyncSetSkill.execute("java");
+            Log.d("Estado", "Se elimino un skill");
+
+
             //Envio mensaje a tomas
             AsyncSendMesagge asyncSendMesagge = new AsyncSendMesagge();
-            asyncSendMesagge.execute("tomas","Hola Tomas, como estas?");
+            asyncSendMesagge.execute("tomas", "Hola Tomas, como estas?");
             try {
-                Estado estado = ( Estado) asyncSendMesagge.get();
-                if(estado!=null)  Log.d("ConversartionList", estado.toString());
+                Estado estado = (Estado) asyncSendMesagge.get();
+                if (estado != null) Log.d("ConversartionList", estado.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -268,7 +292,7 @@ public class MainActivity extends AppCompatActivity
             try {
                 loginTest = (Login) httpRequestTask.get();
                 Log.d("Login", loginTest.toString());
-                api_token=loginTest.getToken();
+                api_token = loginTest.getToken();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -281,7 +305,7 @@ public class MainActivity extends AppCompatActivity
 
             httpRequestTaskLookup.execute("tomas");
             try {
-                ArrayList<Contact> contactArrayList = ( ArrayList<Contact>) httpRequestTaskLookup.get();
+                ArrayList<Contact> contactArrayList = (ArrayList<Contact>) httpRequestTaskLookup.get();
                 Log.d("Contacts", contactArrayList.toString());
                 Log.d("Contacts", contactArrayList.get(0).toString());
             } catch (InterruptedException e) {
@@ -291,11 +315,10 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-
             //Seteo localizacion para tomas
             AsyncSetLocation asyncSetLocation = new AsyncSetLocation();
 
-            asyncSetLocation.execute("-34.595241","-58.402460");
+            asyncSetLocation.execute("-34.595241", "-58.402460");
             try {
                 Estado estado = (Estado) asyncSetLocation.get();
                 Log.d("Estado", estado.toString());
@@ -307,7 +330,6 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-
             //Obtengo lista de contactos de tomas
             AsyncGetContacts asyncGetContacts = new AsyncGetContacts();
 
@@ -315,28 +337,27 @@ public class MainActivity extends AppCompatActivity
             ArrayList<Contact> contactArrayList;
 
             try {
-                contactArrayList = ( ArrayList<Contact>) asyncGetContacts.get();
+                contactArrayList = (ArrayList<Contact>) asyncGetContacts.get();
                 Log.d("Contacts", contactArrayList.toString());
                 Log.d("Contacts", contactArrayList.get(0).toString());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-            }
-             catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 e.printStackTrace();
-                 contactArrayList= new ArrayList<Contact>();
-        }
+                contactArrayList = new ArrayList<Contact>();
+            }
 
 
             //Envio solicitud de contacto a Luis
-        AsyncSendContactRequest asyncSendContactRequest = new AsyncSendContactRequest();
+            AsyncSendContactRequest asyncSendContactRequest = new AsyncSendContactRequest();
 
             asyncSendContactRequest.execute("aran.com.ar@gmail.com");
 
             try {
                 Estado estado = (Estado) asyncSendContactRequest.get();
-              if(estado!=null)  Log.d("Estado", estado.toString());
+                if (estado != null) Log.d("Estado", estado.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -352,7 +373,7 @@ public class MainActivity extends AppCompatActivity
             try {
                 loginTest = (Login) httpRequestTask2.get();
                 Log.d("Login", loginTest.toString());
-                api_token=loginTest.getToken();
+                api_token = loginTest.getToken();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -365,25 +386,24 @@ public class MainActivity extends AppCompatActivity
             asyncGetContactsRequest.execute();
             ArrayList<Contact> contacRequesttArrayList;
             try {
-                contacRequesttArrayList = ( ArrayList<Contact>) asyncGetContactsRequest.get();
+                contacRequesttArrayList = (ArrayList<Contact>) asyncGetContactsRequest.get();
                 Log.d("Contacts", contacRequesttArrayList.toString());
                 Log.d("Contacts", contacRequesttArrayList.get(0).toString());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-            }
-            catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 e.printStackTrace();
-                contacRequesttArrayList= new ArrayList<Contact>();
+                contacRequesttArrayList = new ArrayList<Contact>();
             }
 
             //Contesto a la solicitud de tomas con un si, ahora somos contactos el uno del ortro
             AsyncSendContactResponse asyncSendContactResponse = new AsyncSendContactResponse();
-            asyncSendContactResponse.execute("tomas","true");
+            asyncSendContactResponse.execute("tomas", "true");
             try {
                 Estado estado = (Estado) asyncSendContactResponse.get();
-                if(estado!=null)  Log.d("Estado", estado.toString());
+                if (estado != null) Log.d("Estado", estado.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -397,14 +417,13 @@ public class MainActivity extends AppCompatActivity
             asyncVoteRequest.execute("tomas");
             try {
                 Estado estado = (Estado) asyncVoteRequest.get();
-                if(estado!=null)  Log.d("Estado", estado.toString());
+                if (estado != null) Log.d("Estado", estado.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-
 
 
             //Consulto los mas populares
@@ -412,15 +431,15 @@ public class MainActivity extends AppCompatActivity
             asyncGetPopularRequest.execute();
             ArrayList<Contact> contacPupularRequesttArrayList;
             try {
-                contacPupularRequesttArrayList = ( ArrayList<Contact>) asyncGetPopularRequest.get();
-                if(contacPupularRequesttArrayList!=null)  Log.d("Estado", contacPupularRequesttArrayList.toString());
+                contacPupularRequesttArrayList = (ArrayList<Contact>) asyncGetPopularRequest.get();
+                if (contacPupularRequesttArrayList != null)
+                    Log.d("Estado", contacPupularRequesttArrayList.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-
 
 
             //Como Luis me fijo que estado tiene la conversacion con tomas
@@ -428,8 +447,9 @@ public class MainActivity extends AppCompatActivity
             asyncGetConversation.execute("tomas");
             ArrayList<Mensaje> casyncGetConversationArrayList;
             try {
-                casyncGetConversationArrayList = ( ArrayList<Mensaje>) asyncGetConversation.get();
-                if(casyncGetConversationArrayList!=null)  Log.d("ConversartionList", casyncGetConversationArrayList.toString());
+                casyncGetConversationArrayList = (ArrayList<Mensaje>) asyncGetConversation.get();
+                if (casyncGetConversationArrayList != null)
+                    Log.d("ConversartionList", casyncGetConversationArrayList.toString());
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -438,8 +458,7 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-
-            Intent intent = new Intent(this,ConversationActivity.class);
+            Intent intent = new Intent(this, ConversationActivity.class);
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
 
@@ -447,19 +466,18 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.contactosdestacados) {
 
 
-
         } else if (id == R.id.miPerfil) {
             HttpRequestTaskMyProfile httpRequestTaskMyProfile = new HttpRequestTaskMyProfile();
             httpRequestTaskMyProfile.execute();
-            MyProfile myProfile= new MyProfile();
+            MyProfile myProfile = new MyProfile();
             try {
-                myProfile= httpRequestTaskMyProfile.get();
+                myProfile = httpRequestTaskMyProfile.get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            Intent intent = new Intent(this,MyProfileActivity.class);
+            Intent intent = new Intent(this, MyProfileActivity.class);
             intent.putExtra("PROFILE", myProfile);
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
@@ -476,10 +494,10 @@ public class MainActivity extends AppCompatActivity
 
                             .createSignInIntentBuilder().setIsSmartLockEnabled(false).
                                     setProviders(
-                            AuthUI.FACEBOOK_PROVIDER,
-                            AuthUI.GOOGLE_PROVIDER
-                    ).build(),RC_SIGN_IN);
-                                    }
+                                            AuthUI.FACEBOOK_PROVIDER,
+                                            AuthUI.GOOGLE_PROVIDER
+                                    ).build(), RC_SIGN_IN);
+                }
             });
 
         }
@@ -496,7 +514,7 @@ public class MainActivity extends AppCompatActivity
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW,
                 "Main Page",
-                 Uri.parse("http://host/path"),
+                Uri.parse("http://host/path"),
                 Uri.parse("android-app://com.fiuba.taller2/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
@@ -550,7 +568,7 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
         }
-        if(item_id==4){
+        if (item_id == 4) {
             HttpRequestTaskJobs httpRequestTaskJobs = new HttpRequestTaskJobs();
             httpRequestTaskJobs.execute();
             ArrayList<LDJobPosition> listJobs = new ArrayList<>();
@@ -574,9 +592,9 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected ArrayList<CatogoryLN> doInBackground(String... params) {
             try {
-                LDCategoriesServices listCoursesByCategoriesServices= new LDCategoriesServices();
+                LDCategoriesServices listCoursesByCategoriesServices = new LDCategoriesServices();
                 listCoursesByCategoriesServices.setApi_security(api_token);
-                ArrayList<CatogoryLN>  listCourses= (ArrayList<CatogoryLN>) listCoursesByCategoriesServices.getListCourses().getCategories();
+                ArrayList<CatogoryLN> listCourses = (ArrayList<CatogoryLN>) listCoursesByCategoriesServices.getListCourses().getCategories();
 
                 return listCourses;
             } catch (Exception e) {
@@ -588,16 +606,17 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    class HttpRequestTaskMyProfile extends AsyncTask<String, Void,MyProfile> {
+    class HttpRequestTaskMyProfile extends AsyncTask<String, Void, MyProfile> {
 
         MyProfile myProfile;
+
         @Override
         protected MyProfile doInBackground(String... params) {
             try {
 
-                LDMyProfileServices ldMyProfileServices= new LDMyProfileServices();
+                LDMyProfileServices ldMyProfileServices = new LDMyProfileServices();
                 ldMyProfileServices.setApi_security(api_token);
-                myProfile =  ldMyProfileServices.getProfile();
+                myProfile = ldMyProfileServices.getProfile();
 
 
             } catch (Exception e) {
@@ -615,7 +634,7 @@ public class MainActivity extends AppCompatActivity
         protected Login doInBackground(String... params) {
             try {
                 String user = params[0];
-                Login login=  new LoginServices().getLoginBy(user);
+                Login login = new LoginServices().getLoginBy(user);
                 Log.d("Login Token:", login.getToken());
                 return login;
             } catch (Exception e) {
@@ -628,16 +647,15 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     private class HttpRequestTaskJobs extends AsyncTask<String, Void, ArrayList<LDJobPosition>> {
         @Override
         protected ArrayList<LDJobPosition> doInBackground(String... params) {
             try {
                 //String user = params[0];
 
-                LDJobPositionsServices ldJobPositionsServices=new LDJobPositionsServices();
+                LDJobPositionsServices ldJobPositionsServices = new LDJobPositionsServices();
                 ldJobPositionsServices.setApi_security(api_token);
-                ArrayList<LDJobPosition> listJobs= (ArrayList<LDJobPosition>) ldJobPositionsServices.getListCourses().getJobPositions();
+                ArrayList<LDJobPosition> listJobs = (ArrayList<LDJobPosition>) ldJobPositionsServices.getListCourses().getJobPositions();
                 Log.d("Primer Trabajo:", listJobs.get(0).getName());
                 return listJobs;
             } catch (Exception e) {
@@ -648,16 +666,17 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
     private class AsyncSetLocation extends AsyncTask<String, Void, Estado> {
         @Override
         protected Estado doInBackground(String... params) {
             try {
-                String latitude =params[0];
-                String longitude=params[1];
+                String latitude = params[0];
+                String longitude = params[1];
 
-                SetLocationServices setLocationServices=new SetLocationServices();
+                SetLocationServices setLocationServices = new SetLocationServices();
                 setLocationServices.setApi_security(api_token);
-                Estado estado_response = (Estado) setLocationServices.get(latitude,longitude);
+                Estado estado_response = (Estado) setLocationServices.get(latitude, longitude);
                 return estado_response;
             } catch (Exception e) {
                 Log.e("AsyncSetLocation", e.getMessage(), e);
@@ -669,15 +688,14 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     private class AsyncGetContacts extends AsyncTask<String, Void, ArrayList<Contact>> {
         @Override
         protected ArrayList<Contact> doInBackground(String... params) {
             try {
 
-                GetContactsServices getContactsServices=new GetContactsServices();
+                GetContactsServices getContactsServices = new GetContactsServices();
                 getContactsServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts= (ArrayList<Contact>) getContactsServices.get();
+                ArrayList<Contact> listContacts = (ArrayList<Contact>) getContactsServices.get();
                 return listContacts;
             } catch (Exception e) {
                 Log.e("LookUp", e.getMessage(), e);
@@ -693,9 +711,9 @@ public class MainActivity extends AppCompatActivity
         protected ArrayList<Contact> doInBackground(String... params) {
             try {
 
-                GetContactsRequestServices getContactsServices=new GetContactsRequestServices();
+                GetContactsRequestServices getContactsServices = new GetContactsRequestServices();
                 getContactsServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts= (ArrayList<Contact>) getContactsServices.get();
+                ArrayList<Contact> listContacts = (ArrayList<Contact>) getContactsServices.get();
                 return listContacts;
             } catch (Exception e) {
                 Log.e("GetContactsRequestServ", e.getMessage(), e);
@@ -712,9 +730,9 @@ public class MainActivity extends AppCompatActivity
             try {
                 String user = params[0];
 
-                LookupServices lookupServices=new LookupServices();
+                LookupServices lookupServices = new LookupServices();
                 lookupServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts= (ArrayList<Contact>) lookupServices.get(user);
+                ArrayList<Contact> listContacts = (ArrayList<Contact>) lookupServices.get(user);
                 return listContacts;
             } catch (Exception e) {
                 Log.e("Buscarcontacto", e.getMessage(), e);
@@ -731,9 +749,9 @@ public class MainActivity extends AppCompatActivity
             try {
                 String contact_fb_id = params[0];
 
-                SendContactRequestServices SendContactRequestServices=new SendContactRequestServices();
+                SendContactRequestServices SendContactRequestServices = new SendContactRequestServices();
                 SendContactRequestServices.setApi_security(api_token);
-                Estado estado= (Estado) SendContactRequestServices.get(contact_fb_id);
+                Estado estado = (Estado) SendContactRequestServices.get(contact_fb_id);
                 return estado;
             } catch (Exception e) {
                 Log.e("SendSolicitudContact", e.getMessage(), e);
@@ -752,9 +770,9 @@ public class MainActivity extends AppCompatActivity
                 String answer = params[1];
 
 
-                SendContactResponseServices SendContactRequestServices=new SendContactResponseServices();
+                SendContactResponseServices SendContactRequestServices = new SendContactResponseServices();
                 SendContactRequestServices.setApi_security(api_token);
-                Estado estado= (Estado) SendContactRequestServices.get(contact_fb_id, answer);
+                Estado estado = (Estado) SendContactRequestServices.get(contact_fb_id, answer);
                 return estado;
             } catch (Exception e) {
                 Log.e("RTASolicitudContacto", e.getMessage(), e);
@@ -766,16 +784,15 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
     private class AsyncVoteRequest extends AsyncTask<String, Void, Estado> {
         @Override
         protected Estado doInBackground(String... params) {
             try {
                 String contact_fb_id = params[0];
 
-                VoteServices voteServices=new VoteServices();
+                VoteServices voteServices = new VoteServices();
                 voteServices.setApi_security(api_token);
-                Estado estado= (Estado) voteServices.get(contact_fb_id);
+                Estado estado = (Estado) voteServices.get(contact_fb_id);
                 return estado;
             } catch (Exception e) {
                 Log.e("Vote", e.getMessage(), e);
@@ -786,25 +803,24 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private class AsyncGetPopularRequest extends AsyncTask<String, Void, ArrayList<Contact> > {
+    private class AsyncGetPopularRequest extends AsyncTask<String, Void, ArrayList<Contact>> {
         @Override
         protected ArrayList<Contact> doInBackground(String... params) {
-                try {
+            try {
 
-                    GetPopularServices getPopularServices=new GetPopularServices();
-                    getPopularServices.setApi_security(api_token);
-                    ArrayList<Contact> listContacts= (ArrayList<Contact>) getPopularServices.get();
-                    return listContacts;
-                } catch (Exception e) {
-                    Log.e("GetPopular", e.getMessage(), e);
-                }
-
-                return null;
+                GetPopularServices getPopularServices = new GetPopularServices();
+                getPopularServices.setApi_security(api_token);
+                ArrayList<Contact> listContacts = (ArrayList<Contact>) getPopularServices.get();
+                return listContacts;
+            } catch (Exception e) {
+                Log.e("GetPopular", e.getMessage(), e);
             }
+
+            return null;
+        }
 
 
     }
-
 
 
     private class AsyncGetConversation extends AsyncTask<String, Void, ArrayList<Mensaje>> {
@@ -813,9 +829,9 @@ public class MainActivity extends AppCompatActivity
             try {
                 String contact_fb_id = params[0];
 
-                GetConversationServices getConversationServices=new GetConversationServices();
+                GetConversationServices getConversationServices = new GetConversationServices();
                 getConversationServices.setApi_security(api_token);
-                ArrayList<Mensaje> mensajeArrayList= (ArrayList<Mensaje>) getConversationServices.get(contact_fb_id);
+                ArrayList<Mensaje> mensajeArrayList = (ArrayList<Mensaje>) getConversationServices.get(contact_fb_id);
                 return mensajeArrayList;
             } catch (Exception e) {
                 Log.e("GetConversacion", e.getMessage(), e);
@@ -832,11 +848,11 @@ public class MainActivity extends AppCompatActivity
         protected Estado doInBackground(String... params) {
             try {
                 String contact_fb_id = params[0];
-                String mesagge =params[1];
+                String mesagge = params[1];
 
-                SendMesaggeServices sendMesaggeServices=new SendMesaggeServices();
+                SendMesaggeServices sendMesaggeServices = new SendMesaggeServices();
                 sendMesaggeServices.setApi_security(api_token);
-                Estado estado= (Estado) sendMesaggeServices.get(contact_fb_id,mesagge);
+                Estado estado = (Estado) sendMesaggeServices.get(contact_fb_id, mesagge);
                 return estado;
             } catch (Exception e) {
                 Log.e("SendMesagge", e.getMessage(), e);
@@ -851,9 +867,9 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected ArrayList<Skill> doInBackground(String... params) {
             try {
-                GetSkillsServices getSkills= new GetSkillsServices();
+                GetSkillsServices getSkills = new GetSkillsServices();
                 getSkills.setApi_security(api_token);
-                ArrayList<Skill> estado= getSkills.getListCourses();
+                ArrayList<Skill> estado = getSkills.getListCourses();
                 return estado;
             } catch (Exception e) {
                 Log.e("SendMesagge", e.getMessage(), e);
@@ -862,6 +878,38 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
+    private class AsyncSetSkill extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String nameSkill = params[0];
+
+                SetSkillServices setSkillServices = new SetSkillServices();
+                setSkillServices.setApi_security(api_token);
+                Estado estado_response = (Estado) setSkillServices.get(nameSkill);
+                return estado_response;
+            } catch (Exception e) {
+                Log.e("AsyncSetLocation", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
+    private class AsyncDeleteSkill extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected void doInBackground(String... params) {
+            try {
+                String nameSkill = params[0];
+
+                DeleteSkillServices deleteSkillServices = new DeleteSkillServices();
+                deleteSkillServices.setApi_security(api_token);
+                deleteSkillServices.get(nameSkill);
+            } catch (Exception e) {
+                Log.e("AsyncSetLocation", e.getMessage(), e);
+            }
+        }
+    }
 }
-
-
