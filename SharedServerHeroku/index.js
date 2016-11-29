@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var router = express.Router();
-var db = require('queries');
+var db = require('./queries');
 var winston = require('winston'); //LOG 
 var logger = new (winston.Logger)({
    transports: [
