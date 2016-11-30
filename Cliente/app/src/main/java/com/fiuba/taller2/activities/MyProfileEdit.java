@@ -98,6 +98,8 @@ public class MyProfileEdit extends AppCompatActivity {
         EditText summary = (EditText) findViewById(R.id.user_profile_summary);
         summary.setText( summary.getText().toString());
 
+
+
         HttpRequestTaskSave httpRequestTaskSave= new HttpRequestTaskSave();
         httpRequestTaskSave.execute(myProfile.getName(),myProfile.getEmail(),
                 myProfile.getCity(),myProfile.getDob(),myProfile.getSummary());

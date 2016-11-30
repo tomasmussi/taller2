@@ -8,7 +8,6 @@
     tools:context="com.fiuba.taller2.activities.LookupActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_my_courses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
@@ -22,14 +21,12 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs_courses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/container_pages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

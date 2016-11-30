@@ -19,14 +19,37 @@ public class SaveProfileServices extends AbstractServices {
 
     }
 
+    public boolean saveImage(String imageUrl) {
+        String imageQ = this.saveImageQuery(imageUrl);
+        System.out.println("SaveImageQuery" +imageQ);
+        EstadoDTO estadoDTO = (EstadoDTO) postDataOftDTO(imageQ, EstadoDTO.class);
+        return !estadoDTO.getData().getStatus().equals("OK") ;
 
+    }
+
+    protected String saveImageQuery(String... params) {
+
+        String profile_photo = params[0];
+
+        String url = urlBase;
+        StringBuffer urlStringBuffer = new StringBuffer(url);
+        urlStringBuffer.append(service_name);
+        urlStringBuffer.append("?");
+        urlStringBuffer.append("token=");
+        urlStringBuffer.append(api_security);
+        urlStringBuffer.append("&profile_photo=");
+        urlStringBuffer.append(profile_photo);
+
+
+        return urlStringBuffer.toString();
+    }
     @Override
     protected String getQueryBy(String... params) {
          String name    =   params[0];
          String email   =   params[1];
          String city    =   params[2];
          String dob     =   params[3];
-        String summary = params[4];
+         String summary = params[4];
 
          String url = urlBase;
         StringBuffer urlStringBuffer = new StringBuffer(url);
@@ -44,6 +67,7 @@ public class SaveProfileServices extends AbstractServices {
         urlStringBuffer.append(dob);
         urlStringBuffer.append("&summary=");
         urlStringBuffer.append(summary);
+
 
 
         return urlStringBuffer.toString();

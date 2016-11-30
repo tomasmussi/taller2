@@ -59,6 +59,8 @@
             android:value="@integer/google_play_services_version" />
         <activity android:name="com.fiuba.taller2.activities.ContactProfileActivity" />
 
+        <activity android:name="com.fiuba.taller2.activities.SelectSkill" />
+
         <activity android:name="com.fiuba.taller2.activities.MyContactsActivity" />
         <activity android:name="com.fiuba.taller2.activities.MyProfileActivity" />
         <activity android:name="com.fiuba.taller2.activities.MyProfileEdit" />

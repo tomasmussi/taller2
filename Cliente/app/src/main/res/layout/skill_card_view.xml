@@ -9,8 +9,10 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+            <!--android:id="@id/chkskill"-->
         <CheckBox
-            android:id="@id/chkSkill"
+           android:id="@+id/chkskill"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -20,7 +22,7 @@
             android:id="@+id/labelNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Skill: "
             android:textStyle="bold"
             android:layout_marginLeft="10dp"
@@ -30,10 +32,11 @@
             android:id="@+id/nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Large Text"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="1dp"
+            android:textStyle="bold"
             android:layout_toRightOf="@id/labelNombre"/>
 
         <TextView

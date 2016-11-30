@@ -30,10 +30,10 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
         public SkillViewHolder(View v) {
             super(v);
-            nombre = (TextView) v.findViewById(R.id.nombre);
+            nombre = (TextView) v.findViewById(R.id.labelNombre);
             descripcion = (TextView) v.findViewById(R.id.descripcion);
             categoria = (TextView) v.findViewById(R.id.categoria);
-            checkBox = (CheckBox) v.findViewById(R.id.chkSkill);
+            checkBox = (CheckBox) v.findViewById(R.id.chkskill);
         }
     }
 

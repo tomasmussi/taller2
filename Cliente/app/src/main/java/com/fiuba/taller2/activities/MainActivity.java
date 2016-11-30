@@ -4,11 +4,15 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
@@ -25,8 +29,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.auth.AuthUI;
 import com.fiuba.taller2.R;
 import com.fiuba.taller2.adapters.ImageAdapter;
@@ -52,7 +54,6 @@ import com.fiuba.taller2.services.GetPopularServices;
 import com.fiuba.taller2.services.GetSkillServices;
 import com.fiuba.taller2.services.GetSkillsServices;
 import com.fiuba.taller2.services.LDCategoriesServices;
-import com.fiuba.taller2.services.LDJobPositionsServices;
 import com.fiuba.taller2.services.LDMyProfileServices;
 import com.fiuba.taller2.services.LoginServices;
 import com.fiuba.taller2.services.LookupServices;
@@ -69,12 +70,20 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity
@@ -83,17 +92,29 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 0;
 
-    private GridView grillaOpciones;
-    private ImageAdapter adapterCategorias;
     private String api_token;
     private String userEmail;
+
     private String firstName;
     private String lastName;
-    private String profilePicture;
-    private FirebaseAuth auth;
-    private GoogleApiClient client;
+    private String firebase_imageUrl;
     private double longitude;
     private double latitude;
+
+    private Uri photo_storage_url;
+    private Context context;
+
+    private TextView tv_userName;
+    private TextView tv_email;
+    private ImageView iv_image_profile;
+
+    private FirebaseAuth firebaseAuth;
+
+    private GoogleApiClient client;
+
+
+    private ImageAdapter adapterCategorias;
+    private GridView grillaOpciones;
 
 
     @Override
@@ -104,25 +125,21 @@ public class MainActivity extends AppCompatActivity
         Log.d("___LAYOUT : ","R.layout.activity_main");
 
 
-        auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() != null) {
-            Log.d("AUTH", "User LOGGED IN");
-            userEmail = auth.getCurrentUser().getEmail();
-            firstName = auth.getCurrentUser().getDisplayName();
-            Log.d("hola", auth.getCurrentUser().getProviders().toString());
-            auth.getCurrentUser().getProviderData();
-            profilePicture = auth.getCurrentUser().getPhotoUrl().toString();
-            InitApiTokenFromServer(userEmail);
-        } else {
-            startActivityForResult(AuthUI.getInstance()
-                    .createSignInIntentBuilder().setIsSmartLockEnabled(false).
-                            setProviders(
-                                    AuthUI.FACEBOOK_PROVIDER,
-                                    AuthUI.GOOGLE_PROVIDER
-                            ).build(), RC_SIGN_IN);
+        context= this;
+
+        //Setteo de titulo de la activity
+        this.setTitle("Bienvenido a Linkedun");
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.d(TAG, "Key: " + key + " Value: " + value);
+            }
         }
 
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
+//TODO: Location services
+        /*LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -138,8 +155,8 @@ public class MainActivity extends AppCompatActivity
             Log.d("Location: ", location.toString());
 
             longitude = location.getLongitude();
-            latitude = location.getLatitude();*/
-        }
+            latitude = location.getLatitude();
+        }*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -154,19 +171,128 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
 
-        TextView userNameText = (TextView) headerView.findViewById(R.id.user_name);
-        TextView emailText = (TextView) headerView.findViewById(R.id.user_email);
-        ImageView imageProfile = (ImageView) headerView.findViewById(R.id.profile_picture);
-        userNameText.setText(firstName + " " + lastName);
-        emailText.setText(userEmail);
-        Glide.with(this).load(profilePicture).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageProfile);
+        tv_userName = (TextView) headerView.findViewById(R.id.user_name);
+        tv_email = (TextView) headerView.findViewById(R.id.user_email);
+        iv_image_profile = (ImageView) headerView.findViewById(R.id.profile_picture);
+
 
         grillaOpciones = (GridView) findViewById(R.id.grilla_categorias);
         adapterCategorias = new ImageAdapter(this);
         grillaOpciones.setAdapter(adapterCategorias);
         grillaOpciones.setOnItemClickListener(this);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser() != null) {
+            Log.d("AUTH", "User LOGGED IN");
+            userEmail = firebaseAuth.getCurrentUser().getEmail();
+            firstName = firebaseAuth.getCurrentUser().getDisplayName();
+            Log.d("hola", firebaseAuth.getCurrentUser().getProviders().toString());
+            firebaseAuth.getCurrentUser().getProviderData();
+            firebase_imageUrl = firebaseAuth.getCurrentUser().getPhotoUrl().toString();
+            initMenu();
+
+        } else {
+            startActivityForResult(AuthUI.getInstance()
+                    .createSignInIntentBuilder().
+                            setProviders(
+                                    AuthUI.FACEBOOK_PROVIDER,
+                                    AuthUI.GOOGLE_PROVIDER
+                            ).build(), RC_SIGN_IN);
+        }
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+
+    private void initMenu() {
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        assert firebaseAuth != null;
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            firstName = firebaseUser.getDisplayName();
+            tv_userName.setText(firstName);
+            userEmail=firebaseUser.getEmail();
+            tv_email.setText(userEmail);
+            if (firebaseUser.getPhotoUrl() != null) loadPhoto(firebaseUser);
+        } else {
+            Log.d("Error:", "No se pudo obtener usuario problema en inicio de sesion");
+            startActivityForResult(AuthUI.getInstance()
+                    .createSignInIntentBuilder().
+                            setProviders(
+                                    AuthUI.FACEBOOK_PROVIDER,
+                                    AuthUI.GOOGLE_PROVIDER
+                            ).build(), RC_SIGN_IN);        }
+
+
+
+    }
+
+    private void loadPhoto(FirebaseUser firebaseUser) {
+        firebase_imageUrl = firebaseUser.getPhotoUrl().toString();
+        try {
+            Picasso.Builder builder = new Picasso.Builder(this);
+            builder.listener(new Picasso.Listener() {
+                @Override
+                public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                    exception.printStackTrace();
+                }
+            });
+
+            builder.build().load(firebase_imageUrl).into(
+                    new Target() {
+                        @Override
+                        public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                            //Cargo bitmap descargado en el ImageView
+                            iv_image_profile.setImageBitmap(bitmap);
+
+                            //Cargo el bitmap en Firebase y obtengo el link
+                            uploadBitmapToFirebase(bitmap);
+                        }
+
+                        @Override
+                        public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        }
+
+                        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onBitmapFailed(Drawable errorDrawable) {
+                            iv_image_profile.setImageDrawable(context.getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
+
+                            //InitApiTokenFromServer(userEmail, String.valueOf(photo_storage_url));
+
+                        }
+                    }
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void uploadBitmapToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] dataBAOS = baos.toByteArray();
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://linkedun-9ab67.appspot.com");
+        StorageReference imagesRef = storageRef.child(userEmail);
+
+        UploadTask uploadTask = imagesRef.putBytes(dataBAOS);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                photo_storage_url = taskSnapshot.getDownloadUrl();
+                Log.d("PhotoUrl", String.valueOf(photo_storage_url));
+                InitApiTokenFromServer(userEmail, String.valueOf(photo_storage_url));
+
+            }
+        });
     }
 
     @Override
@@ -174,30 +300,27 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                Log.d("AUTH", auth.getCurrentUser().getEmail());
-                Log.d("hola", auth.getCurrentUser().getProviders().toString());
+                Log.d("AUTH", firebaseAuth.getCurrentUser().getEmail());
+                Log.d("hola", firebaseAuth.getCurrentUser().getProviders().toString());
+                initMenu();
+            }else {
 
-                InitApiTokenFromServer(auth.getCurrentUser().getEmail());
-                userEmail = auth.getCurrentUser().getEmail();
-                firstName = auth.getCurrentUser().getDisplayName();
-                Log.d("NOMBRE DEL WACHIN", firstName);
-                profilePicture = auth.getCurrentUser().getPhotoUrl().toString();
+                Log.d("AUTHS", "Problema con smart lock");
             }
         } else {
             Log.d("AUTH", "User not autenticated");
         }
     }
 
-    private void InitApiTokenFromServer(String userEmail) {
+    private void InitApiTokenFromServer(String userEmail,String photo_url) {
         HttpRequestTaskLogin httpRequestTask = new HttpRequestTaskLogin();
 
         httpRequestTask.execute(userEmail);
         Login login = null;
         try {
-            login = (Login) httpRequestTask.get();
-
+            login = httpRequestTask.get();
             api_token = login.getToken();
-
+            Linkedun.setApi_token(api_token);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -210,7 +333,7 @@ public class MainActivity extends AppCompatActivity
             asyncRegister.execute(this.userEmail, FirebaseInstanceId.getInstance().getToken());
         Estado estado;
         try {
-            estado = (Estado) asyncRegister.get();
+            estado = asyncRegister.get();
             if (estado != null) Log.d("PUSH_ID", estado.toString());
 
         } catch (InterruptedException e) {
@@ -224,13 +347,27 @@ public class MainActivity extends AppCompatActivity
 
         asyncSetLocation.execute(String.valueOf(latitude), String.valueOf(longitude));
         try {
-            Estado estado_location = (Estado) asyncSetLocation.get();
+            Estado estado_location = asyncSetLocation.get();
             Log.d("Estado", estado_location.toString());
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
+        }
+
+
+
+
+
+        if ( login.getUser_exists().equals("false")){
+            HttpRequestTaskSave httpRequestTaskSave= new HttpRequestTaskSave();
+            httpRequestTaskSave.execute(firebaseAuth.getCurrentUser().getDisplayName()
+                    , firebaseAuth.getCurrentUser().getEmail()
+                    ,"","","",String.valueOf(photo_storage_url));
+        } else{
+            HttpRequestTaskSaveImage httpRequestTaskSave= new HttpRequestTaskSaveImage();
+            httpRequestTaskSave.execute(String.valueOf(photo_storage_url));
         }
     }
 
@@ -265,12 +402,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.misContactos) {
-
-
             Intent intent = new Intent(this, MyContactsActivity.class);
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else if (id == R.id.contactosdestacados) {
 
 
@@ -292,376 +426,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.notificaciones) {
             Intent intent = new Intent(this,MyProfileActivity.class);
             intent.putExtra("API_TOKEN", api_token);
-
             startActivity(intent);
         } else if (id == R.id.ajustes) {
 
-            Login loginTest;
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            //Test de Categories
-            AsyncGetCategories asyncGetCategories= new AsyncGetCategories();
-            asyncGetCategories.execute();
-            try {
-                ArrayList<Category> estado = (ArrayList<Category>) asyncGetCategories.get();
-                if (estado != null) Log.d("categories", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            //Pruebas de JobPositions
-            //Test de JobPositions
-            AsyncGetJobPositions asyncGetJobPositions = new AsyncGetJobPositions();
-            asyncGetJobPositions.execute();
-            try {
-                ArrayList<JobPosition> estado = (ArrayList<JobPosition>) asyncGetJobPositions.get();
-                if (estado != null) Log.d("JobPositions", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Test de JobPosition (Chequea un jobPosition en particular
-            AsyncGetJobPosition asyncGetJobPosition = new AsyncGetJobPosition();
-            asyncGetJobPosition.execute("dj");
-            try {
-                JobPosition estado = (JobPosition) asyncGetJobPosition.get();
-                if (estado != null) Log.d("Jobposition", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Seteo un jobPosition para  tomas
-            AsyncSetJobPosition asyncSetJobPosition = new AsyncSetJobPosition();
-
-            asyncSetJobPosition.execute("dj");
-            try {
-                Estado estado = (Estado) asyncSetJobPosition.get();
-                Log.d("Estado", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Muestro el profile
-            HttpRequestTaskMyProfile httpRequestTaskMyProfile2 = new HttpRequestTaskMyProfile();
-            httpRequestTaskMyProfile2.execute();
-            MyProfile myProfile = new MyProfile();
-            try {
-                myProfile = httpRequestTaskMyProfile2.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Elimino el jobPosition de tomas
-            AsyncDeleteJobPosition asyncDeleteJobPosition = new AsyncDeleteJobPosition();
-            asyncDeleteJobPosition.execute("dj");
-            Log.d("Estado", "Se elimino un jopbPosition");
-
-
-            //Muestro el profile
-            HttpRequestTaskMyProfile httpRequestTaskMyProfile1 = new HttpRequestTaskMyProfile();
-            httpRequestTaskMyProfile1.execute();
-            MyProfile myProfile1 = new MyProfile();
-            try {
-                myProfile1 = httpRequestTaskMyProfile1.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            //
-
-            //Test de Skills
-            AsyncgetSkills asyncgetSkills = new AsyncgetSkills();
-            asyncgetSkills.execute();
-            try {
-                ArrayList<Skill> estado = (ArrayList<Skill>) asyncgetSkills.get();
-                if (estado != null) Log.d("skills", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Test de Skill (Chequea un skill en particular
-            AsyncGetSkill asyncGetSkill = new AsyncGetSkill();
-            asyncGetSkill.execute("java");
-            try {
-                Skill estado = (Skill) asyncGetSkill.get();
-                if (estado != null) Log.d("skill", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Seteo un skill para  tomas
-            AsyncSetSkill asyncSetSkill = new AsyncSetSkill();
-
-            asyncSetSkill.execute("java");
-            try {
-                Estado estado = (Estado) asyncSetSkill.get();
-                Log.d("Estado", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            HttpRequestTaskMyProfile httpRequestTaskMyProfile3 = new HttpRequestTaskMyProfile();
-            httpRequestTaskMyProfile3.execute();
-            MyProfile myProfile3 = new MyProfile();
-            try {
-                myProfile3 = httpRequestTaskMyProfile3.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Elimino el skill de tomas
-            AsyncDeleteSkill asyncDeleteSkill = new AsyncDeleteSkill();
-            asyncDeleteSkill.execute("java");
-            Log.d("Estado", "Se elimino un skill");
-
-            HttpRequestTaskMyProfile httpRequestTaskMyProfile4 = new HttpRequestTaskMyProfile();
-            httpRequestTaskMyProfile4.execute();
-            MyProfile myProfile4 = new MyProfile();
-            try {
-                myProfile4 = httpRequestTaskMyProfile4.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Envio mensaje a tomas
-            AsyncSendMesagge asyncSendMesagge = new AsyncSendMesagge();
-            asyncSendMesagge.execute("tomas", "Hola Tomas, como estas?");
-            try {
-                Estado estado = (Estado) asyncSendMesagge.get();
-                if (estado != null) Log.d("ConversartionList", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Me logueo como tomas
-            HttpRequestTaskLogin httpRequestTask = new HttpRequestTaskLogin();
-
-            httpRequestTask.execute("tomas");
-            try {
-                loginTest = (Login) httpRequestTask.get();
-                Log.d("Login", loginTest.toString());
-                api_token = loginTest.getToken();
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            //Envio mensaje a tomas
-            AsyncSendMesagge asyncSendMesagge2 = new AsyncSendMesagge();
-            asyncSendMesagge2.execute("aran.com.ar@gmail.com", "Hola Luis, como estas?");
-            try {
-                Estado estado2 = (Estado) asyncSendMesagge2.get();
-                if (estado2 != null) Log.d("ConversartionList", estado2.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Busco a tomas siendo tomas
-            HttpRequestTaskLookup httpRequestTaskLookup = new HttpRequestTaskLookup();
-
-            httpRequestTaskLookup.execute("tomas");
-            try {
-                ArrayList<Contact> contactArrayList = (ArrayList<Contact>) httpRequestTaskLookup.get();
-                Log.d("Contacts", contactArrayList.toString());
-                Log.d("Contacts", contactArrayList.get(0).toString());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            //Seteo localizacion para tomas
-            AsyncSetLocation asyncSetLocation = new AsyncSetLocation();
-
-            asyncSetLocation.execute("-34.595241", "-58.402460");
-            try {
-                Estado estado = (Estado) asyncSetLocation.get();
-                Log.d("Estado", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            //Obtengo lista de contactos de tomas
-            AsyncGetContacts asyncGetContacts = new AsyncGetContacts();
-
-            asyncGetContacts.execute();
-            ArrayList<Contact> contactArrayList;
-
-            try {
-                contactArrayList = (ArrayList<Contact>) asyncGetContacts.get();
-                Log.d("Contacts", contactArrayList.toString());
-                Log.d("Contacts", contactArrayList.get(0).toString());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-                contactArrayList = new ArrayList<Contact>();
-            }
-
-
-            //Envio solicitud de contacto a Luis
-            AsyncSendContactRequest asyncSendContactRequest = new AsyncSendContactRequest();
-
-            asyncSendContactRequest.execute("aran.com.ar@gmail.com");
-
-            try {
-                Estado estado = (Estado) asyncSendContactRequest.get();
-                if (estado != null) Log.d("Estado", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            //Me logueo como Luis
-            HttpRequestTaskLogin httpRequestTask2 = new HttpRequestTaskLogin();
-
-            httpRequestTask2.execute("aran.com.ar@gmail.com");
-            try {
-                loginTest = (Login) httpRequestTask2.get();
-                Log.d("Login", loginTest.toString());
-                api_token = loginTest.getToken();
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            //Obtengo lista de solicitudes de contactos de Luis
-            AsyncGetContactsRequest asyncGetContactsRequest = new AsyncGetContactsRequest();
-            asyncGetContactsRequest.execute();
-            ArrayList<Contact> contacRequesttArrayList;
-            try {
-                contacRequesttArrayList = (ArrayList<Contact>) asyncGetContactsRequest.get();
-                Log.d("Contacts", contacRequesttArrayList.toString());
-                Log.d("Contacts", contacRequesttArrayList.get(0).toString());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-                contacRequesttArrayList = new ArrayList<Contact>();
-            }
-
-            //Contesto a la solicitud de tomas con un si, ahora somos contactos el uno del ortro
-            AsyncSendContactResponse asyncSendContactResponse = new AsyncSendContactResponse();
-            asyncSendContactResponse.execute("tomas", "true");
-            try {
-                Estado estado = (Estado) asyncSendContactResponse.get();
-                if (estado != null) Log.d("Estado", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            //Como Luis, voto por tomas
-            AsyncVoteRequest asyncVoteRequest = new AsyncVoteRequest();
-            asyncVoteRequest.execute("tomas");
-            try {
-                Estado estado = (Estado) asyncVoteRequest.get();
-                if (estado != null) Log.d("Estado", estado.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            //Consulto los mas populares
-            AsyncGetPopularRequest asyncGetPopularRequest = new AsyncGetPopularRequest();
-            asyncGetPopularRequest.execute();
-            ArrayList<Contact> contacPupularRequesttArrayList;
-            try {
-                contacPupularRequesttArrayList = (ArrayList<Contact>) asyncGetPopularRequest.get();
-                if (contacPupularRequesttArrayList != null)
-                    Log.d("Estado", contacPupularRequesttArrayList.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            //Como Luis me fijo que estado tiene la conversacion con tomas
-            AsyncGetConversation asyncGetConversation = new AsyncGetConversation();
-            asyncGetConversation.execute("tomas");
-            ArrayList<Mensaje> casyncGetConversationArrayList;
-            try {
-                casyncGetConversationArrayList = (ArrayList<Mensaje>) asyncGetConversation.get();
-                if (casyncGetConversationArrayList != null)
-                    Log.d("ConversartionList", casyncGetConversationArrayList.toString());
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
-
-            Intent intent = new Intent(this, ConversationActivity.class);
-
-            intent.putExtra("API_TOKEN", api_token);
-            intent.putExtra("CONTACT_FB_ID", "tomas");
-            startActivity(intent);
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         } else if (id == R.id.contactosdestacados) {
 
             Intent intent = new Intent(this, MyProfileActivity.class);
             intent.putExtra("API_TOKEN", api_token);
-
             startActivity(intent);
 
         } else if (id == R.id.miPerfil) {
@@ -749,7 +520,6 @@ public class MainActivity extends AppCompatActivity
         Categoria item = (Categoria) parent.getItemAtPosition(position);
         int item_id = Categoria.getCategoryByIdView(item.getId());
         String category_name = item.getName();
-
         if (item_id == 5) {
             HttpRequestTask httpRequestTaskJobs = new HttpRequestTask();
             httpRequestTaskJobs.execute();
@@ -782,8 +552,6 @@ public class MainActivity extends AppCompatActivity
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
         }
-
-
     }
 
     class HttpRequestTask extends AsyncTask<String, Void, ArrayList<CatogoryLN>> {
@@ -792,7 +560,7 @@ public class MainActivity extends AppCompatActivity
             try {
                 LDCategoriesServices listCoursesByCategoriesServices = new LDCategoriesServices();
                 listCoursesByCategoriesServices.setApi_security(api_token);
-                ArrayList<CatogoryLN> listCourses = (ArrayList<CatogoryLN>) listCoursesByCategoriesServices.getListCourses().getCategories();
+                ArrayList<CatogoryLN> listCourses = listCoursesByCategoriesServices.getListCourses().getCategories();
 
                 return listCourses;
             } catch (Exception e) {
@@ -869,7 +637,7 @@ public class MainActivity extends AppCompatActivity
 
                 SetLocationServices setLocationServices = new SetLocationServices();
                 setLocationServices.setApi_security(api_token);
-                Estado estado_response = (Estado) setLocationServices.get(latitude, longitude);
+                Estado estado_response = setLocationServices.get(latitude, longitude);
                 return estado_response;
             } catch (Exception e) {
                 Log.e("AsyncSetLocation", e.getMessage(), e);
@@ -888,7 +656,7 @@ public class MainActivity extends AppCompatActivity
 
                 GetContactsServices getContactsServices = new GetContactsServices();
                 getContactsServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts = (ArrayList<Contact>) getContactsServices.get();
+                ArrayList<Contact> listContacts = getContactsServices.get();
                 return listContacts;
             } catch (Exception e) {
                 Log.e("LookUp", e.getMessage(), e);
@@ -906,7 +674,7 @@ public class MainActivity extends AppCompatActivity
 
                 GetContactsRequestServices getContactsServices = new GetContactsRequestServices();
                 getContactsServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts = (ArrayList<Contact>) getContactsServices.get();
+                ArrayList<Contact> listContacts = getContactsServices.get();
                 return listContacts;
             } catch (Exception e) {
                 Log.e("GetContactsRequestServ", e.getMessage(), e);
@@ -925,7 +693,7 @@ public class MainActivity extends AppCompatActivity
 
                 LookupServices lookupServices = new LookupServices();
                 lookupServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts = (ArrayList<Contact>) lookupServices.get(user);
+                ArrayList<Contact> listContacts = lookupServices.get(user);
                 return listContacts;
             } catch (Exception e) {
                 Log.e("Buscarcontacto", e.getMessage(), e);
@@ -944,7 +712,7 @@ public class MainActivity extends AppCompatActivity
 
                 SendContactRequestServices SendContactRequestServices = new SendContactRequestServices();
                 SendContactRequestServices.setApi_security(api_token);
-                Estado estado = (Estado) SendContactRequestServices.get(contact_fb_id);
+                Estado estado = SendContactRequestServices.get(contact_fb_id);
                 return estado;
             } catch (Exception e) {
                 Log.e("SendSolicitudContact", e.getMessage(), e);
@@ -965,7 +733,7 @@ public class MainActivity extends AppCompatActivity
 
                 SendContactResponseServices SendContactRequestServices = new SendContactResponseServices();
                 SendContactRequestServices.setApi_security(api_token);
-                Estado estado = (Estado) SendContactRequestServices.get(contact_fb_id, answer);
+                Estado estado = SendContactRequestServices.get(contact_fb_id, answer);
                 return estado;
             } catch (Exception e) {
                 Log.e("RTASolicitudContacto", e.getMessage(), e);
@@ -985,7 +753,7 @@ public class MainActivity extends AppCompatActivity
 
                 VoteServices voteServices = new VoteServices();
                 voteServices.setApi_security(api_token);
-                Estado estado = (Estado) voteServices.get(contact_fb_id);
+                Estado estado = voteServices.get(contact_fb_id);
                 return estado;
             } catch (Exception e) {
                 Log.e("Vote", e.getMessage(), e);
@@ -1003,7 +771,7 @@ public class MainActivity extends AppCompatActivity
 
                 GetPopularServices getPopularServices = new GetPopularServices();
                 getPopularServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts = (ArrayList<Contact>) getPopularServices.get();
+                ArrayList<Contact> listContacts = getPopularServices.get();
                 return listContacts;
             } catch (Exception e) {
                 Log.e("GetPopular", e.getMessage(), e);
@@ -1024,7 +792,7 @@ public class MainActivity extends AppCompatActivity
 
                 GetConversationServices getConversationServices = new GetConversationServices();
                 getConversationServices.setApi_security(api_token);
-                ArrayList<Mensaje> mensajeArrayList = (ArrayList<Mensaje>) getConversationServices.get(contact_fb_id);
+                ArrayList<Mensaje> mensajeArrayList = getConversationServices.get(contact_fb_id);
                 return mensajeArrayList;
             } catch (Exception e) {
                 Log.e("GetConversacion", e.getMessage(), e);
@@ -1045,7 +813,7 @@ public class MainActivity extends AppCompatActivity
 
                 SendMesaggeServices sendMesaggeServices = new SendMesaggeServices();
                 sendMesaggeServices.setApi_security(api_token);
-                Estado estado = (Estado) sendMesaggeServices.get(contact_fb_id, mesagge);
+                Estado estado = sendMesaggeServices.get(contact_fb_id, mesagge);
                 return estado;
             } catch (Exception e) {
                 Log.e("SendMesagge", e.getMessage(), e);
@@ -1065,7 +833,7 @@ public class MainActivity extends AppCompatActivity
 
                 RegisterPushIdServices registerPushIdServices = new RegisterPushIdServices();
                 registerPushIdServices.setApi_security(api_token);
-                Estado estado = (Estado) registerPushIdServices.get(user_fb_id, token_FCM);
+                Estado estado = registerPushIdServices.get(user_fb_id, token_FCM);
                 return estado;
             } catch (Exception e) {
                 Log.e("SendMesagge", e.getMessage(), e);
@@ -1075,28 +843,6 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-
-
-    //TODO eliminar
-/*
-    private class HttpPosotionJob extends AsyncTask<String, Void, List<LDJobPosition>> {
-        @Override
-        protected ArrayList<LDJobPosition> doInBackground(String... params) {
-            try {
-                String user = params[0];
-                LDJobPositionsServices listCourseServices= new LDJobPositionsServices();
-                listCourseServices.setApi_security(api_token);
-                return listCourseServices.getListCourses().getJob_positions();
-
-            } catch (Exception e) {
-                Log.e("SearcheableAcivity", e.getMessage(), e);
-            }
-
-            return null;
-        }
-}
-*/
-
 
     private class AsyncgetSkills extends AsyncTask<String, Void, ArrayList<Skill>> {
         @Override
@@ -1122,7 +868,7 @@ public class MainActivity extends AppCompatActivity
 
                 SetSkillServices setSkillServices = new SetSkillServices();
                 setSkillServices.setApi_security(api_token);
-                Estado estado_response = (Estado) setSkillServices.get(nameSkill);
+                Estado estado_response = setSkillServices.get(nameSkill);
                 return estado_response;
             } catch (Exception e) {
                 Log.e("AsyncSetLocation", e.getMessage(), e);
@@ -1212,7 +958,7 @@ public class MainActivity extends AppCompatActivity
 
                 SetJobPositionServices setJobPositionServices = new SetJobPositionServices();
                 setJobPositionServices.setApi_security(api_token);
-                Estado estado_response = (Estado) setJobPositionServices.get(nameJobPosition);
+                Estado estado_response = setJobPositionServices.get(nameJobPosition);
                 return estado_response;
             } catch (Exception e) {
                 Log.e("SetJobposition", e.getMessage(), e);
@@ -1271,4 +1017,48 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
+
+
+    private class HttpRequestTaskSave extends AsyncTask<String, Void, Boolean> {
+        Boolean result;
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+
+                SaveProfileServices saveProfileServices = new SaveProfileServices();
+                saveProfileServices.setApi_security(api_token);
+                boolean ifExistsErrors = saveProfileServices.ifExistsErrors(params);
+                result = new Boolean(ifExistsErrors);
+
+            } catch (Exception e) {
+                Log.e("MyProfileActivity", e.getMessage(), e);
+            }
+
+            return result;
+        }
+
+    }
+    private class HttpRequestTaskSaveImage extends AsyncTask<String, Void, Boolean> {
+        Boolean result;
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+
+                SaveProfileServices saveProfileServices = new SaveProfileServices();
+                saveProfileServices.setApi_security(api_token);
+                boolean ifExistsErrors = saveProfileServices.saveImage(params[0]);
+                result = new Boolean(ifExistsErrors);
+
+            } catch (Exception e) {
+                Log.e("MyProfileActivity", e.getMessage(), e);
+            }
+
+            return result;
+        }
+
+    }
+
 }

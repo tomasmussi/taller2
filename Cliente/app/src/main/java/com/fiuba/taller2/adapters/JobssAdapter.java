@@ -10,9 +10,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.fiuba.taller2.R;
-import com.fiuba.taller2.activities.MainActivity;
-import com.fiuba.taller2.activities.MyProfileActivity;
-import com.fiuba.taller2.domain.Skill;
+import com.fiuba.taller2.domain.Job;
+import com.fiuba.taller2.domain.JobPosition;
 
 import java.util.ArrayList;
 
@@ -22,25 +21,28 @@ import java.util.ArrayList;
  * of photos and adding a new photo.
  *
  */
-public class SkillsAdapter extends BaseExpandableListAdapter {
+public class JobssAdapter extends BaseExpandableListAdapter {
     // Sample data set. children[i] contains the children (String[]) for
     // groups[i].
     private Context context;
-    Skill[][] skill_array;
-    private ArrayList<Skill> skillArrayList;
-    public SkillsAdapter(Context context, ArrayList<Skill> skills){
+    JobPosition[][] job_array;
+    private ArrayList<JobPosition> jobArrayList;
+    public JobssAdapter(Context context, ArrayList<JobPosition> jobs){
         this.context= context;
-        this.skillArrayList= skills;
-        Skill[] skill_array_simple= skillArrayList.toArray(new Skill[skillArrayList.size()]);
-        skill_array= new Skill[1][skill_array_simple.length];
-        skill_array[0]=skill_array_simple;
-        children=skill_array;
+        this.jobArrayList= jobs;
+        JobPosition[] job_array_simple= jobArrayList.toArray(new JobPosition[jobArrayList.size()]);
+        job_array= new JobPosition[1][job_array_simple.length];
+        job_array[0]=job_array_simple;
+        children=job_array;
     }
-    private String[] groups = { "Skills"};
+    private String[] groups = { "Jobs"};
 
 
-    private Skill[][] children ;
+    private JobPosition[][] children ;
 
+    public int  getChildCount(){
+      return   children[0].length;
+    }
     public Object getChild(int groupPosition, int childPosition) {
         return children[groupPosition][childPosition];
     }
@@ -79,15 +81,15 @@ public class SkillsAdapter extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
        convertView= LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_my_skills, parent, false);
+                .inflate(R.layout.card_view_my_jobs, parent, false);
 
-        TextView skill_name = (TextView) convertView.findViewById(R.id.skill_name);
-        TextView skill_category = (TextView) convertView.findViewById(R.id.skill_category);
-        TextView skill_description = (TextView) convertView.findViewById(R.id.skill_description);
+        TextView job_name = (TextView) convertView.findViewById(R.id.job_name);
+        TextView job_category = (TextView) convertView.findViewById(R.id.job_category);
+        TextView job_description = (TextView) convertView.findViewById(R.id.job_description);
 
-        skill_name.setText(((Skill)getChild(groupPosition, childPosition)).getName());
-        skill_category.setText(((Skill)getChild(groupPosition, childPosition)).getCategory());
-        skill_description.setText(((Skill)getChild(groupPosition, childPosition)).getDescription());
+        job_name.setText(((JobPosition)getChild(groupPosition, childPosition)).getName());
+        //job_category.setText(((Job)getChild(groupPosition, childPosition)).getCategory());
+        job_description.setText(((JobPosition)getChild(groupPosition, childPosition)).getDescription());
 
         return convertView;
     }
@@ -107,10 +109,10 @@ public class SkillsAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
         convertView= LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_group_skills, parent, false);
-        TextView groupName = (TextView) convertView.findViewById(R.id.skills);
+                .inflate(R.layout.card_view_group_jobs, parent, false);
+        TextView groupName = (TextView) convertView.findViewById(R.id.jobs);
 
-        groupName.setText("Skills");
+        groupName.setText("Jobs");
         return convertView;
     }
 
