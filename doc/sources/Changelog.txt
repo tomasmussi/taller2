@@ -1,0 +1,24 @@
+﻿Linkedun
+Changelog
+  
+
+
+________________
+
+
+Objetivo
+Definir el alcance de funcionalidad realizado para la versión 1.0 de Linkedun app.
+
+
+La funcionalidad requerida para la aplicación es:
+* Loguearme en el sistema
+* Visualizar mi perfil
+* Editar mi perfil
+* Búsqueda de profesionales
+* Invitación de conexión a profesionales
+* Aceptar y rechazar solicitudes de contactos
+* Ver mis contactos
+* Recomendación de usuarios
+* Ver los usuarios más populares
+* Mensajería interna de la aplicación.
+* Actualizar la ubicación actual
