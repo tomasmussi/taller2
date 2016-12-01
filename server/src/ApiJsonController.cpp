@@ -556,7 +556,7 @@ void ApiJsonController::delete_skill(Mongoose::Request &request, Mongoose::JsonR
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string new_skill = request.get("skill", "");
-	if (new_skill.empty()) {
+	if (!new_skill.empty()) {
 		UserHandler::get_instance().delete_user_skill(user_logged_id, new_skill);
 		response["data"]["status"] = "OK";
 		response["data"]["message"] = "Skill eliminado";
