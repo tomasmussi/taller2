@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.margonari.taller2_frontend.R;
+import com.fiuba.taller2.R;
 import com.fiuba.taller2.domain.CatogoryLN;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class CategoriesAdapter extends RecyclerView
 
         public CourseHolder(View itemView) {
             super(itemView);
-            course_name = (TextView) itemView.findViewById(R.id.course_name);
+            course_name = (TextView) itemView.findViewById(R.id.profile_user_name);
             course_description = (TextView) itemView.findViewById(R.id.course_description);
             course_photo = (ImageView) itemView.findViewById(R.id.course_photo);
             course_session_start = (TextView) itemView.findViewById(R.id.course_next_session);
@@ -82,7 +82,7 @@ public class CategoriesAdapter extends RecyclerView
         // Picasso.with(holder.context).load(urlImage).into(holder.course_photo);
 
         //h
-        // older.course_session_start.setText("El curso inicia: " + mDataset.get(position).getCurrent_sessions().get(0).getStart().substring(0,10));
+        // older.skill_category.setText("El curso inicia: " + mDataset.get(position).getCurrent_sessions().get(0).getStart().substring(0,10));
     }
 
     public void addItem(CatogoryLN course, int index) {

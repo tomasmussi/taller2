@@ -62,6 +62,8 @@ class ApiJsonController : public Mongoose::JsonController {
 
 		void get_contacts(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
+		void get_contacts_by_distance(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
 		void vote(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void popular(Mongoose::Request &request, Mongoose::JsonResponse &response);
@@ -81,6 +83,11 @@ class ApiJsonController : public Mongoose::JsonController {
 		void send_message(Mongoose::Request &request, Mongoose::JsonResponse &response);
 
 		void view_messages(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+
+		void send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response);
+
+		void token_FCM(Mongoose::Request & request, Mongoose::JsonResponse & response);
 
 		void location(Mongoose::Request &request, Mongoose::JsonResponse &response);
 };

@@ -25,4 +25,11 @@ public class Linkedun extends Application {
         AppEventsLogger.activateApp(this);
     }
 
-  }
+    public static String getApi_token() {
+        return api_token;
+    }
+
+    public static void setApi_token(String api_token) {
+        Linkedun.api_token = api_token;
+    }
+}

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MyProfile implements Serializable{
+public class MyProfile implements Serializable {
 
     private String city;
     private String contacts;
@@ -25,6 +25,7 @@ public class MyProfile implements Serializable{
 
     private ArrayList<String> skills;
     private String summary;
+    private ArrayList<String> job_positions;
 
     public String getCity() {
         return city;
@@ -74,6 +75,7 @@ public class MyProfile implements Serializable{
         this.profile_photo = profile_photo;
     }
 
+
     public ArrayList<String> getSkills() {
         return skills;
     }
@@ -82,11 +84,34 @@ public class MyProfile implements Serializable{
         this.skills = skills;
     }
 
+    public ArrayList<String> getJob_positions() {
+        return job_positions;
+    }
+
+    public void setJob_positions(ArrayList<String> job_positions) {
+        this.job_positions = job_positions;
+    }
+
     public String getSummary() {
         return summary;
     }
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    @Override
+    public String toString() {
+        return "MyProfile{" +
+                "city='" + city + '\'' +
+                ", contacts='" + contacts + '\'' +
+                ", dob='" + dob + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", profile_photo='" + profile_photo + '\'' +
+                ", skills=" + skills +
+                ", summary='" + summary + '\'' +
+                ", job_positions=" + job_positions +
+                '}';
     }
 }

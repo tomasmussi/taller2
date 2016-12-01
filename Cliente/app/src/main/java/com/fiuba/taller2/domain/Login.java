@@ -15,6 +15,8 @@ public class Login {
     public String token;
     public String email;
     public String password;
+    public String user_exists;
+    public String photo;
 
     public String getId() {
         return id;
@@ -46,5 +48,32 @@ public class Login {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Login{" +
+                "id='" + id + '\'' +
+                ", token='" + token + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", user_exists='" + user_exists + '\'' +
+                '}';
+    }
+
+    public String getUser_exists() {
+        return user_exists;
+    }
+
+    public void setUser_exists(String user_exists) {
+        this.user_exists = user_exists;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

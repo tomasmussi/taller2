@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SaveData implements Serializable{
+public class SaveData implements Serializable {
     String status;
 
     public String getStatus() {

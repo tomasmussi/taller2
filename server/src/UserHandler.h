@@ -17,6 +17,13 @@ struct OrderByVotes {
 };
 typedef std::priority_queue<User, std::vector<User>, OrderByVotes> vote_queue;
 
+struct OrderByDistance {
+	bool operator() (User const &a, User const &b) {
+		return a.get_distance_to_other_user() > b.get_distance_to_other_user();
+	}
+};
+typedef std::priority_queue<User, std::vector<User>, OrderByDistance> distance_queue;
+
 class UserHandler {
 private:
 	UserHandler();
@@ -49,6 +56,8 @@ public:
 	void get_requests(std::string user_id, Json::Value &array);
 
 	void load_friends(std::string user_id, Json::Value &array);
+
+	void load_friends_distance(std::string user_id, Json::Value &array);
 
 	bool user_vote(std::string from_user, std::string voted_user);
 

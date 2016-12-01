@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/border_off"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/forum_post_author_pic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/profile_pic"
+        android:scaleType="centerCrop" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/forum_post_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/forum_post_author_pic"
+        android:paddingStart="10dp"
+        android:textAppearance="@style/TextBody"
+        app:typeface="roboto_bold" />
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/forum_post_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/forum_post_author_pic"
+        android:layout_below="@id/forum_post_author"
+        android:paddingStart="10dp"
+        android:layout_marginTop="5dp"
+        android:textAppearance="@style/TextBody"
+        app:typeface="roboto_regular" />
+
+
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/forum_post_creation_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/forum_post_author_pic"
+        android:layout_below="@id/forum_post_content"
+        android:paddingStart="10dp"
+        android:layout_marginTop="15dp"
+        android:textAppearance="@style/TextCaption"
+        android:textColor="@color/secondary_text"
+        app:typeface="roboto_regular" />
+
+</RelativeLayout>

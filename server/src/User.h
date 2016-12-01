@@ -24,9 +24,12 @@ private:
 	std::list<std::string> skills_;
 	std::list<std::string> job_positions_;
 	void serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
+	void database_serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list);
 
 	std::string latitude_;
 	std::string longitude_;
+
+	float distance_to_last_user_;
 
 public:
 	User(std::string json_value);
@@ -49,6 +52,8 @@ public:
 
 	void replace_not_null(std::string field, std::string value);
 
+	bool request_sent(const User &other_user);
+
 	/* Send a request to add contact to my contacts */
 	void send_request(User &other_user);
 
@@ -65,6 +70,8 @@ public:
 	std::list<std::string> friends();
 
 	bool is_friend(const User &other_user);
+
+	bool is_friend_request_sent(const User &other_user);
 
 	bool vote_for(User &other_user);
 
@@ -91,6 +98,10 @@ public:
 	std::string get_longitude() const;
 
 	std::string distance_to(const User &other);
+
+	void distance_to_other_user(float distance);
+
+	float get_distance_to_other_user() const;
 
 };
 

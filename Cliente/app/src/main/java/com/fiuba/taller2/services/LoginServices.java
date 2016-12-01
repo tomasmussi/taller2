@@ -14,10 +14,12 @@ public class LoginServices extends AbstractServices{
     public static final String api_security="7dd52e16c17ff193362961b387687bf8";
 
     public Login getLoginBy(String user) {
-        String loginQuery = this.getQueryBy(user);
-        Log.d("API LOGIN QUERY", loginQuery);
-        LoginDTO loginDTO = (LoginDTO) geDataOftDTO(loginQuery, LoginDTO.class);
-        return loginDTO.getData().get(0);
+        String query = this.getQueryBy(user);
+        Log.d(this.getClass().toString(), query);
+
+        LoginDTO loginDTO = (LoginDTO) geDataOftDTO(query, LoginDTO.class);
+        Log.d(this.getClass().getSimpleName()+ " Object", loginDTO.toString());
+        return loginDTO.getData();
     }
 
     @NonNull

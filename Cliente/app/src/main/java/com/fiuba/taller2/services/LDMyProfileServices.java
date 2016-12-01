@@ -12,16 +12,15 @@ import com.fiuba.taller2.rest_dto.MyProfileDTO;
 
 public class LDMyProfileServices extends AbstractServices{
 
-        private static final String service_name = "api/my_profile";
+        private static final String service_name = "api/profile";
 
 
         public MyProfile getProfile() {
             String coursesQuery = this.getQueryBy();
             Log.d("MyProfile: ", coursesQuery);
-
             MyProfileDTO coursesDTO = (MyProfileDTO) geDataOftDTO(coursesQuery, MyProfileDTO.class);
-            MyProfileList[] a= (MyProfileList[]) coursesDTO.getData();
-            return ((MyProfileList[])(coursesDTO.getData()))[0].getUser();
+            Log.d("MyProfile: ", coursesDTO.getData().toString());
+            return coursesDTO.getData();
         }
 
         @Override
@@ -33,7 +32,6 @@ public class LDMyProfileServices extends AbstractServices{
             urlStringBuffer.append("?");
             urlStringBuffer.append("token=");
             urlStringBuffer.append(api_security);
-
 
             return urlStringBuffer.toString();
         }

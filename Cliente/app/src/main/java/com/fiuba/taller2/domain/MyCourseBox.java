@@ -14,7 +14,6 @@ import java.io.Serializable;
  */
 
 
-
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MyCourseBox implements Serializable {

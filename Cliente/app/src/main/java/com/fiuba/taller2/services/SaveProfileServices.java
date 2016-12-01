@@ -1,5 +1,7 @@
 package com.fiuba.taller2.services;
 
+import com.fiuba.taller2.domain.Estado;
+import com.fiuba.taller2.rest_dto.EstadoDTO;
 import com.fiuba.taller2.rest_dto.SaveProfileDto;
 
 /**
@@ -7,23 +9,47 @@ import com.fiuba.taller2.rest_dto.SaveProfileDto;
  */
 
 public class SaveProfileServices extends AbstractServices {
-    private static final String service_name = "api/edit";
+    private static final String service_name = "api/profile";
 
     public boolean ifExistsErrors(String...params) {
         String coursesQuery = this.getQueryBy(params);
-        System.out.println("Job query" +coursesQuery);
-        SaveProfileDto coursesDTO = (SaveProfileDto) geDataOftDTO(coursesQuery, SaveProfileDto.class);
-        return  !((String)coursesDTO.getData()[0].getStatus()).equals("OK") ;
+        System.out.println("SaveProfilequery" +coursesQuery);
+        EstadoDTO coursesDTO = (EstadoDTO) postDataOftDTO(coursesQuery, EstadoDTO.class);
+        return !coursesDTO.getData().getStatus().equals("OK") ;
 
     }
 
+    public boolean saveImage(String imageUrl) {
+        String imageQ = this.saveImageQuery(imageUrl);
+        System.out.println("SaveImageQuery" +imageQ);
+        EstadoDTO estadoDTO = (EstadoDTO) postDataOftDTO(imageQ, EstadoDTO.class);
+        return !estadoDTO.getData().getStatus().equals("OK") ;
 
+    }
+
+    protected String saveImageQuery(String... params) {
+
+        String profile_photo = params[0];
+
+        String url = urlBase;
+        StringBuffer urlStringBuffer = new StringBuffer(url);
+        urlStringBuffer.append(service_name);
+        urlStringBuffer.append("?");
+        urlStringBuffer.append("token=");
+        urlStringBuffer.append(api_security);
+        urlStringBuffer.append("&profile_photo=");
+        urlStringBuffer.append(profile_photo);
+
+
+        return urlStringBuffer.toString();
+    }
     @Override
     protected String getQueryBy(String... params) {
          String name    =   params[0];
          String email   =   params[1];
          String city    =   params[2];
          String dob     =   params[3];
+         String summary = params[4];
 
          String url = urlBase;
         StringBuffer urlStringBuffer = new StringBuffer(url);
@@ -39,6 +65,8 @@ public class SaveProfileServices extends AbstractServices {
         urlStringBuffer.append(city);
         urlStringBuffer.append("&dob=");
         urlStringBuffer.append(dob);
+        urlStringBuffer.append("&summary=");
+        urlStringBuffer.append(summary);
 
 
 

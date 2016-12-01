@@ -24,7 +24,9 @@ public class Job implements java.io.Serializable {
         this.description = description;
         this.photo_id = photo_id;
     }
-    public Job(){}
+
+    public Job() {
+    }
 
     public String getId() {
         return id;

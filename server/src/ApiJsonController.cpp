@@ -6,9 +6,11 @@
 #include "User.h"
 #include "log.h"
 #include <json/json.h>
-
+#include "TokenFCM.h"
+#include "TokenFCMHandler.h"
 #include "md5.h"
 #include <sstream>
+#include "Notificator.h"
 
 ApiJsonController::ApiJsonController() : SALT("46995e90c43683a2fe66f3202b81b753"),
 		API_SEC_KEY("7dd52e16c17ff193362961b387687bf8"),
@@ -102,6 +104,9 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/get_contacts",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_contacts));
 
+	registerRoute("GET", "/contacts/distance",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_contacts_by_distance));
+
 	registerRoute("POST", "/vote",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::vote));
 
@@ -117,8 +122,51 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/message",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::view_messages));
 
-	registerRoute("POST", "/location",
+registerRoute("POST", "/location",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::location));
+
+	registerRoute("GET", "/send_notification",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::send_notification));
+
+	registerRoute("POST", "/token_FCM",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::token_FCM));
+
+}
+
+void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["errors"] = Json::Value(Json::arrayValue);
+
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("No se permite almacenar el token de un usuario no logueado");
+		return;
+	}
+
+	std::string fb_id = request.get("user_fb_id", "");
+	std::string token_FCM = request.get("token_FCM","");
+
+	Token_FCM token(fb_id,token_FCM);
+
+	TokenFCMHandler::get_instance().save_token(token);
+
+	Json::Value data;
+	response["data"]["status"] = "OK";
+	response["data"]["message"] = "Token FCM dado de alta";
+	std::ostringstream mensaje ("tocken_FCM: ");
+	mensaje << token_FCM;
+	mensaje << "fb_id: ";
+	mensaje << fb_id;
+	Log::get_instance()->log_info(mensaje.str());
+}
+
+
+void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	Token_FCM token("fb_id","eDSpyrzlxKQ:APA91bGBze7mTQK3OnIWJf-WTNRIYvFDbLNGsVjtMMliVRcjUF6AqsNbZhXTYcSS5srb6fSUSZ-yrB9NC7mX2hV6AjJAmF1Vz2fFuWVUX8oSDnPV1KcnStt6DNR0gyhLibjrMXuu2-MA");
+	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "HOLA");
+	//notificator.send();
 }
 
 void ApiJsonController::edit(Mongoose::Request &request, Mongoose::JsonResponse &response) {
@@ -260,6 +308,11 @@ void ApiJsonController::add_contact(Mongoose::Request &request, Mongoose::JsonRe
 	if (UserHandler::get_instance().user_exists(user_logged_id)
 		&& UserHandler::get_instance().user_exists(wanted_user_id)) {
 		UserHandler::get_instance().send_request(user_logged_id, wanted_user_id);
+
+		Token_FCM token = TokenFCMHandler::get_instance().read_token(wanted_user_id);
+		Notificator notificator(token, TYPE_NOTIFICATOR::FRIEND_REQUEST, "Usted ha recibido una solicitud de amistad nueva");
+		//notificator.send();
+
 	} else {
 		Json::Value errors;
 		errors["status"] = "ERROR";
@@ -392,6 +445,20 @@ void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonR
 	UserHandler::get_instance().load_friends(user_logged_id, response["data"]);
 }
 
+void ApiJsonController::get_contacts_by_distance(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizaro para get_contacts");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	UserHandler::get_instance().load_friends_distance(user_logged_id, response["data"]);
+}
+
 void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse &response) {
 	response["errors"] = Json::Value(Json::arrayValue);
 	if (!is_user_logged(request)) {
@@ -448,6 +515,7 @@ void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonRespon
 		user["photo"] = it.get_profile_photo();
 		user["votes"] = it.votes();
 		user["is_contact"] = (me.is_friend(it) ? "true" : "false");
+		user["is_friend_request_sent"] = me.is_friend_request_sent(it);
 		response["data"].append(user);
 		most_pop.pop();
 		count++;
@@ -487,7 +555,7 @@ void ApiJsonController::delete_skill(Mongoose::Request &request, Mongoose::JsonR
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string new_skill = request.get("skill", "");
-	if (new_skill.empty()) {
+	if (!new_skill.empty()) {
 		UserHandler::get_instance().delete_user_skill(user_logged_id, new_skill);
 		response["data"]["status"] = "OK";
 		response["data"]["message"] = "Skill eliminado";
@@ -524,7 +592,7 @@ void ApiJsonController::add_job_position(Mongoose::Request &request, Mongoose::J
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string new_job = request.get("job", "");
-	if (new_job.empty()) {
+	if (!new_job.empty()) {
 		UserHandler::get_instance().add_user_job(user_logged_id, new_job);
 		response["data"]["status"] = "OK";
 		response["data"]["message"] = "Job position agregado";
@@ -545,7 +613,7 @@ void ApiJsonController::delete_job_position(Mongoose::Request &request, Mongoose
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string new_job_position = request.get("job", "");
-	if (new_job_position.empty()) {
+	if (!new_job_position.empty()) {
 		UserHandler::get_instance().delete_user_job(user_logged_id, new_job_position);
 		response["data"]["status"] = "OK";
 		response["data"]["message"] = "Job position eliminado";
@@ -600,6 +668,11 @@ void ApiJsonController::send_message(Mongoose::Request &request, Mongoose::JsonR
 		return;
 	}
 	UserHandler::get_instance().send_message(user_logged_id, receiver_id, message);
+	User sender = UserHandler::get_instance().get_user(user_logged_id);
+	Token_FCM token = TokenFCMHandler::get_instance().read_token(receiver_id);
+	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "Usted ha recibido un mensaje nuevo", sender.id());
+	notificator.send();
+
 	response["data"]["status"] = "OK";
 	response["data"]["message"] = "Mensaje enviado exitosamente";
 }
@@ -616,7 +689,7 @@ void ApiJsonController::view_messages(Mongoose::Request &request, Mongoose::Json
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string receiver_id = request.get("contact_fb_id", "");
-	std::string limit = request.get("limit", "10");
+	std::string limit = request.get("limit", "0");
 	if (receiver_id.empty() || !UserHandler::get_instance().user_exists(receiver_id)) {
 		Json::Value errors;
 		errors["status"] = "ERROR";
@@ -628,10 +701,12 @@ void ApiJsonController::view_messages(Mongoose::Request &request, Mongoose::Json
 	std::list<Message> messages = UserHandler::get_instance().view_messages(user_logged_id, receiver_id, limit);
 
 	// response["data"]["status"] = "OK";
-	response["data"]["messages"] = Json::Value(Json::arrayValue);
+	// response["data"]["messages"] = Json::Value(Json::arrayValue);
+	response["data"] = Json::Value(Json::arrayValue);
 
 	for (std::list<Message>::iterator it = messages.begin(); it != messages.end(); ++it) {
-		response["data"]["messages"].append((*it).serialize());
+		// response["data"]["messages"].append((*it).serialize());
+		response["data"].append((*it).serialize());
 	}
 }
 
@@ -652,7 +727,7 @@ void ApiJsonController::location(Mongoose::Request &request, Mongoose::JsonRespo
 		Json::Value errors;
 		errors["status"] = "ERROR";
 		errors["message"] = "Latitud o longitud vacios";
-		response.setCode(HTTP_CODE_BAD_REQUEST);
+		//response.setCode(HTTP_CODE_BAD_REQUEST);
 		response["errors"].append(errors);
 		Log::get_instance()->log_info("Latitud o longitud vacios - location");
 		return;

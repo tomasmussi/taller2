@@ -3,6 +3,7 @@ package com.fiuba.taller2.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,14 +13,23 @@ import java.util.ArrayList;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class JobPositions {
-    ArrayList<LDJobPosition> job_positions;
+public class JobPositions implements Serializable {
 
-    public ArrayList<LDJobPosition> getJobPositions() {
+    private ArrayList<JobPosition> job_positions;
+
+    public ArrayList<JobPosition> getJob_positions() {
         return job_positions;
     }
 
-    public void setJobPositions(ArrayList<LDJobPosition> jobPositions) {
-        this.job_positions = jobPositions;
+    public void setJob_positions(ArrayList<JobPosition> job_positions) {
+        this.job_positions = job_positions;
+    }
+
+    @Override
+    public String toString() {
+        return "job_positions{" +
+                "job_positions=" + job_positions +
+                '}';
     }
 }
+

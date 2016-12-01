@@ -69,13 +69,13 @@ void User::load_list(Json::Value &root, std::string param_name, std::list<std::s
 
 std::string User::serialize() {
 	Json::Value root;
-	root["user"]["contacts"] = friends_.size();
-	root["user"]["email"] = email_;
-	root["user"]["name"] = name_;
-	root["user"]["dob"] = dob_;
-	root["user"]["city"] = city_;
-	root["user"]["summary"] = summary_;
-	root["user"]["profile_photo"] = profile_photo_;
+	root["contacts"] = friends_.size();
+	root["email"] = email_;
+	root["name"] = name_;
+	root["dob"] = dob_;
+	root["city"] = city_;
+	root["summary"] = summary_;
+	root["profile_photo"] = profile_photo_;
 	serialize_list(root, "requests", requests_);
 	serialize_list(root, "skills", skills_);
 	serialize_list(root, "job_positions", job_positions_);
@@ -87,7 +87,7 @@ std::string User::serialize() {
 void User::serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list) {
 	root["user"][param_name] = Json::Value(Json::arrayValue);
 	for (std::list<std::string>::iterator it = list.begin(); it != list.end(); ++it) {
-		root["user"][param_name].append(*it);
+		root[param_name].append(*it);
 	}
 }
 
@@ -100,10 +100,10 @@ std::string User::database_serialize() {
 	root["user"]["city"] = city_;
 	root["user"]["summary"] = summary_;
 	root["user"]["profile_photo"] = profile_photo_;
-	serialize_list(root, "requests", requests_);
-	serialize_list(root, "friends", friends_);
-	serialize_list(root, "skills", skills_);
-	serialize_list(root, "job_positions", job_positions_);
+	database_serialize_list(root, "requests", requests_);
+	database_serialize_list(root, "friends", friends_);
+	database_serialize_list(root, "skills", skills_);
+	database_serialize_list(root, "job_positions", job_positions_);
 	root["user"]["votes"] = Json::Value(Json::arrayValue);
 	for (std::map<std::string, int>::iterator it = votes_.begin(); it != votes_.end(); ++it) {
 		root["user"]["votes"].append(it->first);
@@ -113,6 +113,13 @@ std::string User::database_serialize() {
 	std::ostringstream os;
 	os << root;
 	return os.str();
+}
+
+void User::database_serialize_list(Json::Value &root, std::string param_name, std::list<std::string> &list) {
+	root["user"][param_name] = Json::Value(Json::arrayValue);
+	for (std::list<std::string>::iterator it = list.begin(); it != list.end(); ++it) {
+		root["user"][param_name].append(*it);
+	}
 }
 
 std::string User::id() const {
@@ -164,9 +171,15 @@ void User::replace_not_null(std::string field, std::string value) {
 	}
 }
 
+bool User::request_sent(const User &other_user) {
+	return std::find(other_user.requests_.begin(), other_user.requests_.end(), id_) != other_user.requests_.end();
+}
+
 void User::send_request(User &other_user) {
 	// requests_.push_back(other_user.id_);
-	other_user.requests_.push_back(this->id_);
+	if (!request_sent(other_user)) {
+		other_user.requests_.push_back(this->id_);
+	}
 }
 
 int User::requests() {
@@ -193,6 +206,12 @@ std::list<std::string> User::friends() {
 
 bool User::is_friend(const User &other_user) {
 	return std::find(friends_.begin(), friends_.end(), other_user.id()) != friends_.end();
+}
+
+bool User::is_friend_request_sent(const User &other_user) {
+	bool him = std::find(requests_.begin(), requests_.end(), other_user.id()) != requests_.end();
+	bool me = std::find(other_user.requests_.begin(), other_user.requests_.end(), id()) != other_user.requests_.end();
+	return him || me;
 }
 
 bool User::vote_for(User &other_user) {
@@ -276,4 +295,13 @@ std::string User::distance_to(const User &other) {
 	double y = (lat2 - lat1);
 	double distance = sqrt(x * x + y * y) * R;
 	return std::to_string(distance / 100); // Return distance in km
+}
+
+
+void User::distance_to_other_user(float distance) {
+	distance_to_last_user_ = distance;
+}
+
+float User::get_distance_to_other_user() const {
+	return distance_to_last_user_;
 }

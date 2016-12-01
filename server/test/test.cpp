@@ -9,12 +9,63 @@
 #include "UserHandler.h"
 #include "User.h"
 #include "UserList.h"
+#include "TokenFCMHandler.h"
+#include "TokenFCM.h"
+
+#include <mongoose/Server.h>
+#include "ApiJsonController.h"
 #include "md5.h"
+
+bool ejecutarTestServer = false;
+volatile static bool running = true;
+
+void handle_signal(int sig) {
+	(void) sig;
+	if (running) {
+		cout << "Exiting..." << endl;
+		running = false;
+	}
+}
 
 TEST(DatabaseHandler, UseOtherDatabase) {
 	time_t seconds = time (NULL);
 	char* dt = ctime(&seconds);
 	DatabaseHandler::get_instance("new_database-" + std::string(dt));
+}
+
+TEST(SERVER,integration){
+	if(ejecutarTestServer){
+		signal(SIGINT, handle_signal);
+		ApiJsonController json;
+		Mongoose::Server server(8080);
+		server.registerController(&json);
+		server.setOption("enable_directory_listing", "false");
+		server.start();
+
+		std::cout << "Server started, routes:" << 	std::endl;
+		json.dumpRoutes();
+
+		while (running) {
+			sleep(1);
+		}
+		server.stop();
+	}
+}
+TEST(Token_FCM,WriteAndRead){
+	std::string fb_id = "id_fb";
+	std::string token_FCM = "1234";
+	Token_FCM token(fb_id,token_FCM);
+	EXPECT_EQ(token.get_fb_id(),"id_fb");
+	EXPECT_EQ(token.get_token(),"1234");
+}
+
+TEST(TokenFCMHandler, WriteAndRead){
+	std::string fb_id = "id_fb";
+	std::string token_FCM = "1234";
+	Token_FCM token(fb_id,token_FCM);
+	TokenFCMHandler::get_instance().save_token(token);
+	Token_FCM tokenLeido = TokenFCMHandler::get_instance().read_token(fb_id);
+	EXPECT_EQ(tokenLeido.get_token(), "1234");
 }
 
 TEST(DatabaseHandler, WriteAndRead) {
@@ -43,25 +94,7 @@ TEST(UserTest, ConstructFromString) {
 TEST(UserTest, SerializeToJson) {
 	std::string user = "{\"user\" : {	\"name\" : \"Tomas Mussi\", \"email\": \"tomasmussi@gmail.com\",\"pass\" : \"tomas\", \"dob\" : \"11/07/1991\", \"city\" : \"Ciudad de Buenos Aires\", \"summary\" : \"Estudiante de ingenieria informatica de la UBA.\", \"skills\": [1, 2], \"contacts\" : 4, \"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\" } }";
 
-	std::string expected = "{\n\
-	\"user\" : \n\
-	{\n\
-		\"city\" : \"Ciudad de Buenos Aires\",\n\
-		\"contacts\" : 0,\n\
-		\"dob\" : \"11/07/1991\",\n\
-		\"email\" : \"tomasmussi@gmail.com\",\n\
-		\"job_positions\" : [],\n\
-		\"name\" : \"Tomas Mussi\",\n\
-		\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\
-		\"requests\" : [],\n\
-		\"skills\" : \n\
-		[\n\
-			\"1\",\n\
-			\"2\"\n\
-		],\n\
-		\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\"\n\
-	}\n\
-}";
+	std::string expected = "{\n\t\"city\" : \"Ciudad de Buenos Aires\",\n\t\"contacts\" : 0,\n\t\"dob\" : \"11/07/1991\",\n\t\"email\" : \"tomasmussi@gmail.com\",\n\t\"name\" : \"Tomas Mussi\",\n\t\"profile_photo\" : \"QURQIEdtYkgK...dHVuZw==\",\n\t\"skills\" : \n\t[\n\t\t\"1\",\n\t\t\"2\"\n\t],\n\t\"summary\" : \"Estudiante de ingenieria informatica de la UBA.\",\n\t\"user\" : \n\t{\n\t\t\"job_positions\" : [],\n\t\t\"requests\" : [],\n\t\t\"skills\" : []\n\t}\n}";
 	User tomas(user);
 	EXPECT_EQ(tomas.serialize(), expected);
 }
@@ -380,7 +413,7 @@ TEST(UserHandlerTest, LookupUsers) {
 	UserHandler::get_instance().lookup(user_key, "luisarancibia", ans);
 	std::ostringstream os;
 	os << ans;
-	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"luisarancibia\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"is_friend_request_sent\" : false,\n\t\t\"name\" : \"luisarancibia\",\n\t\t\"photo\" : \"\",\n\t\t\"summary\" : \"\"\n\t}\n]";
 	EXPECT_EQ(expeted , os.str());
 }
 
@@ -424,7 +457,7 @@ TEST(UserHandlerTest, ListUserRequests) {
 	UserHandler::get_instance().get_requests(other_key, ans);
 	std::ostringstream os;
 	os << ans;
-	std::string expeted = "[\n\t{\n\t\t\"fb_id\" : \"a-fb-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	std::string expeted = "[\n\t{\n\t\t\"fb_id\" : \"a-fb-user-id\",\n\t\t\"is_contact\" : \"false\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\",\n\t\t\"summary\" : \"\"\n\t}\n]";
 	EXPECT_EQ(expeted , os.str());
 }
 
@@ -443,7 +476,7 @@ TEST(UserHandlerTest, GetUserFriends) {
 	UserHandler::get_instance().load_friends(user_key, ans);
 	std::ostringstream os;
 	os << ans;
-	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"true\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\"\n\t}\n]";
+	std::string expeted = "[\n\t{\n\t\t\"distance\" : \"0.000000\",\n\t\t\"fb_id\" : \"other-user-id\",\n\t\t\"is_contact\" : \"true\",\n\t\t\"name\" : \"\",\n\t\t\"photo\" : \"\",\n\t\t\"summary\" : \"\"\n\t}\n]";
 	EXPECT_EQ(expeted , os.str());
 }
 
@@ -465,21 +498,26 @@ TEST(UserHandlerTest, UserVotes) {
 
 TEST(UserHandlerTest, PopularUsers) {
 	std::string user_key = "a-fb-user-id";
+	std::string user_key2 = "a-fb-user-id2";
 	std::string other_key = "other-user-id";
 	DatabaseHandler::get_instance().delete_key(user_key);
+	DatabaseHandler::get_instance().delete_key(user_key2);
 	DatabaseHandler::get_instance().delete_key(other_key);
 	UserHandler::get_instance().create_user(user_key);
+	UserHandler::get_instance().create_user(user_key2);
 	UserHandler::get_instance().create_user(other_key);
 
 	UserHandler::get_instance().send_request(user_key, other_key);
 	UserHandler::get_instance().answer_request(other_key, user_key, true);
 	UserHandler::get_instance().user_vote(user_key, other_key);
-	vote_queue queue = UserHandler::get_instance().most_popular();
+
+   UserHandler::get_instance().send_request(user_key2, other_key);
+	UserHandler::get_instance().answer_request(other_key, user_key2, true);
+	UserHandler::get_instance().user_vote(user_key2, other_key);
+
+   vote_queue queue = UserHandler::get_instance().most_popular();
 	User top = queue.top();
 	EXPECT_EQ(other_key, top.id());
-	queue.pop();
-	top = queue.top();
-	EXPECT_EQ(user_key, top.id());
 }
 
 TEST(UserHandlerTest, AddUserSkill) {
@@ -710,6 +748,7 @@ TEST(MD5Test, MD5HashTest) {
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest( &argc, argv );
+	if(argc>1) ejecutarTestServer = true;
     return RUN_ALL_TESTS();
 }
 
