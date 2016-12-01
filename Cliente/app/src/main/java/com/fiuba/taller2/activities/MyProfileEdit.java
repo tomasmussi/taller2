@@ -45,10 +45,13 @@ public class MyProfileEdit extends AppCompatActivity {
         email.setText(myProfile.getEmail());
 
         EditText fechaNac = (EditText) findViewById(R.id.user_profile_birhdate);
-        fechaNac.setText("Fecha de nac: " + myProfile.getDob());
+        fechaNac.setText(myProfile.getDob());
 
         EditText ciudad = (EditText) findViewById(R.id.user_profile_city);
         ciudad.setText(myProfile.getCity());
+
+        TextView summary = (TextView) findViewById(R.id.user_profile_summary);
+        summary.setText( myProfile.getSummary());
 
         ImageView profilePhoto= (ImageView) findViewById(R.id.user_profile_photo);
         Picasso.with(this).load( myProfile.getProfile_photo()).into(profilePhoto);
@@ -96,7 +99,7 @@ public class MyProfileEdit extends AppCompatActivity {
 
 
         EditText summary = (EditText) findViewById(R.id.user_profile_summary);
-        summary.setText( summary.getText().toString());
+        myProfile.setSummary( summary.getText().toString());
 
 
 
