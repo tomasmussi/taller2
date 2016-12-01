@@ -499,6 +499,7 @@ void ApiJsonController::popular(Mongoose::Request &request, Mongoose::JsonRespon
 		user["photo"] = it.get_profile_photo();
 		user["votes"] = it.votes();
 		user["is_contact"] = (me.is_friend(it) ? "true" : "false");
+		user["is_friend_request_sent"] = me.is_friend_request_sent(it);
 		response["data"].append(user);
 		most_pop.pop();
 		count++;

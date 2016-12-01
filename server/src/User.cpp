@@ -208,6 +208,10 @@ bool User::is_friend(const User &other_user) {
 	return std::find(friends_.begin(), friends_.end(), other_user.id()) != friends_.end();
 }
 
+bool User::is_friend_request_sent(const User &other_user) {
+	return std::find(requests_.begin(), requests_.end(), other_user.id()) != requests_.end();
+}
+
 bool User::vote_for(User &other_user) {
 	if (other_user.id().compare(id()) == 0) {
 		// Cant vote for myself
