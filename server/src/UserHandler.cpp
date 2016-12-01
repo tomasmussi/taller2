@@ -126,6 +126,33 @@ void UserHandler::load_friends(std::string user_id, Json::Value &array) {
 	}
 }
 
+void UserHandler::load_friends_distance(std::string user_id, Json::Value &array) {
+	User user = get_user(user_id);
+	std::list<std::string> friends = user.friends();
+	distance_queue answer;
+	for (std::list<std::string>::iterator it = friends.begin(); it != friends.end(); ++it) {
+		User user_friend = get_user((*it));
+		float distance = atof(user.distance_to(user_friend).c_str());
+		user_friend.distance_to_other_user(distance);
+		answer.push(user_friend);
+	}
+
+	while (!answer.empty()) {
+		Json::Value user_value;
+		User it = answer.top();
+		user_value["distance"] = user.distance_to(it);
+		user_value["fb_id"] = it.id();
+		user_value["name"] = it.get_name();
+		user_value["photo"] = it.get_profile_photo();
+		user_value["is_contact"] = (user.is_friend(it) ? "true" : "false");
+		user_value["is_friend_request_sent"] = user.is_friend_request_sent(it);
+		user_value["summary"] = it.get_summary();
+		array.append(user_value);
+		answer.pop();
+	}
+}
+
+
 
 bool UserHandler::user_vote(std::string from_user, std::string voted_user_id) {
 	User user_from = get_user(from_user);
@@ -136,7 +163,6 @@ bool UserHandler::user_vote(std::string from_user, std::string voted_user_id) {
 	return success;
 }
 
-/* WARNING! Este metodo tiene dependencias de todos lados. Testear profundamente */
 vote_queue UserHandler::most_popular() {
 	UserList list(DatabaseHandler::get_instance().read("users"));
 	std::list<std::string> users = list.users();

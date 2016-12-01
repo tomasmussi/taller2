@@ -104,6 +104,9 @@ void ApiJsonController::setup() {
 	registerRoute("GET", "/get_contacts",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_contacts));
 
+	registerRoute("GET", "/contacts/distance",
+		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::get_contacts_by_distance));
+
 	registerRoute("POST", "/vote",
 		new Mongoose::RequestHandler<ApiJsonController, Mongoose::JsonResponse>(this, &ApiJsonController::vote));
 
@@ -441,6 +444,20 @@ void ApiJsonController::get_contacts(Mongoose::Request &request, Mongoose::JsonR
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	UserHandler::get_instance().load_friends(user_logged_id, response["data"]);
+}
+
+void ApiJsonController::get_contacts_by_distance(Mongoose::Request &request, Mongoose::JsonResponse &response) {
+	response["errors"] = Json::Value(Json::arrayValue);
+	if (!is_user_logged(request)) {
+		Json::Value errors;
+		errors["status"] = "ERROR";
+		errors["message"] = "Usuario no autorizado para realizar accion";
+		response["errors"].append(errors);
+		Log::get_instance()->log_info("Usuario no autorizaro para get_contacts");
+		return;
+	}
+	std::string user_logged_id = user_tokens_[request.get("token", "")];
+	UserHandler::get_instance().load_friends_distance(user_logged_id, response["data"]);
 }
 
 void ApiJsonController::vote(Mongoose::Request &request, Mongoose::JsonResponse &response) {
