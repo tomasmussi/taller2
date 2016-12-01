@@ -690,7 +690,7 @@ void ApiJsonController::view_messages(Mongoose::Request &request, Mongoose::Json
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string receiver_id = request.get("contact_fb_id", "");
-	std::string limit = request.get("limit", "10");
+	std::string limit = request.get("limit", "0");
 	if (receiver_id.empty() || !UserHandler::get_instance().user_exists(receiver_id)) {
 		Json::Value errors;
 		errors["status"] = "ERROR";
