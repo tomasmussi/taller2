@@ -29,7 +29,7 @@
             app:typeface="roboto_medium" />
 
         <com.devspark.robototextview.widget.RobotoTextView
-            android:id="@+id/skill_category"
+            android:id="@+id/distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/skill_name"
@@ -49,7 +49,7 @@
             android:layout_height="35dp"
             android:textAppearance="@style/TextCaption_button"
             android:text="Aceptar solicitud de contacto"
-            android:layout_below="@+id/skill_category"
+            android:layout_below="@+id/distance"
             android:theme="@style/MyButton"/>
         <Button
             android:id="@+id/button_reject"

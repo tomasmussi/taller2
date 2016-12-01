@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fiuba.taller2.R;
-import com.fiuba.taller2.activities.MyContactsActivity;
 import com.fiuba.taller2.activities.MyContactsRequestActivity;
 import com.fiuba.taller2.domain.Contact;
 import com.squareup.picasso.Picasso;
@@ -46,7 +45,7 @@ public class MyContactsRequestAdapter extends RecyclerView
             super(itemView);
             contact_photo = (ImageView) itemView.findViewById(R.id.contact_photo);
             contact_name = (TextView) itemView.findViewById(R.id.skill_name);
-            contact_summary = (TextView) itemView.findViewById(R.id.skill_category);
+            contact_summary = (TextView) itemView.findViewById(R.id.distance);
             button_accept = (Button) itemView.findViewById(R.id.button_accept);
             button_reject= (Button) itemView.findViewById(R.id.button_reject);
 

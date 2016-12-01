@@ -15,7 +15,6 @@ public class SetSkillServices extends AbstractServices{
     public Estado get(String nameSkill) {
         String query = this.getQueryBy(nameSkill);
         Log.d(this.getClass().toString(), nameSkill);
-
         EstadoDTO setEstadoDTO = (EstadoDTO) postDataOftDTO(query, EstadoDTO.class);
         Log.d(this.getClass().getSimpleName()+ " Object", setEstadoDTO.toString());
         return setEstadoDTO.getData();

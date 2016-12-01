@@ -23,6 +23,9 @@ import com.fiuba.taller2.services.SendMesaggeServices;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by luis on 24/11/16.
@@ -121,11 +124,28 @@ public class ConversationActivity  extends AppCompatActivity {
 
 
 
+        }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ScheduledExecutorService scheduler =
+                Executors.newSingleThreadScheduledExecutor();
+
+        scheduler.scheduleAtFixedRate
+                (new Runnable() {
+                    public void run() {
+
+                        if (getDataSetMensajes().size()!=mensajeArrayList.size()) {
+                            mensajeArrayList=getDataSetMensajes();
+                            finish();
+                            startActivity(getIntent());
+
+                        }
+                    }
+                }, 20,20, TimeUnit.SECONDS);
     }
-
-
-
-
 
     private ArrayList<Mensaje> getDataSetMensajes() {
 

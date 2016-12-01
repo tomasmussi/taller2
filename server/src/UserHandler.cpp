@@ -56,7 +56,6 @@ void UserHandler::save_user(User &user) {
 bool UserHandler::lookup_match(const User &u, std::string query) {
 	std::string user_name_lower = u.get_name();
 	std::transform(user_name_lower.begin(), user_name_lower.end(), user_name_lower.begin(), ::tolower);
-	std::cout << "before: " << u.get_name() << "\t after" << user_name_lower << std::endl;
 	std::string query_lower = std::string(query);
 	std::transform(query_lower.begin(), query_lower.end(), query_lower.begin(), ::tolower);
 	

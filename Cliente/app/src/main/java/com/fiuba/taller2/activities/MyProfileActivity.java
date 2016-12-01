@@ -26,6 +26,7 @@ import com.fiuba.taller2.domain.JobPosition;
 import com.fiuba.taller2.domain.MyProfile;
 import com.fiuba.taller2.domain.Skill;
 import com.fiuba.taller2.services.GetJobPositionsServices;
+import com.fiuba.taller2.services.GetSkillServices;
 import com.fiuba.taller2.services.GetSkillsServices;
 import com.fiuba.taller2.services.LDMyProfileServices;
 import com.squareup.picasso.Picasso;
@@ -47,8 +48,9 @@ public class MyProfileActivity extends AppCompatActivity {
     private static String LOG_TAG = "MyProfileActivity";
     private String api_token;
     private MyProfile myProfile;
-   private  ExpandableListView expandableListViewJobs;
+    private ExpandableListView expandableListViewJobs;
     private ExpandableListView expandableListViewSkills;
+    private   ArrayList<Skill> skills;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
@@ -104,9 +106,11 @@ public class MyProfileActivity extends AppCompatActivity {
         summary.setText( myProfile.getSummary());
 
 
-        ArrayList<Skill> skills=new ArrayList<>();
-        skills = getSkillArrayList(skills);
-         expandableListViewSkills = (ExpandableListView) findViewById(R.id.user_profile_skills);
+      skills=new ArrayList<>();
+        if(myProfile.getSkills()!=null){
+            skills= getSkillsFromArrayOfString(myProfile.getSkills());
+        }
+        expandableListViewSkills = (ExpandableListView) findViewById(R.id.user_profile_skills);
         expandableListViewSkills.setAdapter(new SkillsAdapter(this,skills));
         expandableListViewSkills.collapseGroup(0);
         final ArrayList<Skill> finalSkills = skills;
@@ -131,10 +135,6 @@ public class MyProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
-
 
 
         ArrayList<JobPosition> jobPositions= new ArrayList<>();
@@ -168,6 +168,31 @@ public class MyProfileActivity extends AppCompatActivity {
 
 
     }
+
+    private ArrayList<Skill> getSkillsFromArrayOfString(ArrayList<String> skills) {
+        ArrayList<Skill> skillArrayList= new ArrayList<>();
+
+        for(String s:skills) {
+            AsyncGetSkill asyncGetSkill = new AsyncGetSkill();
+            asyncGetSkill.execute(s);
+            try {
+                Skill skill = (Skill) asyncGetSkill.get();
+
+                if (skill != null) {
+                    Log.d("skill", skill.toString());
+                    skillArrayList.add(skill);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return skillArrayList;
+
+    }
+
     private void resizeView(View view, int newWidth, int newHeight) {
         try {
             Constructor<? extends RelativeLayout.LayoutParams> ctor = (Constructor<? extends RelativeLayout.LayoutParams>) view.getLayoutParams().getClass().getDeclaredConstructor(int.class, int.class);
@@ -177,31 +202,13 @@ public class MyProfileActivity extends AppCompatActivity {
         }
     }
 
-        @Nullable
-    private ArrayList<Skill> getSkillArrayList(ArrayList<Skill> skills) {
-        AsyncgetSkills asyncgetSkills = new AsyncgetSkills();
-        asyncgetSkills.execute();
-        try {
-           skills= (ArrayList<Skill>) asyncgetSkills.get();
-            if (skills != null) Log.d("skills", skills.toString());
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return skills;
-    }
-
     private ArrayList<JobPosition>  getJobPositions() {
         ArrayList<JobPosition> jobPositions=null;
-
         AsyncGetJobPositions asyncGetJobPositions = new AsyncGetJobPositions();
         asyncGetJobPositions.execute();
         try {
             jobPositions= (ArrayList<JobPosition>) asyncGetJobPositions.get();
             if (jobPositions != null) Log.d("JobPositions", jobPositions.toString());
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -220,52 +227,41 @@ public class MyProfileActivity extends AppCompatActivity {
 
     }
 
-
-
     public void editar_skills(View v){
         Log.d("MyProfile: " , "PidioEditarSkills");
         Intent intent = new Intent(this, SelectSkill.class);
-        intent.putExtra("PROFILE", myProfile);
         intent.putExtra("API_TOKEN", api_token);
-        startActivity(intent);
+        intent.putExtra("PROFILE", myProfile);
+        intent.putExtra("SKILL_LIST",  skills);
+        startActivityForResult(intent,1);
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        finish();
+        startActivity(getIntent());
+    }
+
     class HttpRequestTaskMyProfile extends AsyncTask<String, Void,MyProfile> {
 
         MyProfile myProfile;
         @Override
         protected MyProfile doInBackground(String... params) {
             try {
-
                 LDMyProfileServices ldMyProfileServices= new LDMyProfileServices();
                 ldMyProfileServices.setApi_security(api_token);
                 myProfile =  ldMyProfileServices.getProfile();
-
-
             } catch (Exception e) {
                 Log.e("MyProfileRquest", e.getMessage(), e);
             }
-
             return myProfile;
         }
 
     }
 
-    private class AsyncgetSkills extends AsyncTask<String, Void, ArrayList<Skill>> {
-        @Override
-        protected ArrayList<Skill> doInBackground(String... params) {
-            try {
-                GetSkillsServices getSkills = new GetSkillsServices();
-                getSkills.setApi_security(api_token);
-                ArrayList<Skill> estado = getSkills.get();
-                return estado;
-            } catch (Exception e) {
-                Log.e("SendMesagge", e.getMessage(), e);
-            }
-            return null;
-        }
-
-    }
 
 
     private class AsyncGetJobPositions extends AsyncTask<String, Void, ArrayList<JobPosition>> {
@@ -284,4 +280,21 @@ public class MyProfileActivity extends AppCompatActivity {
 
     }
 
+
+    private class AsyncGetSkill extends AsyncTask<String, Void, Skill> {
+        @Override
+        protected Skill doInBackground(String... params) {
+            try {
+                String nameSkill = params[0];
+                GetSkillServices getSkillServices = new GetSkillServices();
+                getSkillServices.setApi_security(api_token);
+                Skill estado = getSkillServices.getSkill(nameSkill);
+                return estado;
+            } catch (Exception e) {
+                Log.e("SendMesagge", e.getMessage(), e);
+            }
+            return null;
+        }
+
+    }
 }

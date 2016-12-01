@@ -22,8 +22,8 @@ import java.util.ArrayList;
 /**
  * Created by Margonari on 18/09/2016.
  */
-public class PopularContactsAdapter extends RecyclerView
-        .Adapter<PopularContactsAdapter
+public class ContactsCloseAdapter extends RecyclerView
+        .Adapter<ContactsCloseAdapter
         .CourseHolder> {
     private static String LOG_TAG = "LookupAdapter";
     private ArrayList<Contact> mDataset;
@@ -33,7 +33,7 @@ public class PopularContactsAdapter extends RecyclerView
             implements View
             .OnClickListener {
         TextView contact_name;
-        TextView contact_summary;
+        TextView distance;
         ImageView contact_photo;
         TextView course_session_start;
         TextView course_duration;
@@ -44,8 +44,9 @@ public class PopularContactsAdapter extends RecyclerView
             super(itemView);
             contact_photo = (ImageView) itemView.findViewById(R.id.contact_photo);
             contact_name = (TextView) itemView.findViewById(R.id.skill_name);
-            contact_summary = (TextView) itemView.findViewById(R.id.distance);
+            distance = (TextView) itemView.findViewById(R.id.distance);
             button_vote = (Button) itemView.findViewById(R.id.button_vote);
+
 
             context = itemView.getContext();
 
@@ -63,7 +64,7 @@ public class PopularContactsAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public PopularContactsAdapter(ArrayList<Contact> myDataset, Context mcontext) {
+    public ContactsCloseAdapter(ArrayList<Contact> myDataset, Context mcontext) {
         mDataset = myDataset;
         mcontexts=mcontext;
     }
@@ -72,7 +73,7 @@ public class PopularContactsAdapter extends RecyclerView
     public CourseHolder onCreateViewHolder(ViewGroup parent,
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_popular_users, parent, false);
+                .inflate(R.layout.card_view_close_users, parent, false);
 
         CourseHolder dataObjectHolder = new CourseHolder(view);
         return dataObjectHolder;
@@ -81,21 +82,13 @@ public class PopularContactsAdapter extends RecyclerView
     @Override
     public void onBindViewHolder(CourseHolder holder, final int position) {
         holder.contact_name.setText(mDataset.get(position).getName());
-        holder.contact_summary.setText(mDataset.get(position).getSummary());
+        holder.distance.setText("Distancia: "+ mDataset.get(position).getDistance());
 
         String urlImage ="http://www.thomasandfriends.com/es-es/Images/hero-6-sample-train_tcm1140-190382.png";
         if(mDataset.get(position).getPhoto()!=null & !mDataset.get(position).getPhoto().isEmpty())Picasso.with(holder.context).load(mDataset.get(position).getPhoto()).into(holder.contact_photo);
         else{Picasso.with(holder.context).load(urlImage).into(holder.contact_photo);}
 
-        holder.button_vote.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                ((PopularContactsActivity)mcontexts).voteContact(mDataset.get(position).getFb_id(),"true");
-                ((PopularContactsActivity)mcontexts).restart();
-
-            }
-        });
+        holder.button_vote.setVisibility(View.GONE);
 
 
 

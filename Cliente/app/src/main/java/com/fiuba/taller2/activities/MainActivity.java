@@ -1,16 +1,22 @@
 package com.fiuba.taller2.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -41,6 +47,7 @@ import com.fiuba.taller2.domain.Skill;
 import com.fiuba.taller2.services.DeleteJobPositionServices;
 import com.fiuba.taller2.services.DeleteSkillServices;
 import com.fiuba.taller2.services.GetCategoriesServices;
+import com.fiuba.taller2.services.GetContactsByDistanceServices;
 import com.fiuba.taller2.services.GetContactsRequestServices;
 import com.fiuba.taller2.services.GetContactsServices;
 import com.fiuba.taller2.services.GetConversationServices;
@@ -64,7 +71,9 @@ import com.fiuba.taller2.services.SetSkillServices;
 import com.fiuba.taller2.services.VoteServices;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -83,7 +92,9 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        AdapterView.OnItemClickListener, GoogleApiClient.OnConnectionFailedListener
+,GoogleApiClient.ConnectionCallbacks {
 
     private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 0;
@@ -105,6 +116,10 @@ public class MainActivity extends AppCompatActivity
     private ImageView iv_image_profile;
 
     private FirebaseAuth firebaseAuth;
+
+    private static final String LOGTAG = "android-localizacion";
+
+    private static final int PETICION_PERMISO_LOCALIZACION = 101;
 
     private GoogleApiClient client;
 
@@ -131,28 +146,6 @@ public class MainActivity extends AppCompatActivity
                 Log.d(TAG, "Key: " + key + " Value: " + value);
             }
         }
-
-
-
-//TODO: Location services
-        /*LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        } else {
-            /*Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(location!=null)
-            Log.d("Location: ", location.toString());
-
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
-        }*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -195,7 +188,12 @@ public class MainActivity extends AppCompatActivity
                                     AuthUI.GOOGLE_PROVIDER
                             ).build(), RC_SIGN_IN);
         }
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        client = new GoogleApiClient.Builder(this)
+                .addApi(AppIndex.API)
+                .enableAutoManage(this, this)
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 
 
@@ -210,6 +208,7 @@ public class MainActivity extends AppCompatActivity
             userEmail=firebaseUser.getEmail();
             tv_email.setText(userEmail);
             if (firebaseUser.getPhotoUrl() != null) loadPhoto(firebaseUser);
+
         } else {
             Log.d("Error:", "No se pudo obtener usuario problema en inicio de sesion");
             startActivityForResult(AuthUI.getInstance()
@@ -256,7 +255,6 @@ public class MainActivity extends AppCompatActivity
                             iv_image_profile.setImageDrawable(context.getDrawable(R.drawable.com_facebook_profile_picture_blank_portrait));
 
                             //InitApiTokenFromServer(userEmail, String.valueOf(photo_storage_url));
-
                         }
                     }
             );
@@ -286,7 +284,6 @@ public class MainActivity extends AppCompatActivity
                 photo_storage_url = taskSnapshot.getDownloadUrl();
                 Log.d("PhotoUrl", String.valueOf(photo_storage_url));
                 InitApiTokenFromServer(userEmail, String.valueOf(photo_storage_url));
-
             }
         });
     }
@@ -300,7 +297,6 @@ public class MainActivity extends AppCompatActivity
                 Log.d("hola", firebaseAuth.getCurrentUser().getProviders().toString());
                 initMenu();
             }else {
-
                 Log.d("AUTHS", "Problema con smart lock");
             }
         } else {
@@ -557,38 +553,66 @@ public class MainActivity extends AppCompatActivity
         Categoria item = (Categoria) parent.getItemAtPosition(position);
         int item_id = Categoria.getCategoryByIdView(item.getId());
         String category_name = item.getName();
-        if (item_id == 5) {
-            HttpRequestTask httpRequestTaskJobs = new HttpRequestTask();
-            httpRequestTaskJobs.execute();
-            ArrayList<CatogoryLN> listJobs = new ArrayList<>();
+        if (item_id == 1) {
+            HttpRequestTaskMyProfile httpRequestTaskMyProfile = new HttpRequestTaskMyProfile();
+            httpRequestTaskMyProfile.execute();
+            MyProfile myProfile = new MyProfile();
             try {
-                listJobs = httpRequestTaskJobs.get();
+                myProfile = httpRequestTaskMyProfile.get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("LIST_CATEGORIES", listJobs);
+            Intent intent = new Intent(this, MyProfileActivity.class);
+            intent.putExtra("PROFILE", myProfile);
+            intent.putExtra("API_TOKEN", api_token);
+            startActivity(intent);
+        }
+        if (item_id == 2) {
+            Intent intent = new Intent(this, MyContactsActivity.class);
+            intent.putExtra("API_TOKEN", api_token);
+            startActivity(intent);
+
+        }
+        if (item_id == 3) {
+            AsyncContactsByDistance asyncContactsByDistance = new AsyncContactsByDistance();
+            asyncContactsByDistance.execute();
+            ArrayList<Contact> contacts = new ArrayList<>();
+            try {
+                contacts = asyncContactsByDistance.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            Intent intent = new Intent(this, ContactsCloseActivity.class);
+            intent.putExtra("CONTACT_LIST", contacts);
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
         }
         if (item_id == 4) {
-            HttpRequestTaskJobs httpRequestTaskJobs = new HttpRequestTaskJobs();
-            httpRequestTaskJobs.execute();
-            ArrayList<JobPosition> listJobs = new ArrayList<>();
-            try {
-                listJobs = httpRequestTaskJobs.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            Intent intent = new Intent(this, JobsListActivity.class);
-            intent.putExtra("LIST_CATEGORIES", listJobs);
-            intent.putExtra("API_TOKEN", api_token);
-            startActivity(intent);
+            AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Log.d("AUTH", "User LOGGED OUT");
+                    startActivityForResult(AuthUI.getInstance()
+
+                            .createSignInIntentBuilder().setIsSmartLockEnabled(false).
+                                    setProviders(
+                                            AuthUI.FACEBOOK_PROVIDER,
+                                            AuthUI.GOOGLE_PROVIDER
+                                    ).build(), RC_SIGN_IN);
+                }
+            });
         }
+
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.e(LOGTAG, "Error grave al conectar con Google Play Services");
     }
 
     class HttpRequestTask extends AsyncTask<String, Void, ArrayList<CatogoryLN>> {
@@ -610,22 +634,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     class HttpRequestTaskMyProfile extends AsyncTask<String, Void, MyProfile> {
-
         MyProfile myProfile;
-
         @Override
         protected MyProfile doInBackground(String... params) {
             try {
-
                 LDMyProfileServices ldMyProfileServices = new LDMyProfileServices();
                 ldMyProfileServices.setApi_security(api_token);
                 myProfile = ldMyProfileServices.getProfile();
-
-
             } catch (Exception e) {
                 Log.e("MyProfileRquest", e.getMessage(), e);
             }
-
             return myProfile;
         }
 
@@ -647,6 +665,65 @@ public class MainActivity extends AppCompatActivity
             return null;
         }
 
+    }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        //Conectado correctamente a Google Play Services
+
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PETICION_PERMISO_LOCALIZACION);
+        } else {
+
+            Location lastLocation =
+                    LocationServices.FusedLocationApi.getLastLocation(client);
+
+            updateUI(lastLocation);
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        //Se ha interrumpido la conexión con Google Play Services
+
+        Log.e(LOGTAG, "Se ha interrumpido la conexión con Google Play Services");
+    }
+
+    private void updateUI(Location loc) {
+        if (loc != null) {
+           latitude=loc.getLatitude();
+           longitude=loc.getLongitude();
+        } else {
+            Log.d("ERROR"," AL UPDETEAR POSICION");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PETICION_PERMISO_LOCALIZACION) {
+            if (grantResults.length == 1
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                //Permiso concedido
+
+                @SuppressWarnings("MissingPermission")
+                Location lastLocation =
+                        LocationServices.FusedLocationApi.getLastLocation(client);
+
+                updateUI(lastLocation);
+
+            } else {
+                //Permiso denegado:
+                //Deberíamos deshabilitar toda la funcionalidad relativa a la localización.
+
+                Log.e(LOGTAG, "Permiso denegado");
+            }
+        }
     }
 
     private class HttpRequestTaskJobs extends AsyncTask<String, Void, ArrayList<JobPosition>> {
@@ -722,15 +799,14 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private class HttpRequestTaskLookup extends AsyncTask<String, Void, ArrayList<Contact>> {
+    private class AsyncContactsByDistance extends AsyncTask<String, Void, ArrayList<Contact>> {
         @Override
         protected ArrayList<Contact> doInBackground(String... params) {
             try {
-                String user = params[0];
 
-                LookupServices lookupServices = new LookupServices();
+                GetContactsByDistanceServices lookupServices = new GetContactsByDistanceServices();
                 lookupServices.setApi_security(api_token);
-                ArrayList<Contact> listContacts = lookupServices.get(user);
+                ArrayList<Contact> listContacts = lookupServices.get();
                 return listContacts;
             } catch (Exception e) {
                 Log.e("Buscarcontacto", e.getMessage(), e);

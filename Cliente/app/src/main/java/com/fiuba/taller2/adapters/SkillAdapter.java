@@ -20,6 +20,23 @@ import java.util.List;
 public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHolder> {
     private List<Skill> items;
     private List<Skill> itemsSelected;
+    private List<Skill> itemNotSelected;
+
+    public List<Skill> getItemsSelected() {
+        return itemsSelected;
+    }
+
+    public void setItemsSelected(List<Skill> itemsSelected) {
+        this.itemsSelected = itemsSelected;
+    }
+
+    public List<Skill> getItemNotSelected() {
+        return itemNotSelected;
+    }
+
+    public void setItemNotSelected(List<Skill> itemNotSelected) {
+        this.itemNotSelected = itemNotSelected;
+    }
 
     public static class SkillViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
@@ -40,12 +57,19 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
 
     public SkillAdapter(List<Skill> items) {
         this.itemsSelected = new ArrayList<Skill>();
+        this.itemNotSelected = new ArrayList<Skill>();
+
+
         this.items = items;
     }
 
     public SkillAdapter(List<Skill> items, List<Skill> itemSelected) {
-        this.items = items;
-        this.itemsSelected = itemSelected;
+        this.items = new ArrayList<>();
+        this.itemsSelected = new ArrayList<>();
+        this.itemNotSelected = new ArrayList<Skill>();
+
+        if(items!=null) this.items = items;
+        if(items!=null) this.itemsSelected = itemSelected;
     }
     @Override
     public int getItemCount() {
@@ -60,11 +84,28 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.SkillViewHol
     }
 
     @Override
-    public void onBindViewHolder(SkillViewHolder viewHolder, int i) {
-        viewHolder.nombre.setText(items.get(i).getName());
-        viewHolder.descripcion.setText(items.get(i).getDescription());
-        viewHolder.categoria.setText(items.get(i).getCategory());
-        if (itemsSelected.contains(items.get(i)))
+    public void onBindViewHolder(final SkillViewHolder viewHolder, final int position) {
+        viewHolder.nombre.setText(items.get(position).getName());
+        viewHolder.descripcion.setText(items.get(position).getDescription());
+        viewHolder.categoria.setText(items.get(position).getCategory());
+        if (itemsSelected.contains(items.get(position)))
             viewHolder.checkBox.setChecked(true);
+
+        viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!viewHolder.checkBox.isChecked()){
+                    viewHolder.checkBox.setChecked(false);
+                    itemNotSelected.add(items.get(position));
+                    if(itemsSelected.contains(items.get(position))) itemsSelected.remove(items.get(position));
+                }else{
+                    viewHolder.checkBox.setChecked(true);
+                    itemsSelected.add(items.get(position));
+                    if(itemNotSelected.contains(items.get(position)))itemNotSelected.remove(items.get(position));
+
+                }
+
+            }
+        });
     }
 }

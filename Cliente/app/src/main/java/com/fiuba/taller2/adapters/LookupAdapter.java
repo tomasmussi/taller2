@@ -3,7 +3,6 @@ package com.fiuba.taller2.adapters
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,7 +51,7 @@ public class LookupAdapter extends RecyclerView
             super(itemView);
             contact_photo = (ImageView) itemView.findViewById(R.id.contact_photo);
             contact_name = (TextView) itemView.findViewById(R.id.skill_name);
-            contact_summary = (TextView) itemView.findViewById(R.id.skill_category);
+            contact_summary = (TextView) itemView.findViewById(R.id.distance);
             context = itemView.getContext();
             button_addContact = (Button) itemView.findViewById(R.id.button_addContact);
             button_sendMessage= (Button) itemView.findViewById(R.id.button_sendMessage);

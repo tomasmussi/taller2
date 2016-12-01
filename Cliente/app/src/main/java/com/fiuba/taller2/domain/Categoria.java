@@ -15,8 +15,8 @@ public class Categoria {
     public static Categoria[] ITEMS = {
             new Categoria("Mi Perfil", R.drawable.new_miperfil),
             new Categoria("Contactos", R.drawable.new_contactos),
-            new Categoria("Trabajo", R.drawable.newencontrartrabajo),
-            new Categoria("Mensajes", R.drawable.newmensajes)
+            new Categoria("Contactos Cercanos", R.drawable.newencontrartrabajo),
+            new Categoria("Cerrar Sesion", R.drawable.newmensajes)
     };
     private String name;
     private int id;
@@ -48,14 +48,14 @@ public class Categoria {
 
         switch (id_view) {
             case R.drawable.new_miperfil:
-                return 4;
+                return 1;
             case R.drawable.new_contactos:
-                return 6;
+                return 2;
             case R.drawable.newencontrartrabajo:
-                return 5;
+                return 3;
 
             case R.drawable.newmensajes:
-                return 3;
+                return 4;
             default:
                 System.out.println("error");
                 break;

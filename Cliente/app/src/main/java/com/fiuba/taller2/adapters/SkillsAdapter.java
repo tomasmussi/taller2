@@ -10,8 +10,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.fiuba.taller2.R;
-import com.fiuba.taller2.activities.MainActivity;
-import com.fiuba.taller2.activities.MyProfileActivity;
 import com.fiuba.taller2.domain.Skill;
 
 import java.util.ArrayList;
@@ -82,7 +80,7 @@ public class SkillsAdapter extends BaseExpandableListAdapter {
                 .inflate(R.layout.card_view_my_skills, parent, false);
 
         TextView skill_name = (TextView) convertView.findViewById(R.id.skill_name);
-        TextView skill_category = (TextView) convertView.findViewById(R.id.skill_category);
+        TextView skill_category = (TextView) convertView.findViewById(R.id.distance);
         TextView skill_description = (TextView) convertView.findViewById(R.id.skill_description);
 
         skill_name.setText(((Skill)getChild(groupPosition, childPosition)).getName());

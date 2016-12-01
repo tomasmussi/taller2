@@ -65,6 +65,7 @@
 
         PopularContactsActivity
         <activity android:name="com.fiuba.taller2.activities.MyContactsRequestActivity" />
+        <activity android:name="com.fiuba.taller2.activities.ContactsCloseActivity" />
 
         <activity android:name="com.fiuba.taller2.activities.PopularContactsActivity" />
         <activity android:name="com.fiuba.taller2.activities.MyProfileActivity" />

@@ -75,8 +75,13 @@ public class MyProfile implements Serializable {
         this.profile_photo = profile_photo;
     }
 
+
     public ArrayList<String> getSkills() {
         return skills;
+    }
+
+    public void setSkills(ArrayList<String> skills) {
+        this.skills = skills;
     }
 
     public ArrayList<String> getJob_positions() {
@@ -85,10 +90,6 @@ public class MyProfile implements Serializable {
 
     public void setJob_positions(ArrayList<String> job_positions) {
         this.job_positions = job_positions;
-    }
-
-    public void setSkills(ArrayList<String> skills) {
-        this.skills = skills;
     }
 
     public String getSummary() {
