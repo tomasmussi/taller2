@@ -43,23 +43,15 @@
             app:typeface="roboto_regular" />
 
         <Button
-            android:id="@+id/button_addContact"
+            android:id="@+id/button_vote"
 
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:textAppearance="@style/TextCaption_button"
-            android:text="Agregar contacto"
+            android:text="Votar"
             android:layout_below="@+id/skill_category"
             android:theme="@style/MyButton"/>
-        <Button
-            android:id="@+id/button_sendMessage"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:textAppearance="@style/TextCaption_button"
-            android:text="Enviar mensaje"
-            android:layout_below="@+id/button_addContact"
-            android:layout_centerHorizontal="true"
-            android:theme="@style/MyButton"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

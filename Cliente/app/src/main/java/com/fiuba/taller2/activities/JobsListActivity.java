@@ -131,7 +131,7 @@ public class JobsListActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.notificaciones) {
 
-        } else if (id == R.id.ajustes) {
+        } else if (id == R.id.solicitudes) {
 
         } else if (id == R.id.cerrar_sesion) {
             LoginManager.getInstance().logOut();

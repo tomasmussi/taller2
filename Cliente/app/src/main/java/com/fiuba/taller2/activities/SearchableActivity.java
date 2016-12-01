@@ -4,10 +4,13 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import com.fiuba.taller2.R;
 import com.fiuba.taller2.adapters.LookupAdapter;
@@ -45,9 +48,10 @@ public class SearchableActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         if (coursesList != null) {
-            mAdapter = new LookupAdapter(coursesList);
+            mAdapter = new LookupAdapter(coursesList,this);
         } else {
-            mAdapter = new LookupAdapter(new ArrayList<Contact>());
+            mAdapter = new LookupAdapter(new ArrayList<Contact>(),this);
+            mAdapter = new LookupAdapter(new ArrayList<Contact>(),this);
         }
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -86,4 +90,9 @@ public class SearchableActivity extends AppCompatActivity {
 
     }
 
+    public void makeSnack(){
+        final ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this
+                .findViewById(android.R.id.content)).getChildAt(0);
+        Snackbar.make(viewGroup, "Solicitud enviada con exito", Snackbar.LENGTH_LONG).show();
+    }
 }

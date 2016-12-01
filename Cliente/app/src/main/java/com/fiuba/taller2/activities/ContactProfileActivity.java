@@ -59,7 +59,11 @@ public class ContactProfileActivity extends AppCompatActivity {
 
 
         ImageView profilePhoto= (ImageView) findViewById(R.id.user_profile_photo);
-        Picasso.with(this).load( myProfile.getProfile_photo()).into(profilePhoto);
+
+
+        String urlImage ="http://www.thomasandfriends.com/es-es/Images/hero-6-sample-train_tcm1140-190382.png";
+        if( myProfile.getProfile_photo()!=null & ! myProfile.getProfile_photo().isEmpty())Picasso.with(this).load( myProfile.getProfile_photo()).into(profilePhoto);
+        else{Picasso.with(this).load(urlImage).into(profilePhoto);}
         Log.d("ProfilePhoto", myProfile.getProfile_photo());
 
         ImageView agregarContacto= (ImageView) findViewById(R.id.drop_down_option_menu);

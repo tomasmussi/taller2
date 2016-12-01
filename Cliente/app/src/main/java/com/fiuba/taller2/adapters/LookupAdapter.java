@@ -2,6 +2,8 @@ package com.fiuba.taller2.adapters
         ;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fiuba.taller2.R;
+import com.fiuba.taller2.activities.Linkedun;
+import com.fiuba.taller2.activities.SearchableActivity;
 import com.fiuba.taller2.domain.Contact;
+import com.fiuba.taller2.domain.Estado;
+import com.fiuba.taller2.services.SendContactRequestServices;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -27,7 +34,8 @@ public class LookupAdapter extends RecyclerView
     private static String LOG_TAG = "LookupAdapter";
     private ArrayList<Contact> mDataset;
     private static MyClickListener myClickListener;
-
+    private Context context;
+    private ViewGroup parentView;
     public static class CourseHolder extends RecyclerView.ViewHolder
             implements View
             .OnClickListener {
@@ -36,9 +44,9 @@ public class LookupAdapter extends RecyclerView
         ImageView contact_photo;
         TextView course_session_start;
         TextView course_duration;
-        Context context;
         Button button_addContact;
         Button button_sendMessage;
+        Context context;
 
         public CourseHolder(View itemView) {
             super(itemView);
@@ -62,8 +70,9 @@ public class LookupAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public LookupAdapter(ArrayList<Contact> myDataset) {
+    public LookupAdapter(ArrayList<Contact> myDataset, Context context) {
         mDataset = myDataset;
+        this.context= context;
     }
 
     @Override
@@ -72,25 +81,57 @@ public class LookupAdapter extends RecyclerView
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_view_contact_lookup, parent, false);
 
+        this.parentView=parent;
         CourseHolder dataObjectHolder = new CourseHolder(view);
         return dataObjectHolder;
     }
 
     @Override
-    public void onBindViewHolder(CourseHolder holder, int position) {
+    public void onBindViewHolder(final CourseHolder holder, final int position) {
         holder.contact_name.setText(mDataset.get(position).getName());
-        holder.contact_summary.setText("ESTO ES UN RESUMEN DE MI EXPERIENCIA");
-        //TODO: Implementar getSummary en el appServer
+        holder.contact_summary.setText(mDataset.get(position).getSummary());
+
 
         String urlImage ="http://www.cleverfiles.com/howto/wp-content/uploads/2016/08/mini.jpg";
         if(mDataset.get(position).getPhoto()!=null & !mDataset.get(position).getPhoto().isEmpty())Picasso.with(holder.context).load(mDataset.get(position).getPhoto()).into(holder.contact_photo);
         else{
             Picasso.with(holder.context).load(urlImage).into(holder.contact_photo);
         }
-
         if(mDataset.get(position).getIs_contact().equals("true"))holder.button_addContact.setVisibility(View.GONE);
+        if(mDataset.get(position).getIs_friend_request_sent()==true)holder.button_addContact.setVisibility(View.GONE);
+
+        holder.button_addContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    if(holder.button_addContact.isClickable()){
+                        AsyncSendContactRequest asyncSendContactRequest = new AsyncSendContactRequest();
+
+                        asyncSendContactRequest.execute(mDataset.get(position).getFb_id());
+
+                        try {
+                            Estado estado = (Estado) asyncSendContactRequest.get();
+                            if (estado != null) Log.d("Estado", estado.toString());
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        holder.button_addContact.setVisibility(View.GONE);
+                        makeSnack();
+                    }else{
+
+                    }
+            }
+        });
     }
 
+
+
+    public void makeSnack(){
+
+        ((SearchableActivity)context).makeSnack();
+    }
     public void addItem(Contact course, int index) {
         mDataset.add(index, course);
         notifyItemInserted(index);
@@ -101,6 +142,7 @@ public class LookupAdapter extends RecyclerView
         notifyItemRemoved(index);
     }
 
+
     @Override
     public int getItemCount() {
         return mDataset.size();
@@ -109,4 +151,24 @@ public class LookupAdapter extends RecyclerView
     public interface MyClickListener {
         public void onItemClick(int position, View v);
     }
+
+    private class AsyncSendContactRequest extends AsyncTask<String, Void, Estado> {
+        @Override
+        protected Estado doInBackground(String... params) {
+            try {
+                String contact_fb_id = params[0];
+
+                SendContactRequestServices SendContactRequestServices = new SendContactRequestServices();
+                SendContactRequestServices.setApi_security(Linkedun.getApi_token());
+                Estado estado = (Estado) SendContactRequestServices.get(contact_fb_id);
+                return estado;
+            } catch (Exception e) {
+                Log.e("SendSolicitudContact", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+    }
+
 }

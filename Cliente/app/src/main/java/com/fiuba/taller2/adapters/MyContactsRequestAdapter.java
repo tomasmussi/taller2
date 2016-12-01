@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.fiuba.taller2.R;
 import com.fiuba.taller2.activities.MyContactsActivity;
+import com.fiuba.taller2.activities.MyContactsRequestActivity;
 import com.fiuba.taller2.domain.Contact;
 import com.squareup.picasso.Picasso;
 
@@ -22,8 +23,8 @@ import java.util.ArrayList;
 /**
  * Created by Margonari on 18/09/2016.
  */
-public class MyContactsAdapter extends RecyclerView
-        .Adapter<MyContactsAdapter
+public class MyContactsRequestAdapter extends RecyclerView
+        .Adapter<MyContactsRequestAdapter
         .CourseHolder> {
     private static String LOG_TAG = "LookupAdapter";
     private ArrayList<Contact> mDataset;
@@ -38,16 +39,16 @@ public class MyContactsAdapter extends RecyclerView
         TextView course_session_start;
         TextView course_duration;
         Context context;
-        Button button_view_profile;
-        Button button_conversation;
+        Button button_accept;
+        Button button_reject;
 
         public CourseHolder(View itemView) {
             super(itemView);
             contact_photo = (ImageView) itemView.findViewById(R.id.contact_photo);
             contact_name = (TextView) itemView.findViewById(R.id.skill_name);
             contact_summary = (TextView) itemView.findViewById(R.id.skill_category);
-             button_view_profile = (Button) itemView.findViewById(R.id.button_view_profile);
-             button_conversation= (Button) itemView.findViewById(R.id.button_sendMessage);
+            button_accept = (Button) itemView.findViewById(R.id.button_accept);
+            button_reject= (Button) itemView.findViewById(R.id.button_reject);
 
             context = itemView.getContext();
 
@@ -65,7 +66,7 @@ public class MyContactsAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public MyContactsAdapter(ArrayList<Contact> myDataset, Context mcontext) {
+    public MyContactsRequestAdapter(ArrayList<Contact> myDataset, Context mcontext) {
         mDataset = myDataset;
         mcontexts=mcontext;
     }
@@ -74,7 +75,7 @@ public class MyContactsAdapter extends RecyclerView
     public CourseHolder onCreateViewHolder(ViewGroup parent,
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_my_contacts, parent, false);
+                .inflate(R.layout.card_view_contact_request, parent, false);
 
         CourseHolder dataObjectHolder = new CourseHolder(view);
         return dataObjectHolder;
@@ -83,26 +84,27 @@ public class MyContactsAdapter extends RecyclerView
     @Override
     public void onBindViewHolder(CourseHolder holder, final int position) {
         holder.contact_name.setText(mDataset.get(position).getName());
-        holder.contact_summary.setText("ESTO ES UN RESUMEN DE MI EXPERIENCIA");
-        //TODO: Implementar getSummary en el appServer
+        holder.contact_summary.setText(mDataset.get(position).getSummary());
 
         String urlImage ="http://www.thomasandfriends.com/es-es/Images/hero-6-sample-train_tcm1140-190382.png";
-        if(mDataset.get(position).getPhoto()!=null & !mDataset.get(position).getPhoto().isEmpty())Picasso.with(holder.context).load(mDataset.get(position).getPhoto()).into(holder.contact_photo);
-        else{Picasso.with(holder.context).load(urlImage).into(holder.contact_photo);}
-        holder.button_view_profile.setOnClickListener(new View.OnClickListener() {
+        Picasso.with(holder.context).load(mDataset.get(position).getPhoto()).into(holder.contact_photo);
+
+        holder.button_accept.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ((MyContactsActivity)mcontexts).initContactProfile(mDataset.get(position).getFb_id());
+                ((MyContactsRequestActivity)mcontexts).acceptContact(mDataset.get(position).getFb_id(),"true");
+                ((MyContactsRequestActivity)mcontexts).restart();
 
             }
         });
 
-        holder.button_conversation.setOnClickListener(new View.OnClickListener() {
+        holder.button_reject.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                ((MyContactsActivity)mcontexts).initConversation(mDataset.get(position).getFb_id());
+                ((MyContactsRequestActivity)mcontexts).rejectContact(mDataset.get(position).getFb_id(),"true");
+                ((MyContactsRequestActivity)mcontexts).restart();
 
             }
         });
