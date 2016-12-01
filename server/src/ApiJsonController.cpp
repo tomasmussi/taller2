@@ -614,7 +614,7 @@ void ApiJsonController::delete_job_position(Mongoose::Request &request, Mongoose
 	}
 	std::string user_logged_id = user_tokens_[request.get("token", "")];
 	std::string new_job_position = request.get("job", "");
-	if (new_job_position.empty()) {
+	if (!new_job_position.empty()) {
 		UserHandler::get_instance().delete_user_job(user_logged_id, new_job_position);
 		response["data"]["status"] = "OK";
 		response["data"]["message"] = "Job position eliminado";
