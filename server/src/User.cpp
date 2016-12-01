@@ -209,7 +209,9 @@ bool User::is_friend(const User &other_user) {
 }
 
 bool User::is_friend_request_sent(const User &other_user) {
-	return std::find(requests_.begin(), requests_.end(), other_user.id()) != requests_.end();
+	bool him = std::find(requests_.begin(), requests_.end(), other_user.id()) != requests_.end();
+	bool me = std::find(other_user.requests_.begin(), other_user.requests_.end(), id()) != other_user.requests_.end();
+	return him || me;
 }
 
 bool User::vote_for(User &other_user) {
