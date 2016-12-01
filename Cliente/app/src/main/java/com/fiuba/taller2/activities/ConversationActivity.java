@@ -55,6 +55,14 @@ public class ConversationActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_course_forum_thread_posts);
+
+        //Setteo de titulo de la activity
+        this.setTitle("Chat");
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+            }
+        }
         Log.d("___CLASE : ",getClass().getSimpleName());
         Log.d("___LAYOUT : ","R.layout.activity_my_course_forum_thread_posts");
 

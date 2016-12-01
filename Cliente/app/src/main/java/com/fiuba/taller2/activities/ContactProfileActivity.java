@@ -40,7 +40,13 @@ public class ContactProfileActivity extends AppCompatActivity {
         Log.d("___LAYOUT : ","R.layout.material_my_profile");
 
 
-
+        //Setteo de titulo de la activity
+        this.setTitle("Perfil de usuario externo");
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+            }
+        }
 
 
         Intent intent = getIntent();

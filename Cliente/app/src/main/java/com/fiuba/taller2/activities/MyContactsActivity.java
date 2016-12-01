@@ -32,6 +32,15 @@ public class MyContactsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
+
+
+        //Setteo de titulo de la activity
+        this.setTitle("Mis Contactos");
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+            }
+        }
         Log.d("___CLASE : ",getClass().getSimpleName());
         Log.d("___LAYOUT : ","R.layout.activity_courses");
 

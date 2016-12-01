@@ -36,7 +36,13 @@ public class PopularContactsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_courses);
         Log.d("___CLASE : ",getClass().getSimpleName());
         Log.d("___LAYOUT : ","R.layout.activity_courses");
-
+        //Setteo de titulo de la activity
+        this.setTitle("Contactos mas populares");
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+            }
+        }
         Intent intent = getIntent();
         api_token = intent.getStringExtra("API_TOKEN");
         coursesList=(ArrayList<Contact>) intent.getSerializableExtra("CONTACT_LIST");

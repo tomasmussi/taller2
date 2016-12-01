@@ -31,6 +31,13 @@ public class MyProfileEdit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.material_edit_my_profile);
+        //Setteo de titulo de la activity
+        this.setTitle("Edicion de mi perfil");
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+            }
+        }
         Log.d("___CLASE : ",getClass().getSimpleName());
         Log.d("___LAYOUT : ","R.layout.material_edit_my_profile");
 

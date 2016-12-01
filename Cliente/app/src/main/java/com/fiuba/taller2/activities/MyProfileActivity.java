@@ -54,7 +54,13 @@ public class MyProfileActivity extends AppCompatActivity {
          super.onCreate(savedInstanceState);
 
         setContentView(R.layout.material_my_profile);
-
+        //Setteo de titulo de la activity
+        this.setTitle("Mi Perfil");
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+            }
+        }
         Log.d("___CLASE : ",getClass().getSimpleName());
         Log.d("___LAYOUT : ","R.layout.material_my_profile");
 
