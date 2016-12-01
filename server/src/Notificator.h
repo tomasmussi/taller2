@@ -17,8 +17,8 @@ private:
 	std::string tokenFCM; //token del destinatario
 	TYPE_NOTIFICATOR type;
 public:
-	
 	Notificator(Token_FCM & token,TYPE_NOTIFICATOR type, std::string message);
+	Notificator(Token_FCM & token,TYPE_NOTIFICATOR type, std::string message, std::string sender_id);
 	void send();
 };
 

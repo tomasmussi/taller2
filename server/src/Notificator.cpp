@@ -7,8 +7,15 @@
 #include <curlpp/Options.hpp>
 
 Notificator::Notificator(Token_FCM & token,TYPE_NOTIFICATOR type, std::string message):
-	FIREBASE_KEY("AIzaSyCwjqxjEUOH393aTr6o64nDoCcirwtntFk"){
+	FIREBASE_KEY("AIzaSyCwjqxjEUOH393aTr6o64nDoCcirwtntFk") {
 		fb_id_sender = token.get_fb_id();
+		this->message = message;
+		tokenFCM = token.get_token();
+		this->type = type;
+}
+
+Notificator::Notificator(Token_FCM & token,TYPE_NOTIFICATOR type, std::string message, std::string sender_id):
+	FIREBASE_KEY("AIzaSyCwjqxjEUOH393aTr6o64nDoCcirwtntFk"), fb_id_sender(sender_id) {
 		this->message = message;
 		tokenFCM = token.get_token();
 		this->type = type;
@@ -42,7 +49,7 @@ void Notificator::send(){
 		default:
 			data["type"] = "NULL";
 	}
-	data["fb_ib_sender"] = this->fb_id_sender;
+	data["fb_id_sender"] = this->fb_id_sender;
 
 	json["data"] = data;
 	json["to"] = this->tokenFCM;

@@ -164,7 +164,6 @@ void ApiJsonController::token_FCM(Mongoose::Request &request, Mongoose::JsonResp
 
 
 void ApiJsonController::send_notification(Mongoose::Request &request, Mongoose::JsonResponse &response) {
-
 	Token_FCM token("fb_id","eDSpyrzlxKQ:APA91bGBze7mTQK3OnIWJf-WTNRIYvFDbLNGsVjtMMliVRcjUF6AqsNbZhXTYcSS5srb6fSUSZ-yrB9NC7mX2hV6AjJAmF1Vz2fFuWVUX8oSDnPV1KcnStt6DNR0gyhLibjrMXuu2-MA");
 	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "HOLA");
 	//notificator.send();
@@ -669,9 +668,9 @@ void ApiJsonController::send_message(Mongoose::Request &request, Mongoose::JsonR
 		return;
 	}
 	UserHandler::get_instance().send_message(user_logged_id, receiver_id, message);
-
+	User sender = UserHandler::get_instance().get_user(user_logged_id);
 	Token_FCM token = TokenFCMHandler::get_instance().read_token(receiver_id);
-	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "Usted ha recibido un mensaje nuevo");
+	Notificator notificator(token, TYPE_NOTIFICATOR::CHAT, "Usted ha recibido un mensaje nuevo", sender.id());
 	notificator.send();
 
 	response["data"]["status"] = "OK";
