@@ -296,3 +296,12 @@ std::string User::distance_to(const User &other) {
 	double distance = sqrt(x * x + y * y) * R;
 	return std::to_string(distance / 100); // Return distance in km
 }
+
+
+void User::distance_to_other_user(float distance) {
+	distance_to_last_user_ = distance;
+}
+
+float User::get_distance_to_other_user() const {
+	return distance_to_last_user_;
+}

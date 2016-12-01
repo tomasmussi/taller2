@@ -52,12 +52,12 @@ class LoginExitoso(unittest.TestCase):
         requestEditProfile(token)
         response = requestViewProfile(token)
         pprint(response["data"])
-        self.assertEqual(response["data"]["user"]["name"], "eze")
-        self.assertEqual(response["data"]["user"]["email"], "eze")
-        self.assertEqual(response["data"]["user"]["dob"], "14/12/90")
-        self.assertEqual(response["data"]["user"]["city"], "Lanus Oeste")
-        self.assertEqual(response["data"]["user"]["summary"], "Estudiante de ingenieria")
-        self.assertEqual(response["data"]["user"]["profile_photo"], "asdf")
+        self.assertEqual(response["data"]["name"], "eze")
+        self.assertEqual(response["data"]["email"], "eze")
+        self.assertEqual(response["data"]["dob"], "14/12/90")
+        self.assertEqual(response["data"]["city"], "Lanus Oeste")
+        self.assertEqual(response["data"]["summary"], "Estudiante de ingenieria")
+        self.assertEqual(response["data"]["profile_photo"], "asdf")
 
 def requestViewProfileUserNotExist(token):
     url = "http://localhost:8080/api/profile/others?token="+token

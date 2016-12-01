@@ -29,6 +29,8 @@ private:
 	std::string latitude_;
 	std::string longitude_;
 
+	float distance_to_last_user_;
+
 public:
 	User(std::string json_value);
 	User();
@@ -96,6 +98,10 @@ public:
 	std::string get_longitude() const;
 
 	std::string distance_to(const User &other);
+
+	void distance_to_other_user(float distance);
+
+	float get_distance_to_other_user() const;
 
 };
 

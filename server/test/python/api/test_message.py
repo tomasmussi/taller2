@@ -71,18 +71,18 @@ class TestAddMessage(unittest.TestCase):
         token = get_token("eze")
         get_token("alfred")
         response = requestMessage(token,"alfred","Hola")
+        pprint(response)
         pprint(response["errors"])
         self.assertEqual(response["data"]["status"], "OK")
         self.assertEqual(response["data"]["message"], "Mensaje enviado exitosamente")
 
 class TestViewMessage(unittest.TestCase):
     def test_requestEdit(self):
-        """Test add Message"""
+        """Test view Message"""
         get_token("eze")
         token = get_token("alfred")
         response = requestViewMessage(token,"eze")
         pprint (response)
-        self.assertEqual(response["data"]["status"], "OK")
-        self.assertEqual(response["data"]["messages"][0]["message"], "Hola")
-        self.assertEqual(response["data"]["messages"][0]["receiver_id"], "alfred")
-        self.assertEqual(response["data"]["messages"][0]["sender_id"], "eze")
+        self.assertEqual(response["data"][0]["message"], "Hola")
+        self.assertEqual(response["data"][0]["receiver_id"], "alfred")
+        self.assertEqual(response["data"][0]["sender_id"], "eze")
