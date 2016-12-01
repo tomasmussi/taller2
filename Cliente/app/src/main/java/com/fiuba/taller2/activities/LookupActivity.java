@@ -92,7 +92,7 @@ public class LookupActivity extends AppCompatActivity
             mRecyclerView.setHasFixedSize(true);
             mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
-            mAdapter = new LookupAdapter(coursesList);
+            mAdapter = new LookupAdapter(coursesList,this);
             mRecyclerView.setAdapter(mAdapter);
         }
 
@@ -158,7 +158,7 @@ public class LookupActivity extends AppCompatActivity
                 startActivity(intent);
             } else if (id == R.id.notificaciones) {
 
-            } else if (id == R.id.ajustes) {
+            } else if (id == R.id.solicitudes) {
 
             } else if (id == R.id.cerrar_sesion) {
                 AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -191,7 +191,7 @@ public class LookupActivity extends AppCompatActivity
 
                     //TODO Pedir la info según lo que corresponda, por el momento en esta solapa poner
                     // unicamente lo que devuelva la request de mis cursos, luego agregaremos mas logica
-                    mAdapter = new LookupAdapter(coursesList);
+                    mAdapter = new LookupAdapter(coursesList,this);
                     mRecyclerView.setAdapter(mAdapter);
                     break;
                 case 1:

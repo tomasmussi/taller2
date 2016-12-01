@@ -73,7 +73,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
 
         ImageView profilePhoto= (ImageView) findViewById(R.id.user_profile_photo);
-        Picasso.with(this).load( myProfile.getProfile_photo()).into(profilePhoto);
+        String urlImage ="http://www.thomasandfriends.com/es-es/Images/hero-6-sample-train_tcm1140-190382.png";
+        if( myProfile.getProfile_photo()!=null & ! myProfile.getProfile_photo().isEmpty())Picasso.with(this).load( myProfile.getProfile_photo()).into(profilePhoto);
+        else{Picasso.with(this).load(urlImage).into(profilePhoto);}
         Log.d("ProfilePhoto", myProfile.getProfile_photo());
 
 
@@ -82,18 +84,18 @@ public class MyProfileActivity extends AppCompatActivity {
         nameUser.setText(myProfile.getName());
 
         TextView email = (TextView) findViewById(R.id.user_profile_email);
-        email.setText(email.getText()+myProfile.getEmail());
+        email.setText(myProfile.getEmail());
 
         TextView fechaNac = (TextView) findViewById(R.id.user_profile_birhdate);
-        fechaNac.setText( fechaNac.getText()+myProfile.getDob());
+        fechaNac.setText( myProfile.getDob());
 
 
         TextView ciudad = (TextView) findViewById(R.id.user_profile_city);
-        ciudad.setText( ciudad.getText()+myProfile.getCity());
+        ciudad.setText( myProfile.getCity());
 
 
         TextView summary = (TextView) findViewById(R.id.user_profile_summary);
-        summary.setText( summary.getText()+myProfile.getSummary());
+        summary.setText( myProfile.getSummary());
 
 
         ArrayList<Skill> skills=new ArrayList<>();

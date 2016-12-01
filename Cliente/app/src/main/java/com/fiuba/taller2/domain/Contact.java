@@ -19,6 +19,8 @@ public class Contact implements Serializable{
            private String  name;
            private String  photo;
            private String  votes;
+           private String  summary;
+           private Boolean is_friend_request_sent;
 
     public String getDistance() {
         return distance;
@@ -66,6 +68,22 @@ public class Contact implements Serializable{
 
     public void setVotes(String votes) {
         this.votes = votes;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Boolean getIs_friend_request_sent() {
+        return is_friend_request_sent;
+    }
+
+    public void setIs_friend_request_sent(Boolean is_friend_request_sent) {
+        this.is_friend_request_sent = is_friend_request_sent;
     }
 
     @Override

@@ -1,12 +1,9 @@
 package com.fiuba.taller2.activities;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -357,9 +353,6 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-
-
-
         if ( login.getUser_exists().equals("false")){
             HttpRequestTaskSave httpRequestTaskSave= new HttpRequestTaskSave();
             httpRequestTaskSave.execute(firebaseAuth.getCurrentUser().getDisplayName()
@@ -427,7 +420,29 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this,MyProfileActivity.class);
             intent.putExtra("API_TOKEN", api_token);
             startActivity(intent);
-        } else if (id == R.id.ajustes) {
+        } else if (id == R.id.solicitudes) {
+
+            AsyncGetContactsRequest asyncGetContactsRequest = new AsyncGetContactsRequest();
+            asyncGetContactsRequest.execute();
+            ArrayList<Contact> contacRequesttArrayList=new ArrayList<Contact>();
+            try {
+                contacRequesttArrayList = (ArrayList<Contact>) asyncGetContactsRequest.get();
+                Log.d("Contacts", contacRequesttArrayList.toString());
+                Log.d("Contacts", contacRequesttArrayList.get(0).toString());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                contacRequesttArrayList = new ArrayList<Contact>();
+            }
+
+            Intent intent = new Intent(this, MyContactsRequestActivity.class);
+            intent.putExtra("API_TOKEN", api_token);
+            intent.putExtra("CONTACT_LIST", contacRequesttArrayList);
+
+            startActivity(intent);
 
         } else if (id == R.id.contactosdestacados) {
 
@@ -452,7 +467,29 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.notificaciones) {
 
-        } else if (id == R.id.ajustes) {
+        } else if (id == R.id.popular) {
+
+            AsyncGetPopularRequest asyncGetPopularRequest = new AsyncGetPopularRequest();
+            asyncGetPopularRequest.execute();
+            ArrayList<Contact> contacPupularRequesttArrayList= new ArrayList<>();
+            try {
+                contacPupularRequesttArrayList = (ArrayList<Contact>) asyncGetPopularRequest.get();
+                if (contacPupularRequesttArrayList != null)
+                    Log.d("Estado", contacPupularRequesttArrayList.toString());
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            Intent intent = new Intent(this, PopularContactsActivity.class);
+            intent.putExtra("API_TOKEN", api_token);
+            intent.putExtra("CONTACT_LIST", contacPupularRequesttArrayList);
+            startActivity(intent);
+
+
+        } else if (id == R.id.solicitudes) {
 
         } else if (id == R.id.cerrar_sesion) {
             AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -1060,5 +1097,6 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
 
 }
