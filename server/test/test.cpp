@@ -27,6 +27,12 @@ void handle_signal(int sig) {
 	}
 }
 
+TEST(DatabaseHandler, UseOtherDatabase) {
+	time_t seconds = time (NULL);
+	char* dt = ctime(&seconds);
+	DatabaseHandler::get_instance("new_database-" + std::string(dt));
+}
+
 TEST(SERVER,integration){
 	if(ejecutarTestServer){
 		signal(SIGINT, handle_signal);

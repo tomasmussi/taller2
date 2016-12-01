@@ -1,0 +1,4 @@
+#Ignoramos en la creacion de nodejs app
+    node_modules
+    .git
+    .env

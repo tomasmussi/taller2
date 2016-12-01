@@ -1,0 +1,16 @@
+db:
+  image: sharedserver-database
+  ports:
+    - "127.0.0.1:5432:5432"
+  tty: true
+app:
+  build: .
+  links:
+    - db
+  environment:
+    - PGHOST=db
+    - PGDATABASE=postgres
+    - PGUSER=postgres
+    - DB_CONNECTION=postgres://sharedserveruser:shared@db:5432/sharedserver
+  ports:
+    - "127.0.0.1:5000:5000"
