@@ -2,8 +2,9 @@ Objetivo
 ================================
 
 Documentar información técnica del app server para poder compilar, ejecutar, debuggear, extender y mejorar el Application Server. 
-Requisitos
 
+Requisitos
+===============================
 El servidor de la aplicación Linkedun al cuál se consultan todos los servicios está desarrollado en C++, standard de 2011 (C++11) y utiliza las siguientes bibliotecas:
 
 * Mongoose cpp[1] como web server para responder todas las consultas realizadas por la aplicación Android.
