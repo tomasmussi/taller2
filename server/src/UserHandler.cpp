@@ -104,6 +104,7 @@ void UserHandler::get_requests(std::string user_id, Json::Value &array) {
 		user_value["name"] = user_request.get_name();
 		user_value["photo"] = user_request.get_profile_photo();
 		user_value["is_contact"] = (user.is_friend(user_request) ? "true" : "false");
+		user_value["summary"] = user.get_summary();
 		array.append(user_value);
 	}
 }
@@ -119,6 +120,7 @@ void UserHandler::load_friends(std::string user_id, Json::Value &array) {
 		user_value["name"] = user_friend.get_name();
 		user_value["photo"] = user_friend.get_profile_photo();
 		user_value["is_contact"] = (user.is_friend(user_friend) ? "true" : "false");
+		user_value["summary"] = user.get_summary();
 		array.append(user_value);
 	}
 }
