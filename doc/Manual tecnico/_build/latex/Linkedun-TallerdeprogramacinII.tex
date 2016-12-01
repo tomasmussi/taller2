@@ -34,9 +34,9 @@
 \title{Linkedun Documentación Técnica}
 \date{dic. 01, 2016}
 \release{1}
-\author{Manual del desarrollador}
+\author{Mussi, Tomás \\ Arancibia, Luis \\ Dufau, Ezequiel \\ Ackermann, Alfredo}
 \newcommand{\sphinxlogo}{}
-\renewcommand{\releasename}{Publicación}
+\renewcommand{\releasename}{Manual del desarrollador}
 \makeindex
 
 \makeatletter
@@ -154,8 +154,10 @@
 \subsection{Objetivo}
 \label{docTecnica:objetivo}\label{docTecnica::doc}
 Documentar información técnica del app server para poder compilar, ejecutar, debuggear, extender y mejorar el Application Server.
-Requisitos
 
+
+\subsection{Requisitos}
+\label{docTecnica:requisitos}
 El servidor de la aplicación Linkedun al cuál se consultan todos los servicios está desarrollado en C++, standard de 2011 (C++11) y utiliza las siguientes bibliotecas:
 \begin{itemize}
 \item {} 
@@ -1230,8 +1232,186 @@ Se debe ir al directorio /server/test/ y ejectutar bash ./python/test.sh cuando 
 \chapter{Aplicación Android}
 \label{index:aplicacion-android}
 
+\section{Objetivo}
+\label{appAndroid:objetivo}\label{appAndroid::doc}
+Documentar información técnica de la aplicación android para poder compilar, ejecutar, debuggear, extender y mejorar la misma
+
+
+\section{Requisitos}
+\label{appAndroid:requisitos}
+La aplicación fue desarrollada en Android studio y su SDK {[}1{]}
+
+Otros componentes adicionales que se utilizaron fueron
+\begin{itemize}
+\item {} 
+\textbf{Firebase} {[}2{]} como una plataforma movil que se encarga de la autentificación de los usuarios mediante cuentas de facebook, gmail.
+
+\item {} 
+\textbf{Firebase Cloud Messages} {[}3{]} servicio provisto por Firebase para proveer a nuestra app de notificaciones
+
+\end{itemize}
+
+
+\section{Distribución}
+\label{appAndroid:distribucion}
+El código puede ser descargado de la página oficial de github {[}4{]}.
+
+
+\section{Sistema operativo}
+\label{appAndroid:sistema-operativo}
+El desarrollo de la aplicación se ha realizado en Android Studio siendo ejecutado el mismo bajo el sistema operativo Linux. De querer desarrollar en Windows o Mac, no se garantiza el correcto funcionamiento de la misma
+
+\emph{La aplicación funciona una vez compilada solamente en sistemas operativos Android}
+
+
+\section{Compilación}
+\label{appAndroid:compilacion}
+La aplicación ha sido compilada e instalada en celulares y emuladores provisto por android studio con una API mayor a 21
+
+
+\section{Descripción del proyecto}
+\label{appAndroid:descripcion-del-proyecto}
+Está formado por los siguientes paquetes.
+\begin{itemize}
+\item {} 
+\textbf{activities}: Contiene el comportamiento de cada una de las pantallas.
+
+\item {} 
+\textbf{adapters}: Utilizado para definir los adapters que contiene la aplicación.
+
+\item {} 
+\textbf{domain}: Contiene las clases del dominio del problema
+
+\item {} 
+\textbf{rest\_dto}: Contiene las clases que modelan la serialización e hidratación de los datos desde un json a clases de dominio.
+
+\item {} 
+\textbf{services}: Contiene cada uno de los servicios que interactuan con el appServer.
+
+\end{itemize}
+
+
+\section{Explicación de como agregar un servicio}
+\label{appAndroid:explicacion-de-como-agregar-un-servicio}
+
+\subsection{Agregar una clase de servicio nueva}
+\label{appAndroid:agregar-una-clase-de-servicio-nueva}
+En este caso agregamos de ejemplo un servicio existente en la aplicación.
+\begin{itemize}
+\item {} 
+Se debe crear un servicio que herede de AbstractServices.
+
+\end{itemize}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{GetSkillServices} \PYG{k+kd}{extends} \PYG{n}{AbstractServices} \PYG{o}{\PYGZob{}}
+          \PYG{k+kd}{private} \PYG{k+kd}{static} \PYG{k+kd}{final} \PYG{n}{String} \PYG{n}{service\PYGZus{}name} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}api/skill\PYGZdq{}}\PYG{o}{;}
+\PYG{o}{.}\PYG{o}{.}\PYG{o}{.}\PYG{o}{\PYGZcb{}}
+\end{Verbatim}
+
+donde \emph{service\_name} indica el nombre del servicio a consultar
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{public} \PYG{n}{Skill} \PYG{n+nf}{get}\PYG{o}{(}\PYG{n}{String} \PYG{n}{nameSkill}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+    \PYG{n}{String} \PYG{n}{query} \PYG{o}{=} \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{getQueryBy}\PYG{o}{(}\PYG{n}{nameSkill}\PYG{o}{)}\PYG{o}{;}
+\end{Verbatim}
+
+hay que definir el metodo get() que es el que nos va a permitir obtener el objeto hidratado ya con el estado valido segun la consulta realizada
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kd}{public} \PYG{n}{Skill} \PYG{n+nf}{get}\PYG{o}{(}\PYG{n}{String} \PYG{n}{nameSkill}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+    \PYG{o}{.}\PYG{o}{.}\PYG{o}{.}
+    \PYG{n}{SkillDTO} \PYG{n}{skillDTO} \PYG{o}{=} \PYG{o}{(}\PYG{n}{SkillDTO}\PYG{o}{)} \PYG{n}{getDataOftDTO}\PYG{o}{(}\PYG{n}{query}\PYG{o}{,} \PYG{n}{SkillDTO}\PYG{o}{.}\PYG{n+na}{class}\PYG{o}{)}\PYG{o}{;}
+    \PYG{k}{return} \PYG{n}{skillDTO}\PYG{o}{.}\PYG{n+na}{getData}\PYG{o}{(}\PYG{o}{)}\PYG{o}{;}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}
+
+Vemos como hay que instanciar un dto, el mismo nos va a permitir según la query que obtuvimos generar el objeto correspondiente.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@Override}
+          \PYG{k+kd}{protected} \PYG{n}{String} \PYG{n+nf}{getQueryBy}\PYG{o}{(}\PYG{n}{String}\PYG{o}{.}\PYG{o}{.}\PYG{o}{.} \PYG{n}{params}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+              \PYG{n}{String} \PYG{n}{nameSkill} \PYG{o}{=} \PYG{n}{params} \PYG{o}{[}\PYG{l+m+mi}{0}\PYG{o}{]}\PYG{o}{;}
+
+              \PYG{n}{String} \PYG{n}{url} \PYG{o}{=} \PYG{n}{urlBase}\PYG{o}{;}
+              \PYG{n}{StringBuffer} \PYG{n}{urlStringBuffer} \PYG{o}{=} \PYG{k}{new} \PYG{n}{StringBuffer}\PYG{o}{(}\PYG{n}{url}\PYG{o}{)}\PYG{o}{;}
+              \PYG{n}{urlStringBuffer}\PYG{o}{.}\PYG{n+na}{append}\PYG{o}{(}\PYG{n}{service\PYGZus{}name}\PYG{o}{)}\PYG{o}{;}
+              \PYG{n}{urlStringBuffer}\PYG{o}{.}\PYG{n+na}{append}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}?\PYGZdq{}}\PYG{o}{)}\PYG{o}{;}
+              \PYG{n}{urlStringBuffer}\PYG{o}{.}\PYG{n+na}{append}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}token=\PYGZdq{}}\PYG{o}{)}\PYG{o}{;}
+              \PYG{n}{urlStringBuffer}\PYG{o}{.}\PYG{n+na}{append}\PYG{o}{(}\PYG{n}{api\PYGZus{}security}\PYG{o}{)}\PYG{o}{;}
+              \PYG{n}{urlStringBuffer}\PYG{o}{.}\PYG{n+na}{append}\PYG{o}{(}\PYG{l+s}{\PYGZdq{}\PYGZam{}name=\PYGZdq{}}\PYG{o}{)}\PYG{o}{;}
+              \PYG{n}{urlStringBuffer}\PYG{o}{.}\PYG{n+na}{append}\PYG{o}{(}\PYG{n}{nameSkill}\PYG{o}{)}\PYG{o}{;}
+              \PYG{n}{System}\PYG{o}{.}\PYG{n+na}{out}\PYG{o}{.}\PYG{n+na}{println}\PYG{o}{(}\PYG{n}{urlStringBuffer}\PYG{o}{.}\PYG{n+na}{toString}\PYG{o}{(}\PYG{o}{)}\PYG{o}{)}\PYG{o}{;}
+              \PYG{k}{return} \PYG{n}{urlStringBuffer}\PYG{o}{.}\PYG{n+na}{toString}\PYG{o}{(}\PYG{o}{)}\PYG{o}{;}
+          \PYG{o}{\PYGZcb{}}\PYG{o}{\PYGZcb{}}
+\end{Verbatim}
+
+Con el metodo getQueryBy formamos la consulta del servicio. Solamente hay que especificar el service\_name y todos los atributos correspondiente a ese servicio.
+
+
+\subsection{Agregar un DTO}
+\label{appAndroid:agregar-un-dto}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@JsonSerialize}\PYG{o}{(}\PYG{n}{include} \PYG{o}{=} \PYG{n}{JsonSerialize}\PYG{o}{.}\PYG{n+na}{Inclusion}\PYG{o}{.}\PYG{n+na}{NON\PYGZus{}NULL}\PYG{o}{)}
+\PYG{n+nd}{@JsonIgnoreProperties}\PYG{o}{(}\PYG{n}{ignoreUnknown} \PYG{o}{=} \PYG{k+kc}{true}\PYG{o}{)}
+
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{SkillDTO} \PYG{k+kd}{extends} \PYG{n}{AbstractDTO} \PYG{o}{\PYGZob{}}
+          \PYG{k+kd}{public} \PYG{n}{Skill} \PYG{n+nf}{getData}\PYG{o}{(}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+              \PYG{k}{return} \PYG{o}{(}\PYG{n}{Skill}\PYG{o}{)} \PYG{n}{data}\PYG{o}{;}
+          \PYG{o}{\PYGZcb{}}
+
+          \PYG{k+kd}{public} \PYG{k+kt}{void} \PYG{n+nf}{setData}\PYG{o}{(}\PYG{n}{Skill} \PYG{n}{data}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+              \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{data} \PYG{o}{=} \PYG{n}{data}\PYG{o}{;}
+          \PYG{o}{\PYGZcb{}}
+
+          \PYG{k+kd}{public} \PYG{n}{String}\PYG{o}{[}\PYG{o}{]} \PYG{n+nf}{getErrors}\PYG{o}{(}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+              \PYG{k}{return} \PYG{o}{(}\PYG{n}{String}\PYG{o}{[}\PYG{o}{]}\PYG{o}{)} \PYG{n}{errors}\PYG{o}{;}
+          \PYG{o}{\PYGZcb{}}
+
+          \PYG{k+kd}{public} \PYG{k+kt}{void} \PYG{n+nf}{setErrors}\PYG{o}{(}\PYG{n}{String}\PYG{o}{[}\PYG{o}{]} \PYG{n}{errors}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+              \PYG{k}{this}\PYG{o}{.}\PYG{n+na}{errors} \PYG{o}{=} \PYG{n}{errors}\PYG{o}{;}
+          \PYG{o}{\PYGZcb{}}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}
+
+Se debe definir los metodos \emph{getData} \emph{setData} \emph{getErrors} y \emph{setErrors}
+
+Todo clase que hereda de AbstractServices contiene los metodos
+\emph{getDataofDTO}, \emph{postDataofDTO}, \emph{deleteDataofDTO} y \emph{putDataOfDto}
+que es donde se coloca la lógica que permite transfomar una query en un objeto que pertenece a una clase del dominio del problema.
+
+
+\subsection{Definir la clase contenedora de la información}
+\label{appAndroid:definir-la-clase-contenedora-de-la-informacion}
+Se debe definir la clase que nos va a permitir manejar la información que nos va a devolver el getData del DTO.
+Se le deben definir los atributos correspondientes y sus getters y setters.
+
+
+\section{Contacto}
+\label{appAndroid:contacto}
+Por cualquier inquietud, duda, consulta, usted puede enviar un email a la casilla de correos \url{mailto:linkedunservices@gmail.com} y se le responderá a la brevedad.
+También puede contribuir al proyecto, reportar bugs, etc en la página de github del proyecto.
+
+
+\section{Referencias}
+\label{appAndroid:referencias}\begin{itemize}
+\item {} 
+{[}1{]} Android Studio: \url{https://developer.android.com/studio/index.html?hl=es-419}
+
+\item {} 
+{[}2{]} Firebase: \url{https://firebase.google.com/?hl=es}
+
+\item {} 
+{[}3{]} Firebase Cloud Messages: \url{https://firebase.google.com/docs/cloud-messaging/?hl=es}
+
+\item {} 
+{[}4{]} Código del repositorio oficial de Linkedun: \url{https://github.com/tomasmussi/taller2}
+
+\end{itemize}
+
+
 \chapter{SharedServer}
-\label{index:sharedserver}\label{index::doc}
+\label{index:sharedserver}
 
 \section{Objetivo}
 \label{sharedServer:objetivo}\label{sharedServer::doc}
