@@ -42,6 +42,7 @@ Integración continua
 Se utilizó la herramienta de integración continua Travis integrada con el repositorio Github donde se hosteo el código de la aplicación. A pesar que al principio no se disponían de tests unitarios o tests de integración para ejecutar, cada vez que se publicaba código en el repositorio al menos se garantiza que dicho código compile. Una vez integrado con Google Test, fue de gran utilidad tener los tests unitarios, principalmente porque uno a veces se olvidaba de ejecutar los tests y al publicar código llegaba un mail de Travis informando el estado de cada branch del repositorio. 
 
 .. image:: _static/travis.png
+*Imagen que muestra la utilización de travis en el proyecto*
 
 Tests unitarios
 ---------------------
@@ -49,6 +50,11 @@ En el app server se realizaron tests unitarios utilizando el framework de Google
 En el shared server se implementaron tests sobre la API con un script realizado en Python. Luego el formato del mismo script se reutilizó en la API del app server.
 
 .. image:: _static/test.png
+*Imagen que muestra la ejecución de los tests unitarios*
+
+
+.. image:: _static/testApi.png
+*Imagen que muestra la ejecución de los tests de la ApiREST* 
 
 Code coverage
 ---------------------
@@ -56,6 +62,7 @@ Para garantizar la calidad total de la aplicación, se realizaron principalmente
 Se estableció un mínimo de 75% de cobertura de código sobre el total.
 
 .. image:: _static/coverage.png
+*Imagen que demuestra el coverage obtenido en la aplicación*
 
 Code review
 ---------------------
