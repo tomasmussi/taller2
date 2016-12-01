@@ -31,12 +31,12 @@
 \setcounter{tocdepth}{1}
 
 
-\title{Manual del proyecto Documentation}
+\title{Manual del proyecto}
 \date{dic. 01, 2016}
 \release{1.0}
-\author{Arancibia Luis \textbackslash{}\textbackslash{} Mussi Tomás \textbackslash{}\textbackslash{} Dufau Ezequiel \textbackslash{}\textbackslash{} Ackermann Alfredo}
+\author{Arancibia Luis \\ Mussi Tomás \\ Dufau Ezequiel \\ Ackermann Alfredo}
 \newcommand{\sphinxlogo}{}
-\renewcommand{\releasename}{Publicación}
+\renewcommand{\releasename}{}
 \makeindex
 
 \makeatletter
@@ -202,6 +202,8 @@ Se utilizó la herramienta de integración continua Travis integrada con el repo
 
 \noindent\sphinxincludegraphics{{travis}.png}
 
+\emph{Imagen que muestra la utilización de travis en el proyecto}
+
 
 \section{Tests unitarios}
 \label{manual:tests-unitarios}
@@ -210,6 +212,12 @@ En el shared server se implementaron tests sobre la API con un script realizado 
 
 \noindent\sphinxincludegraphics{{test}.png}
 
+\emph{Imagen que muestra la ejecución de los tests unitarios}
+
+\noindent\sphinxincludegraphics{{testApi}.png}
+
+\emph{Imagen que muestra la ejecución de los tests de la ApiREST}
+
 
 \section{Code coverage}
 \label{manual:code-coverage}
@@ -217,6 +225,8 @@ Para garantizar la calidad total de la aplicación, se realizaron principalmente
 Se estableció un mínimo de 75\% de cobertura de código sobre el total.
 
 \noindent\sphinxincludegraphics{{coverage}.png}
+
+\emph{Imagen que demuestra el coverage obtenido en la aplicación}
 
 
 \section{Code review}
